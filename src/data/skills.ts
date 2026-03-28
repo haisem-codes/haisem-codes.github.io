@@ -1,0 +1,58 @@
+import type { Skill } from "@/types";
+
+export const skills: Skill[] = [
+  {
+    id: "ai-agents",
+    title: "AI Agents",
+    description: "Autonomous AI systems that reason and act",
+    animationType: "neural",
+    colSpan: 2,
+    rowSpan: 2,
+    items: ["LangChain", "LangGraph", "CrewAI", "MCP Servers", "Multi-Agent Orchestration"],
+  },
+  {
+    id: "voice-ai",
+    title: "Voice AI",
+    description: "Conversational voice agents and call automation",
+    animationType: "wave",
+    colSpan: 1,
+    rowSpan: 1,
+    items: ["Retell AI", "VAPI", "ElevenLabs", "Twilio"],
+  },
+  {
+    id: "full-stack",
+    title: "Full Stack",
+    description: "End-to-end AI application development",
+    animationType: "typing",
+    colSpan: 1,
+    rowSpan: 2,
+    items: ["Python", "FastAPI", "Django", "React", "Next.js", "Flutter"],
+  },
+  {
+    id: "data-science",
+    title: "Data Science",
+    description: "ML pipelines and analytics",
+    animationType: "chart",
+    colSpan: 1,
+    rowSpan: 1,
+    items: ["Pandas", "Scikit-learn", "TensorFlow", "BigQuery"],
+  },
+  {
+    id: "automation",
+    title: "Automation",
+    description: "Intelligent workflow automation",
+    animationType: "gear",
+    colSpan: 1,
+    rowSpan: 1,
+    items: ["n8n", "Make.com", "GoHighLevel", "Closebot"],
+  },
+  {
+    id: "devops",
+    title: "DevOps",
+    description: "Cloud infrastructure and deployment",
+    animationType: "pulse",
+    colSpan: 1,
+    rowSpan: 1,
+    items: ["Docker", "AWS", "GCP", "CI/CD"],
+  },
+];

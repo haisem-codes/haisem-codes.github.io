@@ -1,0 +1,50 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s \"https://www.google.com/search?q=upwork+api+practical+use+cases+freelancers+agencies+2024+2025\" -H \"User-Agent: Mozilla/5.0\")",
+      "WebSearch",
+      "Bash(gh search:*)",
+      "WebFetch(domain:getmany.com)",
+      "WebFetch(domain:support.upwork.com)",
+      "WebFetch(domain:community.upwork.com)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:www.uneversleep.com)",
+      "WebFetch(domain:upwork.github.io)",
+      "WebFetch(domain:www.npmjs.com)",
+      "WebFetch(domain:publicapi.dev)",
+      "Bash(git config:*)",
+      "Bash(gh auth:*)",
+      "Bash(gh api:*)",
+      "Bash(gh repo:*)",
+      "Bash(npm install:*)",
+      "WebFetch(domain:uupm.cc)",
+      "Bash(npx uipro-cli:*)",
+      "WebFetch(domain:www.wallofportfolios.in)",
+      "WebFetch(domain:www.geex-arts.com)",
+      "WebFetch(domain:bentogrids.com)",
+      "Read(//tmp/haisem-codes/**)",
+      "Read(//c/tmp/haisem-codes/**)",
+      "Read(//c/Users/hasim/.claude/skills/**)",
+      "Bash(npx next:*)",
+      "Read(//c/Users/hasim/Downloads/**)",
+      "Read(//c/work/Upwork/Awais Bhai/**)",
+      "Read(//c/work//**)",
+      "Bash(find /c/work/AI_powered_compliance -maxdepth 2 -type f \\\\\\(-name README.md -o -name package.json -o -name *.py \\\\\\))",
+      "Read(//c/work/**)",
+      "Bash(curl -s \"https://api.elevenlabs.io/v1/voices\" -H \"xi-api-key: 9969abcb295e96600331a466d7217f1d31464c4aef0cbb97d98f0f3b7bfc5c2b\")",
+      "WebFetch(domain:freefrontend.com)",
+      "WebFetch(domain:mattkeaveney.com)",
+      "WebFetch(domain:codepen.io)",
+      "Read(//c/tmp/**)",
+      "Bash(git init:*)",
+      "Bash(git add:*)"
+    ],
+    "additionalDirectories": [
+      "\\tmp\\haisem-codes",
+      "c:\\tmp\\haisem-codes",
+      "C:\\Users\\hasim\\Downloads",
+      "\\tmp\\haisem-codes\\src\\app",
+      "\\tmp\\haisem-codes\\public"
+    ]
+  }
+}
