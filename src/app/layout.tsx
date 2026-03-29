@@ -41,7 +41,8 @@ export const metadata: Metadata = {
     "AI Engineer building production-ready AI systems. Specializing in AI Agents, RAG, Voice AI, and Full-Stack Development.",
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "32x32" },
+      { url: "/favicon.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
       { url: "/favicon.svg", type: "image/svg+xml" },
     ],
     apple: "/apple-touch-icon.png",
