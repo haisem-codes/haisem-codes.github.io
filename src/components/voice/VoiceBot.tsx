@@ -1,4 +1,5 @@
 "use client";
+import { asset } from "@/lib/utils";
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
@@ -10,15 +11,15 @@ const ELEVENLABS_AGENT_ID = "";
 const fallbackMessages = [
   {
     text: "Hey! My AI clone is still in training. Apparently, teaching it my sense of humor is harder than building a RAG pipeline. In the meantime, feel free to email me \u2014 I respond faster than GPT-4 Turbo!",
-    audio: "/voice-fallback-1.mp3",
+    audio: asset("/voice-fallback-1.mp3"),
   },
   {
     text: "My voice twin is currently learning how to say LangChain without sounding like a robot. Trust me, it is harder than it sounds. Drop me a message and the real Haisem will respond!",
-    audio: "/voice-fallback-2.mp3",
+    audio: asset("/voice-fallback-2.mp3"),
   },
   {
     text: "The AI version of me is on a coffee break. Ironic, I know. But hey, even neural networks need caffeine sometimes. Reach out directly and I'll prove that humans are still faster. Sometimes.",
-    audio: "/voice-fallback-3.mp3",
+    audio: asset("/voice-fallback-3.mp3"),
   },
 ];
 
@@ -129,7 +130,7 @@ export function VoiceBot() {
               }}
             >
               <img
-                src="/haisem-ai.webp"
+                src={asset("/haisem-ai.webp")}
                 alt="Talk to Haisem AI"
                 className="w-full h-full object-cover object-top"
               />
@@ -185,7 +186,7 @@ export function VoiceBot() {
                 /* Active agent mode */
                 <>
                   <div className="mb-4 w-24 h-24 overflow-hidden">
-                    <img src="/haisem-ai.webp" alt="Haisem AI" className="w-full h-full object-cover object-top" />
+                    <img src={asset("/haisem-ai.webp")} alt="Haisem AI" className="w-full h-full object-cover object-top" />
                   </div>
                   <div className="flex items-end gap-1 h-12 mb-4">
                     {[0.3, 0.6, 1, 0.7, 0.4, 0.8, 0.5].map((h, i) => (
@@ -224,7 +225,7 @@ export function VoiceBot() {
                     transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                     
                   >
-                    <img src="/haisem-ai.webp" alt="Haisem AI" className="w-full h-full object-cover object-top" />
+                    <img src={asset("/haisem-ai.webp")} alt="Haisem AI" className="w-full h-full object-cover object-top" />
                   </motion.div>
 
                   {/* Speaking wave - reacts to audio */}

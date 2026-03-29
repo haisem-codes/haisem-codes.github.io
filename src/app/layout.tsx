@@ -39,6 +39,14 @@ export const metadata: Metadata = {
   title: "Haisem Naeem | AI Engineer",
   description:
     "AI Engineer building production-ready AI systems. Specializing in AI Agents, RAG, Voice AI, and Full-Stack Development.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "32x32" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
+  manifest: "/site.webmanifest",
   openGraph: {
     title: "Haisem Naeem | AI Engineer",
     description: "Building AI systems that think.",
@@ -58,15 +66,10 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="32x32" />
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link rel="manifest" href="/site.webmanifest" />
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
         <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="preload" href="/haisem.webp" as="image" type="image/webp" />
       </head>
       <body className="bg-bg text-text antialiased noise-overlay">
         <ThemeProvider>

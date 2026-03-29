@@ -43,7 +43,8 @@
       "Bash(py --version)",
       "Bash(/c/Python313/python -c \":*)",
       "Bash(taskkill //F //IM node.exe)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(gh run:*)"
     ],
     "additionalDirectories": [
       "\\tmp\\haisem-codes",

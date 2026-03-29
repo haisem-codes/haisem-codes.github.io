@@ -1,4 +1,5 @@
 "use client";
+import { asset } from "@/lib/utils";
 
 import { useState, useRef, useCallback, useEffect } from "react";
 import { motion, useAnimation } from "motion/react";
@@ -72,7 +73,7 @@ export function HangingBulb() {
 
   const playSound = useCallback(() => {
     try {
-      const audio = new Audio("/lamp-switch.wav");
+      const audio = new Audio(asset("/lamp-switch.wav"));
       audio.volume = 0.35;
       audio.play().catch(() => {});
     } catch { /* silent */ }

@@ -1,4 +1,5 @@
 "use client";
+import { asset } from "@/lib/utils";
 
 import { useRef, useEffect } from "react";
 import { motion } from "motion/react";
@@ -19,7 +20,7 @@ export function PixelAvatar({ size = 80 }: PixelAvatarProps) {
 
     const img = new Image();
     img.crossOrigin = "anonymous";
-    img.src = "/haisem.webp";
+    img.src = asset("/haisem.webp");
 
     img.onload = () => {
       const pixelSize = 6;
