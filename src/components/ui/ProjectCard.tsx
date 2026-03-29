@@ -1,9 +1,9 @@
 "use client";
-import { asset } from "@/lib/utils";
 
 import { motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
+import { asset } from "@/lib/utils";
 import type { Project } from "@/types";
 import { fadeInUp, silkEase } from "@/lib/animations";
 
@@ -22,7 +22,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
     >
-      <Link href={`/projects/${project.slug}/`} className="group block">
+      <Link href={asset(`/projects/${project.slug}/`)} className="group block">
         <div className="relative rounded-2xl overflow-hidden bg-bg-card border border-border transition-colors duration-200 group-hover:border-border-hover">
           {/* Editorial number */}
           <span className="absolute top-4 left-4 z-10 font-mono text-6xl font-bold text-text opacity-[0.07] select-none">
@@ -47,9 +47,9 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
               />
             </motion.div>
 
-            {/* Hover overlay */}
-            <div className="absolute inset-0 bg-bg/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-              <span className="text-sm font-medium text-accent translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+            {/* Hover overlay - dark in both themes for contrast */}
+            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
+              <span className="text-sm font-medium text-white translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
                 View Case Study &rarr;
               </span>
             </div>
