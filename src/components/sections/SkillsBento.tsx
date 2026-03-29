@@ -52,7 +52,7 @@ export function SkillsBento() {
                   skill.rowSpan === 2 ? "md:row-span-2" : ""
                 }`}
               >
-                <GlassCard className="h-full p-5 flex flex-col justify-between">
+                <GlassCard className="h-full p-3 sm:p-5 overflow-hidden flex flex-col justify-between">
                   <div>
                     <h3 className="font-display text-lg font-semibold text-text">
                       {skill.title}
@@ -70,7 +70,7 @@ export function SkillsBento() {
                     {skill.items.map((item) => (
                       <span
                         key={item}
-                        className="text-[10px] px-2 py-0.5 rounded-full border border-border text-text-secondary"
+                        className="text-[9px] sm:text-[10px] px-1.5 sm:px-2 py-0.5 rounded-full border border-border text-text-secondary"
                       >
                         {item}
                       </span>

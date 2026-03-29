@@ -72,7 +72,7 @@ export function NeuralDotsCanvas() {
   }, [inView]);
 
   return (
-    <div ref={containerRef} className="w-full h-full min-h-[100px]">
+    <div ref={containerRef} className="w-full h-full min-h-[60px] max-h-[120px] overflow-hidden">
       <canvas ref={canvasRef} className="w-full h-full" />
     </div>
   );

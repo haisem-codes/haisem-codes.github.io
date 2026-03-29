@@ -10,7 +10,7 @@ export function FillingChart() {
   const heights = [0.4, 0.7, 0.5, 0.9, 0.6];
 
   return (
-    <div ref={ref} className="flex items-end justify-center gap-2 h-16">
+    <div ref={ref} className="flex items-end justify-center gap-1.5 h-10 sm:h-16">
       {heights.map((h, i) => (
         <motion.div
           key={i}

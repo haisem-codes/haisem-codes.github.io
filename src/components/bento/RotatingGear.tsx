@@ -5,8 +5,8 @@ import { motion } from "motion/react";
 export function RotatingGear() {
   return (
     <motion.svg
-      width="40"
-      height="40"
+      width="32"
+      height="32"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"

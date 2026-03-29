@@ -32,7 +32,7 @@ export function TypingCode() {
   }, []);
 
   return (
-    <div ref={ref} className="font-mono text-xs text-accent/80 p-2">
+    <div ref={ref} className="font-mono text-[10px] sm:text-xs text-accent/80 p-1 sm:p-2 break-all">
       <span>{text}</span>
       <span className={cursorVisible ? "opacity-100" : "opacity-0"}>|</span>
     </div>
