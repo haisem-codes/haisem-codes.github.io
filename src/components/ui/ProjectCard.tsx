@@ -29,7 +29,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           </span>
 
           {/* Image container */}
-          <div className="relative aspect-[16/9] overflow-hidden">
+          <div className="relative aspect-[16/9] overflow-hidden bg-bg-card">
             <motion.div
               className="w-full h-full"
               whileHover={{ scale: 1.05 }}
@@ -41,6 +41,8 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 900px"
+                loading={index < 2 ? "eager" : "lazy"}
+                quality={80}
               />
             </motion.div>
 

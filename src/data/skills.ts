@@ -46,13 +46,4 @@ export const skills: Skill[] = [
     rowSpan: 1,
     items: ["n8n", "Make.com", "GoHighLevel", "Closebot"],
   },
-  {
-    id: "devops",
-    title: "DevOps",
-    description: "Cloud infrastructure and deployment",
-    animationType: "pulse",
-    colSpan: 1,
-    rowSpan: 1,
-    items: ["Docker", "AWS", "GCP", "CI/CD"],
-  },
 ];

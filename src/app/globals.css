@@ -157,3 +157,71 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ── Critical: instant first paint ── */
+body {
+  /* Prevent layout shift - reserve space for content */
+  min-height: 100vh;
+}
+
+/* Content-visibility for below-fold sections */
+section:not(:first-child) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 800px;
+}
+
+/* Optimize paint for fixed elements */
+.fixed {
+  will-change: transform;
+}
+
+/* GPU-accelerate glass blur */
+.glass {
+  will-change: backdrop-filter;
+  transform: translateZ(0);
+}
+
+/* Optimize image rendering */
+img {
+  content-visibility: auto;
+}
+
+/* ── Hide scrollbar for pill tabs ── */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Mobile responsiveness fixes ── */
+@media (max-width: 640px) {
+  /* Smaller hero text on mobile */
+  .font-display {
+    letter-spacing: -0.02em;
+  }
+
+  /* Fix bento grid on small screens */
+  .grid {
+    gap: 0.75rem;
+  }
+
+  /* Tighter padding on mobile */
+  section {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Voice bot panel - full width on mobile */
+  .fixed.bottom-6.right-6 {
+    bottom: 1rem;
+    right: 1rem;
+  }
+}
+
+/* ── Ensure images never overflow ── */
+img {
+  max-width: 100%;
+  height: auto;
+}

@@ -2,94 +2,92 @@ import type { Project } from "@/types";
 
 export const projects: Project[] = [
   {
-    slug: "logicscan",
-    title: "LogicScan",
+    slug: "voice-reservation-agent",
+    title: "AI Voice Reservation Agent",
     tagline:
-      "Enterprise API security scanner with ML-powered vulnerability detection and confidence learning",
+      "Intelligent voice AI agent handling restaurant reservations with Google Calendar sync and CRM integration",
     description:
-      "A production-ready API security scanning platform that uses machine learning to detect vulnerabilities, correlate attack patterns, and learn from scan results to improve detection accuracy over time.",
+      "Built an intelligent voice AI agent (Kate) using Retell AI that handles inbound restaurant reservation calls. Automatically booking, rescheduling, and canceling reservations while capturing customer data and syncing everything to Google Calendar via n8n and Supabase.",
     problem:
-      "Traditional API security scanners rely on static rule sets that miss complex vulnerabilities and generate excessive false positives. Security teams waste hours triaging alerts that turn out to be harmless, while real threats slip through pattern-based detection.",
+      "Restaurants were drowning in manual reservation management. Staff spent 20-30% of their time answering calls, double bookings caused scheduling conflicts, customer data was scattered across sticky notes and spreadsheets, and after-hours calls meant lost revenue.",
     solution:
-      "Built LogicScan v3.0 -- an intelligent security scanner that combines rule-based detection with ML-powered confidence scoring and correlation analysis. The system features advanced HTTP pattern recognition, a correlation engine that links related vulnerabilities across endpoints, and a confidence learning module that improves accuracy with each scan. Includes both CLI and web UI interfaces.",
+      "Built an end-to-end voice AI system: Retell AI agent handles all inbound calls with natural conversation, collects party size, date/time, and special requests. The agent checks real-time availability via Google Calendar API, creates bookings, and triggers n8n workflows that sync customer data to Supabase and send SMS confirmations via Twilio. New customers are automatically registered, returning customers are greeted by name.",
     result:
-      "Reduced false positive rates by 60% compared to traditional scanners through confidence learning. The correlation engine identifies multi-step attack vectors that single-endpoint scanners miss entirely. Processing 500+ API endpoints per minute with real-time reporting.",
-    image: "/projects/logicscan.png",
-    techStack: ["Python", "FastAPI", "Machine Learning", "Security", "CLI", "Correlation Engine"],
-    githubUrl: "https://github.com/haisem-codes/security-scan",
+      "Fully automated reservation system processing 100% of inbound calls 24/7. Reduced admin overhead by 90%. Zero double bookings. Customer data automatically synced across Google Calendar, Supabase, and CRM. Deployed across restaurant, pet care, and MedSpa verticals.",
+    image: "/projects/voice-reservation-agent.webp",
+    techStack: ["Retell AI", "GPT-4", "n8n", "Google Calendar API", "Supabase", "Twilio"],
     featured: true,
     order: 1,
   },
   {
-    slug: "voice-ai-dashboard",
-    title: "Voice AI Dashboard",
+    slug: "goai-chat",
+    title: "GoAI Chat",
     tagline:
-      "Real-time analytics platform for monitoring Retell AI voice agent performance",
+      "Multi-LLM chat application with intelligent model routing and agent orchestration",
     description:
-      "A multi-tenant dashboard that gives clients full visibility into their AI voice agents -- call history, transcripts, sentiment analysis, and performance metrics -- all in real-time.",
+      "An AI-powered chat application that delivers dynamic, personalized conversational experiences by intelligently matching user queries with the most suitable language model and agent combination.",
     problem:
-      "Companies deploying AI voice agents had no way to monitor call quality, track sentiment trends, or analyze agent performance at scale. They were flying blind with thousands of daily calls and no centralized analytics.",
+      "Users needed a unified interface to interact with multiple AI models without manually switching between them. Each model has strengths (GPT for coding, Gemini for research, Claude for analysis) but users had to know which to pick and manage multiple subscriptions.",
     solution:
-      "Built a real-time monitoring dashboard using Next.js 14 with App Router, PostgreSQL with Prisma ORM, and Clerk authentication. Integrated Retell AI webhooks for live data sync, implemented sentiment analysis on call transcripts, and created interactive Recharts visualizations. Multi-tenant architecture ensures each client only sees their own data.",
+      "Built GoAI Chat with LangChain and LangGraph for agent orchestration, integrating OpenAI and Gemini APIs. The system intelligently routes queries to the best model based on task type, maintains conversation memory across sessions, and supports dynamic agent composition. Built with Node.js/Express backend, JWT authentication, and a responsive chat UI.",
     result:
-      "Clients can now monitor voice agent performance in real-time, identify problematic calls within seconds, and track sentiment trends over time. Average issue detection time reduced from days to minutes.",
-    image: "/projects/voice-ai-dashboard.png",
-    techStack: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "Retell AI", "Webhooks"],
+      "Users get optimal AI responses without needing to know which model is best. Dynamic memory management keeps conversations contextual. Multi-agent orchestration handles complex tasks that require chaining multiple AI capabilities.",
+    image: "/projects/goai-chat.webp",
+    techStack: ["LangChain", "LangGraph", "OpenAI", "Gemini", "Node.js", "React"],
     featured: true,
     order: 2,
   },
   {
-    slug: "coach-app",
-    title: "Coach",
+    slug: "moe-uae-dashboards",
+    title: "MOE UAE Dashboards",
     tagline:
-      "AI-powered habit coaching app with social challenges, photo proof, and smart scheduling",
+      "Government economic analytics app for UAE Ministry with 10,000+ downloads",
     description:
-      "A full-stack mobile application that helps users build better habits through AI coaching, social accountability, and gamification.",
+      "A mobile application delivering real-time economic data and analytics to government officials, policymakers, and business leaders in the UAE. Features interactive dashboards, data visualizations, and economic insights.",
     problem:
-      "Existing habit tracking apps are passive -- they let you check boxes but do not actually coach you. Users lose motivation after a few weeks because there is no accountability, no social element, and no intelligent adaptation to their behavior.",
+      "The UAE Ministry of Economy needed a way to make national economic data accessible to officials and the public. Existing systems were desktop-only, slow to update, and lacked the interactive visualizations needed for quick decision-making in policy meetings.",
     solution:
-      "Built a complete habit coaching platform with a FastAPI backend, Flutter mobile app, Celery for background task processing, and PostgreSQL for data storage. Features include AI-powered habit recommendations, a calendar API for smart scheduling, social challenges where friends compete, photo proof verification for habit completion, and a subscription system for premium coaching features. Dockerized for deployment.",
+      "Built a cross-platform mobile app with real-time economic dashboards featuring interactive charts, filterable data views, and comparative analytics. Integrated with government data APIs for live updates. Designed for both Arabic and English users with full localization. Optimized for offline access so officials could reference data in meetings without connectivity.",
     result:
-      "Full production app with social features that drive 3x higher retention than solo habit trackers. Photo proof feature ensures honest tracking. AI coaching adapts difficulty based on user consistency patterns.",
-    image: "/projects/coach-app.png",
-    techStack: ["Python", "FastAPI", "Flutter", "Celery", "PostgreSQL", "Docker"],
+      "10,000+ downloads on Google Play. Used by government officials and policymakers for economic planning. Recognized as the official digital channel for Ministry economic insights. Delivered on time with full compliance to government security and accessibility standards.",
+    image: "/projects/moe-uae-dashboards.webp",
+    techStack: ["Flutter", "REST APIs", "Data Visualization", "Localization", "Government"],
     featured: true,
     order: 3,
   },
   {
-    slug: "sazoom-voice-agents",
-    title: "Sazoom Voice Agents",
+    slug: "ai-video-pipeline",
+    title: "AI Video Automation Pipeline",
     tagline:
-      "Production ElevenLabs conversational AI agents with CRM integration and n8n middleware",
+      "Fully automated video production and multi-platform publishing system with 60+ n8n nodes",
     description:
-      "Enterprise voice agent system handling inbound sales, customer service, and appointment booking -- integrated with GoHighLevel CRM via n8n middleware and Twilio telephony.",
+      "A complete automated video production pipeline using n8n that transforms text ideas into professional short-form videos and auto-publishes across 5 platforms with zero manual intervention.",
     problem:
-      "A client needed AI voice agents that could handle complex multi-turn conversations -- inbound sales calls, customer service inquiries, and appointment scheduling -- while maintaining context, updating their CRM in real-time, and sounding natural enough that callers would not realize they were speaking to AI.",
+      "Content creators and agencies were spending 4-6 hours per video: writing scripts, generating visuals, editing footage, recording voiceovers, adding captions, and manually uploading to each platform. At scale, this was unsustainable.",
     solution:
-      "Architected and built a production voice agent system on ElevenLabs Conversational AI platform with GPT-4.1 as the reasoning engine. Created a knowledge base architecture (7 KB files replacing a 93-page, 16,800-word prompt), built n8n middleware for tool webhooks and pre-call data lookup, integrated Twilio for telephony, and connected everything to GoHighLevel CRM for real-time lead and appointment management.",
+      "Built a 60+ node n8n automation pipeline: GPT-4o generates scripts and platform-optimized descriptions, Flux AI creates POV images at 540x960, Kling AI converts them to 5-second motion videos, ElevenLabs synthesizes voiceovers, videos are composited with captions and transitions, then auto-published to TikTok, Instagram, YouTube, Facebook, and LinkedIn via their APIs.",
     result:
-      "Delivered a working inbound sales + CSR + booking agent (Jessica) that handles live calls. Reduced prompt from 16,800 words to structured KB architecture, improving response accuracy and reducing latency. Agent successfully books appointments and updates CRM without human intervention.",
-    image: "/projects/sazoom-voice-agents.png",
-    techStack: ["ElevenLabs", "GPT-4", "n8n", "Twilio", "GoHighLevel", "Voice AI"],
+      "Reduced video production from 4-6 hours to under 10 minutes per video. Zero manual intervention from idea to published content across 5 platforms. Agencies using the system produce 10x more content with the same team size.",
+    image: "/projects/ai-video-pipeline.webp",
+    techStack: ["n8n", "GPT-4o", "Flux AI", "Kling AI", "ElevenLabs", "Multi-Platform API"],
     featured: true,
     order: 4,
   },
   {
-    slug: "llm-agent-system",
-    title: "LLM Agent System",
+    slug: "dietapp",
+    title: "DietApp",
     tagline:
-      "Production-ready multi-agent system with LangChain, Weaviate, and RAG",
+      "AI-powered nutrition and fitness app with meal planning, barcode scanning, and health tracking",
     description:
-      "A full-stack LLM agent system built with NestJS, LangChain, React, and Weaviate vector database. Supports multi-agent orchestration, retrieval-augmented generation, and real-time conversational AI.",
+      "A comprehensive nutrition-first mobile app inspired by YAZIO. A calorie counter, meal planner, and health tracker that helps users meet their fitness goals through AI-powered personalization.",
     problem:
-      "Businesses needed a way to deploy intelligent AI agents that could access their private knowledge bases, coordinate complex tasks across multiple domains, and deliver accurate, context-aware responses at scale.",
+      "People trying to lose weight or build muscle struggle with nutrition tracking. Existing apps required manual food entry, had generic meal plans, and did not integrate with wearable devices. Users would abandon apps within 2 weeks due to the friction.",
     solution:
-      "Built a production-ready multi-agent orchestration platform using LangChain for agent logic, Weaviate as the vector database for semantic search, NestJS for a robust API layer, and React for the interactive frontend. Implemented RAG pipelines with chunking strategies and re-ranking for high-quality retrieval.",
+      "Built DietApp with AI-powered meal plan generation that adapts to dietary preferences and goals. Integrated barcode scanning for instant food logging, HealthKit/Google Fit/Fitbit sync for automatic activity tracking, custom macro calculations, recipe suggestions, and a social feed for community accountability. Subscription system with Stripe and App Store billing.",
     result:
-      "Deployed system handles thousands of queries daily with sub-second response times. Achieved 92% accuracy on domain-specific questions vs 67% with vanilla LLM. Reduced manual research time by 80% for end users.",
-    image: "/projects/llm-agent-system.png",
-    techStack: ["LangChain", "Weaviate", "NestJS", "React", "TypeScript", "RAG"],
-    githubUrl: "https://github.com/haisem-codes/llm-agent-system",
+      "Users track meals in under 30 seconds with barcode scanning vs 2+ minutes manual entry. AI-generated meal plans achieve 85% adherence rate vs 40% for generic plans. Full wearable integration means zero manual activity logging.",
+    image: "/projects/dietapp.webp",
+    techStack: ["Flutter", "AI/ML", "HealthKit", "Barcode Scanner", "Stripe", "Firebase"],
     featured: true,
     order: 5,
   },

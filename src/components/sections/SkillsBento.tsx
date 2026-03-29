@@ -36,7 +36,7 @@ export function SkillsBento() {
         <SectionHeading title="What I Do" className="mb-16" />
 
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-[180px]"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 auto-rows-[160px] md:auto-rows-[180px]"
           variants={bentoStagger}
           initial="hidden"
           whileInView="visible"

@@ -37,14 +37,23 @@
       "WebFetch(domain:codepen.io)",
       "Read(//c/tmp/**)",
       "Bash(git init:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(pip install:*)",
+      "Bash(python3 -c \":*)",
+      "Bash(py --version)",
+      "Bash(/c/Python313/python -c \":*)",
+      "Bash(taskkill //F //IM node.exe)"
     ],
     "additionalDirectories": [
       "\\tmp\\haisem-codes",
       "c:\\tmp\\haisem-codes",
       "C:\\Users\\hasim\\Downloads",
       "\\tmp\\haisem-codes\\src\\app",
-      "\\tmp\\haisem-codes\\public"
+      "\\tmp\\haisem-codes\\public",
+      "C:\\work\\Upwork\\Haisem\\src\\app\\projects\\[slug\\]",
+      "C:\\work\\Upwork\\Haisem\\public\\projects",
+      "C:\\work\\Upwork\\Haisem\\s|100% Job Success), I\\u2019ve led teams building AI products used by thousands ",
+      "C:\\work\\Upwork\\Haisem\\s|grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-\\[180px"
     ]
   }
 }

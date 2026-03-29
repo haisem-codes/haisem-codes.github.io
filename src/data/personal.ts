@@ -6,20 +6,20 @@ export const personal: PersonalInfo = {
   title: "AI Engineer",
   tagline: "Building systems that think",
   bio: [
-    "I build production-ready AI systems that actually work \u2014 from custom LLM agents and RAG pipelines to voice AI solutions and full-stack AI applications.",
-    "As Technical Lead at Metaviz AI (Top Rated agency, 100% Job Success), I\u2019ve led teams building AI products used by thousands \u2014 including a UAE government platform with 10,000+ downloads.",
+    "I build production-ready AI systems that actually work. From custom LLM agents and RAG pipelines to voice AI solutions and full-stack AI applications.",
+    "As Technical Lead at Metaviz AI (Top Rated agency, 100% Job Success), I've led teams building AI products used by thousands, including a UAE government platform with 10,000+ downloads.",
   ],
-  email: "haisem@metaviz.pro",
+  email: "haisem.work@gmail.com",
   socials: [
     {
       platform: "Email",
-      url: "mailto:haisem@metaviz.pro",
-      label: "haisem@metaviz.pro",
+      url: "mailto:haisem.work@gmail.com",
+      label: "haisem.work@gmail.com",
     },
     {
       platform: "Upwork",
-      url: "https://www.upwork.com/agencies/metavizai/",
-      label: "Metaviz AI on Upwork",
+      url: "https://www.upwork.com/freelancers/~0133714b88b12db649",
+      label: "Haisem on Upwork",
     },
     {
       platform: "GitHub",

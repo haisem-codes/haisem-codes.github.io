@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { motion, useScroll, useTransform } from "motion/react";
 import { cn } from "@/lib/utils";
 
@@ -13,6 +14,8 @@ const navLinks = [
 
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === "/" || pathname === "";
   const { scrollY } = useScroll();
   const navOpacity = useTransform(scrollY, [0, 100], [0, 1]);
   const navY = useTransform(scrollY, [0, 100], [-80, 0]);
@@ -23,9 +26,14 @@ export function Navbar() {
   ) => {
     e.preventDefault();
     setMobileOpen(false);
-    const el = document.querySelector(href);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
+
+    if (isHome) {
+      // On home page, smooth scroll to section
+      const el = document.querySelector(href);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    } else {
+      // On other pages, navigate to home with hash
+      window.location.href = "/" + href;
     }
   };
 
@@ -37,11 +45,7 @@ export function Navbar() {
       <nav className="glass rounded-2xl px-6 py-3 flex items-center justify-between">
         {/* Logo */}
         <a
-          href="#"
-          onClick={(e) => {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: "smooth" });
-          }}
+          href="/"
           className="font-display text-xl font-bold text-accent"
         >
           H
@@ -70,10 +74,7 @@ export function Navbar() {
         >
           <motion.span
             className="block h-0.5 w-full bg-text rounded"
-            animate={{
-              rotate: mobileOpen ? 45 : 0,
-              y: mobileOpen ? 8 : 0,
-            }}
+            animate={{ rotate: mobileOpen ? 45 : 0, y: mobileOpen ? 8 : 0 }}
           />
           <motion.span
             className="block h-0.5 w-full bg-text rounded"
@@ -81,10 +82,7 @@ export function Navbar() {
           />
           <motion.span
             className="block h-0.5 w-full bg-text rounded"
-            animate={{
-              rotate: mobileOpen ? -45 : 0,
-              y: mobileOpen ? -8 : 0,
-            }}
+            animate={{ rotate: mobileOpen ? -45 : 0, y: mobileOpen ? -8 : 0 }}
           />
         </button>
       </nav>
@@ -96,10 +94,7 @@ export function Navbar() {
           !mobileOpen && "pointer-events-none"
         )}
         initial={false}
-        animate={{
-          height: mobileOpen ? "auto" : 0,
-          opacity: mobileOpen ? 1 : 0,
-        }}
+        animate={{ height: mobileOpen ? "auto" : 0, opacity: mobileOpen ? 1 : 0 }}
         transition={{ duration: 0.3 }}
       >
         <ul className="flex flex-col p-4 gap-4">

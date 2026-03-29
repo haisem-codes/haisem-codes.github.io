@@ -129,7 +129,7 @@ export function VoiceBot() {
               }}
             >
               <img
-                src="/haisem-ai.png"
+                src="/haisem-ai.webp"
                 alt="Talk to Haisem AI"
                 className="w-full h-full object-cover object-top"
               />
@@ -184,8 +184,8 @@ export function VoiceBot() {
               {hasAgent ? (
                 /* Active agent mode */
                 <>
-                  <div className="mb-4 w-16 h-16 rounded-full overflow-hidden border-2 border-accent/40" style={{ boxShadow: "0 0 10px var(--color-accent-glow)" }}>
-                    <img src="/haisem-ai.png" alt="Haisem AI" className="w-full h-full object-cover object-top" />
+                  <div className="mb-4 w-24 h-24 overflow-hidden">
+                    <img src="/haisem-ai.webp" alt="Haisem AI" className="w-full h-full object-cover object-top" />
                   </div>
                   <div className="flex items-end gap-1 h-12 mb-4">
                     {[0.3, 0.6, 1, 0.7, 0.4, 0.8, 0.5].map((h, i) => (
@@ -219,12 +219,12 @@ export function VoiceBot() {
                 <div className="text-center flex flex-col items-center">
                   {/* Cyborg portrait */}
                   <motion.div
-                    className="mb-3 w-[72px] h-[72px] rounded-full overflow-hidden border-2 border-accent/40"
+                    className="mb-3 w-28 h-28 overflow-hidden"
                     animate={{ y: [0, -3, 0] }}
                     transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                    style={{ boxShadow: "0 0 10px var(--color-accent-glow)" }}
+                    
                   >
-                    <img src="/haisem-ai.png" alt="Haisem AI" className="w-full h-full object-cover object-top" />
+                    <img src="/haisem-ai.webp" alt="Haisem AI" className="w-full h-full object-cover object-top" />
                   </motion.div>
 
                   {/* Speaking wave - reacts to audio */}
@@ -257,7 +257,7 @@ export function VoiceBot() {
 
                   {/* CTA */}
                   <motion.a
-                    href="mailto:haisem@metaviz.pro"
+                    href="mailto:haisem.work@gmail.com"
                     className="mt-4 px-5 py-2 rounded-full bg-accent/20 border border-accent/30 text-xs font-medium text-accent hover:bg-accent/30 transition-colors inline-block"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.98 }}

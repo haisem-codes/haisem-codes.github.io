@@ -1,27 +1,39 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { LenisProvider } from "@/components/providers/LenisProvider";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { HangingBulb } from "@/components/layout/HangingBulb";
-import { VoiceBot } from "@/components/voice/VoiceBot";
+import { VoiceBotLoader } from "@/components/voice/VoiceBotLoader";
 import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+  display: "swap",
+  preload: true,
 });
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-space-grotesk",
+  display: "swap",
+  preload: true,
 });
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-jetbrains",
+  display: "swap",
+  preload: false,
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#0A0A0B",
+};
 
 export const metadata: Metadata = {
   title: "Haisem Naeem | AI Engineer",
@@ -45,6 +57,13 @@ export default function RootLayout({
       className={`dark ${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
       suppressHydrationWarning
     >
+      <head>
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preload" href="/haisem.webp" as="image" type="image/webp" />
+      </head>
       <body className="bg-bg text-text antialiased noise-overlay">
         <ThemeProvider>
           <LenisProvider>
@@ -52,7 +71,7 @@ export default function RootLayout({
             <Navbar />
             {children}
             <Footer />
-            <VoiceBot />
+            <VoiceBotLoader />
           </LenisProvider>
         </ThemeProvider>
       </body>

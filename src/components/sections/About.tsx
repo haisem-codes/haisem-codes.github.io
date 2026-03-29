@@ -41,7 +41,7 @@ export function About() {
             transition={{ type: "tween", duration: 0.1 }}
           >
             <Image
-              src="/haisem.png"
+              src="/haisem.webp"
               alt="Haisem Naeem"
               fill
               className="object-cover object-top"
