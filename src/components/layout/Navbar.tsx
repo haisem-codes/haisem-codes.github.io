@@ -1,4 +1,5 @@
 "use client";
+import { asset } from "@/lib/utils";
 
 import { useState } from "react";
 import { usePathname } from "next/navigation";
@@ -33,7 +34,7 @@ export function Navbar() {
       if (el) el.scrollIntoView({ behavior: "smooth" });
     } else {
       // On other pages, navigate to home with hash
-      window.location.href = "/" + href;
+      window.location.href = asset("/") + href;
     }
   };
 
@@ -45,7 +46,7 @@ export function Navbar() {
       <nav className="glass rounded-2xl px-6 py-3 flex items-center justify-between">
         {/* Logo */}
         <a
-          href="/"
+          href={asset("/")}
           className="font-display text-xl font-bold text-accent"
         >
           H

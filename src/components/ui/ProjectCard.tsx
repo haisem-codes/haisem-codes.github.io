@@ -1,4 +1,5 @@
 "use client";
+import { asset } from "@/lib/utils";
 
 import { motion } from "motion/react";
 import Image from "next/image";
@@ -36,7 +37,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
               transition={{ duration: 0.4, ease: silkEase }}
             >
               <Image
-                src={project.image}
+                src={asset(project.image)}
                 alt={project.title}
                 fill
                 className="object-cover"

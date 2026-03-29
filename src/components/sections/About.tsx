@@ -3,6 +3,7 @@
 import { motion, useMotionValue, useTransform } from "motion/react";
 import Image from "next/image";
 import { personal } from "@/data/personal";
+import { asset } from "@/lib/utils";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
 import { staggerContainer, fadeInUp } from "@/lib/animations";
@@ -41,7 +42,7 @@ export function About() {
             transition={{ type: "tween", duration: 0.1 }}
           >
             <Image
-              src="/haisem.webp"
+              src={asset("/haisem.webp")}
               alt="Haisem Naeem"
               fill
               className="object-cover object-top"

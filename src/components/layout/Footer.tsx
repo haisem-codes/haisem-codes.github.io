@@ -1,4 +1,5 @@
 "use client";
+import { asset } from "@/lib/utils";
 
 import { personal } from "@/data/personal";
 
@@ -41,7 +42,7 @@ export function Footer() {
       const el = document.querySelector(href);
       if (el) el.scrollIntoView({ behavior: "smooth" });
     } else {
-      window.location.href = "/" + href;
+      window.location.href = asset("/") + href;
     }
   };
 
@@ -51,7 +52,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {/* Brand */}
           <div>
-            <a href="/" className="font-display text-2xl font-bold text-accent">H</a>
+            <a href={asset("/")} className="font-display text-2xl font-bold text-accent">H</a>
             <p className="mt-3 text-sm text-text-secondary leading-relaxed max-w-xs">
               AI Engineer building production-ready systems. From LLM agents to voice AI, I turn complex AI concepts into products.
             </p>

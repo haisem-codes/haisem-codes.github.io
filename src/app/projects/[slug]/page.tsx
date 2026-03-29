@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
+import { asset } from "@/lib/utils";
 import Link from "next/link";
 import { projects } from "@/data/projects";
 import type { Metadata } from "next";
@@ -36,7 +37,7 @@ export default async function ProjectPage({ params }: Props) {
       <div className="max-w-3xl mx-auto">
         {/* Back link */}
         <Link
-          href="/#projects"
+          href={asset("/#projects")}
           className="inline-flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors mb-8"
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -50,7 +51,7 @@ export default async function ProjectPage({ params }: Props) {
           {projects.map((p) => (
             <Link
               key={p.slug}
-              href={`/projects/${p.slug}/`}
+              href={asset(`/projects/${p.slug}/`)}
               className={`flex-shrink-0 px-4 py-2 rounded-full text-xs font-medium transition-all duration-200 ${
                 p.slug === slug
                   ? "bg-accent/20 text-accent border border-accent/30"
@@ -65,7 +66,7 @@ export default async function ProjectPage({ params }: Props) {
         {/* Hero image */}
         <div className="relative aspect-[16/9] rounded-2xl overflow-hidden border border-border mb-10">
           <Image
-            src={project.image}
+            src={asset(project.image)}
             alt={project.title}
             fill
             className="object-cover"
@@ -126,7 +127,7 @@ export default async function ProjectPage({ params }: Props) {
         <div className="mt-16 pt-8 border-t border-border grid grid-cols-1 sm:grid-cols-2 gap-4">
           {prevProject ? (
             <Link
-              href={`/projects/${prevProject.slug}/`}
+              href={asset(`/projects/${prevProject.slug}/`)}
               className="group p-4 rounded-xl bg-bg-card border border-border hover:border-accent/30 transition-all duration-200"
             >
               <span className="text-xs text-text-secondary">Previous</span>
@@ -140,7 +141,7 @@ export default async function ProjectPage({ params }: Props) {
           )}
           {nextProject ? (
             <Link
-              href={`/projects/${nextProject.slug}/`}
+              href={asset(`/projects/${nextProject.slug}/`)}
               className="group p-4 rounded-xl bg-bg-card border border-border hover:border-accent/30 transition-all duration-200 text-right"
             >
               <span className="text-xs text-text-secondary">Next</span>
