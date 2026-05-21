@@ -5,7 +5,7 @@ import { LenisProvider } from "@/components/providers/LenisProvider";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { HangingBulb } from "@/components/layout/HangingBulb";
-import { VoiceBotLoader } from "@/components/voice/VoiceBotLoader";
+// import { VoiceBotLoader } from "@/components/voice/VoiceBotLoader"; // hidden — re-import to re-enable
 import "./globals.css";
 
 const inter = Inter({
@@ -79,7 +79,7 @@ export default function RootLayout({
             <Navbar />
             {children}
             <Footer />
-            <VoiceBotLoader />
+            {/* <VoiceBotLoader /> */}
           </LenisProvider>
         </ThemeProvider>
       </body>

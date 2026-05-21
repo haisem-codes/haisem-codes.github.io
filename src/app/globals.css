@@ -12,9 +12,9 @@
   --color-border-hover: rgba(237, 237, 239, 0.12);
   --color-text: #EDEDEF;
   --color-text-secondary: #8B8B9E;
-  --color-accent: #D4AF37;
-  --color-accent-hover: #E5C54A;
-  --color-accent-glow: rgba(212, 175, 55, 0.15);
+  --color-accent: #0D9488;
+  --color-accent-hover: #0F766E;
+  --color-accent-glow: rgba(13, 148, 136, 0.15);
 
   --breakpoint-sm: 640px;
   --breakpoint-md: 768px;
