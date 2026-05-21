@@ -41,7 +41,7 @@ export function Hero() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5, duration: 0.8, ease: silkEase }}
       >
-        {personal.title} &mdash; {personal.tagline}
+        {personal.title} <span className="mx-2 text-text-muted">•</span> {personal.tagline}
       </motion.p>
 
       {/* Scroll chevron */}
