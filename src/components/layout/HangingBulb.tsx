@@ -37,25 +37,25 @@ export function HangingBulb() {
         neckBg: "linear-gradient(180deg, #81E6D9, #B2F5EA)",
         reflection: 0.5,
       }
-    : { // Dark mode: dimmed gold glow (subtle, not overpowering)
-        bulb: "radial-gradient(ellipse at 40% 35%, #E8D8A0 0%, #C8B060 30%, #A89030 60%, #8A7428 100%)",
-        filament: "#A89030",
-        filamentGlow: "rgba(168,144,48,0.6)",
+    : { // Dark mode: dimmed teal glow (subtle, matches accent)
+        bulb: "radial-gradient(ellipse at 40% 35%, #D4FFF7 0%, #95D5C8 30%, #5BA298 60%, #347A72 100%)",
+        filament: "#347A72",
+        filamentGlow: "rgba(13,148,136,0.6)",
         shadow: [
-          "0 0 6px 1px rgba(212,175,55,0.25)",
-          "0 0 14px 3px rgba(212,175,55,0.15)",
-          "0 0 28px 6px rgba(212,175,55,0.1)",
-          "0 0 50px 12px rgba(212,175,55,0.07)",
-          "0 0 80px 25px rgba(212,175,55,0.04)",
-          "0 0 130px 40px rgba(212,175,55,0.025)",
-          "0 0 200px 60px rgba(212,175,55,0.015)",
+          "0 0 6px 1px rgba(13,148,136,0.25)",
+          "0 0 14px 3px rgba(13,148,136,0.15)",
+          "0 0 28px 6px rgba(13,148,136,0.1)",
+          "0 0 50px 12px rgba(13,148,136,0.07)",
+          "0 0 80px 25px rgba(13,148,136,0.04)",
+          "0 0 130px 40px rgba(13,148,136,0.025)",
+          "0 0 200px 60px rgba(13,148,136,0.015)",
         ].join(", "),
-        coneOuter: "rgba(212,175,55,0.018)",
-        coneMid: "rgba(212,175,55,0.025)",
-        coneCore: "rgba(212,175,55,0.035)",
-        hotspot: "rgba(212,175,55,0.07)",
-        hotspotFade: "rgba(212,175,55,0.02)",
-        neckBg: "linear-gradient(180deg, #A89030, #C8B060)",
+        coneOuter: "rgba(13,148,136,0.018)",
+        coneMid: "rgba(13,148,136,0.025)",
+        coneCore: "rgba(13,148,136,0.035)",
+        hotspot: "rgba(13,148,136,0.07)",
+        hotspotFade: "rgba(13,148,136,0.02)",
+        neckBg: "linear-gradient(180deg, #347A72, #5BA298)",
         reflection: 0.25,
       };
 
@@ -144,7 +144,7 @@ export function HangingBulb() {
               style={{
                 background: isOn
                   ? "linear-gradient(180deg, #1A3A35 0%, #1E4A42 30%, #1A3A35 70%, #163530 100%)"
-                  : "linear-gradient(180deg, #2A2520 0%, #3A3228 30%, #2A2520 70%, #252018 100%)",
+                  : "linear-gradient(180deg, #142A28 0%, #1A3530 30%, #142A28 70%, #102522 100%)",
               }}
             />
 
@@ -154,7 +154,7 @@ export function HangingBulb() {
               style={{
                 background: isOn
                   ? "linear-gradient(180deg, transparent 5%, rgba(13,148,136,0.15) 30%, rgba(13,148,136,0.1) 70%, transparent 95%)"
-                  : "linear-gradient(180deg, transparent 5%, rgba(212,175,55,0.15) 30%, rgba(212,175,55,0.1) 70%, transparent 95%)",
+                  : "linear-gradient(180deg, transparent 5%, rgba(13,148,136,0.15) 30%, rgba(13,148,136,0.1) 70%, transparent 95%)",
               }}
             />
 
@@ -169,7 +169,7 @@ export function HangingBulb() {
                   height: "20px",
                   background: isOn
                     ? "linear-gradient(180deg, transparent, rgba(13,148,136,0.5), rgba(13,148,136,0.8), rgba(13,148,136,0.5), transparent)"
-                    : "linear-gradient(180deg, transparent, rgba(212,175,55,0.5), rgba(212,175,55,0.8), rgba(212,175,55,0.5), transparent)",
+                    : "linear-gradient(180deg, transparent, rgba(13,148,136,0.5), rgba(13,148,136,0.8), rgba(13,148,136,0.5), transparent)",
                   animation: "pulse-travel 3s ease-in-out infinite",
                   filter: "blur(1px)",
                 }}
@@ -185,7 +185,7 @@ export function HangingBulb() {
                   top: `${top}px`,
                   background: isOn
                     ? "linear-gradient(90deg, transparent, rgba(13,148,136,0.2), transparent)"
-                    : "linear-gradient(90deg, transparent, rgba(212,175,55,0.2), transparent)",
+                    : "linear-gradient(90deg, transparent, rgba(13,148,136,0.2), transparent)",
                 }}
               />
             ))}

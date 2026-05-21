@@ -7,7 +7,7 @@ export const projects: Project[] = [
     slug: "ai-compliance-platform",
     title: "AI Building-Code Compliance Platform",
     tagline:
-      "End-to-end document AI for AEC compliance reviews — FastAPI + AWS Textract + GPT-5",
+      "End-to-end document AI for AEC compliance reviews, FastAPI + AWS Textract + GPT-5",
     description:
       "An AI-powered compliance review platform that ingests architectural and MEP drawings and verifies building-code compliance across 5 disciplines (mechanical, electrical, plumbing, structural, architectural). Automates what used to be days of manual reviewer work.",
     problem:
@@ -37,17 +37,17 @@ export const projects: Project[] = [
 
   {
     slug: "voice-agents-suite",
-    title: "Production Voice Agents — Retell + ElevenLabs + GHL + n8n",
+    title: "Production Voice Agents, Retell + ElevenLabs + GHL + n8n",
     tagline:
       "Five inbound/outbound voice agents replacing receptionist work across real-estate and SMB",
     description:
-      "Designed and shipped 5 production voice agents on Retell AI + ElevenLabs Conversational AI + GoHighLevel + n8n. Inbound concierge, outbound prospecting, multi-vertical sales/support/booking — including a single Sazoom agent serving 5 SMB verticals from one config.",
+      "Designed and shipped 5 production voice agents on Retell AI + ElevenLabs Conversational AI + GoHighLevel + n8n. Inbound concierge, outbound prospecting, multi-vertical sales/support/booking, including a single Sazoom agent serving 5 SMB verticals from one config.",
     problem:
-      "Clients across real-estate and SMB verticals needed 24/7 call handling — missed calls equalled lost revenue. Existing voice agents either sounded robotic or broke at the CRM handoff.",
+      "Clients across real-estate and SMB verticals needed 24/7 call handling, missed calls equalled lost revenue. Existing voice agents either sounded robotic or broke at the CRM handoff.",
     solution:
       "Three Retell-based real-estate agents (Local Pro Concierge, Claire outbound prospector, Emma scheduler) plus a multi-vertical Sazoom agent on ElevenLabs Conversational AI with 15+ custom tools and a 3-mode flow (sales / support / booking). Externalised prompt rules into 11 semantic KB files. n8n middleware translates Retell webhooks into GoHighLevel contact and calendar operations with HOT/WARM/COLD lead classification in-call.",
     result:
-      "Cut one client's prompt from 16,800 → 3,279 words (80% reduction), raised response-rule compliance from ~25% to 98%, reduced per-call token cost ~45%, and replaced ~1 receptionist FTE at one SMB client. Zero silent failures by design — every n8n path terminates in a Respond node.",
+      "Cut one client's prompt from 16,800 → 3,279 words (80% reduction), raised response-rule compliance from ~25% to 98%, reduced per-call token cost ~45%, and replaced ~1 receptionist FTE at one SMB client. Zero silent failures by design, every n8n path terminates in a Respond node.",
     image: "/projects/voice-agents-suite.webp",
     techStack: [
       "Retell AI",
@@ -66,17 +66,17 @@ export const projects: Project[] = [
 
   {
     slug: "postura",
-    title: "Postura — On-Device Ergonomic Assessment",
+    title: "Postura, On-Device Ergonomic Assessment",
     tagline:
       "Real-time pose analysis + Cornell ROSA scoring, all offline, in Flutter",
     description:
       "A mobile app that captures side-view photos of desk workers and computes a Rapid Office Strain Assessment (ROSA) 1–10 risk score entirely on-device. No cloud round-trips, no privacy concerns, no per-assessment cloud bill.",
     problem:
-      "Ergonomic assessments traditionally needed an in-person consultant or photos uploaded to cloud ML services. Slow, expensive, privacy-sensitive — and impossible to scale to one-time workplace audits across thousands of workstations.",
+      "Ergonomic assessments traditionally needed an in-person consultant or photos uploaded to cloud ML services. Slow, expensive, privacy-sensitive, and impossible to scale to one-time workplace audits across thousands of workstations.",
     solution:
       "Flutter 3.9 app with isolate-based YOLOv8n (TFLite FP16, 6.2 MB) for person + monitor detection at 2 fps, layered with MediaPipe Accurate pose estimation at 10 fps. One Euro Filter smoothing keeps landmarks stable (sub-2-pixel jitter). GPU → NNAPI → XNNPack delegate fallback achieves 30–80 ms inference latency. Cornell ROSA scoring algorithm ported Python → Dart with strict golden-set validation.",
     result:
-      "±1-point congruence with the reference Python implementation across a 71-photo golden test set (100% pass). Zero cloud inference cost. Supports Android API 21+ and iOS 15.5+ — runs on any modern device.",
+      "±1-point congruence with the reference Python implementation across a 71-photo golden test set (100% pass). Zero cloud inference cost. Supports Android API 21+ and iOS 15.5+, runs on any modern device.",
     image: "/projects/postura.webp",
     techStack: [
       "Flutter 3.9",
@@ -96,7 +96,7 @@ export const projects: Project[] = [
 
   {
     slug: "coach",
-    title: "Coach — AI Habit Coaching with Realtime Voice",
+    title: "Coach, AI Habit Coaching with Realtime Voice",
     tagline:
       "GPT-4o Vision proof verification + OpenAI Realtime voice coaching, in a Flutter app",
     description:
@@ -130,15 +130,15 @@ export const projects: Project[] = [
 
   {
     slug: "wanyumba",
-    title: "Wanyumba — East African Real-Estate Marketplace",
+    title: "Wanyumba, East African Real-Estate Marketplace",
     tagline:
       "7+ microservices and a multi-provider AI property valuation engine",
     description:
       "Tanzania-focused real-estate marketplace coordinating 7+ microservices through a Traefik gateway and RabbitMQ event bus. Multi-provider AI property valuation engine with graceful fallbacks across OpenAI GPT-4, DeepSeek, Hugging Face, and Groq.",
     problem:
-      "Property valuation in East Africa is inconsistent — comparable-sale data is thin and human valuations vary widely. Single-LLM dependency would have been a single point of failure for both cost and downtime.",
+      "Property valuation in East Africa is inconsistent, comparable-sale data is thin and human valuations vary widely. Single-LLM dependency would have been a single point of failure for both cost and downtime.",
     solution:
-      "Polyglot microservices: Node + Express + Prisma for listings / auth / inventory / admin; Python FastAPI for geocoding. All sit behind a Traefik gateway with a RabbitMQ 3.12 event bus. The AI valuation engine routes across 4 LLM providers with confidence scoring (0–1), Redis-cached at 1-hr TTL, batch-valuation enabled. Flutter mobile with strict Clean Architecture — zero Flutter imports in the domain layer.",
+      "Polyglot microservices: Node + Express + Prisma for listings / auth / inventory / admin; Python FastAPI for geocoding. All sit behind a Traefik gateway with a RabbitMQ 3.12 event bus. The AI valuation engine routes across 4 LLM providers with confidence scoring (0–1), Redis-cached at 1-hr TTL, batch-valuation enabled. Flutter mobile with strict Clean Architecture, zero Flutter imports in the domain layer.",
     result:
       "Production multi-LLM orchestration with graceful fallback when a provider is down or rate-limited. OpenSearch 2.11 for near-real-time property search. 4-locale i18n. Confidence-scored valuations with reasoning surface for human review.",
     image: "/projects/wanyumba.webp",
@@ -166,7 +166,7 @@ export const projects: Project[] = [
     slug: "claude-code-mastery",
     title: "Claude Code Mastery",
     tagline:
-      "A 742-file configuration system for Claude Code and the Agent SDK — 179 skills, 37 agents, 10 hooks",
+      "A 742-file configuration system for Claude Code and the Agent SDK, 179 skills, 37 agents, 10 hooks",
     description:
       "Open-source curated repository providing configuration templates, extensible skills, agents, hooks, and learning guides for maximising Claude Code + Claude Agent SDK productivity. A one-prompt setup system that auto-generates production-grade configurations.",
     problem:
@@ -187,15 +187,15 @@ export const projects: Project[] = [
       "GitHub Actions",
     ],
     githubUrl: "https://github.com/haisem-codes/claude-code-mastery",
-    featured: true,
-    order: 6,
+    featured: false,
+    order: 13,
   },
 
   // ===================== SECONDARY (6) =====================
 
   {
     slug: "africa-travel-hub",
-    title: "Africa Travel Hub (ATH) — B2B Travel SaaS",
+    title: "Africa Travel Hub (ATH), B2B Travel SaaS",
     tagline:
       "Multi-tenant platform connecting hotels, fleets, tour operators, and DMCs across Africa",
     description:
@@ -230,7 +230,7 @@ export const projects: Project[] = [
 
   {
     slug: "handman",
-    title: "Handman — Swiss Craftsmen Marketplace",
+    title: "Handman, Swiss Craftsmen Marketplace",
     tagline:
       "Multi-tenant marketplace with 6 RBAC roles, WebAuthn biometrics, and Stripe Terminal",
     description:
@@ -265,11 +265,11 @@ export const projects: Project[] = [
 
   {
     slug: "metaviz-portfolios",
-    title: "Metaviz Portfolios — 8-Tool AI SaaS Platform",
+    title: "Metaviz Portfolios, 8-Tool AI SaaS Platform",
     tagline:
       "Productised the agency's expertise as 8 user-facing AI tools, including a multi-LLM chat orchestrator",
     description:
-      "Multi-tool SaaS that productises Metaviz's AI engineering capability — 8 user-facing tools shipping under one umbrella, including a multi-LLM chat orchestrator (LangChain + LangGraph routing across OpenAI and Gemini) and a YOLOv7 computer-vision pipeline.",
+      "Multi-tool SaaS that productises Metaviz's AI engineering capability, 8 user-facing tools shipping under one umbrella, including a multi-LLM chat orchestrator (LangChain + LangGraph routing across OpenAI and Gemini) and a YOLOv7 computer-vision pipeline.",
     problem:
       "Agency expertise was locked inside client engagements. We needed a productised surface that both demoed capability and drove inbound interest.",
     solution:
@@ -303,13 +303,13 @@ export const projects: Project[] = [
 
   {
     slug: "icore-careerhub",
-    title: "iCore CareerHub — Hospitality Recruitment SaaS",
+    title: "iCore CareerHub, Hospitality Recruitment SaaS",
     tagline:
       "AI CV parsing + Pinecone vector job matching + AI voiceover generation",
     description:
       "Hospitality-focused recruitment SaaS that automates CV extraction, AI-enhanced profile presentation, and vector-powered candidate-job matching.",
     problem:
-      "Hospitality recruiters were drowning in unstructured PDFs/DOCX from candidates and matching jobs by keyword search — slow, biased toward whoever used the right buzzwords.",
+      "Hospitality recruiters were drowning in unstructured PDFs/DOCX from candidates and matching jobs by keyword search, slow, biased toward whoever used the right buzzwords.",
     solution:
       "Strapi 5.22 backend with 40 API modules and 35 content-type schemas. Multi-modal AI CV parser routing between GPT-4o Vision (scanned PDFs) and GPT-4o-mini (text PDFs / mammoth-converted DOCX). Vector job matching via Pinecone (1536-dim text-embedding-3-small) with weighted scoring (skills 40%, location 15%, objectives 15%, badge/region bonuses). OpenAI TTS for 44–48s voiceover scripts.",
     result:
@@ -337,7 +337,7 @@ export const projects: Project[] = [
 
   {
     slug: "ai-video-pipeline",
-    title: "AI Video Pipeline — 60-Node n8n Automation",
+    title: "AI Video Pipeline, 60-Node n8n Automation",
     tagline:
       "Script → video → multi-platform publish, fully automated",
     description:
@@ -363,11 +363,11 @@ export const projects: Project[] = [
 
   {
     slug: "dietapp",
-    title: "DietApp — AI Nutrition & Fitness",
+    title: "DietApp, AI Nutrition & Fitness",
     tagline:
       "AI-powered nutrition app with meal planning, barcode scanning, and wearable sync",
     description:
-      "A comprehensive nutrition-first mobile app — calorie counter, meal planner, and health tracker that helps users hit their fitness goals through AI-powered personalisation.",
+      "A comprehensive nutrition-first mobile app, calorie counter, meal planner, and health tracker that helps users hit their fitness goals through AI-powered personalisation.",
     problem:
       "People trying to lose weight or build muscle struggle with nutrition tracking. Existing apps required manual food entry, had generic meal plans, and didn't integrate with wearable devices. Users abandoned within 2 weeks.",
     solution:
