@@ -47,9 +47,9 @@ export function Navbar() {
         {/* Logo */}
         <a
           href={asset("/")}
-          className="font-display text-xl font-bold text-accent"
+          className="font-display text-xl font-bold text-accent tracking-tight"
         >
-          H
+          HN
         </a>
 
         {/* Desktop links */}

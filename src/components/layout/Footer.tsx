@@ -98,29 +98,10 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-10 pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="mt-10 pt-6 border-t border-border flex items-center justify-center">
           <p className="text-xs text-text-secondary">
-            &copy; {new Date().getFullYear()} Haisem Naeem
+            &copy; {new Date().getFullYear()} Haisem Naeem. All rights reserved.
           </p>
-          <div className="flex items-center gap-4 text-xs text-text-secondary">
-            <a
-              href="https://www.upwork.com/agencies/metavizai/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-accent transition-colors"
-            >
-              Metaviz AI (Top Rated Agency)
-            </a>
-            <span className="text-border">|</span>
-            <a
-              href="https://www.metavizai.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-accent transition-colors"
-            >
-              metavizai.com
-            </a>
-          </div>
         </div>
       </div>
     </footer>

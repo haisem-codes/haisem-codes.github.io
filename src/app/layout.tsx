@@ -72,7 +72,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      <body className="bg-bg text-text antialiased noise-overlay">
+      <body className="bg-bg text-text antialiased noise-overlay" suppressHydrationWarning>
         <ThemeProvider>
           <LenisProvider>
             <HangingBulb />

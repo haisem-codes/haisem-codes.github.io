@@ -22,13 +22,16 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
     >
+      {/* Editorial number — sits above the card, doesn't overlap any image content */}
+      <div className="mb-3 flex items-baseline gap-3">
+        <span className="font-mono text-3xl sm:text-4xl font-bold text-accent leading-none select-none">
+          {number}
+        </span>
+        <span className="h-px flex-1 bg-border" aria-hidden />
+      </div>
+
       <Link href={asset(`/projects/${project.slug}/`)} className="group block">
         <div className="relative rounded-2xl overflow-hidden bg-bg-card border border-border transition-colors duration-200 group-hover:border-border-hover">
-          {/* Editorial number */}
-          <span className="absolute top-4 left-4 z-10 font-mono text-6xl font-bold text-text opacity-[0.07] select-none">
-            {number}
-          </span>
-
           {/* Image container */}
           <div className="relative aspect-[16/9] overflow-hidden bg-bg-card">
             <motion.div
