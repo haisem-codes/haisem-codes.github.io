@@ -19,7 +19,7 @@ export function Projects() {
   return (
     <section id="projects" className="py-32 px-6">
       <div className="max-w-4xl mx-auto">
-        <SectionHeading title="Selected Work" className="mb-16" />
+        <SectionHeading title="Things I've Shipped" className="mb-16" />
 
         <div className="space-y-12">
           {featured.map((project, i) => (

@@ -264,19 +264,19 @@ export const projects: Project[] = [
   },
 
   {
-    slug: "metaviz-portfolios",
-    title: "Metaviz Portfolios, 8-Tool AI SaaS Platform",
+    slug: "ai-tools-suite",
+    title: "AI Tools Suite, 8-Tool SaaS Platform",
     tagline:
-      "Productised the agency's expertise as 8 user-facing AI tools, including a multi-LLM chat orchestrator",
+      "Eight user-facing AI tools shipping under one umbrella, including a multi-LLM chat orchestrator",
     description:
-      "Multi-tool SaaS that productises Metaviz's AI engineering capability, 8 user-facing tools shipping under one umbrella, including a multi-LLM chat orchestrator (LangChain + LangGraph routing across OpenAI and Gemini) and a YOLOv7 computer-vision pipeline.",
+      "Multi-tool SaaS productising deep AI engineering capability, 8 user-facing tools shipping under one umbrella, including a multi-LLM chat orchestrator (LangChain + LangGraph routing across OpenAI and Gemini) and a YOLOv7 computer-vision pipeline.",
     problem:
-      "Agency expertise was locked inside client engagements. We needed a productised surface that both demoed capability and drove inbound interest.",
+      "AI engineering capability was locked inside one-off client engagements. We needed a productised surface that both demoed the stack and drove inbound interest.",
     solution:
       "Django 5.0 + DRF 3.15 (10 microservice apps) and React 18 + Vite + TypeScript + Tailwind 3.3. Shipped: GitHub Code Explainer, AI Interview Coach, Multilingual Blog Builder (30+ languages), Structured Prompt Generator, Smart Product Copywriter (bulk CSV), PDF Logo Removal (YOLOv7), Text Humanizer, and a multi-LLM Voice/Chat Assistant with LangChain + LangGraph intelligently routing across OpenAI and Gemini. AG2 multi-agent orchestration for complex reasoning. WebSocket real-time via Daphne + Channels.",
     result:
       "8 tools live. 10 Django microservice apps. JWT auth via SimpleJWT, rate limiting, 30+ language translation pipeline. Deployed via Docker Compose + Nginx + GitHub Actions CI/CD to Coolify on DigitalOcean.",
-    image: "/projects/metaviz-portfolios.webp",
+    image: "/projects/ai-tools-suite.webp",
     techStack: [
       "Django 5.0",
       "DRF 3.15",

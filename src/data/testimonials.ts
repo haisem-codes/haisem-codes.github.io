@@ -17,12 +17,4 @@ export const testimonials: Testimonial[] = [
     role: "AI Agent Development",
     company: "Upwork",
   },
-  {
-    id: "3",
-    quote:
-      "Part of Metaviz AI, a Top Rated Upwork agency with 100% Job Success Score and $50K+ delivered. We bring enterprise-grade standards to every project.",
-    author: "Metaviz AI",
-    role: "Top Rated Agency",
-    company: "Upwork",
-  },
 ];
