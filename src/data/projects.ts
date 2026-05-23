@@ -129,19 +129,19 @@ export const projects: Project[] = [
   },
 
   {
-    slug: "wanyumba",
-    title: "Wanyumba, East African Real-Estate Marketplace",
+    slug: "ai-real-estate-marketplace",
+    title: "AI-Powered Real Estate Marketplace with Multi-LLM Valuation",
     tagline:
       "7+ microservices and a multi-provider AI property valuation engine",
     description:
-      "Tanzania-focused real-estate marketplace coordinating 7+ microservices through a Traefik gateway and RabbitMQ event bus. Multi-provider AI property valuation engine with graceful fallbacks across OpenAI GPT-4, DeepSeek, Hugging Face, and Groq.",
+      "Real-estate marketplace coordinating 7+ microservices through a Traefik gateway and RabbitMQ event bus. Multi-provider AI property valuation engine with graceful fallbacks across OpenAI GPT-4, DeepSeek, Hugging Face, and Groq.",
     problem:
-      "Property valuation in East Africa is inconsistent, comparable-sale data is thin and human valuations vary widely. Single-LLM dependency would have been a single point of failure for both cost and downtime.",
+      "Property valuation in emerging markets is inconsistent, comparable-sale data is thin and human valuations vary widely. Single-LLM dependency would have been a single point of failure for both cost and downtime.",
     solution:
       "Polyglot microservices: Node + Express + Prisma for listings / auth / inventory / admin; Python FastAPI for geocoding. All sit behind a Traefik gateway with a RabbitMQ 3.12 event bus. The AI valuation engine routes across 4 LLM providers with confidence scoring (0–1), Redis-cached at 1-hr TTL, batch-valuation enabled. Flutter mobile with strict Clean Architecture, zero Flutter imports in the domain layer.",
     result:
-      "Production multi-LLM orchestration with graceful fallback when a provider is down or rate-limited. OpenSearch 2.11 for near-real-time property search. 4-locale i18n. Confidence-scored valuations with reasoning surface for human review.",
-    image: "/projects/wanyumba.webp",
+      "Production multi-LLM orchestration with graceful fallback when a provider is down or rate-limited. OpenSearch 2.11 for near-real-time property search. Multi-locale i18n. Confidence-scored valuations with reasoning surface for human review.",
+    image: "/projects/ai-real-estate-marketplace.webp",
     techStack: [
       "Node.js + Express",
       "Prisma",
@@ -194,19 +194,19 @@ export const projects: Project[] = [
   // ===================== SECONDARY (6) =====================
 
   {
-    slug: "africa-travel-hub",
-    title: "Africa Travel Hub (ATH), B2B Travel SaaS",
+    slug: "b2b-travel-saas",
+    title: "AI-Powered B2B Travel Management SaaS",
     tagline:
-      "Multi-tenant platform connecting hotels, fleets, tour operators, and DMCs across Africa",
+      "Multi-tenant platform connecting hotels, fleet operators, tour operators, and DMCs with on-device AI speech",
     description:
-      "B2B travel-management SaaS with row-based multi-tenancy, role-based access control, AI-powered on-device speech on the mobile app, and African card-rail payment integration.",
+      "B2B travel-management SaaS with row-based multi-tenancy, role-based access control, AI-powered on-device speech on the mobile app, and regional payment-rail integration.",
     problem:
-      "African travel suppliers operated on email and spreadsheets. No unified platform existed for hotels, fleet operators, tour operators, DMCs, and destination planners to coordinate bookings, fleets, and itineraries.",
+      "Travel suppliers were operating on email and spreadsheets. No unified platform existed for hotels, fleet operators, tour operators, DMCs, and destination planners to coordinate bookings, fleets, and itineraries.",
     solution:
-      "FastAPI + PostgreSQL (Supabase) + SQLAlchemy + Redis + Alembic backend. React 18 + Vite + Tailwind + Zustand frontend. Flutter mobile with Sherpa-ONNX on-device speech for offline voice features and Firebase integration. DPO (Direct Pay Online) payment integration for African card rails. Docker dev / Coolify production.",
+      "FastAPI + PostgreSQL (Supabase) + SQLAlchemy + Redis + Alembic backend. React 18 + Vite + Tailwind + Zustand frontend. Flutter mobile with Sherpa-ONNX on-device speech for offline voice features and Firebase integration. Regional payment-rail integration for emerging-market card processing. Docker dev / Coolify production.",
     result:
       "Multi-tenant SaaS with JWT-backed RBAC, Alembic migrations, OpenAPI docs, Supabase integration, production deployment on Coolify.",
-    image: "/projects/africa-travel-hub.webp",
+    image: "/projects/b2b-travel-saas.webp",
     techStack: [
       "FastAPI",
       "PostgreSQL (Supabase)",
@@ -220,7 +220,7 @@ export const projects: Project[] = [
       "Zustand",
       "Flutter",
       "Sherpa-ONNX",
-      "DPO Payment",
+      "Regional Payment Gateway",
       "Docker",
       "Coolify",
     ],
@@ -229,21 +229,25 @@ export const projects: Project[] = [
   },
 
   {
-    slug: "handman",
-    title: "Handman, Swiss Craftsmen Marketplace",
+    slug: "ai-craftsmen-marketplace",
+    title: "AI-Powered Craftsmen Marketplace with Conversational Butler",
     tagline:
-      "Multi-tenant marketplace with 6 RBAC roles, WebAuthn biometrics, and Stripe Terminal",
+      "Conversational AI assistant, smart hybrid search, multi-tenant marketplace across web and mobile",
     description:
-      "Marketplace connecting plumbers, electricians, and handymen with residential and commercial customers across Switzerland. Full-stack across web and mobile.",
+      "Craftsmen marketplace where the AI tier is the differentiator. A conversational AI assistant guides customers, professionals, field workers, and admins through every flow, while smart search matches jobs by intent instead of keywords. Full-stack across web, mobile, and a substantial AI backend.",
     problem:
-      "Swiss tradespeople were juggling 3+ tools (scheduling, payments, customer comms) with no unified field-services platform tailored to 4-language i18n and in-person card payments.",
+      "Tradespeople were juggling 3+ tools for scheduling, payments, and customer comms. On the customer side, keyword search across craftsmen produced poor matches, no understanding of intent, urgency, or job category from natural language.",
     solution:
-      "FastAPI 0.109 + SQLAlchemy async + PostgreSQL 15 backend. React 19 + Vite + Tailwind 4 web. Flutter (Clean Architecture, Riverpod, SQLite offline) mobile. RBAC with 6 roles (superadmin, admin, owner, dispatcher, field_worker, accounting), 3 auth modalities (password, Twilio OTP, WebAuthn biometrics) with JWT + Argon2. Stripe Terminal for in-person card processing. Real-time threaded messaging with SSE notifications.",
+      "Conversational AI assistant across 4 user modes (customer, professional, field worker, admin) on a deterministic state machine with mode-specific tools for estimation, claims, payments, scheduling, and vision-based intake. Smart hybrid search blends semantic embeddings with keyword search and cross-encoder reranking; an AI search-intake layer parses natural-language queries into structured parameters. AI-powered lead enrichment from supplier websites. Long-term memory captures user preferences and patterns across sessions, with per-tenant LLM cost tracking and daily rollups. FastAPI 0.109 + async SQLAlchemy + Postgres 15 backend, React 19 + Vite web, Flutter mobile (Clean Architecture, Riverpod, SQLite offline). RBAC with 6 roles, 3 auth modalities (password, Twilio OTP, WebAuthn biometrics) with JWT + Argon2. Stripe Terminal for in-person cards. Real-time threaded messaging via SSE.",
     result:
-      "4-locale i18n (EN / DE / FR / IT). Multi-tenant data isolation. Production marketplace handling real bookings + card payments.",
-    image: "/projects/handman.webp",
+      "Production craftsmen marketplace with substantive AI tier: conversational assistant across customer/pro/field/admin flows, intent-matched search, and per-tenant cost attribution. Multi-locale i18n. Multi-tenant data isolation.",
+    image: "/projects/ai-craftsmen-marketplace.webp",
     techStack: [
       "FastAPI 0.109",
+      "PydanticAI",
+      "pgvector",
+      "Cohere Rerank v3.5",
+      "OpenAI text-embedding-3-small",
       "PostgreSQL 15",
       "SQLAlchemy async",
       "Redis",
