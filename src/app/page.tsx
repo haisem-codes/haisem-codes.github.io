@@ -3,7 +3,7 @@ import { About } from "@/components/sections/About";
 import { TechMarquee } from "@/components/sections/TechMarquee";
 import { Projects } from "@/components/sections/Projects";
 import { SkillsBento } from "@/components/sections/SkillsBento";
-import { Testimonials } from "@/components/sections/Testimonials";
+import { Credentials } from "@/components/sections/Credentials";
 import { Contact } from "@/components/sections/Contact";
 
 export default function Home() {
@@ -14,7 +14,7 @@ export default function Home() {
       <TechMarquee />
       <Projects />
       <SkillsBento />
-      <Testimonials />
+      <Credentials />
       <Contact />
     </main>
   );

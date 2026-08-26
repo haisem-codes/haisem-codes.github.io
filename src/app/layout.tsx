@@ -36,9 +36,9 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Haisem Naeem | AI Engineer",
+  title: "Haisem Naeem | AI Engineer, Stockholm",
   description:
-    "AI Engineer building production-ready AI systems. Specializing in AI Agents, RAG, Voice AI, and Full-Stack Development.",
+    "AI Engineer based in Stockholm, building production-ready AI systems. Specializing in AI Agents, RAG, Voice AI, and Full-Stack Development. Open to freelance, part-time, and thesis work.",
   icons: {
     icon: [
       { url: "/favicon.png", sizes: "32x32", type: "image/png" },
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
   },
   manifest: "/site.webmanifest",
   openGraph: {
-    title: "Haisem Naeem | AI Engineer",
+    title: "Haisem Naeem | AI Engineer, Stockholm",
     description: "Building AI systems that think.",
     type: "website",
   },
