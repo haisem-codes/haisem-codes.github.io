@@ -166,15 +166,15 @@ export const projects: Project[] = [
     slug: "claude-code-mastery",
     title: "Claude Code Mastery",
     tagline:
-      "A 742-file configuration system for Claude Code and the Agent SDK, 179 skills, 37 agents, 10 hooks",
+      "A 1,579-file configuration system for Claude Code and the Agent SDK, 168 skills, 37 agents, 8 hooks",
     description:
       "Open-source curated repository providing configuration templates, extensible skills, agents, hooks, and learning guides for maximising Claude Code + Claude Agent SDK productivity. A one-prompt setup system that auto-generates production-grade configurations.",
     problem:
       "Engineers adopting Claude Code spend hours wiring up settings, hooks, permissions, and curating skill libraries. No standard scaffolding exists.",
     solution:
-      "Curated 179+ skills across 11 domain categories (engineering, C-level advisory, marketing, compliance, product, finance), 37 specialised subagents (development, infrastructure, quality, data/AI, security), 10 production hooks (safety gates, quality auto-checks, intelligent skill matching), 13 configuration templates, and a 470-line master setup prompt that analyses a codebase and auto-generates personalised CLAUDE.md + settings.json.",
+      "Curated 168 installable skills across 11 domain categories (engineering, C-level advisory, marketing, compliance, product, finance), 37 specialised subagents (development, infrastructure, quality, data/AI, security), 8 production hooks (safety gates, quality auto-checks, intelligent skill matching), 13 configuration templates across 6 stacks, and a setup prompt that analyses a codebase and auto-generates personalised CLAUDE.md + settings.json. A real installer ships 10 presets with dry-run, backup and undo.",
     result:
-      "742 markdown files. 9-chapter progressive learning guide (3,400+ lines). 4 GitHub Actions workflows for PR review, monthly docs sync, weekly quality audits, and biweekly dependency audits. MIT-licensed, reusable across any codebase.",
+      "1,579 tracked files. 11-chapter progressive learning guide (3,200+ lines). 4 shipped GitHub Actions workflows for PR review, docs sync, quality audits, and dependency audits. Counts are generated into catalog.json and verified in CI, so the documentation cannot drift from the repo. MIT-licensed, reusable across any codebase.",
     image: "/projects/claude-code-mastery.webp",
     techStack: [
       "Claude Code (CLI)",
