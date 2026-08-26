@@ -15,6 +15,8 @@ const PROJECT_TYPES = [
   "AI Automation / n8n",
   "Data Science / ML",
   "Consulting",
+  "Part-time role / internship",
+  "Master's thesis collaboration",
   "Other",
 ];
 
@@ -24,6 +26,7 @@ const BUDGET_RANGES = [
   "$5,000 - $15,000",
   "$15,000+",
   "Not sure yet",
+  "Not applicable (role enquiry)",
 ];
 
 type FormStatus = "idle" | "sending" | "success" | "error";
@@ -126,10 +129,35 @@ function LinkedInIcon() {
   );
 }
 
+function PhoneIcon() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0 1 22 16.92z" />
+    </svg>
+  );
+}
+
+function isDirectLink(url: string) {
+  return url.startsWith("mailto:") || url.startsWith("tel:");
+}
+
 function getSocialIcon(platform: string) {
   switch (platform) {
     case "Email":
       return <EmailIcon />;
+    case "Phone":
+      return <PhoneIcon />;
     case "Upwork":
       return <UpworkIcon />;
     case "GitHub":
@@ -222,10 +250,24 @@ export function Contact() {
                   </span>
                 </h2>
                 <p className="text-text-muted text-base leading-relaxed">
-                  Have a project in mind? I&apos;d love to hear about it. Send
-                  me a message and let&apos;s talk about how we can work
-                  together to build something great.
+                  Have a project in mind? I&apos;d love to hear about it. I
+                  also read every message about part-time engineering work and
+                  master&apos;s thesis collaborations here in Stockholm.
                 </p>
+
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-text-muted">
+                  <span className="inline-flex items-center gap-2">
+                    <span className="relative flex w-2 h-2" aria-hidden>
+                      <span className="absolute inline-flex w-full h-full rounded-full bg-accent opacity-70 animate-ping" />
+                      <span className="relative inline-flex w-2 h-2 rounded-full bg-accent" />
+                    </span>
+                    {personal.availability}
+                  </span>
+                  <span className="text-text-muted/50" aria-hidden>
+                    &bull;
+                  </span>
+                  <span>{personal.location}</span>
+                </div>
               </div>
 
               <div className="space-y-3">
@@ -233,13 +275,11 @@ export function Contact() {
                   <motion.a
                     key={social.platform}
                     href={social.url}
-                    target={
-                      social.platform !== "Email" ? "_blank" : undefined
-                    }
+                    target={isDirectLink(social.url) ? undefined : "_blank"}
                     rel={
-                      social.platform !== "Email"
-                        ? "noopener noreferrer"
-                        : undefined
+                      isDirectLink(social.url)
+                        ? undefined
+                        : "noopener noreferrer"
                     }
                     className="flex items-center gap-3 group w-fit"
                     whileHover={{ x: 4 }}

@@ -32,6 +32,11 @@ const socialIcons: Record<string, React.ReactNode> = {
       <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
     </svg>
   ),
+  Phone: (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0 1 22 16.92z" />
+    </svg>
+  ),
 };
 
 export function Footer() {
@@ -54,7 +59,7 @@ export function Footer() {
           <div>
             <a href={asset("/")} className="font-display text-2xl font-bold text-accent">H</a>
             <p className="mt-3 text-sm text-text-secondary leading-relaxed max-w-xs">
-              AI Engineer building production-ready systems. From LLM agents to voice AI, I turn complex AI concepts into products.
+              AI Engineer building production-ready systems. From LLM agents to voice AI, I turn complex AI concepts into products. Based in {personal.location}.
             </p>
           </div>
 
@@ -84,7 +89,12 @@ export function Footer() {
                 <a
                   key={social.platform}
                   href={social.url}
-                  target={social.url.startsWith("mailto") ? undefined : "_blank"}
+                  target={
+                    social.url.startsWith("mailto:") ||
+                    social.url.startsWith("tel:")
+                      ? undefined
+                      : "_blank"
+                  }
                   rel="noopener noreferrer"
                   className="w-9 h-9 rounded-lg bg-bg-card border border-border flex items-center justify-center text-text-secondary hover:text-accent hover:border-accent/30 transition-all duration-200"
                   aria-label={social.platform}
@@ -94,6 +104,7 @@ export function Footer() {
               ))}
             </div>
             <p className="mt-4 text-xs text-text-secondary">{personal.email}</p>
+            <p className="mt-1 text-xs text-text-secondary">{personal.phone}</p>
           </div>
         </div>
 

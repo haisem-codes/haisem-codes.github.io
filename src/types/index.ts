@@ -24,12 +24,13 @@ export interface Skill {
   items: string[];
 }
 
-export interface Testimonial {
+export interface Credential {
   id: string;
-  quote: string;
-  author: string;
-  role: string;
-  company?: string;
+  label: string;
+  title: string;
+  institution: string;
+  period: string;
+  detail?: string;
 }
 
 export interface TechItem {
@@ -43,8 +44,11 @@ export interface PersonalInfo {
   firstName: string;
   title: string;
   tagline: string;
+  location: string;
+  availability: string;
   bio: string[];
   email: string;
+  phone: string;
   socials: { platform: string; url: string; label: string }[];
   stats: { label: string; value: number; suffix: string }[];
 }
