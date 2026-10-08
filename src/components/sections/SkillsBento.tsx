@@ -47,6 +47,7 @@ export function SkillsBento({ title }: { title: string }) {
             return (
               <motion.div
                 key={skill.id}
+                data-reveal
                 variants={bentoTile}
                 className={`${skill.colSpan === 2 ? "md:col-span-2" : ""} ${
                   skill.rowSpan === 2 ? "md:row-span-2" : ""

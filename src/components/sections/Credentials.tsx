@@ -21,6 +21,7 @@ export function Credentials({ title }: { title: string }) {
           {credentials.map((item) => (
             <motion.div
               key={item.id}
+              data-reveal
               variants={fadeInUp}
               className="p-6 rounded-2xl bg-bg-card border border-border hover:border-border-hover transition-colors duration-200"
             >

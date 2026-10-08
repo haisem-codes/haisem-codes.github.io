@@ -147,6 +147,40 @@ body {
   border-radius: 3px;
 }
 
+/* ── Hero entrance (CSS so it runs before hydration) ── */
+@keyframes hero-word {
+  from { transform: translateY(105%); }
+  to { transform: none; }
+}
+
+@keyframes hero-fade {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+
+.hero-word,
+.hero-fade {
+  animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+  animation-delay: var(--d, 0s);
+  animation-fill-mode: both;
+}
+
+.hero-word {
+  animation-name: hero-word;
+  animation-duration: 0.7s;
+}
+
+.hero-fade {
+  animation-name: hero-fade;
+  animation-duration: 0.8s;
+}
+
+/* ── Scroll reveals stay visible without JS ── */
+html:not(.js) [data-reveal] {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
 /* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -155,6 +189,11 @@ body {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .hero-word,
+  .hero-fade {
+    animation-name: none;
   }
 }
 

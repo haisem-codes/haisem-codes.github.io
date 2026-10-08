@@ -26,6 +26,7 @@ export function Services({ dict }: { dict: Dictionary["services"]; lang: Locale 
           {dict.items.map((item, i) => (
             <motion.li
               key={item.id}
+              data-reveal
               variants={fadeInUp}
               className="flex flex-col rounded-3xl border border-border bg-bg-card p-8 transition-colors duration-300 hover:border-border-hover sm:p-10"
             >

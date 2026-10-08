@@ -26,7 +26,7 @@ export function HowIWork({ dict }: { dict: Dictionary["how"]; lang: Locale }) {
           {dict.steps.map((step, i) => {
             const last = i === dict.steps.length - 1;
             return (
-              <motion.li key={step.title} variants={fadeInUp} className="relative pb-12 pl-16 last:pb-0 lg:pb-0 lg:pl-0 lg:pr-8">
+              <motion.li key={step.title} data-reveal variants={fadeInUp} className="relative pb-12 pl-16 last:pb-0 lg:pb-0 lg:pl-0 lg:pr-8">
                 {!last && (
                   <span
                     aria-hidden

@@ -16,6 +16,7 @@ export function SectionHeading({ title, className }: SectionHeadingProps) {
   return (
     <div ref={ref} className={className}>
       <motion.h2
+        data-reveal
         className="font-display text-3xl md:text-4xl font-bold text-text"
         initial={{ opacity: 0, y: 20 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}

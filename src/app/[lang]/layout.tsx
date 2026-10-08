@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { LenisProvider } from "@/components/providers/LenisProvider";
+import { MotionProvider } from "@/components/providers/MotionProvider";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { locales, isLocale, type Locale } from "@/i18n/config";
@@ -48,15 +49,17 @@ export default async function LangLayout({ children, params }: { children: React
   return (
     <html lang={lang} className={`${inter.variable} ${display.variable} ${mono.variable}`} suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: `try{if(localStorage.getItem("theme")==="dark")document.documentElement.classList.add("dark")}catch(e){}` }} />
+        <script dangerouslySetInnerHTML={{ __html: `document.documentElement.classList.add("js");try{if(localStorage.getItem("theme")==="dark")document.documentElement.classList.add("dark")}catch(e){}` }} />
       </head>
       <body className="bg-bg text-text antialiased">
         <ThemeProvider>
-          <LenisProvider>
-            <Navbar dict={d.nav} lang={lang as Locale} />
-            {children}
-            <Footer dict={d.footer} lang={lang as Locale} />
-          </LenisProvider>
+          <MotionProvider>
+            <LenisProvider>
+              <Navbar dict={d.nav} lang={lang as Locale} />
+              {children}
+              <Footer dict={d.footer} lang={lang as Locale} />
+            </LenisProvider>
+          </MotionProvider>
         </ThemeProvider>
       </body>
     </html>
