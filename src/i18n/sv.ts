@@ -109,6 +109,16 @@ export const sv = {
     view: "Läs caset",
     employerNote: "Byggt på Metaviz AI",
     back: "Alla projekt",
+    filterLabel: "Filtrera projekt efter typ",
+    problem: "Problemet",
+    solution: "Lösningen",
+    result: "Resultatet",
+    live: "Se live",
+    github: "GitHub",
+    prev: "Föregående projekt",
+    next: "Nästa projekt",
+    notFound: "Projektet hittades inte",
+    englishOnly: "Det här caset finns bara på engelska.", // REVIEW-SV
   },
   how: {
     title: "Så jobbar vi tillsammans",

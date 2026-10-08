@@ -3,7 +3,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { isLocale, localHref } from "@/i18n/config";
 import { getDictionary } from "@/i18n";
-import { projects } from "@/data/projects";
+import { projects, localize } from "@/data/projects";
 import { asset } from "@/lib/utils";
 import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
@@ -37,7 +37,10 @@ export default async function HirePage({ params }: Props) {
     { value: 9, suffix: "", label: hire.stats.systems },
     { value: 1, suffix: "", label: hire.stats.publications },
   ];
-  const featured = projects.filter((p) => p.featured).sort((a, b) => a.order - b.order);
+  const featured = projects
+    .filter((p) => p.featured)
+    .sort((a, b) => a.order - b.order)
+    .map((p) => localize(p, lang));
 
   return (
     <main>

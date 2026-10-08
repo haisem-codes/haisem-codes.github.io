@@ -2,7 +2,8 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import { asset } from "@/lib/utils";
 import Link from "next/link";
-import { projects } from "@/data/projects";
+import { projects, localize } from "@/data/projects";
+import { getDictionary } from "@/i18n";
 import type { Metadata } from "next";
 import { locales, isLocale, localHref } from "@/i18n/config";
 
@@ -16,8 +17,10 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { lang, slug } = await params;
-  const project = projects.find((p) => p.slug === slug);
-  if (!isLocale(lang) || !project) return { title: "Not Found" };
+  const found = projects.find((p) => p.slug === slug);
+  if (!isLocale(lang)) return { title: "Not Found" };
+  if (!found) return { title: getDictionary(lang).work.notFound };
+  const project = localize(found, lang);
   const title = `${project.title} | Haisem Naeem`;
   const url = localHref(lang, `/projects/${slug}/`);
   return {
@@ -38,13 +41,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ProjectPage({ params }: Props) {
   const { lang, slug } = await params;
   if (!isLocale(lang)) notFound();
-  const project = projects.find((p) => p.slug === slug);
-  if (!project) notFound();
-
   const currentIndex = projects.findIndex((p) => p.slug === slug);
-  const prevProject = currentIndex > 0 ? projects[currentIndex - 1] : null;
+  if (currentIndex === -1) notFound();
+  const { work } = getDictionary(lang);
+  const project = localize(projects[currentIndex], lang);
+  const prevProject = currentIndex > 0 ? localize(projects[currentIndex - 1], lang) : null;
   const nextProject =
-    currentIndex < projects.length - 1 ? projects[currentIndex + 1] : null;
+    currentIndex < projects.length - 1 ? localize(projects[currentIndex + 1], lang) : null;
+  const englishOnly = lang === "sv" && !project.sv?.problem;
 
   return (
     <main className="pt-24 pb-32 px-4 sm:px-6">
@@ -66,7 +70,7 @@ export default async function ProjectPage({ params }: Props) {
           >
             <path d="m15 18-6-6 6-6" />
           </svg>
-          All Projects
+          {work.back}
         </Link>
       </div>
 
@@ -80,7 +84,7 @@ export default async function ProjectPage({ params }: Props) {
           {prevProject && (
             <Link
               href={localHref(lang, `/projects/${prevProject.slug}/`)}
-              aria-label={`Previous project: ${prevProject.title}`}
+              aria-label={`${work.prev}: ${prevProject.title}`}
               className="absolute left-0 sm:left-4 md:left-8 top-1/2 w-[28%] sm:w-[24%] md:w-[22%] aspect-[16/9] rounded-xl overflow-hidden border border-border opacity-50 hover:opacity-90 transition-opacity duration-500 group"
               style={{
                 transform:
@@ -125,7 +129,7 @@ export default async function ProjectPage({ params }: Props) {
           {nextProject && (
             <Link
               href={localHref(lang, `/projects/${nextProject.slug}/`)}
-              aria-label={`Next project: ${nextProject.title}`}
+              aria-label={`${work.next}: ${nextProject.title}`}
               className="absolute right-0 sm:right-4 md:right-8 top-1/2 w-[28%] sm:w-[24%] md:w-[22%] aspect-[16/9] rounded-xl overflow-hidden border border-border opacity-50 hover:opacity-90 transition-opacity duration-500 group"
               style={{
                 transform:
@@ -150,7 +154,7 @@ export default async function ProjectPage({ params }: Props) {
           {prevProject && (
             <Link
               href={localHref(lang, `/projects/${prevProject.slug}/`)}
-              aria-label={`Previous: ${prevProject.title}`}
+              aria-label={`${work.prev}: ${prevProject.title}`}
               className="absolute left-1 sm:left-6 md:left-12 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full backdrop-blur-md border border-border hover:border-accent/50 flex items-center justify-center text-text-secondary hover:text-accent transition-all duration-200"
               style={{ background: "var(--color-bg-glass)" }}
             >
@@ -173,7 +177,7 @@ export default async function ProjectPage({ params }: Props) {
           {nextProject && (
             <Link
               href={localHref(lang, `/projects/${nextProject.slug}/`)}
-              aria-label={`Next: ${nextProject.title}`}
+              aria-label={`${work.next}: ${nextProject.title}`}
               className="absolute right-1 sm:right-6 md:right-12 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full backdrop-blur-md border border-border hover:border-accent/50 flex items-center justify-center text-text-secondary hover:text-accent transition-all duration-200"
               style={{ background: "var(--color-bg-glass)" }}
             >
@@ -255,7 +259,7 @@ export default async function ProjectPage({ params }: Props) {
               rel="noopener noreferrer"
               className="text-sm text-accent hover:underline"
             >
-              Live Demo &rarr;
+              {work.live} &rarr;
             </a>
           )}
           {project.githubUrl && (
@@ -265,34 +269,48 @@ export default async function ProjectPage({ params }: Props) {
               rel="noopener noreferrer"
               className="text-sm text-accent hover:underline"
             >
-              GitHub &rarr;
+              {work.github} &rarr;
             </a>
           )}
         </div>
 
         {/* Case study sections */}
         <div className="mt-14 space-y-10">
+          {englishOnly && (
+            <p lang="sv" className="rounded-2xl border border-border px-5 py-4 text-sm text-text-secondary">
+              {work.englishOnly}
+            </p>
+          )}
           <div>
             <h2 className="font-display text-xl sm:text-2xl font-semibold text-text mb-3">
-              The Problem
+              {work.problem}
             </h2>
-            <p className="text-text-secondary leading-relaxed text-sm sm:text-base">
+            <p
+              lang={englishOnly ? "en" : undefined}
+              className="text-text-secondary leading-relaxed text-sm sm:text-base"
+            >
               {project.problem}
             </p>
           </div>
           <div>
             <h2 className="font-display text-xl sm:text-2xl font-semibold text-text mb-3">
-              The Solution
+              {work.solution}
             </h2>
-            <p className="text-text-secondary leading-relaxed text-sm sm:text-base">
+            <p
+              lang={englishOnly ? "en" : undefined}
+              className="text-text-secondary leading-relaxed text-sm sm:text-base"
+            >
               {project.solution}
             </p>
           </div>
           <div>
             <h2 className="font-display text-xl sm:text-2xl font-semibold text-text mb-3">
-              The Result
+              {work.result}
             </h2>
-            <p className="text-text-secondary leading-relaxed text-sm sm:text-base">
+            <p
+              lang={englishOnly ? "en" : undefined}
+              className="text-text-secondary leading-relaxed text-sm sm:text-base"
+            >
               {project.result}
             </p>
           </div>
