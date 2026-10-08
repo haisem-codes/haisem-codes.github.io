@@ -161,6 +161,7 @@ export const en = {
     sending: "Sending…",
     required: "Please answer this one.",
     invalidEmail: "That email doesn't look right.",
+    invalidWebsite: "That web address doesn't look right.",
     whyBudget: "Why I ask: so I suggest something that fits. Leave it blank if you're unsure.",
     whyPhone: "Only if you'd rather I call you.",
     privacy: "Used only to prepare our call. Deleted after 12 months if we don't work together.",

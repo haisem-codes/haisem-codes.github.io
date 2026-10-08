@@ -163,6 +163,7 @@ export const sv = {
     sending: "Skickar…",
     required: "Svara gärna på den här.",
     invalidEmail: "Mejladressen ser inte riktigt rätt ut.",
+    invalidWebsite: "Webbadressen ser inte riktigt rätt ut.",
     whyBudget: "Varför jag frågar: så att mitt förslag passar. Lämna tomt om du är osäker.",
     whyPhone: "Bara om du hellre vill att jag ringer.",
     privacy: "Används bara för att förbereda vårt samtal. Raderas efter 12 månader om vi inte jobbar ihop.",

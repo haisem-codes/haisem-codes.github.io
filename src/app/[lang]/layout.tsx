@@ -6,6 +6,7 @@ import { LenisProvider } from "@/components/providers/LenisProvider";
 import { MotionProvider } from "@/components/providers/MotionProvider";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { AnalyticsInit } from "@/components/analytics/AnalyticsInit";
 import { locales, isLocale, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n";
 import "../globals.css";
@@ -52,6 +53,7 @@ export default async function LangLayout({ children, params }: { children: React
         <script dangerouslySetInnerHTML={{ __html: `document.documentElement.classList.add("js");try{if(localStorage.getItem("theme")==="dark")document.documentElement.classList.add("dark")}catch(e){}` }} />
       </head>
       <body className="bg-bg text-text antialiased">
+        <AnalyticsInit />
         <ThemeProvider>
           <MotionProvider>
             <LenisProvider>

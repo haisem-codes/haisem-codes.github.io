@@ -24,6 +24,10 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
+        env:
+          NEXT_PUBLIC_INTAKE_URL: ${{ vars.NEXT_PUBLIC_INTAKE_URL }}
+          NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${{ vars.NEXT_PUBLIC_TURNSTILE_SITE_KEY }}
+          NEXT_PUBLIC_POSTHOG_KEY: ${{ vars.NEXT_PUBLIC_POSTHOG_KEY }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ./out
