@@ -2,6 +2,7 @@ import { Fragment, type CSSProperties } from "react";
 import { localHref, type Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n";
 import { Magnetic } from "@/components/ui/Magnetic";
+import { Hero3DLoader } from "@/components/three/Hero3DLoader";
 
 const delay = (s: number) => ({ "--d": `${Number(s.toFixed(2))}s` }) as CSSProperties;
 
@@ -16,7 +17,9 @@ export function Hero({ dict, lang }: { dict: Dictionary["hero"]; lang: Locale })
         className="pointer-events-none absolute inset-0 -z-20"
         style={{ background: "radial-gradient(60% 50% at 75% 40%, var(--color-accent-glow) 0%, transparent 70%)" }}
       />
-      <div data-hero-3d aria-hidden className="pointer-events-none absolute inset-0 -z-10" />
+      <div data-hero-3d aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+        <Hero3DLoader />
+      </div>
 
       <div className="relative mx-auto w-full max-w-6xl">
         <p className="hero-fade flex items-center gap-3 text-sm font-medium tracking-wide text-text-secondary" style={delay(0)}>
