@@ -1,5 +1,5 @@
 "use client";
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 
@@ -16,14 +16,14 @@ void main(){
   vec4 mv = modelViewMatrix * vec4(p, 1.0);
   gl_Position = projectionMatrix * mv;
   gl_PointSize = uSize * uPixelRatio * (0.6 + aRand) / -mv.z;
-  vAlpha = 0.35 + 0.65 * aRand;
+  vAlpha = 0.2 + 0.4 * aRand;
 }`;
 const frag = /* glsl */ `
 uniform vec3 uColor; varying float vAlpha;
 void main(){ float d = length(gl_PointCoord - 0.5); if (d > 0.5) discard; gl_FragColor = vec4(uColor, vAlpha * smoothstep(0.5, 0.1, d)); }`;
 
-export function SignalField({ count, targets, progress, pointer, color }: {
-  count: number; targets: Float32Array[]; progress: { current: number }; pointer: { current: [number, number] }; color: string;
+export function SignalField({ count, targets, progress, pointer, color, offsetX = 0, scale = 1 }: {
+  offsetX?: number; scale?: number; count: number; targets: Float32Array[]; progress: { current: number }; pointer: { current: [number, number] }; color: string;
 }) {
   const ref = useRef<THREE.Points>(null);
   const target = useRef(new THREE.Vector2());
@@ -39,8 +39,11 @@ export function SignalField({ count, targets, progress, pointer, color }: {
   }, [targets, count]);
   const material = useMemo(() => new THREE.ShaderMaterial({
     vertexShader: vert, fragmentShader: frag, transparent: true, depthWrite: false,
-    uniforms: { uProgress: { value: 0 }, uTime: { value: 0 }, uPointer: { value: new THREE.Vector2() }, uColor: { value: new THREE.Color(color) }, uSize: { value: 22 }, uPixelRatio: { value: Math.min(gl.getPixelRatio(), 1.5) } },
-  }), [color, gl]);
+    uniforms: { uProgress: { value: 0 }, uTime: { value: 0 }, uPointer: { value: new THREE.Vector2() }, uColor: { value: new THREE.Color("#0D7C72") }, uSize: { value: 17 }, uPixelRatio: { value: Math.min(gl.getPixelRatio(), 1.5) } },
+  }), [gl]);
+  useEffect(() => { material.uniforms.uColor.value.set(color); }, [material, color]);
+  useEffect(() => () => material.dispose(), [material]);
+  useEffect(() => () => geometry.dispose(), [geometry]);
   useFrame((state) => {
     const u = material.uniforms;
     u.uTime.value = state.clock.elapsedTime;
@@ -48,5 +51,5 @@ export function SignalField({ count, targets, progress, pointer, color }: {
     u.uPointer.value.lerp(target.current.set(...pointer.current), 0.1);
     if (ref.current) ref.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.15) * 0.25;
   });
-  return <points ref={ref} geometry={geometry} material={material} />;
+  return <points ref={ref} geometry={geometry} material={material} position={[offsetX, 0, 0]} scale={scale} />;
 }
