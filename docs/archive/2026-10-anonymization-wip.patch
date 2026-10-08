@@ -1,0 +1,443 @@
+diff --git a/public/lamp-switch.wav b/public/lamp-switch.wav
+deleted file mode 100644
+index cc92979..0000000
+Binary files a/public/lamp-switch.wav and /dev/null differ
+diff --git a/public/projects/ai-compliance-platform.webp b/public/projects/ai-compliance-platform.webp
+deleted file mode 100644
+index d99728a..0000000
+Binary files a/public/projects/ai-compliance-platform.webp and /dev/null differ
+diff --git a/public/projects/ai-craftsmen-marketplace.webp b/public/projects/ai-craftsmen-marketplace.webp
+deleted file mode 100644
+index 70b9862..0000000
+Binary files a/public/projects/ai-craftsmen-marketplace.webp and /dev/null differ
+diff --git a/public/projects/ai-real-estate-marketplace.webp b/public/projects/ai-real-estate-marketplace.webp
+deleted file mode 100644
+index 13de1c1..0000000
+Binary files a/public/projects/ai-real-estate-marketplace.webp and /dev/null differ
+diff --git a/public/projects/ai-tools-suite.webp b/public/projects/ai-tools-suite.webp
+deleted file mode 100644
+index b697048..0000000
+Binary files a/public/projects/ai-tools-suite.webp and /dev/null differ
+diff --git a/public/projects/ai-video-pipeline.webp b/public/projects/ai-video-pipeline.webp
+deleted file mode 100644
+index 3540fa2..0000000
+Binary files a/public/projects/ai-video-pipeline.webp and /dev/null differ
+diff --git a/public/projects/b2b-travel-saas.webp b/public/projects/b2b-travel-saas.webp
+deleted file mode 100644
+index 2e686fa..0000000
+Binary files a/public/projects/b2b-travel-saas.webp and /dev/null differ
+diff --git a/public/projects/coach.webp b/public/projects/coach.webp
+deleted file mode 100644
+index c3145d7..0000000
+Binary files a/public/projects/coach.webp and /dev/null differ
+diff --git a/public/projects/dietapp.webp b/public/projects/dietapp.webp
+deleted file mode 100644
+index cc22f07..0000000
+Binary files a/public/projects/dietapp.webp and /dev/null differ
+diff --git a/public/projects/icore-careerhub.webp b/public/projects/icore-careerhub.webp
+deleted file mode 100644
+index 3dc21ef..0000000
+Binary files a/public/projects/icore-careerhub.webp and /dev/null differ
+diff --git a/public/projects/postura.webp b/public/projects/postura.webp
+deleted file mode 100644
+index 5fffe53..0000000
+Binary files a/public/projects/postura.webp and /dev/null differ
+diff --git a/public/projects/voice-agents-suite.webp b/public/projects/voice-agents-suite.webp
+deleted file mode 100644
+index 718d5f2..0000000
+Binary files a/public/projects/voice-agents-suite.webp and /dev/null differ
+diff --git a/public/voice-fallback-1.mp3 b/public/voice-fallback-1.mp3
+deleted file mode 100644
+index b6d3031..0000000
+Binary files a/public/voice-fallback-1.mp3 and /dev/null differ
+diff --git a/public/voice-fallback-2.mp3 b/public/voice-fallback-2.mp3
+deleted file mode 100644
+index a5247c4..0000000
+Binary files a/public/voice-fallback-2.mp3 and /dev/null differ
+diff --git a/public/voice-fallback-3.mp3 b/public/voice-fallback-3.mp3
+deleted file mode 100644
+index 6e616e3..0000000
+Binary files a/public/voice-fallback-3.mp3 and /dev/null differ
+diff --git a/src/app/layout.tsx b/src/app/layout.tsx
+index 5a6598d..a108192 100644
+--- a/src/app/layout.tsx
++++ b/src/app/layout.tsx
+@@ -38,7 +38,7 @@ export const viewport: Viewport = {
+ export const metadata: Metadata = {
+   title: "Haisem Naeem | AI Engineer, Stockholm",
+   description:
+-    "AI Engineer based in Stockholm, building production-ready AI systems. Specializing in AI Agents, RAG, Voice AI, and Full-Stack Development. Open to freelance, part-time, and thesis work.",
++    "AI integration engineer in Stockholm. I connect AI with existing workflows, APIs, CRMs and internal tools. Available for full-time client work and focused projects.",
+   icons: {
+     icon: [
+       { url: "/favicon.png", sizes: "32x32", type: "image/png" },
+@@ -50,7 +50,7 @@ export const metadata: Metadata = {
+   manifest: "/site.webmanifest",
+   openGraph: {
+     title: "Haisem Naeem | AI Engineer, Stockholm",
+-    description: "Building AI systems that think.",
++    description: "AI inside the workflows your team already uses.",
+     type: "website",
+   },
+ };
+diff --git a/src/app/projects/[slug]/page.tsx b/src/app/projects/[slug]/page.tsx
+index 3caa67c..531867a 100644
+--- a/src/app/projects/[slug]/page.tsx
++++ b/src/app/projects/[slug]/page.tsx
+@@ -214,6 +214,7 @@ export default async function ProjectPage({ params }: Props) {
+ 
+       {/* Title + content block */}
+       <div className="max-w-3xl mx-auto">
++        <p className="mb-3 text-sm font-medium text-accent">{project.attribution}</p>
+         <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-text">
+           {project.title}
+         </h1>
+diff --git a/src/components/sections/Contact.tsx b/src/components/sections/Contact.tsx
+index 841827d..22a5ba4 100644
+--- a/src/components/sections/Contact.tsx
++++ b/src/components/sections/Contact.tsx
+@@ -251,8 +251,8 @@ export function Contact() {
+                 </h2>
+                 <p className="text-text-muted text-base leading-relaxed">
+                   Have a project in mind? I&apos;d love to hear about it. I
+-                  also read every message about part-time engineering work and
+-                  master&apos;s thesis collaborations here in Stockholm.
++                  also welcome full-time client engagements, focused integration
++                  projects and master&apos;s thesis collaborations here in Stockholm.
+                 </p>
+ 
+                 <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-text-muted">
+diff --git a/src/components/sections/Projects.tsx b/src/components/sections/Projects.tsx
+index 2ed459c..9b695f1 100644
+--- a/src/components/sections/Projects.tsx
++++ b/src/components/sections/Projects.tsx
+@@ -19,7 +19,7 @@ export function Projects() {
+   return (
+     <section id="projects" className="py-32 px-6">
+       <div className="max-w-4xl mx-auto">
+-        <SectionHeading title="Things I've Shipped" className="mb-16" />
++        <SectionHeading title="Selected work and contributions" className="mb-16" />
+ 
+         <div className="space-y-12">
+           {featured.map((project, i) => (
+diff --git a/src/components/ui/ProjectCard.tsx b/src/components/ui/ProjectCard.tsx
+index 6d36c9c..d8bc33e 100644
+--- a/src/components/ui/ProjectCard.tsx
++++ b/src/components/ui/ProjectCard.tsx
+@@ -60,6 +60,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
+ 
+           {/* Content */}
+           <div className="p-6">
++            <p className="mb-2 text-xs font-medium text-accent">{project.attribution}</p>
+             <h3 className="font-display text-xl font-semibold text-text">
+               {project.title}
+             </h3>
+diff --git a/src/data/personal.ts b/src/data/personal.ts
+index dace092..f388f7f 100644
+--- a/src/data/personal.ts
++++ b/src/data/personal.ts
+@@ -3,14 +3,14 @@ import type { PersonalInfo } from "@/types";
+ export const personal: PersonalInfo = {
+   name: "Haisem Naeem",
+   firstName: "HAISEM",
+-  title: "AI Engineer",
+-  tagline: "Building systems that think",
++  title: "AI Integration Engineer",
++  tagline: "AI inside the workflows your team already uses",
+   location: "Stockholm, Sweden",
+-  availability: "Open to freelance, part-time roles, and thesis collaborations",
++  availability: "Available now for full-time client work and focused freelance projects",
+   bio: [
+-    "I'm an AI engineer building production AI across web, mobile, and voice. Over the past year I shipped a building-code compliance platform (FastAPI + AWS Textract + GPT-5), an AI habit-coaching app with real-time voice (LiveKit + ElevenLabs + OpenAI Realtime), an on-device ergonomics scorer in Flutter (YOLOv8n + MediaPipe, all offline), and five production voice agents on Retell + GoHighLevel + n8n. About a dozen others. Most of them are still running.",
+-    "I build the whole thing, backend, frontend, mobile, the LLM layer, the deploy, and own the client conversation. Strongest where AI meets a real product surface: hybrid RAG (Pinecone / ChromaDB / pgvector + BM25), voice agents that don't sound like 2019 IVR, and cost-aware LLM orchestration that keeps variable spend predictable.",
+-    "I'm now based in Stockholm, reading for an M.Sc. in Artificial Intelligence and Language at Stockholm University. I take on freelance builds, part-time engineering work, and thesis collaborations alongside the degree.",
++    "I integrate AI into existing business workflows: intake, document processing, CRM handoffs, internal tools, and the review steps that keep automated decisions reliable. I can work across the API, database, model layer and interface needed to make one complete workflow useful.",
++    "At Metaviz AI, I contributed to client systems spanning document AI, full-stack applications, mobile experiences and voice interfaces. The case studies below describe my work as an employee, with client and project names withheld. They are not independently owned freelance projects.",
++    "I'm based in Stockholm and studying for an M.Sc. in Artificial Intelligence and Language at Stockholm University. I am available now for full-time client work, focused integration projects and thesis collaborations.",
+   ],
+   email: "haisem.work@gmail.com",
+   phone: "+46 76 961 9249",
+@@ -43,7 +43,7 @@ export const personal: PersonalInfo = {
+   ],
+   stats: [
+     { label: "Years Experience", value: 2, suffix: "+" },
+-    { label: "Production AI Systems", value: 12, suffix: "+" },
+-    { label: "Users Served", value: 10, suffix: "K+" },
++    { label: "Employer Case Studies", value: 9, suffix: "" },
++    { label: "Independent Projects", value: 1, suffix: "" },
+   ],
+ };
+diff --git a/src/data/projects.ts b/src/data/projects.ts
+index d37788f..c38f18b 100644
+--- a/src/data/projects.ts
++++ b/src/data/projects.ts
+@@ -5,6 +5,7 @@ export const projects: Project[] = [
+ 
+   {
+     slug: "ai-compliance-platform",
++    attribution: "Contributed as an AI Engineer at Metaviz AI · client work",
+     title: "AI Building-Code Compliance Platform",
+     tagline:
+       "End-to-end document AI for AEC compliance reviews, FastAPI + AWS Textract + GPT-5",
+@@ -16,7 +17,7 @@ export const projects: Project[] = [
+       "Async processing pipeline (FastAPI 0.115 + Celery + Redis) routing PDFs through AWS Textract OCR, then GPT-5 with structured outputs for entity extraction (equipment tags, CFM values, breaker counts). Hybrid RAG over the building-code corpus (ChromaDB BAAI/bge-base-en-v1.5 + BM25 reranking) feeds compliance reasoning. Cost-aware orchestration caps per-document LLM spend at $15. Next.js 15 + React Query verification UI for inline edits and final sign-off.",
+     result:
+       "Saved ~80% of manual compliance-reviewer time per drawing. 143-endpoint REST API across 12 routers, 47/48 pytest pass rate, multi-tenant Supabase RLS, per-document LLM cost capped at $15. Hybrid RAG + BM25 reranking holds retrieval quality even on long, technical code sections.",
+-    image: "/projects/ai-compliance-platform.webp",
++    image: "/projects/anonymized/building-compliance.png",
+     techStack: [
+       "FastAPI 0.115",
+       "Celery",
+@@ -37,18 +38,19 @@ export const projects: Project[] = [
+ 
+   {
+     slug: "voice-agents-suite",
++    attribution: "Contributed as an AI Engineer at Metaviz AI · client work",
+     title: "Production Voice Agents, Retell + ElevenLabs + GHL + n8n",
+     tagline:
+       "Five inbound/outbound voice agents replacing receptionist work across real-estate and SMB",
+     description:
+-      "Designed and shipped 5 production voice agents on Retell AI + ElevenLabs Conversational AI + GoHighLevel + n8n. Inbound concierge, outbound prospecting, multi-vertical sales/support/booking, including a single Sazoom agent serving 5 SMB verticals from one config.",
++      "Contributed to production voice-agent workflows at Metaviz AI using Retell AI, ElevenLabs Conversational AI, GoHighLevel and n8n. The work covered inbound handling, prospecting, and sales, support and booking flows across several business settings.",
+     problem:
+       "Clients across real-estate and SMB verticals needed 24/7 call handling, missed calls equalled lost revenue. Existing voice agents either sounded robotic or broke at the CRM handoff.",
+     solution:
+-      "Three Retell-based real-estate agents (Local Pro Concierge, Claire outbound prospector, Emma scheduler) plus a multi-vertical Sazoom agent on ElevenLabs Conversational AI with 15+ custom tools and a 3-mode flow (sales / support / booking). Externalised prompt rules into 11 semantic KB files. n8n middleware translates Retell webhooks into GoHighLevel contact and calendar operations with HOT/WARM/COLD lead classification in-call.",
++      "Worked on Retell-based inbound, outbound and scheduling agents and an ElevenLabs-based multi-purpose agent with custom tools for sales, support and booking. Workflow middleware connected voice webhooks to CRM contact and calendar operations, with lead classification and explicit error paths.",
+     result:
+-      "Cut one client's prompt from 16,800 → 3,279 words (80% reduction), raised response-rule compliance from ~25% to 98%, reduced per-call token cost ~45%, and replaced ~1 receptionist FTE at one SMB client. Zero silent failures by design, every n8n path terminates in a Respond node.",
+-    image: "/projects/voice-agents-suite.webp",
++      "The work focused on clearer prompt rules, lower model cost, reliable CRM handoffs and failure visibility. Client-specific outcomes and artifacts are not shared here.",
++    image: "/projects/anonymized/voice-workflows.png",
+     techStack: [
+       "Retell AI",
+       "ElevenLabs Conversational AI",
+@@ -65,8 +67,9 @@ export const projects: Project[] = [
+   },
+ 
+   {
+-    slug: "postura",
+-    title: "Postura, On-Device Ergonomic Assessment",
++    slug: "on-device-ergonomic-assessment",
++    attribution: "Contributed as an AI Engineer at Metaviz AI · client work",
++    title: "On-Device Ergonomic Assessment App",
+     tagline:
+       "Real-time pose analysis + Cornell ROSA scoring, all offline, in Flutter",
+     description:
+@@ -77,7 +80,7 @@ export const projects: Project[] = [
+       "Flutter 3.9 app with isolate-based YOLOv8n (TFLite FP16, 6.2 MB) for person + monitor detection at 2 fps, layered with MediaPipe Accurate pose estimation at 10 fps. One Euro Filter smoothing keeps landmarks stable (sub-2-pixel jitter). GPU → NNAPI → XNNPack delegate fallback achieves 30–80 ms inference latency. Cornell ROSA scoring algorithm ported Python → Dart with strict golden-set validation.",
+     result:
+       "±1-point congruence with the reference Python implementation across a 71-photo golden test set (100% pass). Zero cloud inference cost. Supports Android API 21+ and iOS 15.5+, runs on any modern device.",
+-    image: "/projects/postura.webp",
++    image: "/projects/anonymized/ergonomic-assessment.png",
+     techStack: [
+       "Flutter 3.9",
+       "Dart",
+@@ -95,8 +98,9 @@ export const projects: Project[] = [
+   },
+ 
+   {
+-    slug: "coach",
+-    title: "Coach, AI Habit Coaching with Realtime Voice",
++    slug: "ai-habit-coaching-app",
++    attribution: "Contributed as an AI Engineer at Metaviz AI · client work",
++    title: "AI Habit Coaching App with Realtime Voice",
+     tagline:
+       "GPT-4o Vision proof verification + OpenAI Realtime voice coaching, in a Flutter app",
+     description:
+@@ -107,7 +111,7 @@ export const projects: Project[] = [
+       "FastAPI + Firestore (21 collections) backend. GPT-4o Vision proof-verification pipeline through GCS signed URLs at ~$0.0075 per proof. gpt-4o-realtime-preview for voice coaching, LiveKit for WebRTC transport, ElevenLabs for TTS, Deepgram fallback for STT. Prompt caching + a 50-message sliding context window keeps token costs predictable.",
+     result:
+       "Cut per-session token cost ~50% via prompt caching, capped per-user spend at $150/month. 21 Firestore collections, Sentry + Prometheus observability, deployed via Coolify on DigitalOcean. Sub-second proof verification on commodity GPU-free infrastructure.",
+-    image: "/projects/coach.webp",
++    image: "/projects/anonymized/habit-coaching.png",
+     techStack: [
+       "FastAPI",
+       "Firebase Firestore",
+@@ -130,6 +134,7 @@ export const projects: Project[] = [
+ 
+   {
+     slug: "ai-real-estate-marketplace",
++    attribution: "Contributed as an AI Engineer at Metaviz AI · client work",
+     title: "AI-Powered Real Estate Marketplace with Multi-LLM Valuation",
+     tagline:
+       "7+ microservices and a multi-provider AI property valuation engine",
+@@ -141,7 +146,7 @@ export const projects: Project[] = [
+       "Polyglot microservices: Node + Express + Prisma for listings / auth / inventory / admin; Python FastAPI for geocoding. All sit behind a Traefik gateway with a RabbitMQ 3.12 event bus. The AI valuation engine routes across 4 LLM providers with confidence scoring (0–1), Redis-cached at 1-hr TTL, batch-valuation enabled. Flutter mobile with strict Clean Architecture, zero Flutter imports in the domain layer.",
+     result:
+       "Production multi-LLM orchestration with graceful fallback when a provider is down or rate-limited. OpenSearch 2.11 for near-real-time property search. Multi-locale i18n. Confidence-scored valuations with reasoning surface for human review.",
+-    image: "/projects/ai-real-estate-marketplace.webp",
++    image: "/projects/anonymized/property-marketplace.png",
+     techStack: [
+       "Node.js + Express",
+       "Prisma",
+@@ -164,6 +169,7 @@ export const projects: Project[] = [
+ 
+   {
+     slug: "claude-code-mastery",
++    attribution: "Independent open-source project",
+     title: "Claude Code Mastery",
+     tagline:
+       "A 1,579-file configuration system for Claude Code and the Agent SDK, 168 skills, 37 agents, 8 hooks",
+@@ -188,13 +194,14 @@ export const projects: Project[] = [
+     ],
+     githubUrl: "https://github.com/haisem-codes/claude-code-mastery",
+     featured: false,
+-    order: 13,
++    order: 6,
+   },
+ 
+-  // ===================== SECONDARY (6) =====================
++  // ===================== SECONDARY =====================
+ 
+   {
+     slug: "b2b-travel-saas",
++    attribution: "Contributed as an AI Engineer at Metaviz AI · client work",
+     title: "AI-Powered B2B Travel Management SaaS",
+     tagline:
+       "Multi-tenant platform connecting hotels, fleet operators, tour operators, and DMCs with on-device AI speech",
+@@ -206,7 +213,7 @@ export const projects: Project[] = [
+       "FastAPI + PostgreSQL (Supabase) + SQLAlchemy + Redis + Alembic backend. React 18 + Vite + Tailwind + Zustand frontend. Flutter mobile with Sherpa-ONNX on-device speech for offline voice features and Firebase integration. Regional payment-rail integration for emerging-market card processing. Docker dev / Coolify production.",
+     result:
+       "Multi-tenant SaaS with JWT-backed RBAC, Alembic migrations, OpenAPI docs, Supabase integration, production deployment on Coolify.",
+-    image: "/projects/b2b-travel-saas.webp",
++    image: "/projects/anonymized/travel-platform.png",
+     techStack: [
+       "FastAPI",
+       "PostgreSQL (Supabase)",
+@@ -230,6 +237,7 @@ export const projects: Project[] = [
+ 
+   {
+     slug: "ai-craftsmen-marketplace",
++    attribution: "Contributed as an AI Engineer at Metaviz AI · client work",
+     title: "AI-Powered Craftsmen Marketplace with Conversational Butler",
+     tagline:
+       "Conversational AI assistant, smart hybrid search, multi-tenant marketplace across web and mobile",
+@@ -241,7 +249,7 @@ export const projects: Project[] = [
+       "Conversational AI assistant across 4 user modes (customer, professional, field worker, admin) on a deterministic state machine with mode-specific tools for estimation, claims, payments, scheduling, and vision-based intake. Smart hybrid search blends semantic embeddings with keyword search and cross-encoder reranking; an AI search-intake layer parses natural-language queries into structured parameters. AI-powered lead enrichment from supplier websites. Long-term memory captures user preferences and patterns across sessions, with per-tenant LLM cost tracking and daily rollups. FastAPI 0.109 + async SQLAlchemy + Postgres 15 backend, React 19 + Vite web, Flutter mobile (Clean Architecture, Riverpod, SQLite offline). RBAC with 6 roles, 3 auth modalities (password, Twilio OTP, WebAuthn biometrics) with JWT + Argon2. Stripe Terminal for in-person cards. Real-time threaded messaging via SSE.",
+     result:
+       "Production craftsmen marketplace with substantive AI tier: conversational assistant across customer/pro/field/admin flows, intent-matched search, and per-tenant cost attribution. Multi-locale i18n. Multi-tenant data isolation.",
+-    image: "/projects/ai-craftsmen-marketplace.webp",
++    image: "/projects/anonymized/services-marketplace.png",
+     techStack: [
+       "FastAPI 0.109",
+       "PydanticAI",
+@@ -269,6 +277,7 @@ export const projects: Project[] = [
+ 
+   {
+     slug: "ai-tools-suite",
++    attribution: "Contributed as an AI Engineer at Metaviz AI · client work",
+     title: "AI Tools Suite, 8-Tool SaaS Platform",
+     tagline:
+       "Eight user-facing AI tools shipping under one umbrella, including a multi-LLM chat orchestrator",
+@@ -280,7 +289,7 @@ export const projects: Project[] = [
+       "Django 5.0 + DRF 3.15 (10 microservice apps) and React 18 + Vite + TypeScript + Tailwind 3.3. Shipped: GitHub Code Explainer, AI Interview Coach, Multilingual Blog Builder (30+ languages), Structured Prompt Generator, Smart Product Copywriter (bulk CSV), PDF Logo Removal (YOLOv7), Text Humanizer, and a multi-LLM Voice/Chat Assistant with LangChain + LangGraph intelligently routing across OpenAI and Gemini. AG2 multi-agent orchestration for complex reasoning. WebSocket real-time via Daphne + Channels.",
+     result:
+       "8 tools live. 10 Django microservice apps. JWT auth via SimpleJWT, rate limiting, 30+ language translation pipeline. Deployed via Docker Compose + Nginx + GitHub Actions CI/CD to Coolify on DigitalOcean.",
+-    image: "/projects/ai-tools-suite.webp",
++    image: "/projects/anonymized/ai-tools.png",
+     techStack: [
+       "Django 5.0",
+       "DRF 3.15",
+@@ -305,42 +314,9 @@ export const projects: Project[] = [
+     order: 9,
+   },
+ 
+-  {
+-    slug: "icore-careerhub",
+-    title: "iCore CareerHub, Hospitality Recruitment SaaS",
+-    tagline:
+-      "AI CV parsing + Pinecone vector job matching + AI voiceover generation",
+-    description:
+-      "Hospitality-focused recruitment SaaS that automates CV extraction, AI-enhanced profile presentation, and vector-powered candidate-job matching.",
+-    problem:
+-      "Hospitality recruiters were drowning in unstructured PDFs/DOCX from candidates and matching jobs by keyword search, slow, biased toward whoever used the right buzzwords.",
+-    solution:
+-      "Strapi 5.22 backend with 40 API modules and 35 content-type schemas. Multi-modal AI CV parser routing between GPT-4o Vision (scanned PDFs) and GPT-4o-mini (text PDFs / mammoth-converted DOCX). Vector job matching via Pinecone (1536-dim text-embedding-3-small) with weighted scoring (skills 40%, location 15%, objectives 15%, badge/region bonuses). OpenAI TTS for 44–48s voiceover scripts.",
+-    result:
+-      "40 API modules, 35 schemas. Daily cron jobs (subscription expiry warnings, archived-user purge). Google Calendar OAuth2 for interview scheduling. SendGrid for transactional email. Ranked candidate matches with score ≥0.3 threshold.",
+-    image: "/projects/icore-careerhub.webp",
+-    techStack: [
+-      "Strapi 5.22",
+-      "Node 20",
+-      "TypeScript",
+-      "PostgreSQL",
+-      "OpenAI GPT-4o",
+-      "GPT-4o-mini",
+-      "text-embedding-3-small",
+-      "Pinecone",
+-      "OpenAI TTS",
+-      "pdf-parse",
+-      "mammoth",
+-      "Cloudinary",
+-      "SendGrid",
+-      "Google Calendar API",
+-    ],
+-    featured: false,
+-    order: 10,
+-  },
+-
+   {
+     slug: "ai-video-pipeline",
++    attribution: "Contributed as an AI Engineer at Metaviz AI · client work",
+     title: "AI Video Pipeline, 60-Node n8n Automation",
+     tagline:
+       "Script → video → multi-platform publish, fully automated",
+@@ -352,7 +328,7 @@ export const projects: Project[] = [
+       "60+ node n8n automation pipeline. GPT-4o generates scripts and platform-optimised descriptions, Flux AI creates POV images at 540×960, Kling AI converts them to 5-second motion videos, ElevenLabs synthesises voiceovers, videos are composited with captions and transitions, then auto-published to TikTok, Instagram, YouTube, Facebook, and LinkedIn via their APIs.",
+     result:
+       "Reduced video production from 4–6 hours to under 10 minutes per video. Zero manual intervention from idea to published content across 5 platforms. Agencies using the system produce 10× more content with the same team size.",
+-    image: "/projects/ai-video-pipeline.webp",
++    image: "/projects/anonymized/video-workflow.png",
+     techStack: [
+       "n8n",
+       "GPT-4o",
+@@ -362,35 +338,7 @@ export const projects: Project[] = [
+       "Multi-Platform API",
+     ],
+     featured: false,
+-    order: 11,
++    order: 10,
+   },
+ 
+-  {
+-    slug: "dietapp",
+-    title: "DietApp, AI Nutrition & Fitness",
+-    tagline:
+-      "AI-powered nutrition app with meal planning, barcode scanning, and wearable sync",
+-    description:
+-      "A comprehensive nutrition-first mobile app, calorie counter, meal planner, and health tracker that helps users hit their fitness goals through AI-powered personalisation.",
+-    problem:
+-      "People trying to lose weight or build muscle struggle with nutrition tracking. Existing apps required manual food entry, had generic meal plans, and didn't integrate with wearable devices. Users abandoned within 2 weeks.",
+-    solution:
+-      "Flutter mobile with AI-powered meal-plan generation that adapts to dietary preferences and goals. Barcode scanning for instant food logging, HealthKit / Google Fit / Fitbit sync for automatic activity tracking, custom macro calculations, recipe suggestions, and a social feed for community accountability. Subscription billing via Stripe + App Store.",
+-    result:
+-      "Meal logging in under 30 seconds via barcode scanning (vs 2+ minutes manual entry). AI-generated meal plans achieve ~85% adherence vs ~40% for generic plans. Full wearable integration eliminates manual activity logging.",
+-    image: "/projects/dietapp.webp",
+-    techStack: [
+-      "Flutter",
+-      "AI / ML",
+-      "HealthKit",
+-      "Google Fit",
+-      "Barcode Scanner",
+-      "Stripe",
+-      "Firebase",
+-    ],
+-    liveUrl:
+-      "https://play.google.com/store/apps/details?id=com.biotin.diet_app",
+-    featured: false,
+-    order: 12,
+-  },
+ ];
+diff --git a/src/types/index.ts b/src/types/index.ts
+index 6885ea3..cef2e29 100644
+--- a/src/types/index.ts
++++ b/src/types/index.ts
+@@ -1,6 +1,7 @@
+ export interface Project {
+   slug: string;
+   title: string;
++  attribution: string;
+   tagline: string;
+   description: string;
+   problem: string;
