@@ -61,3 +61,53 @@ test("brief contains key facts and call questions", () => {
   const b = buildBrief(good);
   for (const s of ["Klinik Söder", "anna@example.se", "HOT", "Bokadirekt", "calls", "How do calls reach you today"]) expect(b).toContain(s);
 });
+
+function okValue(input: unknown): IntakeAnswers {
+  const r = validateIntake(input);
+  if (!r.ok) throw new Error(JSON.stringify(r.errors));
+  return r.value;
+}
+
+describe("strict shape at the public boundary", () => {
+  test("extra keys and __proto__ are dropped from value", () => {
+    const input: Record<string, unknown> = { ...good, evil: "x" };
+    Object.defineProperty(input, "__proto__", { value: { polluted: true }, enumerable: true });
+    const value = okValue(input) as unknown as Record<string, unknown>;
+    expect(value).not.toHaveProperty("evil");
+    expect(Object.keys(value)).not.toContain("__proto__");
+    expect(Object.getPrototypeOf(value)).toBe(Object.prototype);
+    expect(value).not.toHaveProperty("polluted");
+  });
+  test("single-select given an array is invalid", () => {
+    const r = validateIntake({ ...good, goal: ["website"] });
+    expect(!r.ok && r.errors.goal).toBe("invalid");
+  });
+  test("multi-select given a bare string is invalid", () => {
+    const r = validateIntake({ ...good, tools: "google" });
+    expect(!r.ok && r.errors.tools).toBe("invalid");
+  });
+  test("multi-select array longer than its option list is invalid", () => {
+    const r = validateIntake({ ...good, tasks: Array.from({ length: 50 }, (_, i) => `x${i}`) });
+    expect(r.ok).toBe(false);
+  });
+  test("duplicate multi-select codes are de-duplicated", () => {
+    expect(okValue({ ...good, tasks: ["calls", "calls", "booking"] }).tasks).toEqual(["calls", "booking"]);
+  });
+  test("empty optional enum is treated as absent and score stays finite", () => {
+    const value = okValue({ ...good, budget: "" });
+    expect(value.budget).toBeUndefined();
+    expect(Number.isFinite(scoreIntake(value).score)).toBe(true);
+  });
+  test("honeypot 0 is rejected", () => {
+    expect(validateIntake({ ...good, company_url_hp: 0 as unknown as string }).ok).toBe(false);
+  });
+  test("whitespace-only name is required", () => {
+    const r = validateIntake({ ...good, name: "   " });
+    expect(!r.ok && r.errors.name).toBe("required");
+  });
+  test("website accepts bare domain and rejects javascript and ftp", () => {
+    expect(okValue({ ...good, website: "example.se" }).website).toBe("example.se");
+    expect(validateIntake({ ...good, website: "javascript:alert(1).x" }).ok).toBe(false);
+    expect(validateIntake({ ...good, website: "ftp://x.se" }).ok).toBe(false);
+  });
+});
