@@ -1,9 +1,10 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useMotionValueEvent, useScroll } from "motion/react";
 import type { Dictionary } from "@/i18n";
+import { storyProgress } from "@/lib/story";
 import { canRender3D, readEnv } from "@/lib/capability";
 
 const StoryCanvas = dynamic(() => import("@/components/three/StoryCanvas"), { ssr: false });
@@ -65,9 +66,9 @@ function PinnedStory({ dict }: { dict: Story }) {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
 
   useMotionValueEvent(scrollYProgress, "change", (p) => {
-    const c = Math.min(1, Math.max(0, p));
-    progress.current = c * 4;
-    setActive(Math.min(3, Math.floor(c * 4)));
+    const r = storyProgress(p);
+    progress.current = r.progress;
+    setActive(r.step);
   });
 
   useEffect(() => {
@@ -116,14 +117,8 @@ function PinnedStory({ dict }: { dict: Story }) {
 
 export function StoryScene({ dict }: { dict: Story }) {
   const [mode, setMode] = useState<"pending" | "3d" | "fallback">("pending");
-  useEffect(() => {
-    const decide = () => setMode(canRender3D(readEnv()) ? "3d" : "fallback");
-    if ("requestIdleCallback" in window) {
-      const id = requestIdleCallback(decide);
-      return () => cancelIdleCallback(id);
-    }
-    const id = setTimeout(decide, 200);
-    return () => clearTimeout(id);
+  useLayoutEffect(() => {
+    setMode(canRender3D(readEnv()) ? "3d" : "fallback");
   }, []);
   return mode === "3d" ? <PinnedStory dict={dict} /> : <FallbackList dict={dict} />;
 }
