@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     metadataBase: new URL("https://haisem-codes.github.io"),
     title: d.meta.title,
     description: d.meta.description,
-    alternates: { canonical: `/${lang}/`, languages: { en: "/en/", sv: "/sv/" } },
+    alternates: { canonical: `/${lang}/`, languages: { en: "/en/", sv: "/sv/", "x-default": "/en/" } },
     icons: { icon: [{ url: "/favicon.svg", type: "image/svg+xml" }, { url: "/favicon.png", sizes: "32x32" }], apple: "/apple-touch-icon.png" },
     manifest: "/site.webmanifest",
     openGraph: { title: d.meta.title, description: d.meta.description, type: "website", locale: lang === "sv" ? "sv_SE" : "en_GB" },

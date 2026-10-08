@@ -15,12 +15,23 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
+  const { lang, slug } = await params;
   const project = projects.find((p) => p.slug === slug);
-  if (!project) return { title: "Not Found" };
+  if (!isLocale(lang) || !project) return { title: "Not Found" };
+  const title = `${project.title} | Haisem Naeem`;
+  const url = localHref(lang, `/projects/${slug}/`);
   return {
-    title: `${project.title} | Haisem Naeem`,
+    title,
     description: project.tagline,
+    alternates: {
+      canonical: url,
+      languages: {
+        en: localHref("en", `/projects/${slug}/`),
+        sv: localHref("sv", `/projects/${slug}/`),
+        "x-default": localHref("en", `/projects/${slug}/`),
+      },
+    },
+    openGraph: { title, description: project.tagline, url, type: "website" },
   };
 }
 
