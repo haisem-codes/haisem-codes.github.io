@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useInView, animate } from "motion/react";
+import { useInView, useReducedMotion, animate } from "motion/react";
 
 interface AnimatedCounterProps {
   value: number;
@@ -9,26 +9,21 @@ interface AnimatedCounterProps {
   className?: string;
 }
 
-export function AnimatedCounter({
-  value,
-  suffix = "",
-  className,
-}: AnimatedCounterProps) {
+export function AnimatedCounter({ value, suffix = "", className }: AnimatedCounterProps) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true });
-  const [display, setDisplay] = useState(0);
+  const reduce = useReducedMotion();
+  const [display, setDisplay] = useState(value);
 
   useEffect(() => {
-    if (!inView) return;
-
+    if (!inView || reduce) return;
     const controls = animate(0, value, {
       duration: 1.5,
       ease: [0.25, 0.1, 0.25, 1],
       onUpdate: (v) => setDisplay(Math.round(v)),
     });
-
     return () => controls.stop();
-  }, [inView, value]);
+  }, [inView, reduce, value]);
 
   return (
     <span ref={ref} className={className}>
