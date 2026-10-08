@@ -1,14 +1,7 @@
 "use client";
-import { asset } from "@/lib/utils";
-
 import { personal } from "@/data/personal";
-
-const footerLinks = [
-  { label: "About", href: "#about" },
-  { label: "Projects", href: "#projects" },
-  { label: "Skills", href: "#skills" },
-  { label: "Contact", href: "#contact" },
-];
+import { localHref, type Locale } from "@/i18n/config";
+import type { Dictionary } from "@/i18n";
 
 const socialIcons: Record<string, React.ReactNode> = {
   GitHub: (
@@ -39,80 +32,46 @@ const socialIcons: Record<string, React.ReactNode> = {
   ),
 };
 
-export function Footer() {
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    const isHome = window.location.pathname === "/" || window.location.pathname === "";
-    if (isHome) {
-      const el = document.querySelector(href);
-      if (el) el.scrollIntoView({ behavior: "smooth" });
-    } else {
-      window.location.href = asset("/") + href;
-    }
-  };
-
+export function Footer({ dict, lang }: { dict: Dictionary["footer"]; lang: Locale }) {
   return (
     <footer className="border-t border-border">
       <div className="max-w-5xl mx-auto px-6 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-          {/* Brand */}
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-8">
           <div>
-            <a href={asset("/")} className="font-display text-2xl font-bold text-accent">H</a>
-            <p className="mt-3 text-sm text-text-secondary leading-relaxed max-w-xs">
-              AI Engineer building production-ready systems. From LLM agents to voice AI, I turn complex AI concepts into products. Based in {personal.location}.
-            </p>
-          </div>
-
-          {/* Quick links */}
-          <div>
-            <h4 className="text-sm font-semibold text-text mb-4">Navigation</h4>
-            <ul className="space-y-2.5">
-              {footerLinks.map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    onClick={(e) => handleNavClick(e, link.href)}
-                    className="text-sm text-text-secondary hover:text-accent transition-colors duration-200"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Connect */}
-          <div>
-            <h4 className="text-sm font-semibold text-text mb-4">Connect</h4>
-            <div className="flex gap-3">
-              {personal.socials.map((social) => (
-                <a
-                  key={social.platform}
-                  href={social.url}
-                  target={
-                    social.url.startsWith("mailto:") ||
-                    social.url.startsWith("tel:")
-                      ? undefined
-                      : "_blank"
-                  }
-                  rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-lg bg-bg-card border border-border flex items-center justify-center text-text-secondary hover:text-accent hover:border-accent/30 transition-all duration-200"
-                  aria-label={social.platform}
-                >
-                  {socialIcons[social.platform]}
-                </a>
-              ))}
-            </div>
-            <p className="mt-4 text-xs text-text-secondary">{personal.email}</p>
+            <a href={localHref(lang, "/")} className="font-display text-2xl font-bold text-accent">HN</a>
+            <p className="mt-3 text-xs text-text-secondary">{personal.email}</p>
             <p className="mt-1 text-xs text-text-secondary">{personal.phone}</p>
+          </div>
+          <div className="flex gap-3">
+            {personal.socials.map((social) => (
+              <a
+                key={social.platform}
+                href={social.url}
+                target={
+                  social.url.startsWith("mailto:") || social.url.startsWith("tel:")
+                    ? undefined
+                    : "_blank"
+                }
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-lg bg-bg-card border border-border flex items-center justify-center text-text-secondary hover:text-accent hover:border-accent/30 transition-all duration-200"
+                aria-label={social.platform}
+              >
+                {socialIcons[social.platform]}
+              </a>
+            ))}
           </div>
         </div>
 
-        {/* Bottom bar */}
-        <div className="mt-10 pt-6 border-t border-border flex items-center justify-center">
+        <div className="mt-10 pt-6 border-t border-border flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
           <p className="text-xs text-text-secondary">
-            &copy; {new Date().getFullYear()} Haisem Naeem. All rights reserved.
+            &copy; {new Date().getFullYear()} Haisem Naeem. {dict.rights}
           </p>
+          <a
+            href={localHref(lang, "/privacy/")}
+            className="text-xs text-text-secondary hover:text-accent transition-colors"
+          >
+            {dict.privacy}
+          </a>
         </div>
       </div>
     </footer>

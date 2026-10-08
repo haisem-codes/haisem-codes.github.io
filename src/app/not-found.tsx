@@ -1,12 +1,10 @@
-import { LangRedirect } from "@/components/i18n/LangRedirect";
-
 export const metadata = { robots: { index: false } };
 
-export default function Root() {
+export default function NotFound() {
   return (
     <html lang="en">
       <body>
-        <LangRedirect />
+        <a href="/en/">English</a> · <a href="/sv/">Svenska</a>
       </body>
     </html>
   );

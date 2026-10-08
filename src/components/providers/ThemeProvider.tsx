@@ -17,7 +17,7 @@ interface ThemeContextType {
 }
 
 const ThemeContext = createContext<ThemeContextType>({
-  theme: "dark",
+  theme: "light",
   toggleTheme: () => {},
 });
 
@@ -26,7 +26,7 @@ export function useTheme() {
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("dark");
+  const [theme, setTheme] = useState<Theme>("light");
   const [overlay, setOverlay] = useState<{
     x: number;
     y: number;
@@ -35,12 +35,9 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   // Load saved theme on mount
   useEffect(() => {
-    const saved = localStorage.getItem("theme") as Theme | null;
-    if (saved) {
-      setTheme(saved);
-      document.documentElement.classList.remove("dark", "light");
-      document.documentElement.classList.add(saved);
-    }
+    try {
+      if (localStorage.getItem("theme") === "dark") setTheme("dark");
+    } catch {}
   }, []);
 
   const toggleTheme = useCallback(
@@ -55,9 +52,10 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       // After animation completes, commit the theme
       setTimeout(() => {
         setTheme(newTheme);
-        localStorage.setItem("theme", newTheme);
-        document.documentElement.classList.remove("dark", "light");
-        document.documentElement.classList.add(newTheme);
+        try {
+          localStorage.setItem("theme", newTheme);
+        } catch {}
+        document.documentElement.classList.toggle("dark", newTheme === "dark");
         setOverlay(null);
       }, 600);
     },

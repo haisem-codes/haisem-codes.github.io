@@ -25,3 +25,7 @@ export function swapLocaleInPath(path: string, to: Locale): string {
   else parts.unshift(to);
   return `/${parts.join("/")}/`;
 }
+
+export function localHref(l: Locale, p: string): string {
+  return `/${l}${p}`;
+}
