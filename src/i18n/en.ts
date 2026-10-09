@@ -198,13 +198,14 @@ export const en = {
   privacy: {
     title: "Privacy notice",
     updated: "Updated 8 October 2026",
+    description: "How Haisem Naeem handles the answers you send through the intake form: purpose, processors, retention and your rights under GDPR.",
     sections: [
       { h: "Who is responsible", p: "Haisem Naeem, Stockholm, Sweden. Contact: haisem.work@gmail.com." },
       { h: "What I collect and why", p: "The answers you give in the intake form, so I can prepare for a call and send you a proposal. Legal basis: steps at your request before a possible contract (GDPR art. 6.1 b)." },
-      { h: "Who processes it", p: "Cloudflare (form handling and spam protection), Supabase (database, Stockholm region), Resend (the notification email to me) and PostHog EU (anonymous page and form-step counts, no cookies, no form contents). Each has a data processing agreement." },
+      { h: "Who processes it", p: "Cloudflare (form handling and spam protection), Supabase (database, Stockholm region), Resend (the notification email to me) and PostHog EU (anonymous page and form-step counts, no cookies, no form contents). Each has a data processing agreement. Supabase and PostHog store data in the EU; Cloudflare and Resend may process it outside the EU, covered by their data processing agreements and the EU standard contractual clauses." },
       { h: "How long I keep it", p: "12 months if we don't work together; for the duration of our contract plus bookkeeping requirements if we do." },
       { h: "Your rights", p: "You can ask for a copy, correction or deletion at any time by emailing me. You can also complain to the Swedish Authority for Privacy Protection (IMY), imy.se." },
-      { h: "Cookies", p: "This site stores only your language and theme choice in your browser. Analytics run without cookies and without identifying you." },
+      { h: "Cookies and browser storage", p: "This site stores your language and theme choice in your browser. While you fill in the intake form, your answers are kept in this browser tab (session storage) until you send the form or close the tab. Analytics run without cookies and without identifying you." },
     ],
   },
   footer: { rights: "All rights reserved.", privacy: "Privacy" },

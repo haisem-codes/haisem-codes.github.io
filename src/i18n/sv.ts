@@ -200,13 +200,14 @@ export const sv = {
   privacy: {
     title: "Integritetspolicy",
     updated: "Uppdaterad 8 oktober 2026",
+    description: "Hur Haisem Naeem hanterar svaren du skickar via formuläret: syfte, personuppgiftsbiträden, lagringstid och dina rättigheter enligt GDPR.", // REVIEW-SV
     sections: [
       { h: "Vem som ansvarar", p: "Haisem Naeem, Stockholm. Kontakt: haisem.work@gmail.com." },
       { h: "Vad jag samlar in och varför", p: "Svaren du lämnar i formuläret, så att jag kan förbereda ett samtal och skicka ett förslag. Rättslig grund: åtgärder på din begäran innan ett eventuellt avtal (GDPR art. 6.1 b)." }, // REVIEW-SV
-      { h: "Vem som behandlar uppgifterna", p: "Cloudflare (formulär och skräppostskydd), Supabase (databas, region Stockholm), Resend (aviseringsmejlet till mig) och PostHog EU (anonym statistik över sidvisningar och formulärsteg, utan kakor och utan formulärinnehåll). Alla har personuppgiftsbiträdesavtal." },
+      { h: "Vem som behandlar uppgifterna", p: "Cloudflare (formulär och skräppostskydd), Supabase (databas, region Stockholm), Resend (aviseringsmejlet till mig) och PostHog EU (anonym statistik över sidvisningar och formulärsteg, utan kakor och utan formulärinnehåll). Alla har personuppgiftsbiträdesavtal. Supabase och PostHog lagrar uppgifterna inom EU; Cloudflare och Resend kan behandla dem utanför EU, med stöd av sina personuppgiftsbiträdesavtal och EU:s standardavtalsklausuler." }, // REVIEW-SV
       { h: "Hur länge jag sparar dem", p: "12 månader om vi inte jobbar ihop; under avtalet plus bokföringskrav om vi gör det." },
       { h: "Dina rättigheter", p: "Du kan när som helst begära en kopia, rättelse eller radering genom att mejla mig. Du kan också klaga hos Integritetsskyddsmyndigheten (IMY), imy.se." },
-      { h: "Kakor", p: "Webbplatsen sparar bara ditt val av språk och tema i din webbläsare. Statistiken körs utan kakor och utan att identifiera dig." },
+      { h: "Kakor och lagring i webbläsaren", p: "Webbplatsen sparar ditt val av språk och tema i din webbläsare. Medan du fyller i formuläret sparas dina svar i den här webbläsarfliken (sessionStorage) tills du skickar formuläret eller stänger fliken. Statistiken körs utan kakor och utan att identifiera dig." }, // REVIEW-SV
     ],
   },
   footer: { rights: "Alla rättigheter förbehållna.", privacy: "Integritet" },

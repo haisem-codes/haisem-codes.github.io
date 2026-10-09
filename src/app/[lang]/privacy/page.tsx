@@ -12,12 +12,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const title = `${privacy.title} | Haisem Naeem`;
   return {
     title,
-    description: privacy.sections[1].p,
+    description: privacy.description,
     alternates: {
       canonical: localHref(lang, "/privacy/"),
       languages: { en: "/en/privacy/", sv: "/sv/privacy/", "x-default": "/en/privacy/" },
     },
-    openGraph: { title, url: localHref(lang, "/privacy/"), type: "website" },
+    openGraph: { title, description: privacy.description, url: localHref(lang, "/privacy/"), type: "website" },
   };
 }
 

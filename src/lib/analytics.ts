@@ -15,6 +15,13 @@ export function initAnalytics(): void {
         capture_pageview: true,
         disable_session_recording: true,
         ip: false,
+        rageclick: false,
+        capture_dead_clicks: false,
+        capture_heatmaps: false,
+        capture_exceptions: false,
+        capture_performance: false,
+        disable_surveys: true,
+        advanced_disable_flags: true,
       });
       return ph;
     })

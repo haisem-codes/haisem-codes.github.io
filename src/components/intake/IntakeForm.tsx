@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 import { motion } from "motion/react";
 import { useLenis } from "lenis/react";
-import { STEPS, type IntakeAnswers } from "@/lib/intake/schema";
+import { OPTIONS, STEPS, type IntakeAnswers } from "@/lib/intake/schema";
 import { validateIntake, validateStep } from "@/lib/intake/validate";
 import { track } from "@/lib/analytics";
 import { localHref, type Locale } from "@/i18n/config";
@@ -17,6 +17,7 @@ const EMAIL = "haisem.work@gmail.com";
 const INTAKE_URL = process.env.NEXT_PUBLIC_INTAKE_URL;
 const TURNSTILE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 const TURNSTILE_SRC = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+const TOKEN_TIMEOUT_MS = 10_000;
 
 type Turnstile = {
   render: (el: HTMLElement, opts: Record<string, unknown>) => string;
@@ -37,9 +38,34 @@ function loadTurnstile(): Promise<Turnstile> {
       s.async = true;
       document.head.appendChild(s);
     }
-    s.addEventListener("load", () => (window.turnstile ? resolve(window.turnstile) : reject()));
-    s.addEventListener("error", () => reject());
+    s.addEventListener("load", () => (window.turnstile ? resolve(window.turnstile) : reject(new Error("turnstile missing"))));
+    s.addEventListener("error", () => {
+      s?.remove();
+      reject(new Error("turnstile script failed to load"));
+    });
   });
+}
+
+const MULTI: ReadonlySet<string> = new Set(["tasks", "websiteNeeds", "tools", "channels"]);
+const TEXT_KEYS: ReadonlySet<string> = new Set(["businessName", "website", "name", "email", "phone", "notes"]);
+
+function sanitize(raw: unknown): Answers {
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) return {};
+  const out: Record<string, unknown> = {};
+  for (const [k, v] of Object.entries(raw)) {
+    if (TEXT_KEYS.has(k)) {
+      if (typeof v === "string") out[k] = v;
+      continue;
+    }
+    if (k === "lang" || !(k in OPTIONS)) continue;
+    const allowed = OPTIONS[k as keyof typeof OPTIONS] as readonly string[];
+    if (MULTI.has(k)) {
+      if (Array.isArray(v)) out[k] = [...new Set(v.filter((x): x is string => typeof x === "string" && allowed.includes(x)))];
+    } else if (typeof v === "string" && allowed.includes(v)) {
+      out[k] = v;
+    }
+  }
+  return out as Answers;
 }
 
 function withoutHiddenBranch(a: Answers): Answers {
@@ -54,13 +80,15 @@ export function IntakeForm({ dict, lang }: { dict: Dictionary["intake"]; lang: L
   const [errors, setErrors] = useState<FieldErrors>({});
   const [status, setStatus] = useState<Status>("idle");
   const [honeypot, setHoneypot] = useState("");
-  const [token, setToken] = useState("");
   const [restored, setRestored] = useState(false);
   const navigated = useRef(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const turnstileRef = useRef<HTMLDivElement>(null);
   const widgetId = useRef<string | null>(null);
+  const token = useRef("");
+  const turnstileFailed = useRef(false);
+  const tokenWaiters = useRef<((t: string) => void)[]>([]);
   const pendingFocus = useRef<keyof IntakeAnswers | null>(null);
   const lenis = useLenis();
 
@@ -72,7 +100,7 @@ export function IntakeForm({ dict, lang }: { dict: Dictionary["intake"]; lang: L
   useEffect(() => {
     try {
       const saved = JSON.parse(sessionStorage.getItem(STORAGE_KEY) ?? "null") as { answers?: Answers; step?: number } | null;
-      if (saved?.answers && typeof saved.answers === "object") setAnswers(saved.answers);
+      setAnswers(sanitize(saved?.answers));
       if (Number.isInteger(saved?.step) && saved!.step! >= 0 && saved!.step! < STEPS.length) setStep(saved!.step!);
     } catch {}
     setRestored(true);
@@ -103,27 +131,55 @@ export function IntakeForm({ dict, lang }: { dict: Dictionary["intake"]; lang: L
     scrollToForm();
   }, [step, status, scrollToForm]);
 
+  const done = status === "done";
   useEffect(() => {
-    if (!TURNSTILE_KEY || current.id !== "contact" || status === "done") return;
+    if (!TURNSTILE_KEY || current.id !== "contact" || done) return;
     let cancelled = false;
+    const settle = (t: string) => {
+      token.current = t;
+      const waiters = tokenWaiters.current;
+      tokenWaiters.current = [];
+      waiters.forEach((w) => w(t));
+    };
+    turnstileFailed.current = false;
     loadTurnstile()
       .then((ts) => {
         if (cancelled || !turnstileRef.current) return;
         widgetId.current = ts.render(turnstileRef.current, {
           sitekey: TURNSTILE_KEY,
           appearance: "interaction-only",
-          callback: (t: string) => setToken(t),
-          "expired-callback": () => setToken(""),
-          "error-callback": () => setToken(""),
+          callback: (t: string) => settle(t),
+          "expired-callback": () => (token.current = ""),
+          "error-callback": () => (token.current = ""),
         });
       })
-      .catch(() => {});
+      .catch(() => {
+        if (cancelled) return;
+        turnstileFailed.current = true;
+        settle("");
+      });
     return () => {
       cancelled = true;
       if (widgetId.current && window.turnstile) window.turnstile.remove(widgetId.current);
       widgetId.current = null;
+      token.current = "";
     };
-  }, [current.id, status]);
+  }, [current.id, done]);
+
+  function waitForToken(): Promise<string> {
+    if (token.current || turnstileFailed.current) return Promise.resolve(token.current);
+    return new Promise((resolve) => {
+      const timer = setTimeout(() => {
+        tokenWaiters.current = tokenWaiters.current.filter((w) => w !== onToken);
+        resolve("");
+      }, TOKEN_TIMEOUT_MS);
+      const onToken = (t: string) => {
+        clearTimeout(timer);
+        resolve(t);
+      };
+      tokenWaiters.current.push(onToken);
+    });
+  }
 
   useEffect(() => {
     const f = pendingFocus.current;
@@ -169,10 +225,13 @@ export function IntakeForm({ dict, lang }: { dict: Dictionary["intake"]; lang: L
     }
     setStatus("sending");
     try {
+      const turnstileToken = TURNSTILE_KEY ? await waitForToken() : "";
+      if (TURNSTILE_KEY && !turnstileToken) throw new Error("turnstile");
+      token.current = "";
       const res = await fetch(INTAKE_URL, {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ answers: result.value, turnstileToken: token }),
+        body: JSON.stringify({ answers: result.value, turnstileToken }),
       });
       if (!res.ok) throw new Error(String(res.status));
       track("intake_submitted");
@@ -180,8 +239,8 @@ export function IntakeForm({ dict, lang }: { dict: Dictionary["intake"]; lang: L
     } catch {
       track("intake_failed");
       setStatus("error");
+      token.current = "";
       if (widgetId.current && window.turnstile) window.turnstile.reset(widgetId.current);
-      setToken("");
     }
   }
 
