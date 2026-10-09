@@ -41,7 +41,7 @@ export function Work({ dict, lang }: { dict: Dictionary["work"]; lang: Locale })
 
         <motion.ul layout className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           <AnimatePresence mode="popLayout" initial={false}>
-            {shown.map((p, i) => (
+            {shown.map((p) => (
               <motion.li
                 key={p.slug}
                 layout
@@ -55,7 +55,6 @@ export function Work({ dict, lang }: { dict: Dictionary["work"]; lang: Locale })
                   lang={lang}
                   viewLabel={dict.view}
                   employerNote={dict.employerNote}
-                  eager={i < 3}
                 />
               </motion.li>
             ))}

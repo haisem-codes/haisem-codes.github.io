@@ -9,10 +9,9 @@ interface ProjectCardProps {
   lang: Locale;
   viewLabel: string;
   employerNote: string;
-  eager?: boolean;
 }
 
-export function ProjectCard({ project, lang, viewLabel, employerNote, eager }: ProjectCardProps) {
+export function ProjectCard({ project, lang, viewLabel, employerNote }: ProjectCardProps) {
   return (
     <Link
       href={localHref(lang, `/projects/${project.slug}/`)}
@@ -24,7 +23,7 @@ export function ProjectCard({ project, lang, viewLabel, employerNote, eager }: P
           alt=""
           fill
           sizes="(min-width: 1024px) 370px, (min-width: 768px) 50vw, 100vw"
-          loading={eager ? "eager" : "lazy"}
+          loading="lazy"
           className="object-cover transition-transform duration-700 group-hover:scale-[1.03] motion-reduce:transition-none"
         />
       </div>
