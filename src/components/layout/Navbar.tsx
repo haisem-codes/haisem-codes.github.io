@@ -69,6 +69,7 @@ export function Navbar({ dict, lang }: { dict: Dictionary["nav"]; lang: Locale }
             className="md:hidden flex flex-col gap-1.5 w-6 ml-2 cursor-pointer"
             aria-label={dict.menu}
             aria-expanded={mobileOpen}
+            aria-controls="mobile-menu"
           >
             <motion.span className="block h-0.5 w-full bg-text rounded" animate={{ rotate: mobileOpen ? 45 : 0, y: mobileOpen ? 8 : 0 }} />
             <motion.span className="block h-0.5 w-full bg-text rounded" animate={{ opacity: mobileOpen ? 0 : 1 }} />
@@ -78,6 +79,8 @@ export function Navbar({ dict, lang }: { dict: Dictionary["nav"]; lang: Locale }
       </nav>
 
       <motion.div
+        id="mobile-menu"
+        inert={!mobileOpen}
         className={cn("md:hidden glass rounded-2xl mt-2 overflow-hidden", !mobileOpen && "pointer-events-none")}
         initial={false}
         animate={{ height: mobileOpen ? "auto" : 0, opacity: mobileOpen ? 1 : 0 }}
