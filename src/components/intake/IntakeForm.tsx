@@ -4,13 +4,14 @@ import { motion } from "motion/react";
 import { useLenis } from "lenis/react";
 import { OPTIONS, STEPS, type IntakeAnswers } from "@/lib/intake/schema";
 import { validateIntake, validateStep } from "@/lib/intake/validate";
+import { buildMailtoSummary } from "@/lib/intake/mailto";
 import { track } from "@/lib/analytics";
 import { localHref, type Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n";
 import { StepFields, fieldId, visibleFields, type FieldErrors } from "./StepFields";
 
 type Answers = Partial<IntakeAnswers>;
-type Status = "idle" | "sending" | "error" | "done";
+type Status = "idle" | "sending" | "error" | "offline" | "done";
 
 const STORAGE_KEY = "intake";
 const EMAIL = "haisem.work@gmail.com";
@@ -80,6 +81,7 @@ export function IntakeForm({ dict, lang }: { dict: Dictionary["intake"]; lang: L
   const [errors, setErrors] = useState<FieldErrors>({});
   const [status, setStatus] = useState<Status>("idle");
   const [honeypot, setHoneypot] = useState("");
+  const [mailto, setMailto] = useState("");
   const [restored, setRestored] = useState(false);
   const navigated = useRef(false);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -193,7 +195,7 @@ export function IntakeForm({ dict, lang }: { dict: Dictionary["intake"]; lang: L
   function set(f: keyof IntakeAnswers, v: unknown) {
     setAnswers((a) => ({ ...a, [f]: v }));
     if (errors[f]) setErrors(({ [f]: _, ...rest }) => rest);
-    if (status === "error") setStatus("idle");
+    if (status === "error" || status === "offline") setStatus("idle");
   }
 
   function goTo(i: number) {
@@ -223,8 +225,10 @@ export function IntakeForm({ dict, lang }: { dict: Dictionary["intake"]; lang: L
         console.info("[intake] dry mode payload", result.value);
         finish();
       } else {
-        track("intake_failed");
-        setStatus("error");
+        const subject = `${dict.title}: ${result.value.businessName}`;
+        setMailto(`mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(buildMailtoSummary(result.value, dict))}`);
+        track("intake_offline");
+        setStatus("offline");
       }
       return;
     }
@@ -341,6 +345,20 @@ export function IntakeForm({ dict, lang }: { dict: Dictionary["intake"]; lang: L
             {dict.error}{" "}
             <a href={`mailto:${EMAIL}`} className="font-medium text-accent underline underline-offset-4">{EMAIL}</a>
           </p>
+        )}
+
+        {status === "offline" && (
+          <div role="status" className="mt-6 rounded-2xl border border-border px-5 py-5">
+            <p className="font-display text-lg font-semibold text-text">{dict.offlineTitle}</p>
+            <p className="mt-2 text-base leading-relaxed text-text-secondary">{dict.offlineBody}</p>
+            <a
+              href={mailto}
+              className="mt-4 inline-flex min-h-[48px] items-center gap-2 rounded-full border border-accent px-6 text-base font-medium text-accent transition-colors hover:bg-accent hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+            >
+              {dict.offlineButton}
+              <span aria-hidden>→</span>
+            </a>
+          </div>
         )}
 
         <div className="mt-10 flex flex-row-reverse items-center justify-between gap-4">

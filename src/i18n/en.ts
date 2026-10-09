@@ -169,9 +169,12 @@ export const en = {
     successTitle: "Thanks, got it.",
     successBody: "I'll reply within 24 hours with a few times for a call.",
     error: "Something went wrong. Please email me instead:",
+    offlineTitle: "Online sending isn't live yet",
+    offlineBody: "Press the button to send your answers by email — it opens your own mail app with everything filled in.",
+    offlineButton: "Send by email",
     steps: {
       goal: { q: "What do you want most right now?" },
-      business: { q: "About your business", name: "Business name", website: "Website (optional)", industry: "Industry", teamSize: "Team size" },
+      business: { q: "About your business", businessName: "Business name", website: "Website (optional)", industry: "Industry", teamSize: "Team size" },
       time: { q: "Where does the time go?", tasks: "Which tasks take the most time?", hours: "Roughly how many hours a week, in total?", enquiries: "New enquiries per week (optional)", websiteState: "Your website today", websiteNeeds: "What's missing?" },
       tools: { q: "Tools and channels", tools: "What do you use today?", channels: "How do customers reach you?" },
       plan: { q: "Timing and budget", budget: "Budget (optional)", timeline: "When would you like to start?", decision: "Who decides?", sensitive: "Does this involve health, financial or ID data?" },

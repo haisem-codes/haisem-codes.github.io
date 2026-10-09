@@ -2,6 +2,8 @@ import { test, expect, describe } from "vitest";
 import { validateIntake, validateStep } from "@/lib/intake/validate";
 import { scoreIntake, buildBrief } from "@/lib/intake/score";
 import type { IntakeAnswers } from "@/lib/intake/schema";
+import { buildMailtoSummary, MAILTO_BODY_MAX } from "@/lib/intake/mailto";
+import { getDictionary } from "@/i18n";
 
 const good: IntakeAnswers = {
   goal: "missed_calls", businessName: "Klinik Söder", website: "https://example.se", industry: "clinic_health", teamSize: "6to20",
@@ -109,5 +111,43 @@ describe("strict shape at the public boundary", () => {
     expect(okValue({ ...good, website: "example.se" }).website).toBe("example.se");
     expect(validateIntake({ ...good, website: "javascript:alert(1).x" }).ok).toBe(false);
     expect(validateIntake({ ...good, website: "ftp://x.se" }).ok).toBe(false);
+  });
+});
+
+describe("buildMailtoSummary", () => {
+  const en = getDictionary("en").intake;
+  const sv = getDictionary("sv").intake;
+
+  test("lists each answered question with its dictionary label and chosen option labels", () => {
+    const body = buildMailtoSummary({ ...good, notes: "Ring helst efter lunch" }, en);
+    expect(body).toContain(`${en.steps.goal.q}: ${en.options.goal.missed_calls}`);
+    expect(body).toContain(`${en.steps.business.businessName}: Klinik Söder`);
+    expect(body).toContain(`${en.steps.time.tasks}: ${en.options.tasks.calls}, ${en.options.tasks.booking}`);
+    expect(body).toContain(`${en.steps.contact.email}: anna@example.se`);
+    expect(body).toContain("Ring helst efter lunch");
+  });
+
+  test("uses the visitor's language", () => {
+    const body = buildMailtoSummary(good, sv);
+    expect(body).toContain(`${sv.steps.goal.q}: ${sv.options.goal.missed_calls}`);
+  });
+
+  test("skips empty optional answers and the hidden website branch", () => {
+    const body = buildMailtoSummary({ ...good, phone: "", websiteNeeds: [] }, en);
+    expect(body).not.toContain(en.steps.contact.phone);
+    expect(body).not.toContain(en.steps.time.websiteState);
+    expect(body).not.toContain(en.steps.time.websiteNeeds);
+  });
+
+  test("contains no internal scoring wording", () => {
+    const body = buildMailtoSummary(good, en);
+    for (const w of [/score/i, /tier/i, /hot|warm|cold/i, /SEK\/year/i, /\/100/, /ROI/]) expect(body).not.toMatch(w);
+  });
+
+  test("truncates long notes to keep the body under the limit", () => {
+    const body = buildMailtoSummary({ ...good, notes: "x".repeat(2000) }, en);
+    expect(body.length).toBeLessThanOrEqual(MAILTO_BODY_MAX);
+    expect(body).toContain("…");
+    expect(body).toContain(`${en.steps.contact.name}: Anna`);
   });
 });

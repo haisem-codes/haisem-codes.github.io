@@ -1,4 +1,4 @@
-type IntakeEvent = "intake_opened" | `intake_step_${number}` | "intake_submitted" | "intake_failed";
+type IntakeEvent = "intake_opened" | `intake_step_${number}` | "intake_submitted" | "intake_failed" | "intake_offline";
 
 let ready: Promise<typeof import("posthog-js").default | null> | null = null;
 

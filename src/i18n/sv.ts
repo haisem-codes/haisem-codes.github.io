@@ -171,9 +171,12 @@ export const sv = {
     successTitle: "Tack, jag har fått det.",
     successBody: "Jag svarar inom 24 timmar med några förslag på tider för ett samtal.",
     error: "Något gick fel. Mejla mig gärna i stället:",
+    offlineTitle: "Det går inte att skicka direkt härifrån än", // REVIEW-SV
+    offlineBody: "Tryck på knappen för att skicka dina svar via mejl. Din egen mejlapp öppnas med allt ifyllt.", // REVIEW-SV
+    offlineButton: "Skicka via mejl", // REVIEW-SV
     steps: {
       goal: { q: "Vad vill du helst uppnå just nu?" },
-      business: { q: "Om ditt företag", name: "Företagets namn", website: "Webbplats (valfritt)", industry: "Bransch", teamSize: "Antal anställda" },
+      business: { q: "Om ditt företag", businessName: "Företagets namn", website: "Webbplats (valfritt)", industry: "Bransch", teamSize: "Antal anställda" },
       time: { q: "Vart tar tiden vägen?", tasks: "Vilka uppgifter tar mest tid?", hours: "Ungefär hur många timmar i veckan, totalt?", enquiries: "Nya förfrågningar per vecka (valfritt)", websiteState: "Din webbplats i dag", websiteNeeds: "Vad saknas?" },
       tools: { q: "Verktyg och kanaler", tools: "Vad använder ni i dag?", channels: "Hur når kunderna er?" },
       plan: { q: "Tid och budget", budget: "Budget (valfritt)", timeline: "När vill du komma igång?", decision: "Vem bestämmer?", sensitive: "Gäller det hälso-, ekonomi- eller id-uppgifter?" },
