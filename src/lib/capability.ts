@@ -4,11 +4,18 @@ export function canRender3D(env: { reducedMotion: boolean; webgl: boolean; cores
   return true;
 }
 
+function hasHardwareWebGL(): boolean {
+  const gl = document.createElement("canvas").getContext("webgl2") || document.createElement("canvas").getContext("webgl");
+  if (!gl) return false;
+  const info = gl.getExtension("WEBGL_debug_renderer_info");
+  if (!info) return true;
+  return !/swiftshader|llvmpipe|software/i.test(String(gl.getParameter(info.UNMASKED_RENDERER_WEBGL)));
+}
+
 export function readEnv() {
-  const c = document.createElement("canvas");
   return {
     reducedMotion: matchMedia("(prefers-reduced-motion: reduce)").matches,
-    webgl: !!(c.getContext("webgl2") || c.getContext("webgl")),
+    webgl: hasHardwareWebGL(),
     cores: navigator.hardwareConcurrency ?? 4,
     mobile: matchMedia("(pointer: coarse)").matches,
   };

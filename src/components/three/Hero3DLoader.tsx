@@ -9,12 +9,16 @@ export function Hero3DLoader() {
   const [mode, setMode] = useState<"pending" | "3d" | "fallback">("pending");
   useEffect(() => {
     const decide = () => setMode(canRender3D(readEnv()) ? "3d" : "fallback");
-    if ("requestIdleCallback" in window) {
-      const id = requestIdleCallback(decide);
-      return () => cancelIdleCallback(id);
-    }
-    const id = setTimeout(decide, 200);
-    return () => clearTimeout(id);
+    let id: ReturnType<typeof setTimeout>;
+    const arm = () => {
+      id = setTimeout(decide, 1500);
+    };
+    if (document.readyState === "complete") arm();
+    else addEventListener("load", arm, { once: true });
+    return () => {
+      removeEventListener("load", arm);
+      clearTimeout(id);
+    };
   }, []);
   if (mode === "pending") return null;
   if (mode === "fallback")
