@@ -112,9 +112,10 @@ function PinnedStory({ dict }: { dict: Story }) {
                 <li
                   key={s.title}
                   aria-current={i === active ? "step" : undefined}
-                  className={`transition-opacity duration-300 ${i === active ? "opacity-100" : "opacity-30"}`}
+                  className="group"
+                  data-active={i === active ? "true" : undefined}
                 >
-                  <h3 className="font-display text-xl font-semibold tracking-tight text-text sm:text-2xl lg:text-3xl">
+                  <h3 className="font-display text-xl font-semibold tracking-tight text-text-secondary transition-colors duration-300 group-data-[active]:text-text sm:text-2xl lg:text-3xl">
                     <span
                       aria-hidden
                       className="mr-3 font-mono text-sm text-text-secondary"
