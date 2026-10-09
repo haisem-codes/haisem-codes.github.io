@@ -20,3 +20,4 @@ Flow: site -> Turnstile verify -> Supabase insert -> Resend email brief.
 6. **Rate limit**: handled in code by the Workers Rate Limiting binding `INTAKE_LIMITER` (5 requests / 60 s per IP, declared in `wrangler.toml`; WAF rules do not cover `*.workers.dev`). Change `namespace_id` if it collides with another limiter in your account.
 7. **PostHog**: EU cloud project, Settings -> "Discard client IP data" on, copy the project key.
 8. **GitHub repo** -> Settings -> Variables: `NEXT_PUBLIC_INTAKE_URL`, `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `NEXT_PUBLIC_POSTHOG_KEY`.
+   Set `NEXT_PUBLIC_INTAKE_URL` and `NEXT_PUBLIC_TURNSTILE_SITE_KEY` together: the Worker always verifies Turnstile, so a URL without a site key fails every submission.

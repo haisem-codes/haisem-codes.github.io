@@ -49,15 +49,7 @@ export interface TechItem {
 }
 
 export interface PersonalInfo {
-  name: string;
-  firstName: string;
-  title: string;
-  tagline: string;
-  location: string;
-  availability: string;
-  bio: string[];
   email: string;
   phone: string;
   socials: { platform: string; url: string; label: string }[];
-  stats: { label: string; value: number; suffix: string }[];
 }

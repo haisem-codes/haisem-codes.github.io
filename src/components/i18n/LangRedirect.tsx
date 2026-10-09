@@ -7,7 +7,7 @@ export function LangRedirect({ path = "" }: { path?: string }) {
     let saved: string | null = null;
     try { saved = localStorage.getItem("lang"); } catch {}
     const lang = detectLocale(saved, navigator.languages ?? [navigator.language]);
-    window.location.replace(`/${lang}/${path}`);
+    window.location.replace(`/${lang}/${path}${window.location.search}${window.location.hash}`);
   }, [path]);
   return (
     <noscript>

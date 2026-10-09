@@ -1,4 +1,3 @@
-"use client";
 import { personal } from "@/data/personal";
 import { localHref, type Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n";

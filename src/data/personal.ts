@@ -1,17 +1,6 @@
 import type { PersonalInfo } from "@/types";
 
 export const personal: PersonalInfo = {
-  name: "Haisem Naeem",
-  firstName: "HAISEM",
-  title: "AI Engineer",
-  tagline: "Building systems that think",
-  location: "Stockholm, Sweden",
-  availability: "Open to freelance, part-time roles, and thesis collaborations",
-  bio: [
-    "I'm an AI engineer building production AI across web, mobile, and voice. Over the past year I shipped a building-code compliance platform (FastAPI + AWS Textract + GPT-5), an AI habit-coaching app with real-time voice (LiveKit + ElevenLabs + OpenAI Realtime), an on-device ergonomics scorer in Flutter (YOLOv8n + MediaPipe, all offline), and five production voice agents on Retell + GoHighLevel + n8n. About a dozen others. Most of them are still running.",
-    "I build the whole thing, backend, frontend, mobile, the LLM layer, the deploy, and own the client conversation. Strongest where AI meets a real product surface: hybrid RAG (Pinecone / ChromaDB / pgvector + BM25), voice agents that don't sound like 2019 IVR, and cost-aware LLM orchestration that keeps variable spend predictable.",
-    "I'm now based in Stockholm, reading for an M.Sc. in Artificial Intelligence and Language at Stockholm University. I take on freelance builds, part-time engineering work, and thesis collaborations alongside the degree.",
-  ],
   email: "haisem.work@gmail.com",
   phone: "+46 76 961 9249",
   socials: [
@@ -40,10 +29,5 @@ export const personal: PersonalInfo = {
       url: "https://www.linkedin.com/in/haisem-naeem/",
       label: "Haisem Naeem",
     },
-  ],
-  stats: [
-    { label: "Years Experience", value: 2, suffix: "+" },
-    { label: "Production AI Systems", value: 12, suffix: "+" },
-    { label: "Users Served", value: 10, suffix: "K+" },
   ],
 };
