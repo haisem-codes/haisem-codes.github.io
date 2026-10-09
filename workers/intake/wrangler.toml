@@ -1,0 +1,8 @@
+name = "intake"
+main = "src/index.ts"
+compatibility_date = "2026-09-01"
+
+[vars]
+ALLOWED_ORIGINS = "https://haisem-codes.github.io,http://localhost:3000"
+NOTIFY_TO = "haisem.work@gmail.com"
+# secrets (wrangler secret put): TURNSTILE_SECRET, SUPABASE_URL, SUPABASE_SERVICE_KEY, RESEND_API_KEY
