@@ -1,100 +1,70 @@
-"use client";
+import { Fragment, type CSSProperties } from "react";
+import { localHref, type Locale } from "@/i18n/config";
+import type { Dictionary } from "@/i18n";
+import { Magnetic } from "@/components/ui/Magnetic";
+import { Hero3DLoader } from "@/components/three/Hero3DLoader";
 
-import { motion } from "motion/react";
-import { letterReveal, silkEase } from "@/lib/animations";
-import { personal } from "@/data/personal";
+const delay = (s: number) => ({ "--d": `${Number(s.toFixed(2))}s` }) as CSSProperties;
 
-export function Hero() {
-  const letters = personal.firstName.split("");
+export function Hero({ dict, lang }: { dict: Dictionary["hero"]; lang: Locale }) {
+  const words = dict.title.split(" ");
+  const wordsDone = 0.2 + words.length * 0.04;
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-6">
-      {/* Radial gradient background */}
+    <section className="relative isolate flex min-h-[100svh] items-center overflow-hidden px-6 pt-32 pb-20 sm:pt-40">
       <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at center, var(--color-accent-glow) 0%, transparent 70%)",
-        }}
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-20"
+        style={{ background: "radial-gradient(60% 50% at 75% 40%, var(--color-accent-glow) 0%, transparent 70%)" }}
       />
-
-      {/* Name - letter by letter */}
-      <div className="relative z-10 flex">
-        {letters.map((letter, i) => (
-          <motion.span
-            key={i}
-            custom={i}
-            variants={letterReveal}
-            initial="hidden"
-            animate="visible"
-            className="font-display text-6xl sm:text-8xl lg:text-[10rem] font-bold text-text tracking-tight"
-          >
-            {letter}
-          </motion.span>
-        ))}
+      <div data-hero-3d aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+        <Hero3DLoader />
       </div>
 
-      {/* Tagline */}
-      <motion.p
-        className="relative z-10 mt-6 text-lg sm:text-xl text-text-secondary font-light"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5, duration: 0.8, ease: silkEase }}
-      >
-        {personal.title} <span className="mx-2 text-text-muted">•</span> {personal.tagline}
-      </motion.p>
+      <div className="relative mx-auto w-full max-w-6xl">
+        <p className="hero-fade flex items-center gap-3 text-sm font-medium tracking-wide text-text-secondary" style={delay(0)}>
+          <span aria-hidden className="h-2 w-2 rounded-full bg-accent" />
+          {dict.eyebrow}
+        </p>
 
-      {/* Location + availability */}
-      <motion.div
-        className="relative z-10 mt-8 flex flex-col sm:flex-row items-center gap-3 sm:gap-4 text-sm"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.7, duration: 0.8, ease: silkEase }}
-      >
-        <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass border border-border text-text-secondary">
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            className="text-accent"
-            aria-hidden
-          >
-            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-            <circle cx="12" cy="10" r="3" />
-          </svg>
-          {personal.location}
-        </span>
+        <h1 className="mt-8 max-w-5xl font-display text-[2.6rem] leading-[1.04] font-semibold tracking-tight text-balance text-text sm:text-7xl lg:text-[5.5rem]">
+          {words.map((word, i) => (
+            <Fragment key={i}>
+              <span className="inline-block overflow-hidden pb-[0.08em] align-bottom">
+                <span className="hero-word inline-block" style={delay(0.2 + i * 0.04)}>
+                  {word}
+                </span>
+              </span>
+              {i < words.length - 1 && " "}
+            </Fragment>
+          ))}
+        </h1>
 
-        <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass border border-border text-text-secondary">
-          <span className="relative flex w-2 h-2" aria-hidden>
-            <span className="absolute inline-flex w-full h-full rounded-full bg-accent opacity-70 animate-ping" />
-            <span className="relative inline-flex w-2 h-2 rounded-full bg-accent" />
-          </span>
-          {personal.availability}
-        </span>
-      </motion.div>
+        <p className="hero-fade mt-8 max-w-2xl text-lg leading-relaxed text-text-secondary sm:text-xl" style={delay(wordsDone)}>
+          {dict.sub}
+        </p>
 
-      {/* Scroll chevron */}
-      <motion.div
-        className="absolute bottom-10 z-10"
-        animate={{ y: [0, 8, 0] }}
-        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          className="text-text-secondary"
-        >
-          <path d="M6 9l6 6 6-6" />
-        </svg>
-      </motion.div>
+        <div className="hero-fade mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-8" style={delay(wordsDone + 0.15)}>
+          <Magnetic>
+            <a
+              href={localHref(lang, "/start/")}
+              className="inline-flex min-h-[52px] items-center gap-2 rounded-full bg-accent px-7 text-base font-medium text-white shadow-[0_8px_30px_-12px_var(--color-accent)] transition-colors hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+            >
+              {dict.ctaPrimary}
+              <span aria-hidden>→</span>
+            </a>
+          </Magnetic>
+          <Magnetic>
+            <a
+              href={localHref(lang, "/hire/")}
+              className="group inline-flex min-h-[44px] items-center gap-2 text-base font-medium text-text underline decoration-border-hover decoration-1 underline-offset-[6px] transition-colors hover:decoration-accent focus-visible:rounded focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+            >
+              {dict.ctaSecondary}
+              <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
+            </a>
+          </Magnetic>
+        </div>
+      </div>
     </section>
   );
 }

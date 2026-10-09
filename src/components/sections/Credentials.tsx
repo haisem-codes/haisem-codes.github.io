@@ -5,11 +5,11 @@ import { credentials } from "@/data/credentials";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { staggerContainer, fadeInUp } from "@/lib/animations";
 
-export function Credentials() {
+export function Credentials({ title }: { title: string }) {
   return (
     <section className="py-32 px-6">
       <div className="max-w-5xl mx-auto">
-        <SectionHeading title="Credentials" className="mb-16" />
+        <SectionHeading title={title} className="mb-16" />
 
         <motion.div
           variants={staggerContainer}
@@ -21,6 +21,7 @@ export function Credentials() {
           {credentials.map((item) => (
             <motion.div
               key={item.id}
+              data-reveal
               variants={fadeInUp}
               className="p-6 rounded-2xl bg-bg-card border border-border hover:border-border-hover transition-colors duration-200"
             >

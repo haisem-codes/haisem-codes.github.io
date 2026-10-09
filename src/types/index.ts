@@ -12,7 +12,16 @@ export interface Project {
   githubUrl?: string;
   featured: boolean;
   order: number;
+  category: ProjectCategory;
+  employer?: "metaviz";
+  sv?: ProjectCopy;
 }
+
+export type ProjectCategory = "business" | "products" | "research";
+
+export type ProjectCopy = Partial<
+  Pick<Project, "title" | "tagline" | "description" | "problem" | "solution" | "result">
+>;
 
 export interface Skill {
   id: string;
@@ -40,15 +49,7 @@ export interface TechItem {
 }
 
 export interface PersonalInfo {
-  name: string;
-  firstName: string;
-  title: string;
-  tagline: string;
-  location: string;
-  availability: string;
-  bio: string[];
   email: string;
   phone: string;
   socials: { platform: string; url: string; label: string }[];
-  stats: { label: string; value: number; suffix: string }[];
 }

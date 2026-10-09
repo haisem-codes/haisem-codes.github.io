@@ -1,21 +1,13 @@
-import { Hero } from "@/components/sections/Hero";
-import { About } from "@/components/sections/About";
-import { TechMarquee } from "@/components/sections/TechMarquee";
-import { Projects } from "@/components/sections/Projects";
-import { SkillsBento } from "@/components/sections/SkillsBento";
-import { Credentials } from "@/components/sections/Credentials";
-import { Contact } from "@/components/sections/Contact";
+import { LangRedirect } from "@/components/i18n/LangRedirect";
 
-export default function Home() {
+export const metadata = { robots: { index: false } };
+
+export default function Root() {
   return (
-    <main>
-      <Hero />
-      <About />
-      <TechMarquee />
-      <Projects />
-      <SkillsBento />
-      <Credentials />
-      <Contact />
-    </main>
+    <html lang="en">
+      <body>
+        <LangRedirect />
+      </body>
+    </html>
   );
 }

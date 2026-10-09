@@ -1,84 +1,44 @@
-"use client";
-
-import { motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import { asset } from "@/lib/utils";
+import { localHref, type Locale } from "@/i18n/config";
 import type { Project } from "@/types";
-import { fadeInUp, silkEase } from "@/lib/animations";
 
 interface ProjectCardProps {
   project: Project;
-  index: number;
+  lang: Locale;
+  viewLabel: string;
+  employerNote: string;
 }
 
-export function ProjectCard({ project, index }: ProjectCardProps) {
-  const number = String(index + 1).padStart(2, "0");
-
+export function ProjectCard({ project, lang, viewLabel, employerNote }: ProjectCardProps) {
   return (
-    <motion.div
-      variants={fadeInUp}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
+    <Link
+      href={localHref(lang, `/projects/${project.slug}/`)}
+      className="group flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-bg-card transition-colors duration-300 hover:border-border-hover focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
     >
-      {/* Editorial number — sits above the card, doesn't overlap any image content */}
-      <div className="mb-3 flex items-baseline gap-3">
-        <span className="font-mono text-3xl sm:text-4xl font-bold text-accent leading-none select-none">
-          {number}
-        </span>
-        <span className="h-px flex-1 bg-border" aria-hidden />
+      <div className="relative aspect-[16/10] overflow-hidden bg-bg">
+        <Image
+          src={asset(project.image)}
+          alt=""
+          fill
+          sizes="(min-width: 1024px) 370px, (min-width: 768px) 50vw, 100vw"
+          loading="lazy"
+          className="object-cover transition-transform duration-700 group-hover:scale-[1.03] motion-reduce:transition-none"
+        />
       </div>
-
-      <Link href={asset(`/projects/${project.slug}/`)} className="group block">
-        <div className="relative rounded-2xl overflow-hidden bg-bg-card border border-border transition-colors duration-200 group-hover:border-border-hover">
-          {/* Image container */}
-          <div className="relative aspect-[16/9] overflow-hidden bg-bg-card">
-            <motion.div
-              className="w-full h-full"
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.4, ease: silkEase }}
-            >
-              <Image
-                src={asset(project.image)}
-                alt={project.title}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 900px"
-                loading={index < 2 ? "eager" : "lazy"}
-                quality={80}
-              />
-            </motion.div>
-
-            {/* Hover overlay - dark in both themes for contrast */}
-            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
-              <span className="text-sm font-medium text-white translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                View Case Study &rarr;
-              </span>
-            </div>
-          </div>
-
-          {/* Content */}
-          <div className="p-6">
-            <h3 className="font-display text-xl font-semibold text-text">
-              {project.title}
-            </h3>
-            <p className="mt-2 text-sm text-text-secondary line-clamp-2">
-              {project.tagline}
-            </p>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {project.techStack.slice(0, 4).map((tech) => (
-                <span
-                  key={tech}
-                  className="text-xs px-2.5 py-1 rounded-full border border-border text-text-secondary"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </Link>
-    </motion.div>
+      <div className="flex flex-1 flex-col p-6">
+        {project.employer === "metaviz" && (
+          <span className="mb-4 inline-flex self-start rounded-full border border-border px-3 py-1 text-xs text-text-secondary">
+            {employerNote}
+          </span>
+        )}
+        <h3 className="font-display text-xl leading-tight font-semibold tracking-tight text-text">{project.title}</h3>
+        <p className="mt-3 line-clamp-3 text-base leading-relaxed text-text-secondary">{project.tagline}</p>
+        <span className="mt-auto pt-6 text-sm font-medium text-accent">
+          {viewLabel} <span aria-hidden>→</span>
+        </span>
+      </div>
+    </Link>
   );
 }

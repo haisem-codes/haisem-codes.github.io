@@ -19,6 +19,7 @@ export function ScrollReveal({
 }: ScrollRevealProps) {
   return (
     <motion.div
+      data-reveal
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}

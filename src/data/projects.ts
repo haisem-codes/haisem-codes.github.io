@@ -1,4 +1,9 @@
+import type { Locale } from "@/i18n/config";
 import type { Project } from "@/types";
+
+export function localize(p: Project, lang: Locale): Project {
+  return lang === "sv" && p.sv ? { ...p, ...p.sv } : p;
+}
 
 export const projects: Project[] = [
   // ===================== FEATURED (6) =====================
@@ -15,8 +20,8 @@ export const projects: Project[] = [
     solution:
       "Async processing pipeline (FastAPI 0.115 + Celery + Redis) routing PDFs through AWS Textract OCR, then GPT-5 with structured outputs for entity extraction (equipment tags, CFM values, breaker counts). Hybrid RAG over the building-code corpus (ChromaDB BAAI/bge-base-en-v1.5 + BM25 reranking) feeds compliance reasoning. Cost-aware orchestration caps per-document LLM spend at $15. Next.js 15 + React Query verification UI for inline edits and final sign-off.",
     result:
-      "Saved ~80% of manual compliance-reviewer time per drawing. 143-endpoint REST API across 12 routers, 47/48 pytest pass rate, multi-tenant Supabase RLS, per-document LLM cost capped at $15. Hybrid RAG + BM25 reranking holds retrieval quality even on long, technical code sections.",
-    image: "/projects/ai-compliance-platform.webp",
+      "Saved ~80% of manual compliance-reviewer time per drawing. 132-endpoint FastAPI REST API, 47/48 pytest pass rate, multi-tenant Supabase RLS, per-document LLM cost capped at $15. Hybrid RAG + BM25 reranking holds retrieval quality even on long, technical code sections.",
+    image: "/projects/anonymized/building-compliance.png",
     techStack: [
       "FastAPI 0.115",
       "Celery",
@@ -33,35 +38,66 @@ export const projects: Project[] = [
     ],
     featured: true,
     order: 1,
+    category: "business",
+    employer: "metaviz",
+    sv: {
+      title:
+        "AI-plattform för granskning mot byggregler", // REVIEW-SV
+      tagline:
+        "Dokument-AI som granskar bygghandlingar mot byggregler, med FastAPI, AWS Textract och GPT-5",
+      description:
+        "En plattform som läser in arkitekt- och installationsritningar och kontrollerar att de följer byggreglerna inom fem discipliner: VVS/mekanik, el, VS, konstruktion och arkitektur. Det som förut tog granskarna flera dagar sköts nu till stor del automatiskt.", // REVIEW-SV
+      problem:
+        "Granskarna gick manuellt igenom hundratals sidor per ritning, jämförde mot fem olika regelverk och missade motsägelser. Varje dokument tog dagar, och den manuella granskningen var flaskhalsen i varje projekt.",
+      solution:
+        "En asynkron pipeline (FastAPI, Celery och Redis) skickar PDF:er genom AWS Textract för OCR och sedan till GPT-5 med strukturerade svar, som plockar ut utrustningsbeteckningar, luftflöden och antal säkringar. Hybrid-RAG över regelverket (ChromaDB med BAAI/bge-base-en-v1.5 och BM25-omrankning) ger underlag för bedömningen. Kostnadsstyrningen sätter ett tak på 15 dollar i LLM-kostnad per dokument. Ett gränssnitt i Next.js 15 och React Query låter granskaren rätta direkt och därefter godkänna.", // REVIEW-SV
+      result:
+        "Granskarnas manuella tid per ritning minskade med ungefär 80 %. Ett REST-API i FastAPI med 132 endpoints, 47 av 48 pytest-tester gröna, multi-tenant med Supabase RLS och ett kostnadstak på 15 dollar per dokument. Hybrid-RAG med BM25 håller sökkvaliteten uppe även i långa, tekniska regeltexter.",
+    },
   },
 
   {
     slug: "voice-agents-suite",
-    title: "Production Voice Agents, Retell + ElevenLabs + GHL + n8n",
+    title: "Production Voice Agents: Retell, ElevenLabs, GoHighLevel and n8n",
     tagline:
-      "Five inbound/outbound voice agents replacing receptionist work across real-estate and SMB",
+      "AI callers that follow up new leads and book appointments, built for more than five businesses",
     description:
-      "Designed and shipped 5 production voice agents on Retell AI + ElevenLabs Conversational AI + GoHighLevel + n8n. Inbound concierge, outbound prospecting, multi-vertical sales/support/booking, including a single Sazoom agent serving 5 SMB verticals from one config.",
+      "At Metaviz AI I built the voice agents, GoHighLevel automations and n8n flows behind an agency's AI lead follow-up. Jake Wims's agency sells the service to US real-estate teams and a mortgage lender, and I rolled the template out as more than five client agents, one for each business owner the agency signed.",
     problem:
-      "Clients across real-estate and SMB verticals needed 24/7 call handling, missed calls equalled lost revenue. Existing voice agents either sounded robotic or broke at the CRM handoff.",
+      "New leads from Facebook ads go cold within hours, and a small team can't call every one of them back at 21:40. Off-the-shelf voice bots sounded robotic or lost the details at the CRM handoff.",
     solution:
-      "Three Retell-based real-estate agents (Local Pro Concierge, Claire outbound prospector, Emma scheduler) plus a multi-vertical Sazoom agent on ElevenLabs Conversational AI with 15+ custom tools and a 3-mode flow (sales / support / booking). Externalised prompt rules into 11 semantic KB files. n8n middleware translates Retell webhooks into GoHighLevel contact and calendar operations with HOT/WARM/COLD lead classification in-call.",
+      "A Retell voice agent calls each new lead from a local number, recaps what they entered in the form, qualifies them Hot, Warm or Cold on rules the client approved, and books straight into the GoHighLevel calendar through n8n tools. After the call it writes notes back to the CRM, sends lead and internal emails, and starts SMS or nurture sequences when nobody answers. I packaged it as a cloneable template with real-estate and mortgage variants and a shared n8n inbound lookup that greets callers with the right business name. Alongside it I built inbound concierge agents and sales, support and booking agents on ElevenLabs Conversational AI.",
     result:
-      "Cut one client's prompt from 16,800 → 3,279 words (80% reduction), raised response-rule compliance from ~25% to 98%, reduced per-call token cost ~45%, and replaced ~1 receptionist FTE at one SMB client. Zero silent failures by design, every n8n path terminates in a Respond node.",
-    image: "/projects/voice-agents-suite.webp",
+      "More than five client agents built from one template, one for each business owner the agency signed. The architecture was verified against the real Retell, n8n and GoHighLevel APIs, with a 10-case test plan, a fix for misclassified leads, and a cross-client greeting leak root-caused and fixed across every agent. On a separate prompt rewrite at Metaviz, I cut one agent's prompt from 16,800 to 3,279 words and raised response-rule compliance from about 25% to 98%.",
+    image: "/projects/anonymized/voice-workflows.png",
     techStack: [
       "Retell AI",
       "ElevenLabs Conversational AI",
       "LiveKit Agents",
       "Twilio",
       "Deepgram",
-      "OpenAI GPT-5 Mini",
       "GoHighLevel v2",
       "n8n",
       "Python",
     ],
     featured: true,
     order: 2,
+    category: "business",
+    employer: "metaviz",
+    sv: {
+      title:
+        "Röstagenter i produktion: Retell, ElevenLabs, GoHighLevel och n8n",
+      tagline:
+        "AI som ringer upp nya leads och bokar möten, byggd för fler än fem företag", // REVIEW-SV
+      description:
+        "På Metaviz AI byggde jag röstagenterna, GoHighLevel-automationerna och n8n-flödena bakom en byrås AI-uppföljning av leads. Jake Wims byrå säljer tjänsten till amerikanska mäklarteam och en bolångivare, och jag satte upp mallen som fler än fem agenter, en för varje företagare byrån skrev avtal med.", // REVIEW-SV
+      problem:
+        "Nya leads från Facebook-annonser kallnar på några timmar, och ett litet team hinner inte ringa tillbaka alla klockan 21.40. Färdiga röstbotar lät robotaktiga eller tappade detaljerna i överlämningen till CRM:et.",
+      solution:
+        "En röstagent i Retell ringer varje ny lead från ett lokalt nummer, sammanfattar vad personen fyllde i, bedömer leadet som Hot, Warm eller Cold enligt regler kunden har godkänt och bokar direkt i GoHighLevel-kalendern via n8n. Efter samtalet skrivs anteckningar tillbaka till CRM:et, mejl går till leadet och teamet, och SMS eller uppföljningssekvenser startar om ingen svarar. Jag paketerade allt som en mall som går att klona, med varianter för mäklare och bolån, och en gemensam n8n-uppslagning som hälsar med rätt företagsnamn. Vid sidan av det byggde jag inkommande receptionsagenter och agenter för sälj, support och bokning på ElevenLabs Conversational AI.", // REVIEW-SV
+      result:
+        "Fler än fem kundagenter byggda från samma mall, en för varje företagare byrån skrev avtal med. Arkitekturen verifierades mot de riktiga API:erna i Retell, n8n och GoHighLevel, med en testplan på tio fall, en åtgärd av felklassade leads och en läcka av hälsningsfraser mellan kunder som spårades och åtgärdades i alla agenter. I ett separat promptarbete på Metaviz kortade jag en agents prompt från 16 800 till 3 279 ord och höjde följsamheten mot svarsreglerna från cirka 25 % till 98 %.", // REVIEW-SV
+    },
   },
 
   {
@@ -92,6 +128,22 @@ export const projects: Project[] = [
     ],
     featured: true,
     order: 3,
+    category: "research",
+    employer: "metaviz",
+    sv: {
+      title:
+        "Postura, ergonomisk bedömning direkt i mobilen",
+      tagline:
+        "Hållningsanalys i realtid och ROSA-poäng från Cornell, helt offline i Flutter",
+      description:
+        "En mobilapp som tar bilder från sidan på personer vid skrivbordet och räknar fram en ROSA-riskpoäng (Rapid Office Strain Assessment) från 1 till 10 helt i telefonen. Inga anrop till molnet, inga integritetsproblem och ingen molnkostnad per bedömning.", // REVIEW-SV
+      problem:
+        "Ergonomiska bedömningar har krävt en konsult på plats eller att bilder laddas upp till ML-tjänster i molnet. Det är långsamt, dyrt, känsligt för integriteten och omöjligt att skala till tusentals arbetsplatser.",
+      solution:
+        "En Flutter 3.9-app där YOLOv8n (TFLite FP16, 6,2 MB) körs i en egen isolate och hittar person och skärm två gånger per sekund, ovanpå MediaPipe Accurate som skattar hållningen tio gånger per sekund. Ett One Euro-filter håller punkterna stabila (under 2 pixlars skakning). Fallback från GPU till NNAPI till XNNPack ger 30–80 ms per inferens. Cornells ROSA-algoritm portades från Python till Dart och validerades strikt mot ett facit.", // REVIEW-SV
+      result:
+        "Högst ±1 poängs avvikelse från referensimplementationen i Python på ett testset med 71 foton (100 % godkända). Ingen kostnad för inferens i molnet. Fungerar på Android API 21+ och iOS 15.5+.", // REVIEW-SV
+    },
   },
 
   {
@@ -126,6 +178,22 @@ export const projects: Project[] = [
     ],
     featured: true,
     order: 4,
+    category: "products",
+    employer: "metaviz",
+    sv: {
+      title:
+        "Coach, AI-coachning av vanor med röst i realtid",
+      tagline:
+        "Bildverifiering med GPT-4o Vision och röstcoachning via OpenAI Realtime, i en Flutter-app",
+      description:
+        "En vaneapp som anpassar sig efter användarens personlighet. Du fotar beviset på en avklarad vana och GPT-4o Vision bekräftar med en säkerhetspoäng och återkoppling i klartext. Röstcoachning i realtid via OpenAI Realtime API, strömmat genom LiveKit och ElevenLabs.", // REVIEW-SV
+      problem:
+        "De flesta vaneappar misslyckas eftersom återkopplingen är generisk och användaren själv intygar att vanan är gjord. Vi behövde verifiering som bär sig ekonomiskt i stor skala, plus röstcoachning utan en mänsklig coach.", // REVIEW-SV
+      solution:
+        "Backend i FastAPI och Firestore (21 samlingar). Bildverifiering med GPT-4o Vision via signerade GCS-länkar för cirka 0,0075 dollar per bild. gpt-4o-realtime-preview för röstcoachning, LiveKit för WebRTC, ElevenLabs för tal och Deepgram som reserv för taligenkänning. Promptcachning och ett glidande fönster på 50 meddelanden håller tokenkostnaden förutsägbar.",
+      result:
+        "Tokenkostnaden per session minskade med ungefär 50 % tack vare promptcachning, och kostnaden per användare har ett tak på 150 dollar i månaden. 21 Firestore-samlingar, övervakning med Sentry och Prometheus, driftsatt via Coolify på DigitalOcean. Bildverifiering på under en sekund utan GPU-servrar.",
+    },
   },
 
   {
@@ -160,21 +228,31 @@ export const projects: Project[] = [
     ],
     featured: true,
     order: 5,
+    category: "products",
+    employer: "metaviz",
+    sv: {
+      title:
+        "AI-baserad marknadsplats för fastigheter med värdering från flera LLM:er", // REVIEW-SV
+      tagline:
+        "Sju eller fler mikrotjänster och en AI-värderingsmotor som växlar mellan flera leverantörer", // REVIEW-SV
+      description:
+        "En marknadsplats för fastigheter där fler än sju mikrotjänster samordnas via en Traefik-gateway och en RabbitMQ-händelsebuss. AI-värderingen växlar mellan OpenAI GPT-4, DeepSeek, Hugging Face och Groq när en leverantör ligger nere.",
+    },
   },
 
   {
     slug: "claude-code-mastery",
     title: "Claude Code Mastery",
     tagline:
-      "A 1,579-file configuration system for Claude Code and the Agent SDK, 168 skills, 37 agents, 8 hooks",
+      "A configuration system for Claude Code and the Agent SDK: installable skills, subagents, hooks and setup templates",
     description:
       "Open-source curated repository providing configuration templates, extensible skills, agents, hooks, and learning guides for maximising Claude Code + Claude Agent SDK productivity. A one-prompt setup system that auto-generates production-grade configurations.",
     problem:
       "Engineers adopting Claude Code spend hours wiring up settings, hooks, permissions, and curating skill libraries. No standard scaffolding exists.",
     solution:
-      "Curated 168 installable skills across 11 domain categories (engineering, C-level advisory, marketing, compliance, product, finance), 37 specialised subagents (development, infrastructure, quality, data/AI, security), 8 production hooks (safety gates, quality auto-checks, intelligent skill matching), 13 configuration templates across 6 stacks, and a setup prompt that analyses a codebase and auto-generates personalised CLAUDE.md + settings.json. A real installer ships 10 presets with dry-run, backup and undo.",
+      "Curated installable skills across domains (engineering, C-level advisory, marketing, compliance, product, finance), specialised subagents (development, infrastructure, quality, data/AI, security), production hooks (safety gates, quality auto-checks, intelligent skill matching), configuration templates for several stacks, and a setup prompt that analyses a codebase and auto-generates personalised CLAUDE.md + settings.json. A real installer ships presets with dry-run, backup and undo.",
     result:
-      "1,579 tracked files. 11-chapter progressive learning guide (3,200+ lines). 4 shipped GitHub Actions workflows for PR review, docs sync, quality audits, and dependency audits. Counts are generated into catalog.json and verified in CI, so the documentation cannot drift from the repo. MIT-licensed, reusable across any codebase.",
+      "A progressive, chapter-by-chapter learning guide. GitHub Actions workflows for PR review, docs sync, quality audits, and dependency audits. Counts are generated into catalog.json and verified in CI, so the documentation cannot drift from the repo. MIT-licensed, reusable across any codebase.",
     image: "/projects/claude-code-mastery.webp",
     techStack: [
       "Claude Code (CLI)",
@@ -189,6 +267,7 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/haisem-codes/claude-code-mastery",
     featured: false,
     order: 13,
+    category: "products",
   },
 
   // ===================== SECONDARY (6) =====================
@@ -206,7 +285,7 @@ export const projects: Project[] = [
       "FastAPI + PostgreSQL (Supabase) + SQLAlchemy + Redis + Alembic backend. React 18 + Vite + Tailwind + Zustand frontend. Flutter mobile with Sherpa-ONNX on-device speech for offline voice features and Firebase integration. Regional payment-rail integration for emerging-market card processing. Docker dev / Coolify production.",
     result:
       "Multi-tenant SaaS with JWT-backed RBAC, Alembic migrations, OpenAPI docs, Supabase integration, production deployment on Coolify.",
-    image: "/projects/b2b-travel-saas.webp",
+    image: "/projects/anonymized/travel-platform.png",
     techStack: [
       "FastAPI",
       "PostgreSQL (Supabase)",
@@ -226,6 +305,8 @@ export const projects: Project[] = [
     ],
     featured: false,
     order: 7,
+    category: "products",
+    employer: "metaviz",
   },
 
   {
@@ -241,7 +322,7 @@ export const projects: Project[] = [
       "Conversational AI assistant across 4 user modes (customer, professional, field worker, admin) on a deterministic state machine with mode-specific tools for estimation, claims, payments, scheduling, and vision-based intake. Smart hybrid search blends semantic embeddings with keyword search and cross-encoder reranking; an AI search-intake layer parses natural-language queries into structured parameters. AI-powered lead enrichment from supplier websites. Long-term memory captures user preferences and patterns across sessions, with per-tenant LLM cost tracking and daily rollups. FastAPI 0.109 + async SQLAlchemy + Postgres 15 backend, React 19 + Vite web, Flutter mobile (Clean Architecture, Riverpod, SQLite offline). RBAC with 6 roles, 3 auth modalities (password, Twilio OTP, WebAuthn biometrics) with JWT + Argon2. Stripe Terminal for in-person cards. Real-time threaded messaging via SSE.",
     result:
       "Production craftsmen marketplace with substantive AI tier: conversational assistant across customer/pro/field/admin flows, intent-matched search, and per-tenant cost attribution. Multi-locale i18n. Multi-tenant data isolation.",
-    image: "/projects/ai-craftsmen-marketplace.webp",
+    image: "/projects/anonymized/services-marketplace.png",
     techStack: [
       "FastAPI 0.109",
       "PydanticAI",
@@ -265,6 +346,8 @@ export const projects: Project[] = [
     ],
     featured: false,
     order: 8,
+    category: "products",
+    employer: "metaviz",
   },
 
   {
@@ -280,7 +363,7 @@ export const projects: Project[] = [
       "Django 5.0 + DRF 3.15 (10 microservice apps) and React 18 + Vite + TypeScript + Tailwind 3.3. Shipped: GitHub Code Explainer, AI Interview Coach, Multilingual Blog Builder (30+ languages), Structured Prompt Generator, Smart Product Copywriter (bulk CSV), PDF Logo Removal (YOLOv7), Text Humanizer, and a multi-LLM Voice/Chat Assistant with LangChain + LangGraph intelligently routing across OpenAI and Gemini. AG2 multi-agent orchestration for complex reasoning. WebSocket real-time via Daphne + Channels.",
     result:
       "8 tools live. 10 Django microservice apps. JWT auth via SimpleJWT, rate limiting, 30+ language translation pipeline. Deployed via Docker Compose + Nginx + GitHub Actions CI/CD to Coolify on DigitalOcean.",
-    image: "/projects/ai-tools-suite.webp",
+    image: "/projects/anonymized/ai-tools.png",
     techStack: [
       "Django 5.0",
       "DRF 3.15",
@@ -303,40 +386,8 @@ export const projects: Project[] = [
     ],
     featured: false,
     order: 9,
-  },
-
-  {
-    slug: "icore-careerhub",
-    title: "iCore CareerHub, Hospitality Recruitment SaaS",
-    tagline:
-      "AI CV parsing + Pinecone vector job matching + AI voiceover generation",
-    description:
-      "Hospitality-focused recruitment SaaS that automates CV extraction, AI-enhanced profile presentation, and vector-powered candidate-job matching.",
-    problem:
-      "Hospitality recruiters were drowning in unstructured PDFs/DOCX from candidates and matching jobs by keyword search, slow, biased toward whoever used the right buzzwords.",
-    solution:
-      "Strapi 5.22 backend with 40 API modules and 35 content-type schemas. Multi-modal AI CV parser routing between GPT-4o Vision (scanned PDFs) and GPT-4o-mini (text PDFs / mammoth-converted DOCX). Vector job matching via Pinecone (1536-dim text-embedding-3-small) with weighted scoring (skills 40%, location 15%, objectives 15%, badge/region bonuses). OpenAI TTS for 44–48s voiceover scripts.",
-    result:
-      "40 API modules, 35 schemas. Daily cron jobs (subscription expiry warnings, archived-user purge). Google Calendar OAuth2 for interview scheduling. SendGrid for transactional email. Ranked candidate matches with score ≥0.3 threshold.",
-    image: "/projects/icore-careerhub.webp",
-    techStack: [
-      "Strapi 5.22",
-      "Node 20",
-      "TypeScript",
-      "PostgreSQL",
-      "OpenAI GPT-4o",
-      "GPT-4o-mini",
-      "text-embedding-3-small",
-      "Pinecone",
-      "OpenAI TTS",
-      "pdf-parse",
-      "mammoth",
-      "Cloudinary",
-      "SendGrid",
-      "Google Calendar API",
-    ],
-    featured: false,
-    order: 10,
+    category: "products",
+    employer: "metaviz",
   },
 
   {
@@ -363,6 +414,8 @@ export const projects: Project[] = [
     ],
     featured: false,
     order: 11,
+    category: "business",
+    employer: "metaviz",
   },
 
   {
@@ -392,5 +445,6 @@ export const projects: Project[] = [
       "https://play.google.com/store/apps/details?id=com.biotin.diet_app",
     featured: false,
     order: 12,
+    category: "products",
   },
 ];

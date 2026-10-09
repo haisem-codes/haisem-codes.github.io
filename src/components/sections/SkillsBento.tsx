@@ -29,11 +29,11 @@ const animationMap: Record<string, React.ComponentType> = {
   pulse: PulseRing,
 };
 
-export function SkillsBento() {
+export function SkillsBento({ title }: { title: string }) {
   return (
     <section id="skills" className="py-32 px-6">
       <div className="max-w-5xl mx-auto">
-        <SectionHeading title="What I Do" className="mb-16" />
+        <SectionHeading title={title} className="mb-16" />
 
         <motion.div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 auto-rows-[160px] md:auto-rows-[180px]"
@@ -47,6 +47,7 @@ export function SkillsBento() {
             return (
               <motion.div
                 key={skill.id}
+                data-reveal
                 variants={bentoTile}
                 className={`${skill.colSpan === 2 ? "md:col-span-2" : ""} ${
                   skill.rowSpan === 2 ? "md:row-span-2" : ""
