@@ -46,11 +46,11 @@ export const projects: Project[] = [
       tagline:
         "Dokument-AI som granskar bygghandlingar mot byggregler, med FastAPI, AWS Textract och GPT-5",
       description:
-        "En plattform som läser in arkitekt- och installationsritningar och kontrollerar att de följer byggreglerna inom fem discipliner: ventilation, el, VS, konstruktion och arkitektur. Det som förut tog granskarna flera dagar sköts nu till stor del automatiskt.", // REVIEW-SV
+        "En plattform som läser in arkitekt- och installationsritningar och kontrollerar att de följer byggreglerna inom fem discipliner: VVS/mekanik, el, VS, konstruktion och arkitektur. Det som förut tog granskarna flera dagar sköts nu till stor del automatiskt.", // REVIEW-SV
       problem:
         "Granskarna gick manuellt igenom hundratals sidor per ritning, jämförde mot fem olika regelverk och missade motsägelser. Varje dokument tog dagar, och den manuella granskningen var flaskhalsen i varje projekt.",
       solution:
-        "En asynkron pipeline (FastAPI, Celery och Redis) skickar PDF:er genom AWS Textract för OCR och sedan till GPT-5 med strukturerade svar, som plockar ut utrustningsbeteckningar, luftflöden och antal säkringar. Hybrid-RAG över regelverket (ChromaDB med BAAI/bge-base-en-v1.5 och BM25-omrankning) ger underlag för bedömningen. Kostnadsstyrningen sätter ett tak på 15 dollar i LLM-kostnad per dokument. Ett gränssnitt i Next.js 15 och React Query låter granskaren rätta direkt och till sist godkänna.", // REVIEW-SV
+        "En asynkron pipeline (FastAPI, Celery och Redis) skickar PDF:er genom AWS Textract för OCR och sedan till GPT-5 med strukturerade svar, som plockar ut utrustningsbeteckningar, luftflöden och antal säkringar. Hybrid-RAG över regelverket (ChromaDB med BAAI/bge-base-en-v1.5 och BM25-omrankning) ger underlag för bedömningen. Kostnadsstyrningen sätter ett tak på 15 dollar i LLM-kostnad per dokument. Ett gränssnitt i Next.js 15 och React Query låter granskaren rätta direkt och därefter godkänna.", // REVIEW-SV
       result:
         "Granskarnas manuella tid per ritning minskade med ungefär 80 %. Ett REST-API i FastAPI med 132 endpoints, 47 av 48 pytest-tester gröna, multi-tenant med Supabase RLS och ett kostnadstak på 15 dollar per dokument. Hybrid-RAG med BM25 håller sökkvaliteten uppe även i långa, tekniska regeltexter.",
     },
@@ -90,13 +90,13 @@ export const projects: Project[] = [
       tagline:
         "AI som ringer upp nya leads och bokar möten, byggd för fler än fem företag", // REVIEW-SV
       description:
-        "På Metaviz AI byggde jag röstagenterna, GoHighLevel-automationerna och n8n-flödena bakom en byrås AI-uppföljning av leads. Jake Wims byrå säljer tjänsten till amerikanska mäklarteam och en bolånegivare, och jag satte upp mallen som fler än fem agenter, en för varje företagare byrån skrev avtal med.", // REVIEW-SV
+        "På Metaviz AI byggde jag röstagenterna, GoHighLevel-automationerna och n8n-flödena bakom en byrås AI-uppföljning av leads. Jake Wims byrå säljer tjänsten till amerikanska mäklarteam och en bolångivare, och jag satte upp mallen som fler än fem agenter, en för varje företagare byrån skrev avtal med.", // REVIEW-SV
       problem:
         "Nya leads från Facebook-annonser kallnar på några timmar, och ett litet team hinner inte ringa tillbaka alla klockan 21.40. Färdiga röstbotar lät robotaktiga eller tappade detaljerna i överlämningen till CRM:et.",
       solution:
         "En röstagent i Retell ringer varje ny lead från ett lokalt nummer, sammanfattar vad personen fyllde i, bedömer leadet som Hot, Warm eller Cold enligt regler kunden har godkänt och bokar direkt i GoHighLevel-kalendern via n8n. Efter samtalet skrivs anteckningar tillbaka till CRM:et, mejl går till leadet och teamet, och SMS eller uppföljningssekvenser startar om ingen svarar. Jag paketerade allt som en mall som går att klona, med varianter för mäklare och bolån, och en gemensam n8n-uppslagning som hälsar med rätt företagsnamn. Vid sidan av det byggde jag inkommande receptionsagenter och agenter för sälj, support och bokning på ElevenLabs Conversational AI.", // REVIEW-SV
       result:
-        "Fler än fem kundagenter byggda från samma mall, en för varje företagare byrån skrev avtal med. Arkitekturen verifierades mot de riktiga API:erna i Retell, n8n och GoHighLevel, med en testplan på tio fall, en rättning av felklassade leads och en läcka av hälsningsfraser mellan kunder som spårades och åtgärdades i alla agenter. I ett separat promptarbete på Metaviz kortade jag en agents prompt från 16 800 till 3 279 ord och höjde följsamheten mot svarsreglerna från cirka 25 % till 98 %.", // REVIEW-SV
+        "Fler än fem kundagenter byggda från samma mall, en för varje företagare byrån skrev avtal med. Arkitekturen verifierades mot de riktiga API:erna i Retell, n8n och GoHighLevel, med en testplan på tio fall, en åtgärd av felklassade leads och en läcka av hälsningsfraser mellan kunder som spårades och åtgärdades i alla agenter. I ett separat promptarbete på Metaviz kortade jag en agents prompt från 16 800 till 3 279 ord och höjde följsamheten mot svarsreglerna från cirka 25 % till 98 %.", // REVIEW-SV
     },
   },
 
@@ -142,7 +142,7 @@ export const projects: Project[] = [
       solution:
         "En Flutter 3.9-app där YOLOv8n (TFLite FP16, 6,2 MB) körs i en egen isolate och hittar person och skärm två gånger per sekund, ovanpå MediaPipe Accurate som skattar hållningen tio gånger per sekund. Ett One Euro-filter håller punkterna stabila (under 2 pixlars skakning). Fallback från GPU till NNAPI till XNNPack ger 30–80 ms per inferens. Cornells ROSA-algoritm portades från Python till Dart och validerades strikt mot ett facit.", // REVIEW-SV
       result:
-        "Högst ±1 poängs avvikelse från referensimplementationen i Python på ett testset med 71 foton (100 % godkända). Ingen kostnad för inferens i molnet. Fungerar på Android API 21+ och iOS 15.5+, på alla moderna enheter.",
+        "Högst ±1 poängs avvikelse från referensimplementationen i Python på ett testset med 71 foton (100 % godkända). Ingen kostnad för inferens i molnet. Fungerar på Android API 21+ och iOS 15.5+.", // REVIEW-SV
     },
   },
 
@@ -232,9 +232,9 @@ export const projects: Project[] = [
     employer: "metaviz",
     sv: {
       title:
-        "AI-driven fastighetsmarknad med värdering från flera LLM:er", // REVIEW-SV
+        "AI-baserad marknadsplats för fastigheter med värdering från flera LLM:er", // REVIEW-SV
       tagline:
-        "Fler än sju mikrotjänster och en AI-värderingsmotor som växlar mellan flera leverantörer",
+        "Sju eller fler mikrotjänster och en AI-värderingsmotor som växlar mellan flera leverantörer", // REVIEW-SV
       description:
         "En marknadsplats för fastigheter där fler än sju mikrotjänster samordnas via en Traefik-gateway och en RabbitMQ-händelsebuss. AI-värderingen växlar mellan OpenAI GPT-4, DeepSeek, Hugging Face och Groq när en leverantör ligger nere.",
     },

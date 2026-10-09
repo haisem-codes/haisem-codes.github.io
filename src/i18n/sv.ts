@@ -113,7 +113,7 @@ export const sv = {
     problem: "Problemet",
     solution: "Lösningen",
     result: "Resultatet",
-    live: "Se live",
+    live: "Se livedemo", // REVIEW-SV
     github: "GitHub",
     prev: "Föregående projekt",
     next: "Nästa projekt",
