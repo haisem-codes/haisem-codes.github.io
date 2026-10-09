@@ -219,8 +219,13 @@ export function IntakeForm({ dict, lang }: { dict: Dictionary["intake"]; lang: L
       return;
     }
     if (!INTAKE_URL) {
-      if (process.env.NODE_ENV === "development") console.info("[intake] dry mode payload", result.value);
-      finish();
+      if (process.env.NODE_ENV === "development") {
+        console.info("[intake] dry mode payload", result.value);
+        finish();
+      } else {
+        track("intake_failed");
+        setStatus("error");
+      }
       return;
     }
     setStatus("sending");

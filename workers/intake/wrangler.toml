@@ -5,4 +5,12 @@ compatibility_date = "2026-09-01"
 [vars]
 ALLOWED_ORIGINS = "https://haisem-codes.github.io,http://localhost:3000"
 NOTIFY_TO = "haisem.work@gmail.com"
+NOTIFY_FROM = "Intake <onboarding@resend.dev>"  # replace with a sender on a domain verified in Resend (EU region)
 # secrets (wrangler secret put): TURNSTILE_SECRET, SUPABASE_URL, SUPABASE_SERVICE_KEY, RESEND_API_KEY
+
+[[ratelimits]]
+name = "INTAKE_LIMITER"
+namespace_id = "1001"
+  [ratelimits.simple]
+  limit = 5
+  period = 60

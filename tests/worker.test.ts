@@ -37,3 +37,38 @@ test("db failure returns 502", async () => {
   fetchMock.mockImplementation(async (url: string) => url.includes("turnstile") ? Response.json({ success: true }) : new Response("no", { status: 500 }));
   expect((await worker.fetch(req({ answers, turnstileToken: "t" }), env)).status).toBe(502);
 });
+
+const dbCalls = () => fetchMock.mock.calls.filter((c) => String(c[0]).includes("db.example"));
+
+test("honeypot gets fake 200 and nothing is stored", async () => {
+  const r = await worker.fetch(req({ answers: { ...answers, company_url_hp: "x" }, turnstileToken: "t" }), env);
+  expect(r.status).toBe(200);
+  expect(fetchMock).not.toHaveBeenCalled();
+});
+test("oversized chunked body without content-length is 413", async () => {
+  const big = new Request("https://intake.example/", { method: "POST", headers: { origin: "https://haisem-codes.github.io" }, body: new ReadableStream({ start(c) { c.enqueue(new TextEncoder().encode("x".repeat(30_000))); c.close(); } }), duplex: "half" } as RequestInit);
+  expect((await worker.fetch(big, env)).status).toBe(413);
+});
+test("turnstile fetch throwing returns 502 with CORS", async () => {
+  fetchMock.mockImplementationOnce(async () => { throw new Error("net"); });
+  const r = await worker.fetch(req({ answers, turnstileToken: "t" }), env);
+  expect(r.status).toBe(502);
+  expect(r.headers.get("access-control-allow-origin")).toBe("https://haisem-codes.github.io");
+});
+test("resend non-2xx still returns 200", async () => {
+  fetchMock.mockImplementation(async (url: string) => url.includes("turnstile") ? Response.json({ success: true }) : url.includes("resend") ? new Response("no", { status: 422 }) : new Response(null, { status: 201 }));
+  expect((await worker.fetch(req({ answers, turnstileToken: "t" }), env)).status).toBe(200);
+});
+test("rate limiter denial returns 429 with CORS", async () => {
+  const limited = { ...env, INTAKE_LIMITER: { limit: async () => ({ success: false }) } };
+  const r = await worker.fetch(req({ answers, turnstileToken: "t" }), limited);
+  expect(r.status).toBe(429);
+  expect(r.headers.get("access-control-allow-origin")).toBe("https://haisem-codes.github.io");
+});
+test("stored body has no honeypot field and subject has no CRLF", async () => {
+  await worker.fetch(req({ answers: { ...answers, businessName: "Bygg\r\nBcc: x" }, turnstileToken: "t" }), env);
+  const stored = JSON.parse(String(dbCalls()[0][1].body));
+  expect(stored.answers).not.toHaveProperty("company_url_hp");
+  const mail = fetchMock.mock.calls.find((c) => String(c[0]).includes("resend"))!;
+  expect(JSON.parse(String(mail[1].body)).subject).not.toMatch(/[\r\n]/);
+});
