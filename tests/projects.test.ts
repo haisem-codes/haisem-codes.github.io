@@ -10,3 +10,8 @@ test("localize overlays sv", () => {
   expect(localize(p, "sv").tagline).toBe(p.sv!.tagline);
   expect(localize(p, "en").tagline).toBe(p.tagline);
 });
+test("Metaviz work is attributed", () => {
+  for (const s of ["ai-compliance-platform", "voice-agents-suite", "postura", "coach", "ai-real-estate-marketplace", "b2b-travel-saas", "ai-craftsmen-marketplace", "ai-tools-suite", "ai-video-pipeline"])
+    expect(projects.find((p) => p.slug === s)?.employer).toBe("metaviz");
+});
+test("icore-careerhub removed", () => expect(projects.some((p) => p.slug === "icore-careerhub")).toBe(false));

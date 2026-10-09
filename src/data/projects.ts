@@ -229,6 +229,7 @@ export const projects: Project[] = [
     featured: true,
     order: 5,
     category: "products",
+    employer: "metaviz",
     sv: {
       title:
         "AI-driven fastighetsmarknad med värdering från flera LLM:er", // REVIEW-SV
@@ -305,6 +306,7 @@ export const projects: Project[] = [
     featured: false,
     order: 7,
     category: "products",
+    employer: "metaviz",
   },
 
   {
@@ -345,6 +347,7 @@ export const projects: Project[] = [
     featured: false,
     order: 8,
     category: "products",
+    employer: "metaviz",
   },
 
   {
@@ -384,41 +387,7 @@ export const projects: Project[] = [
     featured: false,
     order: 9,
     category: "products",
-  },
-
-  {
-    slug: "icore-careerhub",
-    title: "iCore CareerHub, Hospitality Recruitment SaaS",
-    tagline:
-      "AI CV parsing + Pinecone vector job matching + AI voiceover generation",
-    description:
-      "Hospitality-focused recruitment SaaS that automates CV extraction, AI-enhanced profile presentation, and vector-powered candidate-job matching.",
-    problem:
-      "Hospitality recruiters were drowning in unstructured PDFs/DOCX from candidates and matching jobs by keyword search, slow, biased toward whoever used the right buzzwords.",
-    solution:
-      "Strapi 5.22 backend with 40 API modules and 35 content-type schemas. Multi-modal AI CV parser routing between GPT-4o Vision (scanned PDFs) and GPT-4o-mini (text PDFs / mammoth-converted DOCX). Vector job matching via Pinecone (1536-dim text-embedding-3-small) with weighted scoring (skills 40%, location 15%, objectives 15%, badge/region bonuses). OpenAI TTS for 44–48s voiceover scripts.",
-    result:
-      "40 API modules, 35 schemas. Daily cron jobs (subscription expiry warnings, archived-user purge). Google Calendar OAuth2 for interview scheduling. SendGrid for transactional email. Ranked candidate matches with score ≥0.3 threshold.",
-    image: "/projects/icore-careerhub.webp",
-    techStack: [
-      "Strapi 5.22",
-      "Node 20",
-      "TypeScript",
-      "PostgreSQL",
-      "OpenAI GPT-4o",
-      "GPT-4o-mini",
-      "text-embedding-3-small",
-      "Pinecone",
-      "OpenAI TTS",
-      "pdf-parse",
-      "mammoth",
-      "Cloudinary",
-      "SendGrid",
-      "Google Calendar API",
-    ],
-    featured: false,
-    order: 10,
-    category: "products",
+    employer: "metaviz",
   },
 
   {
@@ -446,6 +415,7 @@ export const projects: Project[] = [
     featured: false,
     order: 11,
     category: "business",
+    employer: "metaviz",
   },
 
   {
