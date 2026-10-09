@@ -20,7 +20,7 @@ export const sv = {
     quote: "…would not have been able to scale as fast as I have been without the support.",
     quoteBy: "Jake Wims, byråns grundare",
     items: [
-      "Röstagenter jag byggt används av fler än 5 företag",
+      "Röstagenter jag byggt för fler än 5 företag", // REVIEW-SV
       "Master i AI och språk, Stockholms universitet",
       "Publicerad i ACM Computing Surveys",
     ],
@@ -78,7 +78,7 @@ export const sv = {
   },
   story: {
     title: "Så här ser en automation ut",
-    note: "Så fungerar systemet jag byggde åt Jakes byrå.",
+    note: "Så fungerar systemet jag byggde på Metaviz åt Jakes byrå.", // REVIEW-SV
     steps: [
       { title: "En lead kommer in", body: "Någon fyller i ditt formulär eller din annons kl. 21.40." },
       { title: "AI:n ringer", body: "Inom några minuter ringer den upp, kan redan svaren och frågar bara det som saknas." },
@@ -90,10 +90,10 @@ export const sv = {
     eyebrow: "Kundcase",
     title: "AI-uppföljning för en växande byrå",
     intro:
-      "Jake Wims startade en byrå som säljer AI-uppföljning av leads till mäklarteam och en bolåneförmedlare. Jag byggde hela systemet: röstagenterna, CRM-automationerna och flödena mellan dem.",
+      "Jake Wims startade en byrå som säljer AI-uppföljning av leads till mäklarteam och en bolåneförmedlare. På Metaviz AI byggde jag hela systemet åt honom: röstagenterna, CRM-automationerna och flödena mellan dem.", // REVIEW-SV
     points: [
       "En AI som ringer nya leads från Facebook-annonser, kvalificerar dem enligt regler Jake godkänt och bokar möten",
-      "En mall som kan klonas och nu används av fler än fem av hans kunder",
+      "En mall som kan klonas, byggd för fler än fem av hans kunder", // REVIEW-SV
       "Varje samtal sparas i GoHighLevel, med sammanfattningar till både lead och team",
     ],
     confidential: "Resultaten är konfidentiella för Jakes kunder.",
@@ -146,12 +146,12 @@ export const sv = {
   hire: {
     title: "För team som söker en AI-ingenjör",
     intro:
-      "AI/ML-ingenjör i Stockholm. Jag bygger LLM-produkter från början till slut: RAG, multiagentsystem, röst-AI och fullstack-appar. Deltid vid sidan av mastern nu, heltid från juni 2028.",
+      "AI/ML-ingenjör i Stockholm. Jag bygger LLM-produkter från början till slut: RAG, multiagentsystem, röst-AI och fullstack-appar. Deltid vid sidan av mastern nu, heltid efter två terminer (från sommaren 2027).", // REVIEW-SV
     cv: "Ladda ner CV (PDF)",
     workTitle: "Det här har jag byggt",
     skillsTitle: "Kompetenser",
     credentialsTitle: "Utbildning och forskning",
-    stats: { years: "År med AI-utveckling", systems: "AI-system i produktion", publications: "Referentgranskad publikation" },
+    stats: { years: "År med AI-utveckling", systems: "Levererade AI-system", publications: "Referentgranskad publikation" }, // REVIEW-SV
   },
   intake: {
     title: "Få din automationsplan",

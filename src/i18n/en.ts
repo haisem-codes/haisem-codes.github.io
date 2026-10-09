@@ -18,7 +18,7 @@ export const en = {
     quote: "…would not have been able to scale as fast as I have been without the support.",
     quoteBy: "Jake Wims, agency founder",
     items: [
-      "Voice agents I built run for 5+ businesses",
+      "Voice agents I built for 5+ businesses",
       "MSc AI and Language, Stockholm University",
       "Published in ACM Computing Surveys",
     ],
@@ -76,7 +76,7 @@ export const en = {
   },
   story: {
     title: "What an automation looks like",
-    note: "This is how the system I built for Jake's agency works.",
+    note: "This is how the system I built at Metaviz for Jake's agency works.",
     steps: [
       { title: "A lead arrives", body: "Someone fills in your form or ad at 21:40." },
       { title: "The AI calls", body: "Within minutes it calls, already knows their answers, and asks only what's missing." },
@@ -88,10 +88,10 @@ export const en = {
     eyebrow: "Client story",
     title: "AI follow-up for a growing agency",
     intro:
-      "Jake Wims started an agency selling AI lead follow-up to real-estate teams and a mortgage lender. I built the whole system: the voice agents, the CRM automations and the workflows between them.",
+      "Jake Wims started an agency selling AI lead follow-up to real-estate teams and a mortgage lender. At Metaviz AI, I built the whole system for him: the voice agents, the CRM automations and the workflows between them.",
     points: [
       "An AI caller that phones new Facebook-ad leads, qualifies them on rules Jake approved and books consultations",
-      "A cloneable template, now running for more than five of his clients",
+      "A cloneable template, built for more than five of his clients",
       "Every call written back to GoHighLevel, with summaries for the lead and the team",
     ],
     confidential: "Results stay confidential to Jake's clients.",
@@ -144,12 +144,12 @@ export const en = {
   hire: {
     title: "For teams hiring an AI engineer",
     intro:
-      "AI/ML engineer in Stockholm. I ship LLM products end to end: RAG, multi-agent systems, voice AI and full-stack apps. Part-time alongside my MSc now, full-time from June 2028.",
+      "AI/ML engineer in Stockholm. I ship LLM products end to end: RAG, multi-agent systems, voice AI and full-stack apps. Part-time alongside my MSc now, full-time after two semesters (from summer 2027).",
     cv: "Download CV (PDF)",
     workTitle: "What I've built",
     skillsTitle: "Skills",
     credentialsTitle: "Education and research",
-    stats: { years: "Years building AI", systems: "Production AI systems", publications: "Peer-reviewed publication" },
+    stats: { years: "Years building AI", systems: "AI systems shipped", publications: "Peer-reviewed publication" },
   },
   intake: {
     title: "Get your automation plan",

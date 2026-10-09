@@ -60,15 +60,15 @@ export const projects: Project[] = [
     slug: "voice-agents-suite",
     title: "Production Voice Agents: Retell, ElevenLabs, GoHighLevel and n8n",
     tagline:
-      "AI callers that follow up new leads and book appointments, live for more than five businesses",
+      "AI callers that follow up new leads and book appointments, built for more than five businesses",
     description:
-      "At Metaviz AI I built the voice agents, GoHighLevel automations and n8n flows behind an agency's AI lead follow-up. Jake Wims's agency sells the service to US real-estate teams and a mortgage lender, and the template now runs as more than five client agents, one for each business owner the agency signed.",
+      "At Metaviz AI I built the voice agents, GoHighLevel automations and n8n flows behind an agency's AI lead follow-up. Jake Wims's agency sells the service to US real-estate teams and a mortgage lender, and I rolled the template out as more than five client agents, one for each business owner the agency signed.",
     problem:
       "New leads from Facebook ads go cold within hours, and a small team can't call every one of them back at 21:40. Off-the-shelf voice bots sounded robotic or lost the details at the CRM handoff.",
     solution:
       "A Retell voice agent calls each new lead from a local number, recaps what they entered in the form, qualifies them Hot, Warm or Cold on rules the client approved, and books straight into the GoHighLevel calendar through n8n tools. After the call it writes notes back to the CRM, sends lead and internal emails, and starts SMS or nurture sequences when nobody answers. I packaged it as a cloneable template with real-estate and mortgage variants and a shared n8n inbound lookup that greets callers with the right business name. Alongside it I built inbound concierge agents and sales, support and booking agents on ElevenLabs Conversational AI.",
     result:
-      "More than five client agents live from one template, one for each business owner the agency signed. The architecture was verified against the live Retell, n8n and GoHighLevel APIs, with a 10-case test plan, a fix for misclassified leads, and a cross-client greeting leak root-caused and fixed across every agent. On a separate prompt rewrite at Metaviz, I cut one agent's prompt from 16,800 to 3,279 words and raised response-rule compliance from about 25% to 98%.",
+      "More than five client agents built from one template, one for each business owner the agency signed. The architecture was verified against the real Retell, n8n and GoHighLevel APIs, with a 10-case test plan, a fix for misclassified leads, and a cross-client greeting leak root-caused and fixed across every agent. On a separate prompt rewrite at Metaviz, I cut one agent's prompt from 16,800 to 3,279 words and raised response-rule compliance from about 25% to 98%.",
     image: "/projects/anonymized/voice-workflows.png",
     techStack: [
       "Retell AI",
@@ -88,15 +88,15 @@ export const projects: Project[] = [
       title:
         "Röstagenter i produktion: Retell, ElevenLabs, GoHighLevel och n8n",
       tagline:
-        "AI som ringer upp nya leads och bokar möten, i drift hos fler än fem företag", // REVIEW-SV
+        "AI som ringer upp nya leads och bokar möten, byggd för fler än fem företag", // REVIEW-SV
       description:
-        "På Metaviz AI byggde jag röstagenterna, GoHighLevel-automationerna och n8n-flödena bakom en byrås AI-uppföljning av leads. Jake Wims byrå säljer tjänsten till amerikanska mäklarteam och en bolånegivare, och mallen körs nu som fler än fem agenter, en för varje företagare byrån har skrivit avtal med.",
+        "På Metaviz AI byggde jag röstagenterna, GoHighLevel-automationerna och n8n-flödena bakom en byrås AI-uppföljning av leads. Jake Wims byrå säljer tjänsten till amerikanska mäklarteam och en bolånegivare, och jag satte upp mallen som fler än fem agenter, en för varje företagare byrån skrev avtal med.", // REVIEW-SV
       problem:
         "Nya leads från Facebook-annonser kallnar på några timmar, och ett litet team hinner inte ringa tillbaka alla klockan 21.40. Färdiga röstbotar lät robotaktiga eller tappade detaljerna i överlämningen till CRM:et.",
       solution:
         "En röstagent i Retell ringer varje ny lead från ett lokalt nummer, sammanfattar vad personen fyllde i, bedömer leadet som Hot, Warm eller Cold enligt regler kunden har godkänt och bokar direkt i GoHighLevel-kalendern via n8n. Efter samtalet skrivs anteckningar tillbaka till CRM:et, mejl går till leadet och teamet, och SMS eller uppföljningssekvenser startar om ingen svarar. Jag paketerade allt som en mall som går att klona, med varianter för mäklare och bolån, och en gemensam n8n-uppslagning som hälsar med rätt företagsnamn. Vid sidan av det byggde jag inkommande receptionsagenter och agenter för sälj, support och bokning på ElevenLabs Conversational AI.", // REVIEW-SV
       result:
-        "Fler än fem kundagenter i drift från samma mall, en för varje företagare byrån har skrivit avtal med. Arkitekturen verifierades mot de riktiga API:erna i Retell, n8n och GoHighLevel, med en testplan på tio fall, en rättning av felklassade leads och en läcka av hälsningsfraser mellan kunder som spårades och åtgärdades i alla agenter. I ett separat promptarbete på Metaviz kortade jag en agents prompt från 16 800 till 3 279 ord och höjde följsamheten mot svarsreglerna från cirka 25 % till 98 %.", // REVIEW-SV
+        "Fler än fem kundagenter byggda från samma mall, en för varje företagare byrån skrev avtal med. Arkitekturen verifierades mot de riktiga API:erna i Retell, n8n och GoHighLevel, med en testplan på tio fall, en rättning av felklassade leads och en läcka av hälsningsfraser mellan kunder som spårades och åtgärdades i alla agenter. I ett separat promptarbete på Metaviz kortade jag en agents prompt från 16 800 till 3 279 ord och höjde följsamheten mot svarsreglerna från cirka 25 % till 98 %.", // REVIEW-SV
     },
   },
 
