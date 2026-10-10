@@ -23,8 +23,9 @@ Live voice agent (later), real photo shoot (later), CMS, new backend, prices.
 - **Section header:** one component — mono index + eyebrow, serif title (optional italic phrase), kicker.
 
 ## 2. Page architecture (home, both languages)
-1. **Cover hero** — magazine cover: issue line ("Nummer 01 · Stockholm · 2026"), serif promise in 2 lines with an
-   italic key phrase, CTA pair; right side a live **demo phone** (static frame of the receptionist chat) instead of
+1. **Cover hero** — magazine cover: issue line ("Nummer 01 · Stockholm · 2026"), serif headline
+   "Websites and AI that *work while you don't.*" (SV: "Webbplatser och AI som *jobbar när du inte gör det.*" — REVIEW-SV;
+   italic phrase in falu red), CTA pair; right side a live **demo phone** (static frame of the receptionist chat) instead of
    the particle sphere. LCP = hero text; nothing 3D above the fold.
 2. **Proof strip** — Jake pull-quote + 3 facts, fixed separators.
 3. **Jake testimonial (moved up)** — custom poster + play button, pull-quote, captions; transcript in details.
@@ -35,6 +36,7 @@ Live voice agent (later), real photo shoot (later), CMS, new backend, prices.
      or types a customer message; scripted bot replies with typing, asks one qualifying question, offers slots,
      books; panel flips to CRM card + timeline (SMS 0:04, calendar 0:06). Verticals: salon, clinic, trades,
      restaurant. EN/SV scripts. CTA "Want this for your business?" → `/start` prefilled goal.
+   - Control-room heading: "21:40. A lead arrives. *You're already asleep.*"
    - **"21:40" scroll story** — pinned GSAP timeline over real UI pieces from the demo: form fills → phone rings
      (waveform) → calendar cell drops → CRM row slides; corner clock 21:40→21:44. Works on phones (shorter pin).
      Replaces the particle StoryScene.
