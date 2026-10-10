@@ -10,8 +10,7 @@ export const sv = {
   },
   nav: {
     services: "Tjänster", work: "Projekt", about: "Om mig", hire: "För arbetsgivare", start: "Boka ett gratis samtal", switchTo: "English", menu: "Meny",
-    bulbOn: "Lampan är tänd. Dra för mörkt läge", // REVIEW-SV
-    bulbOff: "Lampan är släckt. Dra för ljust läge", // REVIEW-SV
+    nightMode: "Mörkt läge", // REVIEW-SV
     pullHint: "dra i mig", // REVIEW-SV
   },
   hero: {

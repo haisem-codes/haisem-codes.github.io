@@ -7,7 +7,7 @@ import { readTier } from "@/lib/capability";
 import { useTheme } from "@/components/providers/ThemeProvider";
 import type { Dictionary } from "@/i18n";
 
-type BulbDict = Pick<Dictionary["nav"], "bulbOn" | "bulbOff" | "pullHint">;
+type BulbDict = Pick<Dictionary["nav"], "nightMode" | "pullHint">;
 
 const CORD = 40;
 const PULL = 40;
@@ -16,6 +16,29 @@ const RETRACT_AT = 80;
 const HINT_KEY = "lamp-hint-seen";
 
 const SPRING_BACK = { type: "spring", stiffness: 420, damping: 14 } as const;
+const SETTLE_MS = 800;
+
+export function useBulbRetracted() {
+  const [retracted, setRetracted] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setRetracted((r) => (r ? scrollY > RETRACT_AT / 2 : scrollY > RETRACT_AT));
+    onScroll();
+    addEventListener("scroll", onScroll, { passive: true });
+    return () => removeEventListener("scroll", onScroll);
+  }, []);
+  return retracted;
+}
+
+/** Blocks re-entry while a pull, tug or reveal is still playing out. */
+function useLatch() {
+  const held = useRef(false);
+  return () => {
+    if (held.current) return false;
+    held.current = true;
+    setTimeout(() => (held.current = false), SETTLE_MS);
+    return true;
+  };
+}
 
 function useStill() {
   const [still, setStill] = useState(true);
@@ -42,19 +65,13 @@ export function HangingBulb({ dict }: { dict: BulbDict }) {
   const glassRef = useRef<HTMLSpanElement>(null);
   const dragged = useRef(false);
   const swingDir = useRef(1);
-  const [retracted, setRetracted] = useState(false);
+  const retracted = useBulbRetracted();
+  const latch = useLatch();
   const [hint, setHint] = useState(false);
 
   const y = useMotionValue(0);
   const rotate = useMotionValue(0);
   const cordHeight = useTransform(y, (v) => CORD + v);
-
-  useEffect(() => {
-    const onScroll = () => setRetracted((r) => (r ? scrollY > RETRACT_AT / 2 : scrollY > RETRACT_AT));
-    onScroll();
-    addEventListener("scroll", onScroll, { passive: true });
-    return () => removeEventListener("scroll", onScroll);
-  }, []);
 
   useEffect(() => {
     try {
@@ -92,6 +109,7 @@ export function HangingBulb({ dict }: { dict: BulbDict }) {
 
   const onClick = (e: MouseEvent) => {
     if (dragged.current && e.detail !== 0) return;
+    if (!latch()) return;
     if (still) return flip();
     animate(y, 18, { duration: 0.12, ease: "easeOut" }).then(() => {
       flip();
@@ -100,7 +118,7 @@ export function HangingBulb({ dict }: { dict: BulbDict }) {
   };
 
   const onDragEnd = (_: unknown, info: PanInfo) => {
-    if (y.get() >= PULL) {
+    if (y.get() >= PULL && latch()) {
       swingDir.current = info.velocity.x < 0 ? 1 : -1;
       flip();
     }
@@ -114,6 +132,7 @@ export function HangingBulb({ dict }: { dict: BulbDict }) {
       style={{ clipPath: "inset(0 -100vw -100vh -100vw)" }}
     >
       <div
+        inert={retracted}
         className="transition-[translate,opacity] duration-[var(--dur-ui)] ease-[var(--ease-silk)]"
         style={{ translate: retracted ? `0 -${CORD + 72}px` : "0 0", opacity: retracted ? 0 : 1 }}
       >
@@ -137,7 +156,7 @@ export function HangingBulb({ dict }: { dict: BulbDict }) {
               className="block h-[min(72vh,640px)] w-[min(64vw,820px)]"
               style={{
                 clipPath: "polygon(47% 0, 53% 0, 100% 100%, 0 100%)",
-                background: "linear-gradient(to bottom, var(--color-glow) 0%, rgba(56,189,248,0.07) 55%, transparent 92%)",
+                background: "linear-gradient(to bottom, rgba(56,189,248,0.10) 0%, rgba(56,189,248,0.04) 55%, transparent 92%)",
               }}
             />
           </motion.span>
@@ -145,8 +164,8 @@ export function HangingBulb({ dict }: { dict: BulbDict }) {
           <motion.button
             type="button"
             aria-pressed={theme === "dark"}
-            aria-label={theme === "dark" ? dict.bulbOff : dict.bulbOn}
-            className="pointer-events-auto absolute left-0 flex w-11 -translate-x-1/2 cursor-grab touch-none flex-col items-center rounded-full pb-1 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent active:cursor-grabbing"
+            aria-label={dict.nightMode}
+            className="pointer-events-auto absolute left-0 flex w-11 -translate-x-1/2 cursor-grab touch-none flex-col items-center rounded-full pb-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent active:cursor-grabbing"
             style={{ top: CORD, y }}
             drag="y"
             dragConstraints={{ top: 0, bottom: MAX_PULL }}
@@ -217,10 +236,13 @@ function Glass({ ref }: { ref: Ref<HTMLSpanElement> }) {
 export function BulbCord({ dict }: { dict: BulbDict }) {
   const { theme, toggleFrom } = useBulbToggle();
   const still = useStill();
+  const retracted = useBulbRetracted();
+  const latch = useLatch();
   const ref = useRef<HTMLButtonElement>(null);
   const y = useMotionValue(0);
 
   const onClick = () => {
+    if (!latch()) return;
     if (still) return toggleFrom(ref.current);
     animate(y, 5, { duration: 0.1, ease: "easeOut" }).then(() => {
       toggleFrom(ref.current);
@@ -233,9 +255,13 @@ export function BulbCord({ dict }: { dict: BulbDict }) {
       ref={ref}
       type="button"
       aria-pressed={theme === "dark"}
-      aria-label={theme === "dark" ? dict.bulbOff : dict.bulbOn}
+      aria-label={dict.nightMode}
       onClick={onClick}
-      className="flex h-10 w-10 cursor-pointer items-start justify-center rounded-full text-text-secondary transition-colors hover:text-text focus-visible:outline-2 focus-visible:outline-accent lg:hidden"
+      className={cn(
+        "h-9 w-9 cursor-pointer items-start justify-center rounded-full text-text-secondary hover:text-text focus-visible:outline-2 focus-visible:outline-accent",
+        "flex transition-[color,opacity,visibility] duration-[var(--dur-ui)]",
+        !retracted && "lg:invisible lg:opacity-0",
+      )}
     >
       <motion.svg style={{ y }} width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden className="-mt-0.5">
         <path d="M12 0v9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />

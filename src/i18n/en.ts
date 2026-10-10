@@ -8,8 +8,7 @@ export const en = {
   },
   nav: {
     services: "Services", work: "Work", about: "About", hire: "For employers", start: "Book a free call", switchTo: "Svenska", menu: "Menu",
-    bulbOn: "Light on. Pull for night mode",
-    bulbOff: "Light off. Pull for light mode",
+    nightMode: "Night mode",
     pullHint: "pull me",
   },
   hero: {

@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, useCallback, useRef, type ReactNode } from "react";
 import { flushSync } from "react-dom";
 import { initialTheme, nextTheme, THEME_KEY, type Theme } from "@/lib/theme";
 import { readTier } from "@/lib/capability";
@@ -21,6 +21,7 @@ export function useTheme() {
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>("light");
+  const switching = useRef(false);
 
   useEffect(() => {
     try {
@@ -30,11 +31,17 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   const toggleTheme = useCallback(
     (origin?: { x: number; y: number }) => {
+      if (switching.current) return;
+      switching.current = true;
       const next = nextTheme(theme);
       const html = document.documentElement;
       // colour transitions would smear the reveal, so the new theme lands in one frame
       html.classList.add("theme-switching");
-      const settle = () => requestAnimationFrame(() => html.classList.remove("theme-switching"));
+      const settle = () =>
+        requestAnimationFrame(() => {
+          html.classList.remove("theme-switching");
+          switching.current = false;
+        });
       const apply = () => {
         flushSync(() => setTheme(next));
         html.classList.toggle("dark", next === "dark");
