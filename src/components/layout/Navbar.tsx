@@ -64,7 +64,7 @@ export function Navbar({ dict, lang }: { dict: Dictionary["nav"]; lang: Locale }
     }
   };
 
-  const linkClass = "text-sm text-text-secondary hover:text-text transition-colors duration-200 border-b-2 border-transparent aria-[current=page]:text-text aria-[current=page]:border-accent";
+  const linkClass = "text-sm text-text-secondary hover:text-text transition-colors duration-200 border-b-2 border-transparent aria-[current]:text-text aria-[current]:border-accent";
   const surface = "nav-surface backdrop-blur-xl backdrop-saturate-150 transition-shadow duration-200";
 
   return (
@@ -80,7 +80,7 @@ export function Navbar({ dict, lang }: { dict: Dictionary["nav"]; lang: Locale }
               <a
                 href={localHref(lang, `/#${l.id}`)}
                 onClick={(e) => handleAnchor(e, l.id)}
-                aria-current={activeId === l.id ? "page" : undefined}
+                aria-current={activeId === l.id ? "location" : undefined}
                 className={linkClass}
               >
                 {l.label}
@@ -134,7 +134,7 @@ export function Navbar({ dict, lang }: { dict: Dictionary["nav"]; lang: Locale }
               <a
                 href={localHref(lang, `/#${l.id}`)}
                 onClick={(e) => handleAnchor(e, l.id)}
-                aria-current={activeId === l.id ? "page" : undefined}
+                aria-current={activeId === l.id ? "location" : undefined}
                 className={cn(linkClass, "block py-2")}
               >
                 {l.label}
