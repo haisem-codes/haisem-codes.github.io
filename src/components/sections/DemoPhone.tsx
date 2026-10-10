@@ -7,6 +7,7 @@ import type { Dictionary } from "@/i18n";
 
 const PICK = 1;
 const LOOP_MS = 12000;
+const FIRST_HOLD_MS = 3500;
 const TILT = 8;
 /** ms at which each step is reached: ask, typing, offer, slots, pick-slot, pick-msg, typing, booked, crm */
 const TIMELINE = [400, 1000, 1900, 2350, 3300, 3800, 4300, 5200, 5800];
@@ -34,10 +35,17 @@ export function DemoPhone({ dict, autoplay }: { dict: Dictionary["demoPhone"]; a
       TIMELINE.forEach((at, i) => timers.push(setTimeout(() => setStep(i + 1), at)));
       timers.push(setTimeout(cycle, LOOP_MS));
     };
+    let held = false;
+    const start = () => {
+      if (held) return cycle();
+      held = true;
+      stop();
+      timers.push(setTimeout(cycle, FIRST_HOLD_MS));
+    };
     const io = new IntersectionObserver(([e]) => {
       inView.current = e.isIntersecting;
       if (!autoplay) return;
-      if (e.isIntersecting) cycle();
+      if (e.isIntersecting) start();
       else stop();
     });
     io.observe(root);
@@ -45,7 +53,7 @@ export function DemoPhone({ dict, autoplay }: { dict: Dictionary["demoPhone"]; a
     const onVisibility = () => {
       if (!autoplay) return;
       if (document.hidden) stop();
-      else if (inView.current) cycle();
+      else if (inView.current) start();
     };
     document.addEventListener("visibilitychange", onVisibility);
 
