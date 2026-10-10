@@ -6,7 +6,12 @@ export const en = {
     hireTitle: "Haisem Naeem | AI engineer, Stockholm",
     hireDescription: "AI/ML engineer in Stockholm: LLM products, RAG, voice AI and full-stack delivery.",
   },
-  nav: { services: "Services", work: "Work", about: "About", hire: "For employers", start: "Book a free call", switchTo: "Svenska", menu: "Menu", theme: "Toggle dark mode" },
+  nav: {
+    services: "Services", work: "Work", about: "About", hire: "For employers", start: "Book a free call", switchTo: "Svenska", menu: "Menu",
+    bulbOn: "Light on. Pull for night mode",
+    bulbOff: "Light off. Pull for light mode",
+    pullHint: "pull me",
+  },
   hero: {
     eyebrow: "Haisem Naeem · AI engineer in Stockholm",
     title: "Websites and AI that win you customers and give you back hours.",

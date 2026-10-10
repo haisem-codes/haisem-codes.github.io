@@ -8,7 +8,12 @@ export const sv = {
     hireTitle: "Haisem Naeem | AI-ingenjör, Stockholm",
     hireDescription: "AI/ML-ingenjör i Stockholm: LLM-produkter, RAG, röst-AI och fullstack-leverans.",
   },
-  nav: { services: "Tjänster", work: "Projekt", about: "Om mig", hire: "För arbetsgivare", start: "Boka ett gratis samtal", switchTo: "English", menu: "Meny", theme: "Växla mörkt läge" },
+  nav: {
+    services: "Tjänster", work: "Projekt", about: "Om mig", hire: "För arbetsgivare", start: "Boka ett gratis samtal", switchTo: "English", menu: "Meny",
+    bulbOn: "Lampan är tänd. Dra för mörkt läge", // REVIEW-SV
+    bulbOff: "Lampan är släckt. Dra för ljust läge", // REVIEW-SV
+    pullHint: "dra i mig", // REVIEW-SV
+  },
   hero: {
     eyebrow: "Haisem Naeem · AI-ingenjör i Stockholm",
     title: "Webbplatser och AI som ger dig fler kunder och mer tid över.", // REVIEW-SV

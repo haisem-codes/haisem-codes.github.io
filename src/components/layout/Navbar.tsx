@@ -6,7 +6,7 @@ import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import { localHref, type Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n";
-import { ThemeToggle } from "@/components/layout/ThemeToggle";
+import { HangingBulb, BulbCord } from "@/components/layout/HangingBulb";
 import { LanguageSwitch } from "@/components/i18n/LanguageSwitch";
 
 export function Navbar({ dict, lang }: { dict: Dictionary["nav"]; lang: Locale }) {
@@ -55,7 +55,7 @@ export function Navbar({ dict, lang }: { dict: Dictionary["nav"]; lang: Locale }
         </ul>
 
         <div className="flex items-center gap-2">
-          <ThemeToggle label={dict.theme} />
+          <BulbCord dict={dict} />
           <LanguageSwitch lang={lang} label={dict.switchTo} />
           <a
             href={localHref(lang, "/start/")}
@@ -77,6 +77,8 @@ export function Navbar({ dict, lang }: { dict: Dictionary["nav"]; lang: Locale }
           </button>
         </div>
       </nav>
+
+      <HangingBulb dict={dict} />
 
       <motion.div
         id="mobile-menu"
