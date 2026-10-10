@@ -1,20 +1,21 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", system-ui, sans-serif;
-  --font-display: "Space Grotesk", sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
-
   --color-bg: #FAFAF8;
   --color-bg-card: #FFFFFF;
   --color-bg-glass: rgba(255, 255, 255, 0.7);
   --color-border: rgba(0, 0, 0, 0.07);
   --color-border-hover: rgba(0, 0, 0, 0.14);
-  --color-text: #16161A;
+  --color-text: #1A1A1E;
   --color-text-secondary: #5B6170;
-  --color-accent: #0D7C72;
-  --color-accent-hover: #0A655D;
-  --color-accent-glow: rgba(13, 124, 114, 0.12);
+  --color-accent: #0369A1;
+  --color-accent-hover: #075985;
+  --color-accent-glow: rgba(56, 189, 248, 0.18);
+  --color-accent-tint: #E0F2FE;
+  --color-button: #0369A1;
+  --color-button-text: #FFFFFF;
+  --color-glow: rgba(56, 189, 248, 0.18);
+  --color-live: #B45309;
   --color-danger: #B42318;
 
   --breakpoint-sm: 640px;
@@ -23,18 +24,37 @@
   --breakpoint-xl: 1280px;
 }
 
-/* ── Dark theme overrides ── */
+/* next/font injects --font-sans/--font-display/--font-mono on <html> */
+@theme inline {
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-display: var(--font-space-grotesk), sans-serif;
+  --font-mono: var(--font-jetbrains), monospace;
+}
+
+:root {
+  --ease-silk: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-micro: 150ms;
+  --dur-ui: 250ms;
+  --dur-editorial: 750ms;
+}
+
+/* ── Night theme (bulb off) ── */
 .dark {
   --color-bg: #0A0A0B;
   --color-bg-card: #141416;
   --color-bg-glass: rgba(20, 20, 22, 0.6);
-  --color-border: rgba(237, 237, 239, 0.06);
-  --color-border-hover: rgba(237, 237, 239, 0.12);
+  --color-border: rgba(237, 237, 239, 0.08);
+  --color-border-hover: rgba(237, 237, 239, 0.14);
   --color-text: #EDEDEF;
   --color-text-secondary: #8B8B9E;
-  --color-accent: #0D9488;
-  --color-accent-hover: #0F766E;
-  --color-accent-glow: rgba(13, 148, 136, 0.15);
+  --color-accent: #7DD3FC;
+  --color-accent-hover: #BAE6FD;
+  --color-accent-glow: rgba(56, 189, 248, 0.16);
+  --color-accent-tint: #0C2A3A;
+  --color-button: #38BDF8;
+  --color-button-text: #04121C;
+  --color-glow: rgba(56, 189, 248, 0.16);
+  --color-live: #FFB547;
   --color-danger: #F97066;
 }
 
@@ -57,8 +77,8 @@ body {
   color: var(--color-bg);
 }
 
-/* ── Noise texture overlay ── */
-.noise-overlay::after {
+/* ── Grain ── */
+body::after {
   content: "";
   position: fixed;
   inset: 0;
@@ -68,6 +88,10 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 256px 256px;
+}
+
+.dark body::after {
+  opacity: 0.05;
 }
 
 /* ── Glass utility ── */
@@ -94,8 +118,6 @@ body {
     transform: translateX(50%);
   }
 }
-/* ── Neural cable pulse ── */@keyframes pulse-travel {  0% { top: -20px; opacity: 0; }  10% { opacity: 1; }  90% { opacity: 1; }  100% { top: 100%; opacity: 0; }}
-
 /* ── Clip-path theme reveal ── */
 @keyframes clip-reveal {
   from {
@@ -104,35 +126,6 @@ body {
   to {
     clip-path: circle(150% at var(--cx) var(--cy));
   }
-}
-
-/* ── Gradient text ── */
-.gradient-text {
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-size: 200% auto;
-  animation: gradient-shift 4s ease infinite;
-}
-
-@keyframes gradient-shift {
-  0%, 100% {
-    background-position: 0% center;
-  }
-  50% {
-    background-position: 100% center;
-  }
-}
-
-/* ── SVG line draw ── */
-.draw-line {
-  stroke-dasharray: 200;
-  stroke-dashoffset: 200;
-  transition: stroke-dashoffset 0.8s ease-out;
-}
-
-.draw-line.visible {
-  stroke-dashoffset: 0;
 }
 
 /* ── Scrollbar ── */
@@ -199,34 +192,6 @@ html:not(.js) [data-reveal] {
   }
 }
 
-/* ── Critical: instant first paint ── */
-body {
-  /* Prevent layout shift - reserve space for content */
-  min-height: 100vh;
-}
-
-/* Content-visibility for below-fold sections */
-section:not(:first-child) {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 800px;
-}
-
-/* Optimize paint for fixed elements */
-.fixed {
-  will-change: transform;
-}
-
-/* GPU-accelerate glass blur */
-.glass {
-  will-change: backdrop-filter;
-  transform: translateZ(0);
-}
-
-/* Optimize image rendering */
-img {
-  content-visibility: auto;
-}
-
 /* ── Hide scrollbar for pill tabs ── */
 .scrollbar-hide {
   -ms-overflow-style: none;
@@ -236,34 +201,8 @@ img {
   display: none;
 }
 
-/* ── Mobile responsiveness fixes ── */
-@media (max-width: 640px) {
-  /* Smaller hero text on mobile */
-  .font-display {
-    letter-spacing: -0.02em;
-  }
-
-  /* Fix bento grid on small screens */
-  .grid {
-    gap: 0.75rem;
-  }
-
-  /* Tighter padding on mobile */
-  section {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-
-  /* Voice bot panel - full width on mobile */
-  .fixed.bottom-6.right-6 {
-    bottom: 1rem;
-    right: 1rem;
-  }
-}
-
 /* ── Ensure images never overflow ── */
 img {
   max-width: 100%;
   height: auto;
 }
-/* a11y improvements */
