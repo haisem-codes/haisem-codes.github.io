@@ -13,9 +13,11 @@ Live voice agent (later), real photo shoot (later), CMS, new backend, prices.
 ## 1. Identity system
 - **Type:** Instrument Serif (display, incl. italic accents) · Inter Tight (UI/body) · JetBrains Mono (labels, data,
   indices). Clamp-based 5-step scale 14→120px; display ≥ 7:1 against body in hero. Tabular figures for numbers.
-- **Light palette (default):** paper `#F4EFE6`, ink `#1A1A1A`, falu red `#B8401C` (primary accent, AA on paper for
-  ≥18.66px bold/24px text; darker `#9E3415` for small text), spruce `#2F4A3A` (secondary), birch `#D9C9A8`
-  (surfaces/rules), live amber `#FFB547` (only for "live/AI" states on dark).
+- **Light palette (default) — spruce theme (chosen 2026-10-10 over falu red):** paper `#F4EFE6`, ink `#1A1A1A`,
+  spruce `#2F4A3A` (primary accent: italic headline phrase, indices, CTAs, active nav), deep spruce `#1E3127`
+  (footer band, primary button), spruce light `#6E9A80` (large display accents only — ~3:1 on paper, never body
+  text), moss `#E3EBE4` (mockup backdrops, tints), birch `#D9C9A8` (rules), live amber `#FFB547` (only for
+  "live/AI" states on dark). Falu red `#B8401C` survives only as a tiny "issue/warning" colour in mockups.
 - **Night (dark mode, "Stockholm at night"):** navy `#0B0F14`, surfaces `#131A22`/`#1A232E`, paper text `#F2E8D5`,
   amber `#FFB547` + signal teal `#3DD6C4` for AI states.
 - **Texture/depth:** grain overlay (≈4% opacity), hairline column rules, folio numbers, editorial indices `01–09`,
@@ -26,7 +28,7 @@ Live voice agent (later), real photo shoot (later), CMS, new backend, prices.
 1. **Cover hero** — magazine cover: issue line ("Nummer 01 · Stockholm · 2026"), serif headline
    "AI that *works while you don't.*" (SV: "AI som *jobbar när du inte gör det.*" — REVIEW-SV;
    the subline must name websites too, since the headline no longer does;
-   italic phrase in falu red), CTA pair; right side a live **demo phone** (static frame of the receptionist chat) instead of
+   italic phrase in spruce), CTA pair; right side a live **demo phone** (static frame of the receptionist chat) instead of
    the particle sphere. LCP = hero text; nothing 3D above the fold.
 2. **Proof strip** — Jake pull-quote + 3 facts, fixed separators.
 3. **Jake testimonial (moved up)** — custom poster + play button, pull-quote, captions; transcript in details.
