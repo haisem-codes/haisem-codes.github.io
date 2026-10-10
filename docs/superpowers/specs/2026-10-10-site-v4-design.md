@@ -10,25 +10,25 @@ an employer should think "this person has taste and depth". Every section earns 
 ## Non-goals
 Live voice agent (later), real photo shoot (later), CMS, new backend, prices.
 
-## 1. Identity system
-- **Type:** Instrument Serif (display, incl. italic accents) · Inter Tight (UI/body) · JetBrains Mono (labels, data,
-  indices). Clamp-based 5-step scale 14→120px; display ≥ 7:1 against body in hero. Tabular figures for numbers.
-- **Light palette (default) — spruce theme (chosen 2026-10-10 over falu red):** paper `#F4EFE6`, ink `#1A1A1A`,
-  spruce `#2F4A3A` (primary accent: italic headline phrase, indices, CTAs, active nav), deep spruce `#1E3127`
-  (footer band, primary button), spruce light `#6E9A80` (large display accents only — ~3:1 on paper, never body
-  text), moss `#E3EBE4` (mockup backdrops, tints), birch `#D9C9A8` (rules), live amber `#FFB547` (only for
-  "live/AI" states on dark). Falu red `#B8401C` survives only as a tiny "issue/warning" colour in mockups.
-- **Night (dark mode, "Stockholm at night"):** navy `#0B0F14`, surfaces `#131A22`/`#1A232E`, paper text `#F2E8D5`,
-  amber `#FFB547` + signal teal `#3DD6C4` for AI states.
-- **Texture/depth:** grain overlay (≈4% opacity), hairline column rules, folio numbers, editorial indices `01–09`,
-  3 surface tiers, one shadow scale. No more than two consecutive card grids anywhere.
-- **Section header:** one component — mono index + eyebrow, serif title (optional italic phrase), kicker.
+## 1. Identity system — v1 theme as the base (Haisem, 2026-10-10)
+Keep the v1 look (commit ab1c4b7) and improve it; do not invent a new brand.
+- **Default = dark** (v1): bg `#0A0A0B`, card `#141416`, text `#EDEDEF`, secondary `#8B8B9E`, accent teal `#0D9488`
+  (hover `#0F766E`, glow `rgba(13,148,136,.15)`), grain overlay on body, one teal light pool per screen.
+- **Light mode** = v1 light tokens (`#FAFAF8` / `#1A1A1E`, same teal), reached by pulling the bulb.
+- **Hanging bulb returns** (v1 `HangingBulb`, pull-cord, light cone, "pull me" hint) as the theme toggle and the
+  site's signature object; fix v1's collisions (it overlapped nav/content) by anchoring it to the hero and letting it
+  retract into the nav on scroll; mobile gets a compact cord in the nav. Keyboard: button with `aria-pressed`.
+- **Type** = v1 stack: Space Grotesk (display), Inter (body), JetBrains Mono (labels, indices, live data). Upgrade the
+  scale: display ≥ 7:1 vs body in the hero, mono `01–09` indices, tabular figures.
+- **Second accent** only for "live/AI" moments: amber `#FFB547` (windows, live dot, booked slot).
+- Rhythm: never two identical card grids in a row; alternate full-bleed bands (night skyline band, teal-tinted
+  band) with open sections. Navbar opaque enough (≥ 0.88) with solid fallback.
 
 ## 2. Page architecture (home, both languages)
 1. **Cover hero** — magazine cover: issue line ("Nummer 01 · Stockholm · 2026"), serif headline
    "AI that *works while you don't.*" (SV: "AI som *jobbar när du inte gör det.*" — REVIEW-SV;
    the subline must name websites too, since the headline no longer does;
-   italic phrase in spruce), CTA pair; right side a live **demo phone** (static frame of the receptionist chat) instead of
+   key phrase in teal), CTA pair; right side a live **demo phone** (static frame of the receptionist chat) instead of
    the particle sphere. LCP = hero text; nothing 3D above the fold.
 2. **Proof strip** — Jake pull-quote + 3 facts, fixed separators.
 3. **Jake testimonial (moved up)** — custom poster + play button, pull-quote, captions; transcript in details.
