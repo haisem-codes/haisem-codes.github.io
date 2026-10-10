@@ -5,7 +5,7 @@ import type { Dictionary } from "@/i18n";
 import { Magnetic } from "@/components/ui/Magnetic";
 import { DemoPhone } from "@/components/sections/DemoPhone";
 
-const delay = (s: number) => ({ "--d": `${s}s` }) as CSSProperties;
+const delay = (s: number) => ({ "--d": `${Number(s.toFixed(2))}s` }) as CSSProperties;
 
 export function Hero({ dict, phone, lang }: { dict: Dictionary["hero"]; phone: Dictionary["demoPhone"]; lang: Locale }) {
   const words = [

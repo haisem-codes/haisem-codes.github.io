@@ -34,8 +34,6 @@ export function DemoPhone({ dict, autoplay }: { dict: Dictionary["demoPhone"]; a
       TIMELINE.forEach((at, i) => timers.push(setTimeout(() => setStep(i + 1), at)));
       timers.push(setTimeout(cycle, LOOP_MS));
     };
-    if (autoplay) setStep(0);
-
     const io = new IntersectionObserver(([e]) => {
       inView.current = e.isIntersecting;
       if (!autoplay) return;
@@ -43,6 +41,13 @@ export function DemoPhone({ dict, autoplay }: { dict: Dictionary["demoPhone"]; a
       else stop();
     });
     io.observe(root);
+
+    const onVisibility = () => {
+      if (!autoplay) return;
+      if (document.hidden) stop();
+      else if (inView.current) cycle();
+    };
+    document.addEventListener("visibilitychange", onVisibility);
 
     let raf = 0;
     let tx = 0, ty = 0, cx = 0, cy = 0;
@@ -65,6 +70,7 @@ export function DemoPhone({ dict, autoplay }: { dict: Dictionary["demoPhone"]; a
     return () => {
       stop();
       io.disconnect();
+      document.removeEventListener("visibilitychange", onVisibility);
       cancelAnimationFrame(raf);
       removeEventListener("pointermove", onMove);
     };
@@ -113,7 +119,7 @@ export function DemoPhone({ dict, autoplay }: { dict: Dictionary["demoPhone"]; a
                 <span
                   key={s}
                   className={cn(
-                    "rounded-full border px-2.5 py-1.5 font-mono text-xs tabular-nums transition-colors duration-[var(--dur-ui)]",
+                    "rounded-full border px-2.5 py-1.5 font-mono text-xs tabular-nums transition-colors duration-[var(--dur-ui)] ease-[var(--ease-silk)]",
                     i === PICK && at(5)
                       ? "border-live bg-live text-white dark:text-[#1A1205]"
                       : "border-border-hover text-text-secondary",
@@ -180,7 +186,7 @@ function Typing({ on }: { on: boolean }) {
   return (
     <span
       aria-hidden
-      className="absolute top-0 left-0 flex gap-1 rounded-2xl rounded-bl-[4px] bg-[#EEF1F5] px-3.5 py-3 transition-opacity duration-[var(--dur-ui)] dark:bg-[#1D1F23]"
+      className="absolute top-0 left-0 flex gap-1 rounded-2xl rounded-bl-[4px] bg-[#EEF1F5] px-3.5 py-3 transition-opacity duration-[var(--dur-ui)] ease-[var(--ease-silk)] dark:bg-[#1D1F23]"
       style={{ opacity: on ? 1 : 0 }}
     >
       {[0, 1, 2].map((i) => (
