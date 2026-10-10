@@ -10,25 +10,30 @@ an employer should think "this person has taste and depth". Every section earns 
 ## Non-goals
 Live voice agent (later), real photo shoot (later), CMS, new backend, prices.
 
-## 1. Identity system — v1 theme as the base (Haisem, 2026-10-10)
-Keep the v1 look (commit ab1c4b7) and improve it; do not invent a new brand.
-- **Default = dark** (v1): bg `#0A0A0B`, card `#141416`, text `#EDEDEF`, secondary `#8B8B9E`, accent teal `#0D9488`
-  (hover `#0F766E`, glow `rgba(13,148,136,.15)`), grain overlay on body, one teal light pool per screen.
-- **Light mode** = v1 light tokens (`#FAFAF8` / `#1A1A1E`, same teal), reached by pulling the bulb.
-- **Hanging bulb returns** (v1 `HangingBulb`, pull-cord, light cone, "pull me" hint) as the theme toggle and the
-  site's signature object; fix v1's collisions (it overlapped nav/content) by anchoring it to the hero and letting it
-  retract into the nav on scroll; mobile gets a compact cord in the nav. Keyboard: button with `aria-pressed`.
-- **Type** = v1 stack: Space Grotesk (display), Inter (body), JetBrains Mono (labels, indices, live data). Upgrade the
-  scale: display ≥ 7:1 vs body in the hero, mono `01–09` indices, tabular figures.
-- **Second accent** only for "live/AI" moments: amber `#FFB547` (windows, live dot, booked slot).
-- Rhythm: never two identical card grids in a row; alternate full-bleed bands (night skyline band, teal-tinted
-  band) with open sections. Navbar opaque enough (≥ 0.88) with solid fallback.
+## 1. Identity system — v1 theme as the base, Nordic-ice glow (Haisem, 2026-10-10)
+Keep the v1 look (commit ab1c4b7: tokens, grain, hanging bulb, Space Grotesk/Inter/JetBrains Mono) and improve it.
+- **Default = light ("bulb on")**: bg `#FAFAF8`, card `#FFFFFF`, text `#1A1A1E`, secondary `#5B6170`; accent ice blue —
+  text/links/indices `#0369A1` (≥ 5.5:1 on bg), primary button `#0369A1` with white text, highlight tint `#E0F2FE`,
+  soft ice glow `rgba(56,189,248,.18)` in the bulb's light cone.
+- **Night ("bulb off", dark mode)**: bg `#0A0A0B`, card `#141416`, text `#EDEDEF`, secondary `#8B8B9E`; accent
+  `#7DD3FC` (text), button `#38BDF8` with ink text `#04121c`, glow `rgba(56,189,248,.16)`.
+- **Live/AI second accent:** amber `#FFB547` on night, `#B45309` on light (booked slot, live dot, lit windows).
+- **Hanging bulb** (v1 `HangingBulb`, pull-cord, light cone, "pull me" hint) is the theme toggle and the signature
+  object: lit = light mode (default), pulled = night. It hangs from the navbar (cord attached to the nav, never
+  passing behind content), retracts on scroll; mobile gets a compact cord in the nav. Keyboard: button with
+  `aria-pressed`, label from dictionary. Theme switch = circular light/dark reveal from the bulb (View Transitions,
+  instant fallback). Theme choice persisted (`theme` key); no flash.
+- **Type** = v1 stack: Space Grotesk (display), Inter (body), JetBrains Mono (labels, indices, live data). Hero
+  display ≈ 96px desktop, 2 lines; mono `01–09` indices; tabular figures.
+- **Grain** overlay on body (≈5% night, ≈3% light). One glow pool per screen max.
+- Rhythm: never two identical card grids in a row; alternate open sections with full-bleed bands (night control-room
+  band stays dark in both themes). Navbar ≥ 0.88 opacity with solid fallback.
 
 ## 2. Page architecture (home, both languages)
 1. **Cover hero** — magazine cover: issue line ("Nummer 01 · Stockholm · 2026"), serif headline
    "AI that *works while you don't.*" (SV: "AI som *jobbar när du inte gör det.*" — REVIEW-SV;
    the subline must name websites too, since the headline no longer does;
-   key phrase in teal), CTA pair; right side a live **demo phone** (static frame of the receptionist chat) instead of
+   key phrase in the ice accent), CTA pair; right side a live **demo phone** (static frame of the receptionist chat) instead of
    the particle sphere. LCP = hero text; nothing 3D above the fold.
 2. **Proof strip** — Jake pull-quote + 3 facts, fixed separators.
 3. **Jake testimonial (moved up)** — custom poster + play button, pull-quote, captions; transcript in details.
