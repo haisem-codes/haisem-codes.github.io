@@ -68,6 +68,26 @@ Project pages: mockup hero, view-transition from the card.
 - **Page transitions:** View Transitions API (card image → case-study hero); instant where unsupported.
 - **Sound:** opt-in only (ring in demo, bulb click); off by default.
 
+## 3b. 3D and motion system
+**3D moments (each must explain something):**
+1. *Hero demo phone* — CSS 3D (perspective, layered depth: frame, screen, bubbles, CRM card in front); tilts with the
+   pointer (device orientation on phones, opt-in); the chat auto-plays (message → typing dots → amber slot → booked →
+   CRM card slides out). No WebGL above the fold; hero text is the LCP.
+2. *Control-room "Stockholm at night"* — three.js scene behind the 21:40 story: low-poly waterfront skyline (Gamla
+   stan silhouette, water reflection, windows). A glowing lead line travels ad → phone (rings) → calendar → CRM as the
+   pinned story scrolls; windows switch on in amber per completed step; pointer nudges the camera. One canvas, loaded
+   only when the section is near, full tier only. Lite tier: same skyline as inline SVG with CSS-animated windows.
+3. *Work mockups* — CSS 3D tilt (≤ 6°) + specular sheen on hover, silent hover loop; View-Transition card → case hero.
+
+**Motion tokens:** micro 150 ms (buttons, chips, cursor) · UI 250 ms (bubbles, CRM card, menus, filter) · editorial
+600–900 ms ease-out `cubic-bezier(.16,1,.3,1)` (headline line masks, section entrances) · scroll-scrubbed (GSAP
+ScrollTrigger, Lenis-synced) for the 21:40 timeline (clock 21:40→21:44, form fills, phone rings, booking drops).
+Bulb pull → circular theme reveal; cursor ring → "View"/"Try"; footer marquee speed follows scroll velocity.
+
+**Tiers** (`lib/capability.ts` → `tier`): *full* (WebGL-capable desktop/strong phones: everything) · *lite* (most
+phones: CSS 3D phone, SVG skyline, shorter pinned story) · *static* (reduced motion / weak devices: final frames,
+demo messages appear instantly). three.js (~150 KB) and GSAP (~35 KB) load lazily near their sections only.
+
 ## 4. Imagery pipeline
 Mockups rendered from HTML product scenes (no client names/data/numbers) with puppeteer → AVIF/WebP 800/1600w +
 blur placeholder; 6 s 720p hover loops via ffmpeg (≤ 400 KB). Portrait: existing `haisem.webp` with duotone.
@@ -85,7 +105,7 @@ Before/after: "dated" and "redesigned" concept sites rendered the same way.
   perf ≥ 0.85, a11y ≥ 0.95. Reduced motion: every animation has a static equivalent; demo works instantly.
 
 ## 6. Process
-Phases: (1) foundation + identity, (2) control room (demo + 21:40), (3) proof (work, Jake, before/after),
+Phases: (1) foundation + identity (v1 theme, bulb, tokens, hero with CSS-3D demo phone), (2) control room (chat demo + 21:40 story + three.js night skyline), (3) proof (work, Jake, before/after),
 (4) personality (bulb, cursor, transitions, footer), (5) /hire case study. Each phase ends with **screenshot QA by
 a UI/UX reviewer and a frontend reviewer** (desktop 1440 + mobile 390, light + night) plus Lighthouse; merge to
 main only after Haisem sees the screenshots.
