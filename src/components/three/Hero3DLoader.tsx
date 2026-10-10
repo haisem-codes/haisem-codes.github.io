@@ -1,14 +1,14 @@
 "use client";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
-import { canRender3D, readEnv } from "@/lib/capability";
+import { readTier } from "@/lib/capability";
 
 const Hero3D = dynamic(() => import("@/components/three/Hero3D"), { ssr: false });
 
 export function Hero3DLoader() {
   const [mode, setMode] = useState<"pending" | "3d" | "fallback">("pending");
   useEffect(() => {
-    const decide = () => setMode(canRender3D(readEnv()) ? "3d" : "fallback");
+    const decide = () => setMode(readTier() === "full" ? "3d" : "fallback");
     let id: ReturnType<typeof setTimeout>;
     const arm = () => {
       id = setTimeout(decide, 1500);

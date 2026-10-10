@@ -1,14 +1,15 @@
 import { test, expect } from "vitest";
-import { canRender3D } from "@/lib/capability";
-const base = { reducedMotion: false, webgl: true, cores: 8, mobile: false };
-test("desktop ok", () => expect(canRender3D(base)).toBe(true));
-test("reduced motion off", () => expect(canRender3D({ ...base, reducedMotion: true })).toBe(false));
-test("no webgl off", () => expect(canRender3D({ ...base, webgl: false })).toBe(false));
-test("weak mobile off", () => expect(canRender3D({ ...base, mobile: true, cores: 4 })).toBe(false));
-test("strong mobile ok", () => expect(canRender3D({ ...base, mobile: true, cores: 8 })).toBe(true));
-test("weak desktop ok", () => expect(canRender3D({ ...base, cores: 2 })).toBe(true));
+import { getTier, isSoftwareRenderer } from "@/lib/capability";
+const env = { reducedMotion: false, webgl: true, cores: 8, mobile: false };
+test("desktop with webgl → full", () => expect(getTier(env)).toBe("full"));
+test("reduced motion → static", () => expect(getTier({ ...env, reducedMotion: true })).toBe("static"));
+test("save-data → static", () => expect(getTier({ ...env, saveData: true })).toBe("static"));
+test("no webgl desktop → lite", () => expect(getTier({ ...env, webgl: false })).toBe("lite"));
+test("phone ≤4 cores → lite", () => expect(getTier({ ...env, mobile: true, cores: 4 })).toBe("lite"));
+test("strong phone → full", () => expect(getTier({ ...env, mobile: true, cores: 8 })).toBe("full"));
+test("very weak device → static", () => expect(getTier({ ...env, mobile: true, cores: 2, webgl: false })).toBe("static"));
 
-import { isSoftwareRenderer } from "@/lib/capability";
+
 test("software renderers detected", () => {
   for (const n of ["ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device))", "llvmpipe (LLVM 15)", "Microsoft Basic Render Driver", "Mesa OffScreen", "Software Renderer"])
     expect(isSoftwareRenderer(n)).toBe(true);

@@ -5,7 +5,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useMotionValueEvent, useScroll } from "motion/react";
 import type { Dictionary } from "@/i18n";
 import { storyProgress } from "@/lib/story";
-import { canRender3D, readEnv } from "@/lib/capability";
+import { readTier } from "@/lib/capability";
 
 const StoryCanvas = dynamic(() => import("@/components/three/StoryCanvas"), {
   ssr: false,
@@ -142,7 +142,7 @@ function PinnedStory({ dict }: { dict: Story }) {
 export function StoryScene({ dict }: { dict: Story }) {
   const [mode, setMode] = useState<"pending" | "3d" | "fallback">("pending");
   useLayoutEffect(() => {
-    setMode(canRender3D(readEnv()) ? "3d" : "fallback");
+    setMode(readTier() === "full" ? "3d" : "fallback");
   }, []);
   return mode === "3d" ? (
     <PinnedStory dict={dict} />
