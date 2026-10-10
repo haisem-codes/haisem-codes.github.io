@@ -239,3 +239,12 @@ img {
   max-width: 100%;
   height: auto;
 }
+
+/* ── Demo phone typing dots ── */
+@keyframes demo-typing {
+  0%, 60%, 100% { opacity: 0.35; transform: none; }
+  30% { opacity: 1; transform: translateY(-2px); }
+}
+.demo-dot {
+  animation: demo-typing 1s var(--ease-silk) infinite;
+}

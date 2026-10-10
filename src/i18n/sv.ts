@@ -14,11 +14,35 @@ export const sv = {
     pullHint: "dra i mig", // REVIEW-SV
   },
   hero: {
-    eyebrow: "Haisem Naeem · AI-ingenjör i Stockholm",
-    title: "Webbplatser och AI som ger dig fler kunder och mer tid över.", // REVIEW-SV
-    sub: "Jag designar och bygger webbplatser, AI-receptionister och automationer för små och medelstora företag, och tar hand om dem när de är i drift.",
+    eyebrow: "Stockholm",
+    meta: ["Haisem Naeem, AI-ingenjör", "Webbplatser · Röst-AI · Automation"], // REVIEW-SV
+    titleLead: "AI som", // REVIEW-SV
+    titleAccent: "jobbar när du inte gör det.", // REVIEW-SV
+    sub: "Jag designar och bygger webbplatser, AI-receptionister och automationer för företag i Stockholm, och tar hand om dem när de är i drift.", // REVIEW-SV
     ctaPrimary: "Boka ett gratis samtal",
-    ctaSecondary: "Söker ni en AI-ingenjör?",
+    ctaSecondary: "Testa AI-receptionisten ↓", // REVIEW-SV
+  },
+  demoPhone: {
+    business: "Salong Åsa",
+    demoLabel: "demo",
+    liveLabel: "Live",
+    ariaLabel: "Demokonversation: en AI-receptionist bokar en klippning åt en påhittad salong.", // REVIEW-SV
+    messages: {
+      ask: "Hej! Kan jag boka en klippning på lördag?", // REVIEW-SV
+      offer: "Absolut. På lördag finns de här tiderna:", // REVIEW-SV
+      pick: "13:00 tack", // REVIEW-SV
+      booked: "Bokat ✓ Du får en sms-påminnelse på fredag.", // REVIEW-SV
+    },
+    slots: ["10:30", "13:00", "15:45"],
+    crm: {
+      title: "CRM · ny förfrågan", // REVIEW-SV
+      status: "Status",
+      statusValue: "Bokad · lör 13:00", // REVIEW-SV
+      reply: "Svarstid", // REVIEW-SV
+      replyValue: "4 sekunder",
+      summary: "Sammanfattning",
+      summaryValue: "Mejlad till Åsa", // REVIEW-SV
+    },
   },
   proof: {
     quote: "…would not have been able to scale as fast as I have been without the support.",

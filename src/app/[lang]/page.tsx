@@ -17,7 +17,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
   const d = getDictionary(lang);
   return (
     <main>
-      <Hero dict={d.hero} lang={lang} />
+      <Hero dict={d.hero} phone={d.demoPhone} lang={lang} />
       <ProofStrip dict={d.proof} lang={lang} />
       <Services dict={d.services} lang={lang} />
       <StoryScene dict={d.story} />
