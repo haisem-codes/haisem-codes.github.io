@@ -152,7 +152,9 @@ export const en = {
     cv: "Download CV (PDF)",
     workTitle: "What I've built",
     skillsTitle: "Skills",
+    skillsEyebrow: "Skills",
     credentialsTitle: "Education and research",
+    credentialsEyebrow: "Background",
     stats: { years: "Years building AI", systems: "AI systems shipped", publications: "Peer-reviewed publication" },
   },
   intake: {

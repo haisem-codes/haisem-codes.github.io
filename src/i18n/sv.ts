@@ -154,7 +154,9 @@ export const sv = {
     cv: "Ladda ner CV (PDF)",
     workTitle: "Det här har jag byggt",
     skillsTitle: "Kompetenser",
+    skillsEyebrow: "Kompetenser", // REVIEW-SV
     credentialsTitle: "Utbildning och forskning",
+    credentialsEyebrow: "Bakgrund", // REVIEW-SV
     stats: { years: "År med AI-utveckling", systems: "Levererade AI-system", publications: "Referentgranskad publikation" }, // REVIEW-SV
   },
   intake: {

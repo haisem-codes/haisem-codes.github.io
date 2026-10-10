@@ -2,14 +2,14 @@
 
 import { motion } from "motion/react";
 import { credentials } from "@/data/credentials";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 import { staggerContainer, fadeInUp } from "@/lib/animations";
 
-export function Credentials({ title }: { title: string }) {
+export function Credentials({ index, eyebrow, title }: { index: string; eyebrow: string; title: string }) {
   return (
     <section className="py-32 px-6">
       <div className="max-w-5xl mx-auto">
-        <SectionHeading title={title} className="mb-16" />
+        <SectionHeader index={index} eyebrow={eyebrow} title={title} className="mb-16" />
 
         <motion.div
           variants={staggerContainer}

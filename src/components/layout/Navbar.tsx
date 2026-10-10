@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
@@ -13,6 +13,40 @@ export function Navbar({ dict, lang }: { dict: Dictionary["nav"]; lang: Locale }
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname() ?? "";
   const isHome = pathname.replace(/\/+$/, "") === `/${lang}`;
+
+  const [scrolled, setScrolled] = useState(false);
+  const [activeId, setActiveId] = useState<string | null>(null);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    if (!isHome) {
+      setActiveId(null);
+      return;
+    }
+    const els = ["services", "work", "about"].map((id) => document.getElementById(id)).filter((el): el is HTMLElement => !!el);
+    if (!els.length) return;
+    const visible = new Set<string>();
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) visible.add(e.target.id);
+          else visible.delete(e.target.id);
+        }
+        setActiveId(els.find((el) => visible.has(el.id))?.id ?? null);
+      },
+      { rootMargin: "-30% 0px -60% 0px" },
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, [isHome]);
+
+  const isHire = pathname.replace(/\/+$/, "") === `/${lang}/hire`;
 
   const links = [
     { id: "services", label: dict.services },
@@ -30,11 +64,12 @@ export function Navbar({ dict, lang }: { dict: Dictionary["nav"]; lang: Locale }
     }
   };
 
-  const linkClass = "text-sm text-text-secondary hover:text-text transition-colors duration-200";
+  const linkClass = "text-sm text-text-secondary hover:text-text transition-colors duration-200 border-b-2 border-transparent aria-[current=page]:text-text aria-[current=page]:border-accent";
+  const surface = "nav-surface backdrop-blur-xl backdrop-saturate-150 transition-shadow duration-200";
 
   return (
     <header className="fixed top-4 left-4 right-4 z-50 mx-auto max-w-5xl">
-      <nav className="glass rounded-2xl px-6 py-3 flex items-center justify-between gap-4">
+      <nav className={cn(surface, "rounded-2xl px-6 py-3 flex items-center justify-between gap-4", scrolled && "nav-scrolled")}>
         <a href={localHref(lang, "/")} className="font-display text-xl font-bold text-accent tracking-tight">
           HN
         </a>
@@ -42,13 +77,18 @@ export function Navbar({ dict, lang }: { dict: Dictionary["nav"]; lang: Locale }
         <ul className="hidden md:flex items-center gap-8">
           {links.map((l) => (
             <li key={l.id}>
-              <a href={localHref(lang, `/#${l.id}`)} onClick={(e) => handleAnchor(e, l.id)} className={linkClass}>
+              <a
+                href={localHref(lang, `/#${l.id}`)}
+                onClick={(e) => handleAnchor(e, l.id)}
+                aria-current={activeId === l.id ? "page" : undefined}
+                className={linkClass}
+              >
                 {l.label}
               </a>
             </li>
           ))}
           <li>
-            <a href={localHref(lang, "/hire/")} className={linkClass}>
+            <a href={localHref(lang, "/hire/")} aria-current={isHire ? "page" : undefined} className={linkClass}>
               {dict.hire}
             </a>
           </li>
@@ -59,7 +99,7 @@ export function Navbar({ dict, lang }: { dict: Dictionary["nav"]; lang: Locale }
           <LanguageSwitch lang={lang} label={dict.switchTo} />
           <a
             href={localHref(lang, "/start/")}
-            className="hidden sm:inline-flex text-sm font-medium px-4 py-1.5 rounded-full bg-accent text-white hover:bg-accent-hover transition-colors"
+            className="hidden sm:inline-flex text-sm font-medium px-4 py-1.5 rounded-full bg-button text-button-text hover:opacity-90 transition-opacity"
           >
             {dict.start}
           </a>
@@ -83,7 +123,7 @@ export function Navbar({ dict, lang }: { dict: Dictionary["nav"]; lang: Locale }
       <motion.div
         id="mobile-menu"
         inert={!mobileOpen}
-        className={cn("md:hidden glass rounded-2xl mt-2 overflow-hidden", !mobileOpen && "pointer-events-none")}
+        className={cn(surface, "md:hidden rounded-2xl mt-2 overflow-hidden", !mobileOpen && "pointer-events-none")}
         initial={false}
         animate={{ height: mobileOpen ? "auto" : 0, opacity: mobileOpen ? 1 : 0 }}
         transition={{ duration: 0.3 }}
@@ -91,18 +131,23 @@ export function Navbar({ dict, lang }: { dict: Dictionary["nav"]; lang: Locale }
         <ul className="flex flex-col p-4 gap-4">
           {links.map((l) => (
             <li key={l.id}>
-              <a href={localHref(lang, `/#${l.id}`)} onClick={(e) => handleAnchor(e, l.id)} className={cn(linkClass, "block py-2")}>
+              <a
+                href={localHref(lang, `/#${l.id}`)}
+                onClick={(e) => handleAnchor(e, l.id)}
+                aria-current={activeId === l.id ? "page" : undefined}
+                className={cn(linkClass, "block py-2")}
+              >
                 {l.label}
               </a>
             </li>
           ))}
           <li>
-            <a href={localHref(lang, "/hire/")} className={cn(linkClass, "block py-2")}>
+            <a href={localHref(lang, "/hire/")} aria-current={isHire ? "page" : undefined} className={cn(linkClass, "block py-2")}>
               {dict.hire}
             </a>
           </li>
           <li>
-            <a href={localHref(lang, "/start/")} className="inline-flex text-sm font-medium px-4 py-2 rounded-full bg-accent text-white">
+            <a href={localHref(lang, "/start/")} className="inline-flex text-sm font-medium px-4 py-2 rounded-full bg-button text-button-text">
               {dict.start}
             </a>
           </li>

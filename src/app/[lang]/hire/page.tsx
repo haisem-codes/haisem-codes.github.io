@@ -74,8 +74,8 @@ export default async function HirePage({ params }: Props) {
         </div>
       </section>
 
-      <SkillsBento title={hire.skillsTitle} />
-      <Credentials title={hire.credentialsTitle} />
+      <SkillsBento index="01" eyebrow={hire.skillsEyebrow} title={hire.skillsTitle} />
+      <Credentials index="02" eyebrow={hire.credentialsEyebrow} title={hire.credentialsTitle} />
       <TechMarquee />
 
       <section className="px-6 py-24 sm:py-32">

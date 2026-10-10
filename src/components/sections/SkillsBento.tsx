@@ -3,8 +3,7 @@
 import dynamic from "next/dynamic";
 import { motion } from "motion/react";
 import { skills } from "@/data/skills";
-import { GlassCard } from "@/components/ui/GlassCard";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 import { bentoStagger, bentoTile } from "@/lib/animations";
 import { SoundWave } from "@/components/bento/SoundWave";
 import { TypingCode } from "@/components/bento/TypingCode";
@@ -29,11 +28,11 @@ const animationMap: Record<string, React.ComponentType> = {
   pulse: PulseRing,
 };
 
-export function SkillsBento({ title }: { title: string }) {
+export function SkillsBento({ index, eyebrow, title }: { index: string; eyebrow: string; title: string }) {
   return (
     <section id="skills" className="py-32 px-6">
       <div className="max-w-5xl mx-auto">
-        <SectionHeading title={title} className="mb-16" />
+        <SectionHeader index={index} eyebrow={eyebrow} title={title} className="mb-16" />
 
         <motion.div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 auto-rows-[160px] md:auto-rows-[180px]"
@@ -53,7 +52,7 @@ export function SkillsBento({ title }: { title: string }) {
                   skill.rowSpan === 2 ? "md:row-span-2" : ""
                 }`}
               >
-                <GlassCard className="h-full p-3 sm:p-5 overflow-hidden flex flex-col justify-between">
+                <div className="h-full rounded-2xl bg-bg-card border border-border p-3 sm:p-5 overflow-hidden flex flex-col justify-between">
                   <div>
                     <h3 className="font-display text-lg font-semibold text-text">
                       {skill.title}
@@ -77,7 +76,7 @@ export function SkillsBento({ title }: { title: string }) {
                       </span>
                     ))}
                   </div>
-                </GlassCard>
+                </div>
               </motion.div>
             );
           })}
