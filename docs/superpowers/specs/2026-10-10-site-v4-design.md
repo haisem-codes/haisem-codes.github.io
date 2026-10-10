@@ -24,7 +24,8 @@ Live voice agent (later), real photo shoot (later), CMS, new backend, prices.
 
 ## 2. Page architecture (home, both languages)
 1. **Cover hero** — magazine cover: issue line ("Nummer 01 · Stockholm · 2026"), serif headline
-   "Websites and AI that *work while you don't.*" (SV: "Webbplatser och AI som *jobbar när du inte gör det.*" — REVIEW-SV;
+   "AI that *works while you don't.*" (SV: "AI som *jobbar när du inte gör det.*" — REVIEW-SV;
+   the subline must name websites too, since the headline no longer does;
    italic phrase in falu red), CTA pair; right side a live **demo phone** (static frame of the receptionist chat) instead of
    the particle sphere. LCP = hero text; nothing 3D above the fold.
 2. **Proof strip** — Jake pull-quote + 3 facts, fixed separators.
