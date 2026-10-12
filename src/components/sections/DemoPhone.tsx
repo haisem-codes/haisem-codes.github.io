@@ -7,15 +7,19 @@ import type { Dictionary } from "@/i18n";
 
 const PICK = 1;
 const TILT = 8;
-/** Each replay opens on the guest's question (step 1); ms after that for: typing, offer, slots, pick-slot, pick-msg, typing, booked, crm */
-const TIMELINE = [600, 1500, 1950, 2900, 3400, 3900, 4800, 5400];
-const FINAL = TIMELINE.length + 1;
+/** A replay fades the finished chat out, then shows an empty screen briefly before the first message. */
+const FADE_MS = 250;
+const EMPTY_MS = 450;
+/** ms after the screen empties at which each step is reached: ask, typing, offer, slots, pick-slot, pick-msg, typing, booked, crm */
+const TIMELINE = [EMPTY_MS, 1050, 1950, 2400, 3350, 3850, 4350, 5250, 5850];
+const FINAL = TIMELINE.length;
 /** The finished chat (and the SSR frame) stays up this long before the next replay. */
 const HOLD_MS = 6500;
-const LOOP_MS = TIMELINE[TIMELINE.length - 1] + HOLD_MS;
+const LOOP_MS = FADE_MS + TIMELINE[TIMELINE.length - 1] + HOLD_MS;
 
 export function DemoPhone({ dict, autoplay }: { dict: Dictionary["demoPhone"]; autoplay: boolean }) {
   const [step, setStep] = useState(FINAL);
+  const [fading, setFading] = useState(false);
   const rootRef = useRef<HTMLElement>(null);
   const phoneRef = useRef<HTMLDivElement>(null);
   const inView = useRef(false);
@@ -29,11 +33,18 @@ export function DemoPhone({ dict, autoplay }: { dict: Dictionary["demoPhone"]; a
     const stop = () => {
       timers.forEach(clearTimeout);
       timers = [];
+      setFading(false);
     };
     const cycle = () => {
       stop();
-      setStep(1);
-      TIMELINE.forEach((at, i) => timers.push(setTimeout(() => setStep(i + 2), at)));
+      setFading(true);
+      timers.push(
+        setTimeout(() => {
+          setStep(0);
+          setFading(false);
+        }, FADE_MS),
+      );
+      TIMELINE.forEach((at, i) => timers.push(setTimeout(() => setStep(i + 1), FADE_MS + at)));
       timers.push(setTimeout(cycle, LOOP_MS));
     };
     let held = false;
@@ -112,15 +123,11 @@ export function DemoPhone({ dict, autoplay }: { dict: Dictionary["demoPhone"]; a
             </span>
           </div>
 
-          {/* bottom-anchored like a real chat: each replay continues below the last booking, so the screen is never empty */}
+          {/* bottom-anchored like a real chat; the top fade keeps any overflow from showing as a cut-off bubble */}
           <div
-            className="flex min-h-0 flex-1 flex-col justify-end overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_40px)]"
-            style={{ transform: "translateZ(20px)" }}
+            className="flex min-h-0 flex-1 flex-col justify-end overflow-hidden transition-opacity duration-[var(--dur-ui)] ease-[var(--ease-silk)] [mask-image:linear-gradient(to_bottom,transparent,black_40px)]"
+            style={{ transform: "translateZ(20px)", opacity: fading ? 0 : 1 }}
           >
-            <div aria-hidden>
-              <Chat dict={dict} step={FINAL} />
-              <span className="mx-auto mt-4 mb-1.5 block h-px w-16 bg-border-hover" />
-            </div>
             <Chat dict={dict} step={step} />
           </div>
 
@@ -138,7 +145,7 @@ export function DemoPhone({ dict, autoplay }: { dict: Dictionary["demoPhone"]; a
         <div
           className="absolute right-6 -bottom-9 -left-3 rounded-[14px] border border-border-hover bg-bg-card p-3 shadow-[0_24px_40px_-14px_rgba(10,10,11,0.35)] transition-[opacity,transform] duration-[var(--dur-ui)] ease-[var(--ease-silk)] sm:-left-7 dark:bg-[#0D0E10] dark:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.7)]"
           style={{
-            opacity: at(9) ? 1 : 0,
+            opacity: at(9) && !fading ? 1 : 0,
             transform: at(9) ? "translateZ(40px)" : "translateZ(0) translateY(14px)",
           }}
         >
