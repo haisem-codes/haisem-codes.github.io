@@ -1,7 +1,7 @@
 "use client";
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
-import { motion } from "motion/react";
-import { useLenis } from "lenis/react";
+import { m } from "motion/react";
+import { getLenis } from "@/components/providers/LenisProvider";
 import { OPTIONS, STEPS, type IntakeAnswers } from "@/lib/intake/schema";
 import { validateIntake, validateStep } from "@/lib/intake/validate";
 import { buildMailtoSummary } from "@/lib/intake/mailto";
@@ -92,7 +92,6 @@ export function IntakeForm({ dict, lang }: { dict: Dictionary["intake"]; lang: L
   const turnstileFailed = useRef(false);
   const tokenWaiters = useRef<((t: string) => void)[]>([]);
   const pendingFocus = useRef<keyof IntakeAnswers | null>(null);
-  const lenis = useLenis();
 
   const total = STEPS.length;
   const current = STEPS[step];
@@ -123,9 +122,10 @@ export function IntakeForm({ dict, lang }: { dict: Dictionary["intake"]; lang: L
   const scrollToForm = useCallback(() => {
     const el = rootRef.current;
     if (!el || el.getBoundingClientRect().top >= 0) return;
+    const lenis = getLenis();
     if (lenis) lenis.scrollTo(el, { offset: -112, immediate: true });
     else window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 112 });
-  }, [lenis]);
+  }, []);
 
   useEffect(() => {
     if (!navigated.current) return;
@@ -303,7 +303,7 @@ export function IntakeForm({ dict, lang }: { dict: Dictionary["intake"]; lang: L
       </div>
 
       <form noValidate onSubmit={onSubmit} aria-labelledby={headingId} className="mt-8">
-        <motion.div
+        <m.div
           key={step}
           data-reveal
           initial={navigated.current ? { opacity: 0, y: 8 } : false}
@@ -338,7 +338,7 @@ export function IntakeForm({ dict, lang }: { dict: Dictionary["intake"]; lang: L
               </p>
             </>
           )}
-        </motion.div>
+        </m.div>
 
         {status === "error" && (
           <p role="alert" className="mt-6 rounded-2xl border border-danger/40 px-4 py-3 text-base text-text">

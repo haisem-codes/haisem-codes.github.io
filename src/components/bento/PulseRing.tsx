@@ -1,12 +1,12 @@
 "use client";
 
-import { motion } from "motion/react";
+import { m } from "motion/react";
 
 export function PulseRing() {
   return (
     <div className="relative flex items-center justify-center h-10 sm:h-16">
       {[0, 1, 2].map((i) => (
-        <motion.div
+        <m.div
           key={i}
           className="absolute w-6 h-6 sm:w-8 sm:h-8 rounded-full border border-accent/30"
           animate={{ scale: [1, 1.8], opacity: [0.4, 0] }}

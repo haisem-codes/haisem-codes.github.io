@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import { skills } from "@/data/skills";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { bentoStagger, bentoTile } from "@/lib/animations";
@@ -34,7 +34,7 @@ export function SkillsBento({ index, eyebrow, title }: { index: string; eyebrow:
       <div className="max-w-5xl mx-auto">
         <SectionHeader index={index} eyebrow={eyebrow} title={title} className="mb-16" />
 
-        <motion.div
+        <m.div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 auto-rows-[160px] md:auto-rows-[180px]"
           variants={bentoStagger}
           initial="hidden"
@@ -44,7 +44,7 @@ export function SkillsBento({ index, eyebrow, title }: { index: string; eyebrow:
           {skills.map((skill) => {
             const Animation = animationMap[skill.animationType];
             return (
-              <motion.div
+              <m.div
                 key={skill.id}
                 data-reveal
                 variants={bentoTile}
@@ -77,10 +77,10 @@ export function SkillsBento({ index, eyebrow, title }: { index: string; eyebrow:
                     ))}
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
             );
           })}
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

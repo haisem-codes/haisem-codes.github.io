@@ -2,7 +2,6 @@
 
 import dynamic from "next/dynamic";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { useMotionValueEvent, useScroll } from "motion/react";
 import type { Dictionary } from "@/i18n";
 import { storyProgress } from "@/lib/story";
 import { readTier } from "@/lib/capability";
@@ -72,16 +71,21 @@ function PinnedStory({ dict }: { dict: Story }) {
   const [active, setActive] = useState(0);
   const [near, setNear] = useState(false);
   const [inView, setInView] = useState(false);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end end"],
-  });
-
-  useMotionValueEvent(scrollYProgress, "change", (p) => {
-    const r = storyProgress(p);
-    progress.current = r.progress;
-    setActive(r.step);
-  });
+  useEffect(() => {
+    if (!near) return;
+    const onScroll = () => {
+      const el = ref.current;
+      if (!el) return;
+      const { top, height } = el.getBoundingClientRect();
+      const span = height - innerHeight;
+      const r = storyProgress(span > 0 ? Math.min(1, Math.max(0, -top / span)) : 0);
+      progress.current = r.progress;
+      setActive(r.step);
+    };
+    onScroll();
+    addEventListener("scroll", onScroll, { passive: true });
+    return () => removeEventListener("scroll", onScroll);
+  }, [near]);
 
   useEffect(() => {
     if (!ref.current) return;

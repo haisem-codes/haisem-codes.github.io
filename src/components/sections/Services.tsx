@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import type { Dictionary } from "@/i18n";
 import type { Locale } from "@/i18n/config";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
@@ -16,7 +16,7 @@ export function Services({ dict }: { dict: Dictionary["services"]; lang: Locale 
           </h2>
         </ScrollReveal>
 
-        <motion.ul
+        <m.ul
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -24,7 +24,7 @@ export function Services({ dict }: { dict: Dictionary["services"]; lang: Locale 
           className="mt-14 grid gap-4 sm:mt-20 md:grid-cols-2 md:gap-6"
         >
           {dict.items.map((item, i) => (
-            <motion.li
+            <m.li
               key={item.id}
               data-reveal
               variants={fadeInUp}
@@ -60,9 +60,9 @@ export function Services({ dict }: { dict: Dictionary["services"]; lang: Locale 
                   {item.time}
                 </span>
               </p>
-            </motion.li>
+            </m.li>
           ))}
-        </motion.ul>
+        </m.ul>
 
         <ScrollReveal>
           <p className="mt-10 text-lg text-text-secondary">{dict.pricing}</p>

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import type { Dictionary } from "@/i18n";
 import type { Locale } from "@/i18n/config";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
@@ -16,7 +16,7 @@ export function HowIWork({ dict }: { dict: Dictionary["how"]; lang: Locale }) {
           </h2>
         </ScrollReveal>
 
-        <motion.ol
+        <m.ol
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -26,7 +26,7 @@ export function HowIWork({ dict }: { dict: Dictionary["how"]; lang: Locale }) {
           {dict.steps.map((step, i) => {
             const last = i === dict.steps.length - 1;
             return (
-              <motion.li key={step.title} data-reveal variants={fadeInUp} className="relative pb-12 pl-16 last:pb-0 lg:pb-0 lg:pl-0 lg:pr-8">
+              <m.li key={step.title} data-reveal variants={fadeInUp} className="relative pb-12 pl-16 last:pb-0 lg:pb-0 lg:pl-0 lg:pr-8">
                 {!last && (
                   <span
                     aria-hidden
@@ -38,10 +38,10 @@ export function HowIWork({ dict }: { dict: Dictionary["how"]; lang: Locale }) {
                 </span>
                 <h3 className="pt-2 font-display text-xl font-semibold tracking-tight text-text lg:pt-8">{step.title}</h3>
                 <p className="mt-3 text-lg leading-relaxed text-text-secondary">{step.body}</p>
-              </motion.li>
+              </m.li>
             );
           })}
-        </motion.ol>
+        </m.ol>
       </div>
     </section>
   );

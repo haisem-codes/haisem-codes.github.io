@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import { credentials } from "@/data/credentials";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { staggerContainer, fadeInUp } from "@/lib/animations";
@@ -11,7 +11,7 @@ export function Credentials({ index, eyebrow, title }: { index: string; eyebrow:
       <div className="max-w-5xl mx-auto">
         <SectionHeader index={index} eyebrow={eyebrow} title={title} className="mb-16" />
 
-        <motion.div
+        <m.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -19,7 +19,7 @@ export function Credentials({ index, eyebrow, title }: { index: string; eyebrow:
           className="grid grid-cols-1 sm:grid-cols-2 gap-6"
         >
           {credentials.map((item) => (
-            <motion.div
+            <m.div
               key={item.id}
               data-reveal
               variants={fadeInUp}
@@ -45,9 +45,9 @@ export function Credentials({ index, eyebrow, title }: { index: string; eyebrow:
                   {item.detail}
                 </p>
               )}
-            </motion.div>
+            </m.div>
           ))}
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

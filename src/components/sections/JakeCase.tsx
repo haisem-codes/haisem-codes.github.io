@@ -1,12 +1,13 @@
 import type { Dictionary } from "@/i18n";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { LazyVideo } from "@/components/ui/LazyVideo";
 
 export function JakeCase({ dict }: { dict: Dictionary["jake"] }) {
   return (
     <section id="jake" className="scroll-mt-24 px-6 py-24 sm:py-32">
       <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[minmax(0,22rem)_1fr] lg:gap-20">
         <ScrollReveal className="mx-auto w-full max-w-xs lg:mx-0 lg:max-w-none">
-          <video
+          <LazyVideo
             controls
             playsInline
             preload="none"
@@ -16,7 +17,7 @@ export function JakeCase({ dict }: { dict: Dictionary["jake"] }) {
           >
             <source src="/testimonials/jake-720.webm" type="video/webm" />
             <source src="/testimonials/jake-720.mp4" type="video/mp4" />
-          </video>
+          </LazyVideo>
         </ScrollReveal>
 
         <ScrollReveal>

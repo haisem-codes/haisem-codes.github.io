@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, type Variants } from "motion/react";
+import { m, type Variants } from "motion/react";
 import { fadeInUp } from "@/lib/animations";
 import type { ReactNode } from "react";
 
@@ -18,7 +18,7 @@ export function ScrollReveal({
   delay = 0,
 }: ScrollRevealProps) {
   return (
-    <motion.div
+    <m.div
       data-reveal
       initial="hidden"
       whileInView="visible"
@@ -28,6 +28,6 @@ export function ScrollReveal({
       transition={delay ? { delay } : undefined}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
