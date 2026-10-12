@@ -2,6 +2,7 @@
 
 import { useEffect, type ReactNode } from "react";
 import type Lenis from "lenis";
+import { readTier } from "@/lib/capability";
 
 let instance: Lenis | null = null;
 
@@ -11,6 +12,7 @@ export const getLenis = () => instance;
 /** Smooth scroll is an enhancement, so its library loads after hydration instead of in the initial bundle. */
 export function LenisProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
+    if (readTier() === "static") return;
     let cancelled = false;
     import("lenis").then(({ default: Lenis }) => {
       if (cancelled) return;

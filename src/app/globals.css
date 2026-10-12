@@ -279,6 +279,13 @@ img {
 .cr-rise {
   animation: cr-rise 450ms var(--ease-silk) both;
 }
+@keyframes story-ring {
+  from { opacity: 0.9; transform: scale(1); }
+  to { opacity: 0; transform: scale(1.7); }
+}
+[data-pinned] .story-ring {
+  animation: story-ring 1.6s ease-out infinite;
+}
 @media (prefers-reduced-motion: reduce) {
   #control-room *,
   #control-room *::before {

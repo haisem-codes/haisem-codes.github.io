@@ -3,12 +3,14 @@ import type { Locale } from "@/i18n/config";
 import { SCRIPTS } from "@/lib/demo/scripts";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { DemoLoader } from "./DemoLoader";
+import { StoryTimeline } from "./StoryTimeline";
+import { storyFrames } from "./story-ui";
 import { Bubble, ChatCard, DayMark, Chip, Composer, DemoLayout, PanelBody, PanelCard, Toolbar } from "./demo-ui";
 
-export function ControlRoom({ dict, lang }: { dict: Dictionary["controlRoom"]; lang: Locale }) {
+export function ControlRoom({ dict, story, lang }: { dict: Dictionary["controlRoom"]; story: Dictionary["story"]; lang: Locale }) {
   const script = SCRIPTS[lang].salon;
   return (
-    <section id="control-room" className="dark relative isolate scroll-mt-16 overflow-hidden bg-[#08090B] px-6 py-24 text-text sm:py-32">
+    <section id="control-room" className="dark relative isolate scroll-mt-16 overflow-clip bg-[#08090B] px-6 py-24 text-text sm:py-32">
       <div
         aria-hidden
         className="pointer-events-none absolute -top-40 right-[-12%] -z-10 h-[760px] w-[760px] rounded-full"
@@ -39,6 +41,9 @@ export function ControlRoom({ dict, lang }: { dict: Dictionary["controlRoom"]; l
               </PanelCard>
             </DemoLayout>
           </DemoLoader>
+        </div>
+        <div className="mt-24 sm:mt-32">
+          <StoryTimeline dict={story} frames={storyFrames(story.ui)} />
         </div>
       </div>
     </section>

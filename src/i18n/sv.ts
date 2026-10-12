@@ -144,6 +144,13 @@ export const sv = {
       { title: "En bokning landar", body: "De som är redo väljer en tid direkt i din kalender." },
       { title: "Ditt CRM uppdateras", body: "Anteckningar, taggar och ett sammanfattande mejl, innan du hunnit äta frukost." }, // REVIEW-SV
     ],
+    clocks: ["21.40.00", "21.40.04", "21.42.10", "21.44.00"], // REVIEW-SV
+    ui: {
+      form: { url: "salongasa.se/boka", title: "Boka en tid", name: "Namn", phone: "Telefon", message: "Meddelande", nameValue: "Sara Lind", phoneValue: "070-123 45 67", messageValue: "Hej! Har ni en tid för färgning den här veckan?", send: "Skicka", sent: "Skickat" }, // REVIEW-SV
+      call: { calling: "Ringer…", connected: "Ansluten", caller: "AI-receptionist", line: "Hej Sara, det är Salong Åsa. Färgning den här veckan, var det? Torsdag kl. 10 är ledig." }, // REVIEW-SV
+      calendar: { title: "Den här veckan", days: ["Mån", "Tis", "Ons", "Tor", "Fre"], busy: "Bokad", service: "Färgning", client: "Sara L.", slot: "Tor 10.00", confirmed: "Bekräftelse skickad via sms" }, // REVIEW-SV
+      crm: { title: "CRM · leads", name: "Sara Lind", status: "Bokad", source: "Webbformulär", others: [["Jonas B.", "Kontaktad"], ["Mira K.", "Uppföljning"]], tags: ["färgning", "ny kund"], summary: "Sammanfattning mejlad" }, // REVIEW-SV
+    },
   },
   jake: {
     eyebrow: "Kundcase",
