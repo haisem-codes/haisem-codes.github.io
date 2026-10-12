@@ -6,12 +6,13 @@ import { cn } from "@/lib/utils";
 import type { Dictionary } from "@/i18n";
 
 const PICK = 1;
-const LOOP_MS = 12000;
-const FIRST_HOLD_MS = 3500;
 const TILT = 8;
-/** ms at which each step is reached: ask, typing, offer, slots, pick-slot, pick-msg, typing, booked, crm */
-const TIMELINE = [400, 1000, 1900, 2350, 3300, 3800, 4300, 5200, 5800];
-const FINAL = TIMELINE.length;
+/** Each replay opens on the guest's question (step 1); ms after that for: typing, offer, slots, pick-slot, pick-msg, typing, booked, crm */
+const TIMELINE = [600, 1500, 1950, 2900, 3400, 3900, 4800, 5400];
+const FINAL = TIMELINE.length + 1;
+/** The finished chat (and the SSR frame) stays up this long before the next replay. */
+const HOLD_MS = 6500;
+const LOOP_MS = TIMELINE[TIMELINE.length - 1] + HOLD_MS;
 
 export function DemoPhone({ dict, autoplay }: { dict: Dictionary["demoPhone"]; autoplay: boolean }) {
   const [step, setStep] = useState(FINAL);
@@ -31,8 +32,8 @@ export function DemoPhone({ dict, autoplay }: { dict: Dictionary["demoPhone"]; a
     };
     const cycle = () => {
       stop();
-      setStep(0);
-      TIMELINE.forEach((at, i) => timers.push(setTimeout(() => setStep(i + 1), at)));
+      setStep(1);
+      TIMELINE.forEach((at, i) => timers.push(setTimeout(() => setStep(i + 2), at)));
       timers.push(setTimeout(cycle, LOOP_MS));
     };
     let held = false;
@@ -40,7 +41,7 @@ export function DemoPhone({ dict, autoplay }: { dict: Dictionary["demoPhone"]; a
       if (held) return cycle();
       held = true;
       stop();
-      timers.push(setTimeout(cycle, FIRST_HOLD_MS));
+      timers.push(setTimeout(cycle, HOLD_MS));
     };
     const io = new IntersectionObserver(([e]) => {
       inView.current = e.isIntersecting;
@@ -85,24 +86,23 @@ export function DemoPhone({ dict, autoplay }: { dict: Dictionary["demoPhone"]; a
   }, [autoplay]);
 
   const at = (n: number) => step >= n;
-  const m = dict.messages;
 
   return (
     <figure ref={rootRef} aria-label={dict.ariaLabel} className="relative mx-auto w-[min(340px,84vw)]">
       <div
         ref={phoneRef}
-        className="rounded-[42px] border border-[#1F2226] bg-[#050506] p-3 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.05),0_50px_90px_-30px_rgba(3,105,161,0.45),0_30px_60px_-30px_rgba(10,10,11,0.45)] dark:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.05),0_50px_90px_-30px_rgba(56,189,248,0.35)]"
+        className="relative rounded-[42px] border border-[#3A3E46] bg-[#2A2D33] p-2.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.22),inset_0_0_0_1px_rgba(255,255,255,0.06),0_50px_90px_-30px_rgba(3,105,161,0.28),0_30px_60px_-34px_rgba(10,10,11,0.35)] dark:border-[#1F2226] dark:bg-[#050506] dark:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.05),0_50px_90px_-30px_rgba(56,189,248,0.35)]"
         style={{
           transform: "perspective(1200px) rotateY(calc(-14deg + var(--ry, 0deg))) rotateX(calc(6deg + var(--rx, 0deg)))",
           transformStyle: "preserve-3d",
         }}
       >
         <div
-          className="flex min-h-[500px] flex-col rounded-[31px] bg-bg-card px-4 pt-3 pb-5 text-[13.5px] text-text"
+          className="flex h-[520px] flex-col rounded-[32px] bg-bg-card px-4 pt-3 pb-4 text-[13.5px] text-text"
           style={{ transformStyle: "preserve-3d" }}
         >
-          <span aria-hidden className="mx-auto mb-4 h-[22px] w-[84px] rounded-full bg-[#050506]" />
-          <div className="mb-3 flex items-center justify-between font-mono text-[11px] tracking-[0.08em] uppercase">
+          <span aria-hidden className="mx-auto mb-4 h-[22px] w-[84px] shrink-0 rounded-full bg-[#050506]" />
+          <div className="mb-1 flex shrink-0 items-center justify-between font-mono text-[11px] tracking-[0.08em] uppercase">
             <span className="text-text-secondary">
               {dict.business} · {dict.demoLabel}
             </span>
@@ -112,67 +112,98 @@ export function DemoPhone({ dict, autoplay }: { dict: Dictionary["demoPhone"]; a
             </span>
           </div>
 
-          <div className="flex flex-col gap-2.5" style={{ transform: "translateZ(20px)" }}>
-            <Reveal on={at(1)} className="self-end">
-              <Bubble me>{m.ask}</Bubble>
-            </Reveal>
-            <div className="relative self-start">
-              <Typing on={step === 2} />
-              <Reveal on={at(3)}>
-                <Bubble>{m.offer}</Bubble>
-              </Reveal>
+          {/* bottom-anchored like a real chat: each replay continues below the last booking, so the screen is never empty */}
+          <div
+            className="flex min-h-0 flex-1 flex-col justify-end overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_40px)]"
+            style={{ transform: "translateZ(20px)" }}
+          >
+            <div aria-hidden>
+              <Chat dict={dict} step={FINAL} />
+              <span className="mx-auto mt-4 mb-1.5 block h-px w-16 bg-border-hover" />
             </div>
-            <Reveal on={at(4)} className="flex gap-1.5">
-              {dict.slots.map((s, i) => (
-                <span
-                  key={s}
-                  className={cn(
-                    "rounded-full border px-2.5 py-1.5 font-mono text-xs tabular-nums transition-colors duration-[var(--dur-ui)] ease-[var(--ease-silk)]",
-                    i === PICK && at(5)
-                      ? "border-live bg-live text-white dark:text-[#1A1205]"
-                      : "border-border-hover text-text-secondary",
-                  )}
-                >
-                  {s}
-                </span>
-              ))}
-            </Reveal>
-            <Reveal on={at(6)} className="self-end">
-              <Bubble me>{m.pick}</Bubble>
-            </Reveal>
-            <div className="relative self-start">
-              <Typing on={step === 7} />
-              <Reveal on={at(8)}>
-                <Bubble>{m.booked}</Bubble>
-              </Reveal>
-            </div>
+            <Chat dict={dict} step={step} />
           </div>
 
-          <div
-            className="mt-auto rounded-[14px] border border-border-hover bg-bg-card p-3 shadow-[0_24px_40px_-14px_rgba(10,10,11,0.35)] transition-[opacity,transform] duration-[var(--dur-ui)] ease-[var(--ease-silk)] dark:bg-[#0D0E10] dark:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.7)]"
-            style={{
-              opacity: at(9) ? 1 : 0,
-              transform: at(9) ? "translateZ(40px) translateX(-26px)" : "translateZ(0) translateY(14px)",
-            }}
-          >
-            <p className="mb-1.5 font-mono text-[11px] tracking-[0.08em] text-accent uppercase">{dict.crm.title}</p>
-            <dl className="text-xs">
-              <Row k={dict.crm.status} v={dict.crm.statusValue} />
-              <Row k={dict.crm.reply} v={dict.crm.replyValue} />
-              <Row k={dict.crm.summary} v={dict.crm.summaryValue} />
-            </dl>
+          <div aria-hidden className="mt-3 flex h-10 shrink-0 items-center justify-between rounded-full border border-border-hover pr-1.5 pl-4">
+            <span className="h-1.5 w-24 rounded-full bg-border-hover" />
+            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-button text-button-text">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <path d="M6 10V2M2.5 5.5 6 2l3.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </span>
           </div>
+        </div>
+
+        {/* CRM card breaks out of the frame, as in the style tile */}
+        <div
+          className="absolute right-6 -bottom-9 -left-3 rounded-[14px] border border-border-hover bg-bg-card p-3 shadow-[0_24px_40px_-14px_rgba(10,10,11,0.35)] transition-[opacity,transform] duration-[var(--dur-ui)] ease-[var(--ease-silk)] sm:-left-7 dark:bg-[#0D0E10] dark:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.7)]"
+          style={{
+            opacity: at(9) ? 1 : 0,
+            transform: at(9) ? "translateZ(40px)" : "translateZ(0) translateY(14px)",
+          }}
+        >
+          <p className="mb-1.5 font-mono text-[11px] tracking-[0.08em] text-accent uppercase">{dict.crm.title}</p>
+          <dl className="text-xs">
+            <Row k={dict.crm.status} v={dict.crm.statusValue} />
+            <Row k={dict.crm.reply} v={dict.crm.replyValue} />
+            <Row k={dict.crm.summary} v={dict.crm.summaryValue} />
+          </dl>
         </div>
       </div>
     </figure>
   );
 }
 
-function Reveal({ on, className, children }: { on: boolean; className?: string; children: ReactNode }) {
-  const style: CSSProperties = { opacity: on ? 1 : 0, transform: on ? "none" : "translateY(8px)" };
+function Chat({ dict, step }: { dict: Dictionary["demoPhone"]; step: number }) {
+  const at = (n: number) => step >= n;
+  const m = dict.messages;
   return (
-    <div className={cn("transition-[opacity,transform] duration-[var(--dur-ui)] ease-[var(--ease-silk)]", className)} style={style}>
-      {children}
+    <>
+      <Reveal on={at(1)} className="flex justify-end">
+        <Bubble me>{m.ask}</Bubble>
+      </Reveal>
+      <Reveal on={step === 2}>
+        <Typing />
+      </Reveal>
+      <Reveal on={at(3)}>
+        <Bubble>{m.offer}</Bubble>
+      </Reveal>
+      <Reveal on={at(4)} className="flex gap-1.5">
+        {dict.slots.map((s, i) => (
+          <span
+            key={s}
+            className={cn(
+              "rounded-full border px-2.5 py-1.5 font-mono text-xs tabular-nums transition-colors duration-[var(--dur-ui)] ease-[var(--ease-silk)]",
+              i === PICK && at(5) ? "border-live bg-live text-white dark:text-[#1A1205]" : "border-border-hover text-text-secondary",
+            )}
+          >
+            {s}
+          </span>
+        ))}
+      </Reveal>
+      <Reveal on={at(6)} className="flex justify-end">
+        <Bubble me>{m.pick}</Bubble>
+      </Reveal>
+      <Reveal on={step === 7}>
+        <Typing />
+      </Reveal>
+      <Reveal on={at(8)}>
+        <Bubble>{m.booked}</Bubble>
+      </Reveal>
+    </>
+  );
+}
+
+/** Collapses while hidden so the chat grows from the bottom instead of leaving blank rows. */
+function Reveal({ on, className, children }: { on: boolean; className?: string; children: ReactNode }) {
+  return (
+    <div
+      className="grid transition-[grid-template-rows,opacity,translate] duration-[var(--dur-ui)] ease-[var(--ease-silk)]"
+      style={{ gridTemplateRows: on ? "1fr" : "0fr", opacity: on ? 1 : 0, translate: on ? "0 0" : "0 8px" }}
+    >
+      <div className="min-h-0 overflow-hidden">
+        <div className={cn("pt-2.5", className)}>{children}</div>
+      </div>
     </div>
   );
 }
@@ -181,7 +212,7 @@ function Bubble({ me, children }: { me?: boolean; children: ReactNode }) {
   return (
     <p
       className={cn(
-        "max-w-[16rem] rounded-2xl px-[13px] py-2.5 leading-[1.4]",
+        "w-fit max-w-[86%] rounded-2xl px-[13px] py-2.5 leading-[1.4] text-pretty",
         me ? "rounded-br-[4px] bg-button text-button-text" : "rounded-bl-[4px] bg-[#EEF1F5] text-text dark:bg-[#1D1F23]",
       )}
     >
@@ -190,12 +221,11 @@ function Bubble({ me, children }: { me?: boolean; children: ReactNode }) {
   );
 }
 
-function Typing({ on }: { on: boolean }) {
+function Typing() {
   return (
     <span
       aria-hidden
-      className="absolute top-0 left-0 flex gap-1 rounded-2xl rounded-bl-[4px] bg-[#EEF1F5] px-3.5 py-3 transition-opacity duration-[var(--dur-ui)] ease-[var(--ease-silk)] dark:bg-[#1D1F23]"
-      style={{ opacity: on ? 1 : 0 }}
+      className="flex w-fit gap-1 rounded-2xl rounded-bl-[4px] bg-[#EEF1F5] px-3.5 py-3 dark:bg-[#1D1F23]"
     >
       {[0, 1, 2].map((i) => (
         <span key={i} className="demo-dot h-1.5 w-1.5 rounded-full bg-text-secondary" style={{ animationDelay: `${i * 0.15}s` }} />

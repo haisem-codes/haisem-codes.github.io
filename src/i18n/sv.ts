@@ -9,15 +9,15 @@ export const sv = {
     hireDescription: "AI/ML-ingenjör i Stockholm: LLM-produkter, RAG, röst-AI och fullstack-leverans.",
   },
   nav: {
-    services: "Tjänster", work: "Projekt", about: "Om mig", hire: "För arbetsgivare", start: "Boka ett gratis samtal", switchTo: "English", menu: "Meny",
+    services: "Tjänster", work: "Projekt", about: "Om mig", hire: "För arbetsgivare", start: "Boka samtal", switchTo: "English", menu: "Meny", // REVIEW-SV
     nightMode: "Mörkt läge", // REVIEW-SV
     pullHint: "dra i mig", // REVIEW-SV
   },
   hero: {
     eyebrow: "Stockholm",
     meta: ["Haisem Naeem, AI-ingenjör", "Webbplatser · Röst-AI · Automation"], // REVIEW-SV
-    titleLead: "AI som", // REVIEW-SV
-    titleAccent: "jobbar när du inte gör det.", // REVIEW-SV
+    titleLead: "AI som jobbar", // REVIEW-SV
+    titleAccent: "när du inte gör det.", // REVIEW-SV
     sub: "Jag designar och bygger webbplatser, AI-receptionister och automationer för företag i Stockholm, och tar hand om dem när de är i drift.", // REVIEW-SV
     ctaPrimary: "Boka ett gratis samtal",
     ctaSecondary: "Testa AI-receptionisten ↓", // REVIEW-SV

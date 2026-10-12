@@ -14,8 +14,8 @@ export const en = {
   hero: {
     eyebrow: "Stockholm",
     meta: ["Haisem Naeem, AI engineer", "Websites · Voice AI · Automation"],
-    titleLead: "AI that",
-    titleAccent: "works while you don't.",
+    titleLead: "AI that works",
+    titleAccent: "while you don't.",
     sub: "I design and build websites, AI receptionists and automations for Stockholm businesses, and look after them once they're live.",
     ctaPrimary: "Book a free call",
     ctaSecondary: "Try the AI receptionist ↓",
