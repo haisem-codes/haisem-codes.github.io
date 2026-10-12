@@ -1,4 +1,6 @@
-import type { DemoScript, DemoState, DemoReply, BotMessage } from "./types";
+import type { DemoScript, DemoState, DemoReply, BotMessage, Lang, Vertical } from "./types";
+
+export const demoKey = (l: Lang, v: Vertical) => `${l}:${v}`;
 const norm = (s: string) => s.toLowerCase().normalize("NFC").slice(0, 200);
 const escape = (w: string) => w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 const has = (input: string, words: string[]) =>

@@ -25,7 +25,7 @@ export function SectionHeader({ index, eyebrow, title, accent, kicker, tone = "d
         {accent && (
           <>
             <br />
-            <span className={night ? "text-[#7DD3FC]" : "text-accent"}>{accent}</span>
+            <span className={night ? "text-[#FFB547]" : "text-accent"}>{accent}</span>
           </>
         )}
       </h2>

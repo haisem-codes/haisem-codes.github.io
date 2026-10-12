@@ -63,7 +63,7 @@ export function Hero({ dict, phone, lang }: { dict: Dictionary["hero"]; phone: D
               </a>
             </Magnetic>
             <a
-              href="#services"
+              href="#control-room"
               className="inline-flex min-h-[44px] items-center text-base font-medium text-text underline decoration-text-secondary decoration-1 underline-offset-[6px] transition-colors duration-[var(--dur-micro)] hover:decoration-accent focus-visible:rounded focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
             >
               {dict.ctaSecondary}

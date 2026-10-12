@@ -264,3 +264,26 @@ img {
 .demo-dot {
   animation: demo-typing 1s var(--ease-silk) infinite;
 }
+
+/* ── Control-room live dot ── */
+@keyframes live-pulse {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-live) 45%, transparent); }
+  100% { box-shadow: 0 0 0 7px transparent; }
+}
+.live-dot {
+  animation: live-pulse 1.8s ease-out infinite;
+}
+@keyframes cr-rise {
+  from { opacity: 0; transform: translateY(8px); }
+}
+.cr-rise {
+  animation: cr-rise 450ms var(--ease-silk) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  #control-room *,
+  #control-room *::before {
+    animation-delay: 0s !important;
+    transition-delay: 0s !important;
+  }
+  .live-dot { animation: none; }
+}

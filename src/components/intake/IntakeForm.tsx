@@ -99,11 +99,17 @@ export function IntakeForm({ dict, lang }: { dict: Dictionary["intake"]; lang: L
   const headingId = `intake-step-${current.id}`;
 
   useEffect(() => {
+    let restoredAnswers: Answers = {};
     try {
       const saved = JSON.parse(sessionStorage.getItem(STORAGE_KEY) ?? "null") as { answers?: Answers; step?: number } | null;
-      setAnswers(sanitize(saved?.answers));
+      restoredAnswers = sanitize(saved?.answers);
       if (Number.isInteger(saved?.step) && saved!.step! >= 0 && saved!.step! < STEPS.length) setStep(saved!.step!);
     } catch {}
+    if (!restoredAnswers.goal) {
+      const { goal } = sanitize({ goal: new URLSearchParams(location.search).get("goal") });
+      if (goal) restoredAnswers = { ...restoredAnswers, goal };
+    }
+    setAnswers(restoredAnswers);
     setRestored(true);
     track("intake_opened");
   }, []);

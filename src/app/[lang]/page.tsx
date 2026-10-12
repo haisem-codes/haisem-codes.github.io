@@ -4,6 +4,7 @@ import { getDictionary } from "@/i18n";
 import { Hero } from "@/components/sections/Hero";
 import { ProofStrip } from "@/components/sections/ProofStrip";
 import { Services } from "@/components/sections/Services";
+import { ControlRoom } from "@/components/sections/ControlRoom";
 import { StoryScene } from "@/components/sections/StoryScene";
 import { JakeCase } from "@/components/sections/JakeCase";
 import { Work } from "@/components/sections/Work";
@@ -20,6 +21,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
       <Hero dict={d.hero} phone={d.demoPhone} lang={lang} />
       <ProofStrip dict={d.proof} lang={lang} />
       <Services dict={d.services} lang={lang} />
+      <ControlRoom dict={d.controlRoom} lang={lang} />
       <StoryScene dict={d.story} />
       <JakeCase dict={d.jake} />
       <Work dict={d.work} lang={lang} />

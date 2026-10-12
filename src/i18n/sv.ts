@@ -104,6 +104,34 @@ export const sv = {
       },
     ],
   },
+  controlRoom: {
+    index: "02",
+    eyebrow: "Kontrollrummet", // REVIEW-SV
+    title: "21.40. En kund hör av sig.", // REVIEW-SV
+    accent: "Du sover redan.", // REVIEW-SV
+    kicker: "Testa själv. Välj ett företag och skriv det en kund skulle skicka sent på kvällen. Receptionisten svarar, ställer en fråga, bokar en tid och loggar kunden.", // REVIEW-SV
+    verticalsLabel: "Demoföretag", // REVIEW-SV
+    verticals: { salon: "Salong", clinic: "Klinik", trades: "Hantverkare", restaurant: "Restaurang" }, // REVIEW-SV
+    demoBadge: "Skriptad demo", // REVIEW-SV
+    live: "Live",
+    tonight: "I kväll · 21.40", // REVIEW-SV
+    chatLabel: "Demochatt med en AI-receptionist", // REVIEW-SV
+    you: "Du",
+    bot: "Receptionisten", // REVIEW-SV
+    suggestionsLabel: "Förslag på meddelanden", // REVIEW-SV
+    placeholder: "Skriv som en kund …", // REVIEW-SV
+    inputLabel: "Ditt meddelande", // REVIEW-SV
+    send: "Skicka",
+    restart: "Börja om",
+    panelTitle: "Bakom kulisserna", // REVIEW-SV
+    waiting: "Väntar på en bokning", // REVIEW-SV
+    waitingHint: "Boka en tid i chatten och se vad som händer medan du sover.", // REVIEW-SV
+    panelJump: "Se vad som hände bakom kulisserna ↓", // REVIEW-SV
+    crm: { title: "CRM · ny kund", status: "Status", service: "Bokat", reply: "Svarstid", replyValue: "{n} sekunder", source: "Källa", sourceValue: "Chatt på webbplatsen" }, // REVIEW-SV
+    timeline: { sms: "Sms skickat", calendar: "Kalendern uppdaterad", summary: "Sammanfattning mejlad" }, // REVIEW-SV
+    cta: "Vill du ha det här i ditt företag?", // REVIEW-SV
+    ctaNote: "Svara på några frågor så visar jag hur det skulle fungera för dig.", // REVIEW-SV
+  },
   story: {
     title: "Så här ser en automation ut",
     note: "Så fungerar systemet jag byggde på Metaviz åt Jakes byrå.", // REVIEW-SV
