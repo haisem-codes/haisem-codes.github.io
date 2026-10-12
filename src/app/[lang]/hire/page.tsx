@@ -10,6 +10,7 @@ import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { SkillsBento } from "@/components/sections/SkillsBento";
 import { Credentials } from "@/components/sections/Credentials";
 import { TechMarquee } from "@/components/sections/TechMarquee";
+import { BulbCone } from "@/components/layout/BulbCone";
 
 type Props = { params: Promise<{ lang: string }> };
 
@@ -44,7 +45,8 @@ export default async function HirePage({ params }: Props) {
 
   return (
     <main>
-      <section className="px-6 pt-36 pb-16 sm:pt-44 sm:pb-24">
+      <section className="relative isolate px-6 pt-36 pb-16 sm:pt-44 sm:pb-24">
+        <BulbCone />
         <div className="mx-auto max-w-6xl">
           <ScrollReveal>
             <h1 className="max-w-4xl font-display text-5xl leading-[1.04] font-semibold tracking-tight text-balance text-text sm:text-7xl">

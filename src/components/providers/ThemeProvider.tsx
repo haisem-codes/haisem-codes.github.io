@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, useEffect, useCallback, useRef, type ReactNode } from "react";
 import { flushSync } from "react-dom";
-import { initialTheme, nextTheme, THEME_KEY, type Theme } from "@/lib/theme";
+import { initialTheme, nextTheme, THEME_COLOR, THEME_KEY, type Theme } from "@/lib/theme";
 import { readTier } from "@/lib/capability";
 
 interface ThemeContextType {
@@ -45,6 +45,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       const apply = () => {
         flushSync(() => setTheme(next));
         html.classList.toggle("dark", next === "dark");
+        document.querySelector('meta[name="theme-color"]')?.setAttribute("content", THEME_COLOR[next]);
         try {
           localStorage.setItem(THEME_KEY, next);
         } catch {}

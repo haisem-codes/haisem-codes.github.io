@@ -18,3 +18,12 @@ test("globals.css mirrors tokens", () => {
   for (const v of [...Object.values(tokens.light), ...Object.values(tokens.night)])
     if (v.startsWith("#")) expect(css).toContain(v.toLowerCase());
 });
+test("hero copy stays AA under the bulb's light cone", () => {
+  const over = (hex: string, rgb: [number, number, number], a: number) =>
+    "#" + [0, 1, 2].map((i) => Math.round(parseInt(hex.slice(1 + i * 2, 3 + i * 2), 16) * (1 - a) + rgb[i] * a).toString(16).padStart(2, "0")).join("");
+  const lit = over(tokens.light.bg, [56, 189, 248], 0.18);
+  expect(contrast(tokens.light.secondary, lit)).toBeGreaterThanOrEqual(4.5);
+  expect(contrast(tokens.light.accent, lit)).toBeGreaterThanOrEqual(4.5);
+  const dim = over(tokens.night.bg, [125, 211, 252], 0.1);
+  expect(contrast(tokens.night.secondary, dim)).toBeGreaterThanOrEqual(4.5);
+});
