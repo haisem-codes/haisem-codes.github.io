@@ -1,9 +1,9 @@
 import type { DemoScript, Lang, Vertical } from "./types";
 
-const BOOK_EN = ["book", "booking", "appointment", "reserve", "reservation", "table", "quote", "visit", "time"];
-const BOOK_SV = ["boka", "bokning", "tid", "reservera", "bord", "offert", "besök"];
+const BOOK_EN = ["book", "booking", "appointment", "reserve", "reservation", "table", "quote", "visit", "time", "come", "when can you"];
+const BOOK_SV = ["boka", "bokning", "tid", "reservera", "bord", "offert", "besök", "komma", "kan ni", "när kan"];
 const PRICE = ["price", "pricing", "cost", "how much", "fees", "pris", "kostar", "kostnad", "avgift"];
-const HOURS = ["hours", "opening", "opens", "open on", "when do you", "when are you", "closing", "öppet", "öppettider", "öppnar", "stänger", "när har ni"];
+const HOURS = ["hours", "opening", "opens", "open on", "when do you", "when are you", "closing", "öppet", "öppettider", "öppnar", "stänger", "när har ni", "are you open", "is it open", "open today", "open now", "open late", "är ni öppna", "öppna", "har ni öppet"];
 const EN_SLOTS = ["Sat 10:30", "Sat 13:00", "Sat 15:45"];
 const SV_SLOTS = ["lör kl. 10:30", "lör kl. 13:00", "lör kl. 15:45"];
 

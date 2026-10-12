@@ -101,3 +101,15 @@ describe("fix round 1", () => {
     expect(r.messages[0].text).toBe(en.fallback);
   });
 });
+
+test("every suggestion chip leaves the start stage or answers", () => {
+  for (const lang of ["en", "sv"] as const)
+    for (const v of ["salon", "clinic", "trades", "restaurant"] as const) {
+      const s = SCRIPTS[lang][v];
+      for (const chip of s.suggestions) expect(reply(s, { stage: "start" }, chip).messages[0].text, `${lang}/${v}: ${chip}`).not.toBe(s.fallback);
+    }
+});
+test("open-hours phrasings", () => {
+  for (const q of ["Are you open?", "is it open today", "Är ni öppna?"])
+    expect(reply(en, { stage: "start" }, q).messages[0].text).toBe(en.hours);
+});
