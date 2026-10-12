@@ -186,24 +186,22 @@ export function PanelCard({ dict, id, children }: { dict: Dict; id?: string; chi
     >
       <div className="flex items-center justify-between font-mono text-[11px] tracking-[0.12em] uppercase">
         <span className="text-text-secondary">{dict.panelTitle}</span>
-        <span className="text-live tabular-nums">21:40</span>
+        <span className="text-live tabular-nums">{dict.clock}</span>
       </div>
       {children}
     </section>
   );
 }
 
-const STEPS = [
-  { key: "sms", at: "0:04" },
-  { key: "calendar", at: "0:06" },
-  { key: "summary", at: "0:09" },
-] as const;
-
-const delay = (on: boolean, ms: number) => ({ transitionDelay: on ? `${ms}ms` : "0ms" });
+const STEPS = ["sms", "calendar", "summary"] as const;
 
 /** One structure for waiting and booked, so the booking lights the panel up in place (CSS transitions only). */
-export function PanelBody({ dict, lang, crm }: { dict: Dict; lang: Locale; crm?: CrmCard }) {
+export function PanelBody({ dict, lang, crm, instant }: { dict: Dict; lang: Locale; crm?: CrmCard; instant?: boolean }) {
   const on = Boolean(crm);
+  const move = !instant;
+  const delay = (ms: number) => (on && move ? { transitionDelay: `${ms}ms` } : undefined);
+  const rise = (ms: number) => (move ? { animationDelay: `${ms}ms` } : undefined);
+  const fade = move ? "transition-colors duration-300" : "";
   const rows: [string, string | undefined][] = [
     [dict.crm.status, crm?.status],
     [dict.crm.service, crm?.service],
@@ -214,7 +212,8 @@ export function PanelBody({ dict, lang, crm }: { dict: Dict; lang: Locale; crm?:
     <div className="mt-6 flex flex-1 flex-col">
       <div
         className={cn(
-          "rounded-2xl border p-4 transition-[border-color,background-color,box-shadow,translate] duration-500 ease-[var(--ease-silk)]",
+          "rounded-2xl border p-4",
+          move && "transition-[border-color,background-color,box-shadow,translate] duration-500 ease-[var(--ease-silk)]",
           on
             ? "border-live/35 bg-[#141416] shadow-[0_24px_60px_-24px_rgba(255,181,71,0.4)]"
             : "translate-y-1 border-dashed border-border-hover",
@@ -230,7 +229,7 @@ export function PanelBody({ dict, lang, crm }: { dict: Dict; lang: Locale; crm?:
               <dt className="text-text-secondary">{k}</dt>
               <dd className="relative text-right font-medium">
                 {v ? (
-                  <span className={cn("cr-rise inline-block", i === 0 ? "text-live" : "text-text")} style={{ animationDelay: `${120 + i * 90}ms` }}>
+                  <span className={cn("inline-block", move && "cr-rise", i === 0 ? "text-live" : "text-text")} style={rise(120 + i * 90)}>
                     {v}
                   </span>
                 ) : (
@@ -244,23 +243,24 @@ export function PanelBody({ dict, lang, crm }: { dict: Dict; lang: Locale; crm?:
 
       <ol className="mt-5">
         {STEPS.map((s, i) => (
-          <li key={s.key} className="relative flex items-center gap-3 py-2 pl-1">
+          <li key={s} className="relative flex items-center gap-3 py-2 pl-1">
             <span
               aria-hidden
               className={cn(
-                "relative z-10 flex h-5 w-5 items-center justify-center rounded-full border transition-colors duration-300",
+                "relative z-10 flex h-5 w-5 items-center justify-center rounded-full border",
+                fade,
                 on ? "border-transparent bg-live/15" : "border-border-hover",
               )}
-              style={delay(on, 500 + i * 350)}
+              style={delay(500 + i * 350)}
             >
-              <span className={cn("h-1.5 w-1.5 rounded-full transition-colors duration-300", on ? "bg-live" : "bg-transparent")} style={delay(on, 500 + i * 350)} />
+              <span className={cn("h-1.5 w-1.5 rounded-full", fade, on ? "bg-live" : "bg-transparent")} style={delay(500 + i * 350)} />
             </span>
             {i < STEPS.length - 1 && <span aria-hidden className="absolute top-7 left-[13px] h-[calc(100%-12px)] w-px bg-border-hover" />}
-            <span className={cn("flex-1 text-sm transition-colors duration-300", on ? "text-text" : "text-text-secondary")} style={delay(on, 500 + i * 350)}>
-              {dict.timeline[s.key]}
+            <span className={cn("flex-1 text-sm", fade, on ? "text-text" : "text-text-secondary")} style={delay(500 + i * 350)}>
+              {dict.timeline[s]}
             </span>
-            <span className={cn("font-mono text-xs tabular-nums transition-colors duration-300", on ? "text-live" : "text-text-secondary/50")} style={delay(on, 500 + i * 350)}>
-              {on ? s.at : "–:––"}
+            <span className={cn("font-mono text-xs tabular-nums", fade, on ? "text-live" : "text-text-secondary/50")} style={delay(500 + i * 350)}>
+              {on ? dict.timelineAt[s] : dict.pendingTime}
             </span>
           </li>
         ))}
@@ -268,7 +268,7 @@ export function PanelBody({ dict, lang, crm }: { dict: Dict; lang: Locale; crm?:
 
       <div className="mt-auto border-t border-border pt-5">
         {on ? (
-          <div className="cr-rise" style={{ animationDelay: "1.5s" }}>
+          <div className={cn(move && "cr-rise")} style={rise(1500)}>
             <p className="text-sm leading-relaxed text-text-secondary">{dict.ctaNote}</p>
             <a
               href={localHref(lang, "/start/?goal=missed_calls")}

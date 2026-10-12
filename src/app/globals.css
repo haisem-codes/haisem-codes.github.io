@@ -285,5 +285,6 @@ img {
     animation-delay: 0s !important;
     transition-delay: 0s !important;
   }
-  .live-dot { animation: none; }
+  .live-dot,
+  #control-room .cr-rise { animation: none; }
 }

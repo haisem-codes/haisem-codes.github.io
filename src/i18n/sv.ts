@@ -129,6 +129,9 @@ export const sv = {
     panelJump: "Se vad som hände bakom kulisserna ↓", // REVIEW-SV
     crm: { title: "CRM · ny kund", status: "Status", service: "Bokat", reply: "Svarstid", replyValue: "{n} sekunder", source: "Källa", sourceValue: "Chatt på webbplatsen" }, // REVIEW-SV
     timeline: { sms: "Sms skickat", calendar: "Kalendern uppdaterad", summary: "Sammanfattning mejlad" }, // REVIEW-SV
+    timelineAt: { sms: "0:04", calendar: "0:06", summary: "0:09" },
+    pendingTime: "–:––",
+    clock: "21.40", // REVIEW-SV
     cta: "Vill du ha det här i ditt företag?", // REVIEW-SV
     ctaNote: "Svara på några frågor så visar jag hur det skulle fungera för dig.", // REVIEW-SV
   },

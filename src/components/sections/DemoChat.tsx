@@ -96,6 +96,7 @@ function Conversation({ lang, dict, vertical, fresh }: { lang: Locale; dict: Dic
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     send(draft);
+    inputRef.current?.focus();
   };
 
   return (
@@ -138,6 +139,7 @@ function Conversation({ lang, dict, vertical, fresh }: { lang: Locale; dict: Dic
               onClick={(keyboard) => {
                 keyboardChip.current = keyboard;
                 send(o);
+                if (keyboard) inputRef.current?.focus();
               }}
             >
               {o}
@@ -159,7 +161,7 @@ function Conversation({ lang, dict, vertical, fresh }: { lang: Locale; dict: Dic
         )}
       </ChatCard>
       <PanelCard dict={dict} id={PANEL_ID}>
-        <PanelBody dict={dict} lang={lang} crm={crm} />
+        <PanelBody dict={dict} lang={lang} crm={crm} instant={instant} />
       </PanelCard>
     </>
   );
