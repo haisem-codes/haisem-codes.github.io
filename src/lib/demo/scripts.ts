@@ -1,16 +1,14 @@
 import type { DemoScript, Lang, Vertical } from "./types";
 
-const EN_BOOK = ["book", "appointment", "reserve", "reservation", "table", "quote", "visit"];
-const EN_PRICE = ["price", "cost", "how much", "pricing", "fee"];
-const EN_HOURS = ["open", "hours", "when do you", "closing"];
-const SV_BOOK = ["boka", "tid", "bokning", "reservera", "bord", "offert"];
-const SV_PRICE = ["pris", "kostar", "kostnad", "avgift"];
-const SV_HOURS = ["öppet", "öppettider", "öppnar", "stänger"];
+const BOOK_EN = ["book", "booking", "appointment", "reserve", "reservation", "table", "quote", "visit", "time"];
+const BOOK_SV = ["boka", "bokning", "tid", "reservera", "bord", "offert", "besök"];
+const PRICE = ["price", "pricing", "cost", "how much", "fees", "pris", "kostar", "kostnad", "avgift"];
+const HOURS = ["hours", "opening", "opens", "open on", "when do you", "when are you", "closing", "öppet", "öppettider", "öppnar", "stänger", "när har ni"];
 const EN_SLOTS = ["Sat 10:30", "Sat 13:00", "Sat 15:45"];
-const SV_SLOTS = ["lör 10:30", "lör 13:00", "lör 15:45"];
+const SV_SLOTS = ["lör kl. 10:30", "lör kl. 13:00", "lör kl. 15:45"];
 
 const en = (d: Omit<DemoScript, "bookWords" | "priceWords" | "hoursWords" | "slots" | "afterBooked" | "fallback">): DemoScript => ({
-  bookWords: EN_BOOK, priceWords: EN_PRICE, hoursWords: EN_HOURS, slots: EN_SLOTS,
+  bookWords: BOOK_EN, priceWords: PRICE, hoursWords: HOURS, slots: EN_SLOTS,
   afterBooked: "You're all set. A confirmation is on its way by SMS. Anything else I can help with?",
   fallback: "Sorry, I didn't catch that. I can help you book a time, or answer questions about prices and opening hours.",
   ...d,
@@ -18,7 +16,7 @@ const en = (d: Omit<DemoScript, "bookWords" | "priceWords" | "hoursWords" | "slo
 
 // REVIEW-SV
 const sv = (d: Omit<DemoScript, "bookWords" | "priceWords" | "hoursWords" | "slots" | "afterBooked" | "fallback">): DemoScript => ({
-  bookWords: SV_BOOK, priceWords: SV_PRICE, hoursWords: SV_HOURS, slots: SV_SLOTS,
+  bookWords: BOOK_SV, priceWords: PRICE, hoursWords: HOURS, slots: SV_SLOTS,
   afterBooked: "Då är det klart! Du får en bekräftelse via sms. Är det något mer jag kan hjälpa dig med?",
   fallback: "Förlåt, jag hängde inte med. Jag kan hjälpa dig att boka tid eller svara på frågor om pris och öppettider.",
   ...d,
@@ -39,7 +37,7 @@ export const SCRIPTS: Record<Lang, Record<Vertical, DemoScript>> = {
     }),
     clinic: en({
       business: "Klinik Söder · demo",
-      greeting: "Hello, and welcome to Klinik Söder (a fictional demo). I'm the AI receptionist. How can I help?",
+      greeting: "Hello, and welcome to Klinik Söder (a fictional demo). I'm the AI receptionist. This is a demo and not for urgent matters. How can I help?",
       suggestions: ["Book an appointment", "What does a visit cost?", "What are your hours?"],
       price: "Fees depend on the type of visit. The clinic confirms the price when you get your booking confirmation.",
       hours: "The clinic is open on weekdays and on selected Saturdays. Exact times are shown when you book.",
@@ -77,9 +75,9 @@ export const SCRIPTS: Record<Lang, Record<Vertical, DemoScript>> = {
       business: "Salong Åsa · demo",
       greeting: "Hej och välkommen till Salong Åsa (en fiktiv demo). Jag är AI-receptionisten. Hur kan jag hjälpa dig?",
       suggestions: ["Boka klippning", "Vad kostar en klippning?", "När har ni öppet?"],
-      price: "Priset beror på hårlängd och behandling. Salongen bekräftar exakt pris i ditt sms.",
+      price: "Priset beror på hårlängd och behandling. Salongen bekräftar det exakta priset i ditt sms.",
       hours: "Vi har öppet tisdag till lördag. Vardagar på eftermiddagen och kvällen, lördagar under dagen.",
-      qualifier: { question: "Gärna! Vad vill du boka?", options: ["Klippning", "Färg", "Styling"] },
+      qualifier: { question: "Gärna! Vad vill du boka?", options: ["Klippning", "Färgning", "Styling"] },
       slotsIntro: "Här är de närmaste lediga tiderna på lördag. Vilken passar dig?",
       confirm: "Klart! {option} på {slot}. Du får en påminnelse via sms dagen innan.",
       crmStatus: "Bokad till {slot}",
@@ -87,11 +85,11 @@ export const SCRIPTS: Record<Lang, Record<Vertical, DemoScript>> = {
     // REVIEW-SV
     clinic: sv({
       business: "Klinik Söder · demo",
-      greeting: "Hej och välkommen till Klinik Söder (en fiktiv demo). Jag är AI-receptionisten. Hur kan jag hjälpa dig?",
+      greeting: "Hej och välkommen till Klinik Söder (en fiktiv demo). Jag är AI-receptionisten. Det här är en demo och inte för akuta ärenden. Hur kan jag hjälpa dig?",
       suggestions: ["Boka tid", "Vad kostar ett besök?", "Vad har ni för öppettider?"],
       price: "Avgiften beror på typ av besök. Kliniken bekräftar priset i din bokningsbekräftelse.",
       hours: "Kliniken har öppet vardagar och vissa lördagar. Exakta tider visas när du bokar.",
-      qualifier: { question: "Självklart. Vad för slags besök behöver du?", options: ["Kontroll", "Återbesök", "Nytt besvär"] },
+      qualifier: { question: "Självklart. Vilken typ av besök behöver du?", options: ["Kontroll", "Återbesök", "Nytt besvär"] },
       slotsIntro: "De här tiderna är lediga på lördag. Vilken passar dig?",
       confirm: "Klart! {option} på {slot}. Kom gärna fem minuter innan.",
       crmStatus: "Tid bokad till {slot}",
@@ -101,7 +99,7 @@ export const SCRIPTS: Record<Lang, Record<Vertical, DemoScript>> = {
       business: "Bygg & Kök Nord · demo",
       greeting: "Hej och välkommen till Bygg & Kök Nord (en fiktiv demo). Jag är AI-receptionisten. Vad kan jag hjälpa dig med?",
       suggestions: ["Boka platsbesök", "Vad kostar ett kök?", "När kan ni komma?"],
-      price: "Varje jobb är olika, så vi lämnar offert efter ett kort platsbesök. Inget pris utlovas innan vi sett utrymmet.",
+      price: "Varje jobb är olika, så vi lämnar offert efter ett kort platsbesök. Vi lovar inget pris innan vi har sett utrymmet.",
       hours: "Vi jobbar på plats vardagar. Platsbesök går också att boka på lördagar.",
       qualifier: { question: "Absolut. Vad är det för jobb?", options: ["Kök", "Badrum", "Annan renovering"] },
       slotsIntro: "Vi kan komma förbi på lördag vid de här tiderna. Vad passar dig?",
@@ -113,10 +111,10 @@ export const SCRIPTS: Record<Lang, Record<Vertical, DemoScript>> = {
       business: "Bistro Hornsgatan · demo",
       greeting: "Hej och välkommen till Bistro Hornsgatan (en fiktiv demo). Jag är AI-receptionisten. Hur kan jag hjälpa dig?",
       suggestions: ["Boka bord", "Vad kostar middagen?", "När öppnar ni?"],
-      price: "Vår meny byter med säsongen. Priserna står på menyn, och bokningsbekräftelsen länkar dit.",
+      price: "Vår meny ändras med säsongen. Priserna står på menyn, och bokningsbekräftelsen länkar dit.",
       hours: "Vi har öppet för lunch på vardagar och middag tisdag till lördag.",
       qualifier: { question: "Härligt! Hur många är ni?", options: ["2 personer", "4 personer", "6 eller fler"] },
-      slotsIntro: "De här borden är lediga på lördag. Vilken tid passar?",
+      slotsIntro: "De här borden är lediga på lördag. Vilken tid passar dig?",
       confirm: "Bord bokat för {option} på {slot}. Vi ser fram emot att träffa dig!",
       crmStatus: "Bord bokat till {slot}",
     }),

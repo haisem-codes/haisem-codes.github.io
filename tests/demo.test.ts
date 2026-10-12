@@ -63,3 +63,41 @@ test("all scripts complete", () => {
       expect(s.crmStatus).toContain("{slot}");
     }
 });
+
+describe("fix round 1", () => {
+  test("SV full happy path", () => {
+    let r = reply(sv, { stage: "start" }, "Hej, kan jag boka?");
+    r = reply(sv, r.state, sv.qualifier.options[0]);
+    r = reply(sv, r.state, "kl. 13:00");
+    expect(r.state.stage).toBe("booked");
+    expect(r.messages[0].text).toContain(sv.slots[1]);
+    expect(r.crm?.status).toContain(sv.slots[1]);
+  });
+  test("word-start matching", () => {
+    expect(reply(en, { stage: "start" }, "coffee").messages[0].text).not.toBe(en.price);
+    expect(reply(en, { stage: "start" }, "I want to reopen").messages[0].text).not.toBe(en.hours);
+  });
+  test("booked + price question answers price", () => {
+    expect(reply(en, { stage: "booked", option: "x", slot: en.slots[0] }, "how much?").messages[0].text).toBe(en.price);
+  });
+  test("price in slots keeps chips", () => {
+    expect(reply(en, { stage: "slots", option: "x" }, "price?").messages[0].options).toEqual(en.slots);
+  });
+  test("replacement patterns in option are literal", () => {
+    const r = reply(en, { stage: "qualify" }, "$` $& $'");
+    const b = reply(en, r.state, en.slots[0]);
+    expect(b.messages[0].text).toContain("$` $& $'");
+    expect(b.messages[0].text.length).toBeLessThan(en.confirm.length + 40);
+  });
+  test("html stripped from free-text option", () => {
+    let r = reply(en, { stage: "qualify" }, "<img src=x onerror=alert(1)>");
+    r = reply(en, r.state, en.slots[0]);
+    expect(r.messages[0].text).not.toMatch(/[<>]/);
+    expect(r.crm!.service).not.toMatch(/[<>]/);
+  });
+  test("start-stage gibberish falls back", () => {
+    const r = reply(en, { stage: "start" }, "asdf");
+    expect(r.state.stage).toBe("start");
+    expect(r.messages[0].text).toBe(en.fallback);
+  });
+});
