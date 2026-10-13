@@ -1,7 +1,8 @@
 // Renders scripts/mockups/scenes/*.html to public/work/<slug>[-night]-{800,1600}.{avif,webp}
 // and writes blur placeholders to src/data/workImages.json.
 // Usage: node scripts/mockups/render.mjs [scene ...]   (no args = all scenes)
-import { mkdir, readFile, readdir, stat, writeFile } from "node:fs/promises";
+import { constants } from "node:fs";
+import { access, mkdir, readFile, readdir, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import puppeteer from "puppeteer-core";
@@ -32,6 +33,12 @@ const QUALITY = { avif: { quality: 50, effort: 6 }, webp: { quality: 80, effort:
 
 const chromePath =
   process.env.CHROME_PATH ?? "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
+
+try {
+  await access(chromePath, constants.X_OK);
+} catch {
+  throw new Error(`Chrome not found or not executable at "${chromePath}". Set CHROME_PATH to your Chrome/Chromium binary.`);
+}
 
 const requested = process.argv.slice(2);
 const unknown = requested.filter((s) => !(s in SCENES));
@@ -64,13 +71,21 @@ try {
     for (const [theme, suffix] of Object.entries(THEMES)) {
       const url = `${pathToFileURL(path.join(here, "scenes", `${name}.html`)).href}?theme=${theme}`;
       await page.goto(url, { waitUntil: "networkidle0" });
-      const fontsOk = await page.evaluate(async () => {
-        const faces = ['600 16px "Space Grotesk"', '400 16px "Inter"', '400 16px "JetBrains Mono"'];
-        await Promise.all(faces.map((f) => document.fonts.load(f)));
+      const missing = await page.evaluate(async () => {
+        await Promise.all(
+          ['600 16px "Space Grotesk"', '400 16px "Inter"', '400 16px "JetBrains Mono"'].map((f) =>
+            document.fonts.load(f),
+          ),
+        );
         await document.fonts.ready;
-        return faces.every((f) => document.fonts.check(f));
+        const loaded = new Set(
+          [...document.fonts].filter((f) => f.status === "loaded").map((f) => f.family.replace(/"/g, "")),
+        );
+        return ["Space Grotesk", "Inter", "JetBrains Mono"].filter((f) => !loaded.has(f));
       });
-      if (!fontsOk) throw new Error(`${name}: web fonts did not load (network?)`);
+      if (missing.length) {
+        throw new Error(`${name}: web fonts not loaded (${missing.join(", ")}); is fonts.googleapis.com reachable?`);
+      }
       if (!(await page.evaluate(() => window.__sceneReady === true))) {
         throw new Error(`${name}: _base.js did not run`);
       }

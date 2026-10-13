@@ -14,7 +14,7 @@
   "postura": {
     "w": 1600,
     "h": 1000,
-    "blur": "data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAACwAQCdASoKAAYAA4BaJYwCdADcx1YAAPz3c9g/GE9NNS2dLW4FvdsdmxSzCMblNJIi88cGErIMAA==",
+    "blur": "data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAACwAQCdASoKAAYAA4BaJYwCdADcx1YAAPz3c9g/GE9NNS2dLW4FvdsdmxSzCMblNI6WD7BitkeuAA==",
     "nightBlur": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAADQAQCdASoKAAYAA4BaJQBOgCHgevnaQAD+8t7306LRNoQIPJ04AAAA"
   },
   "coach": {
@@ -44,7 +44,7 @@
   "ai-craftsmen-marketplace": {
     "w": 1600,
     "h": 1000,
-    "blur": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAABwAQCdASoKAAYAA4BaJZwC7AGIQAD+8lbHGSHz3czYSY9sAWcwAA==",
+    "blur": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAABwAQCdASoKAAYAA4BaJZwC7AGIQAD+8lbHGSHz3cxDgg/9mt8AAA==",
     "nightBlur": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAADwAQCdASoKAAYAA4BaJZwC7AEPDE2nngAA/vV9Kvwnl21hxNtGLy8AAAA="
   },
   "ai-tools-suite": {
@@ -57,12 +57,12 @@
     "w": 1600,
     "h": 1000,
     "blur": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAAAwAQCdASoKAAYAA4BaJZwAA3AA/vJMf1Z+P+uH00isrPWtoaq2sKUVonZ3AAAA",
-    "nightBlur": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAADQAQCdASoKAAYAA4BaJZwC7AERB5pLAAD+9r7trukcg6WrBUdBTvAA"
+    "nightBlur": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAADQAQCdASoKAAYAA4BaJZwC7AEQ/aURAAD+9o5mUGkcmJdrewcY3rtfgAA="
   },
   "dietapp": {
     "w": 1600,
     "h": 1000,
     "blur": "data:image/webp;base64,UklGRkIAAABXRUJQVlA4IDYAAADwAQCdASoKAAYAA4BaJYwCdAED/5cr5SAA/vJoZqqe0dw9oj+2K94nWef5Lp5JrBusrOQt8AA=",
-    "nightBlur": "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAACQAQCdASoKAAYAA4BaJQBOgBuZZUAA/vVxr2DCr3Zlopnt3+GXXprLBTfo4mXgAAA="
+    "nightBlur": "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAACQAQCdASoKAAYAA4BaJQBOgBuZZUAA/vVxr2DCr3Zlopnt3+GXXpr4ICb9HEy8AAA="
   }
 }
