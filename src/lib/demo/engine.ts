@@ -29,10 +29,12 @@ export function reply(s: DemoScript, state: DemoState, raw: string): DemoReply {
   switch (state.stage) {
     case "booked":
       return { state, messages: [bot(s.afterBooked)] };
-    case "start":
-      if (!input || !(has(input, s.bookWords) || s.qualifier.options.some((o) => input.includes(o.toLowerCase()))))
-        return { state, messages: [bot(s.fallback, s.suggestions)] };
+    case "start": {
+      const option = input ? s.qualifier.options.find((o) => has(input, [o])) : undefined;
+      if (option) return { state: { stage: "slots", option }, messages: [bot(s.slotsIntro, s.slots)] };
+      if (!input || !has(input, s.bookWords)) return { state, messages: [bot(s.fallback, s.suggestions)] };
       return { state: { stage: "qualify" }, messages: [bot(s.qualifier.question, s.qualifier.options)] };
+    }
     case "qualify": {
       if (!input) return { state, messages: [bot(s.qualifier.question, s.qualifier.options)] };
       const option = s.qualifier.options.find((o) => input.includes(o.toLowerCase())) ?? cleanOption(raw);

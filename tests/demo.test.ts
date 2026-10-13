@@ -113,3 +113,24 @@ test("open-hours phrasings", () => {
   for (const q of ["Are you open?", "is it open today", "Är ni öppna?"])
     expect(reply(en, { stage: "start" }, q).messages[0].text).toBe(en.hours);
 });
+
+describe("start message that names a qualifier option", () => {
+  test("EN 'Book a haircut' skips the qualifier", () => {
+    const r = reply(en, { stage: "start" }, "Book a haircut");
+    expect(r.state).toEqual({ stage: "slots", option: "Haircut" });
+    expect(r.messages.at(-1)!.options).toEqual(en.slots);
+  });
+  test("SV 'Boka klippning' skips the qualifier", () => {
+    const r = reply(sv, { stage: "start" }, "Boka klippning");
+    expect(r.state).toEqual({ stage: "slots", option: "Klippning" });
+    expect(r.messages.at(-1)!.options).toEqual(sv.slots);
+  });
+  test("option must match at a word start", () => {
+    expect(reply(en, { stage: "start" }, "book a recolour").state.stage).toBe("qualify");
+  });
+  test("SV dotted slot times still match by hour", () => {
+    const r = reply(sv, { stage: "slots", option: "Klippning" }, "13 tack");
+    expect(r.state.slot).toBe(sv.slots[1]);
+    expect(sv.slots.every((s) => /\d\.\d\d$/.test(s))).toBe(true);
+  });
+});
