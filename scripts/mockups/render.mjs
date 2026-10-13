@@ -25,6 +25,8 @@ const SCENES = {
   aitools: "ai-tools-suite",
   video: "ai-video-pipeline",
   dietapp: "dietapp",
+  "before-site": "before-site",
+  "after-site": "after-site",
 };
 const THEMES = { light: "", night: "-night" };
 const WIDTHS = [800, 1600];

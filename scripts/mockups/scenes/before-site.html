@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<title>Salong Nora (before)</title>
+<link rel="stylesheet" href="_base.css">
+<style>
+  /* A dated local site: fixed 900px table layout, tiled background, tiny serif text. It has no night mode. */
+  .old {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    font-family: Verdana, Tahoma, Arial, sans-serif;
+    font-size: 11px;
+    line-height: 1.35;
+    color: #333;
+    background:
+      repeating-linear-gradient(45deg, rgba(160, 120, 140, .09) 0 6px, transparent 6px 12px),
+      #EFE6E9;
+  }
+  .page { width: 900px; margin: 10px auto 0; background: #FFFDF8; border: 1px solid #B9A3AC; box-shadow: 2px 2px 0 #CDB9C1; }
+  .banner {
+    height: 112px;
+    position: relative;
+    background: linear-gradient(180deg, #B03A6F 0%, #7E1F4C 100%);
+    border-bottom: 3px solid #E6B83A;
+    overflow: hidden;
+  }
+  .banner::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 330px;
+    height: 112px;
+    background:
+      radial-gradient(40px 40px at 70% 45%, rgba(255, 255, 255, .55), transparent 70%),
+      radial-gradient(90px 60px at 30% 70%, rgba(255, 220, 150, .35), transparent 70%),
+      linear-gradient(120deg, #C9708F, #8E3A5E 60%, #5A1736);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 35%);
+            mask-image: linear-gradient(90deg, transparent, #000 35%);
+  }
+  .logo { position: absolute; left: 22px; top: 16px; font-family: "Brush Script MT", "Snell Roundhand", cursive; font-size: 54px; color: #FFE9A8; text-shadow: 3px 3px 0 #4B0F2B; letter-spacing: 1px; }
+  .slogan { position: absolute; left: 30px; top: 80px; font-family: "Times New Roman", serif; font-style: italic; font-size: 14px; color: #FFF; }
+  .menu { display: flex; background: linear-gradient(#F4F4F4, #CFCFCF); border-bottom: 1px solid #999; }
+  .menu a { padding: 6px 13px; border-right: 1px solid #A8A8A8; color: #0645AD; text-decoration: underline; font-size: 11px; font-weight: bold; }
+  .menu a.on { background: #FFF7C2; color: #7E1F4C; }
+  .ticker { background: #FFF3A6; color: #C00000; font-weight: bold; padding: 4px 10px; border-bottom: 1px dashed #D2B000; font-size: 11px; white-space: nowrap; overflow: hidden; }
+  .cols { display: grid; grid-template-columns: 178px 1fr 190px; gap: 0; }
+  .left, .right { background: #F6EEF1; padding: 10px; border-right: 1px solid #DCC8CF; }
+  .right { border-right: 0; border-left: 1px solid #DCC8CF; }
+  .mid { padding: 12px 14px; }
+  .box { border: 1px solid #C7AAB5; background: #FFF; margin-bottom: 10px; }
+  .box h4 { background: #8E2A57; color: #FFF; font-size: 11px; padding: 3px 6px; font-family: Arial, sans-serif; }
+  .box .in { padding: 6px; }
+  .box table { width: 100%; border-collapse: collapse; font-size: 10px; }
+  .box td { padding: 1px 0; }
+  h1.welcome { font-family: "Times New Roman", serif; font-size: 22px; color: #7E1F4C; margin-bottom: 6px; font-weight: normal; }
+  h1.welcome b { color: #C00000; }
+  .mid p { margin-bottom: 7px; text-align: justify; }
+  .stock { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin: 8px 0 10px; }
+  .stock div { height: 96px; border: 3px double #B79AA6; position: relative; overflow: hidden; }
+  .stock div::after { content: "© stockbild"; position: absolute; right: 3px; bottom: 2px; font-size: 8px; color: rgba(255, 255, 255, .85); }
+  .s1 { background: radial-gradient(26px 30px at 40% 38%, #E9C4A6 60%, transparent 62%), radial-gradient(60px 40px at 40% 100%, #5B6E8C 60%, transparent 62%), linear-gradient(160deg, #D9D2C8, #A79B90); }
+  .s2 { background: radial-gradient(30px 22px at 65% 45%, #2F2420 60%, transparent 62%), radial-gradient(22px 26px at 62% 55%, #E3B79A 60%, transparent 62%), linear-gradient(200deg, #C9B7A4, #7E6E62); }
+  .s3 { background: linear-gradient(90deg, transparent 46%, #9B8B7E 46% 54%, transparent 54%), radial-gradient(50px 20px at 50% 30%, #3A3A3A 60%, transparent 62%), linear-gradient(180deg, #E8E2DA, #B6ADA3); }
+  .prices { width: 100%; border-collapse: collapse; margin: 6px 0 8px; font-size: 10.5px; }
+  .prices th { background: #E6D2DA; border: 1px solid #B79AA6; padding: 3px 5px; text-align: left; font-size: 10.5px; }
+  .prices td { border: 1px solid #CDB9C1; padding: 2px 5px; }
+  .prices tr:nth-child(even) td { background: #FBF4F6; }
+  .call { border: 2px solid #C00000; background: #FFF0F0; padding: 7px; text-align: center; font-size: 12px; color: #C00000; font-weight: bold; margin: 8px 0; }
+  .call small { display: block; font-weight: normal; color: #555; font-size: 10px; margin-top: 2px; }
+  .link { color: #0645AD; text-decoration: underline; }
+  .counter { font-family: "Courier New", monospace; background: #000; color: #3CFF3C; padding: 2px 5px; letter-spacing: 2px; font-size: 12px; display: inline-block; }
+  .badge88 { display: inline-block; width: 88px; height: 31px; border: 1px solid #777; font-size: 8px; line-height: 1.1; padding: 3px; margin: 3px 3px 0 0; background: linear-gradient(#EEE, #CCC); color: #333; vertical-align: top; }
+  .gb { font-size: 10px; border-top: 1px dotted #B79AA6; padding: 4px 0; }
+  .gb b { color: #7E1F4C; }
+  .foot { text-align: center; font-size: 9.5px; color: #777; padding: 8px; border-top: 1px solid #DCC8CF; background: #F6EEF1; }
+  .cookie {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 9px 16px;
+    background: rgba(40, 40, 40, .94);
+    color: #EEE;
+    font-family: Arial, sans-serif;
+    font-size: 11.5px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .cookie button { font: inherit; font-size: 11px; padding: 3px 10px; border: 1px solid #888; background: #DDD; color: #222; }
+  .popup {
+    position: absolute;
+    right: 150px;
+    top: 210px;
+    width: 250px;
+    background: #FFFFE1;
+    border: 1px solid #333;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, .25);
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+  }
+  .popup .t { background: linear-gradient(90deg, #0A246A, #A6CAF0); color: #FFF; font-weight: bold; padding: 3px 6px; display: flex; justify-content: space-between; }
+  .popup .c { padding: 8px; }
+</style>
+</head>
+<body>
+<div class="window">
+  <div class="window-bar" data-url="www.salongnora.example/index.html"></div>
+  <div class="viewport">
+    <div class="old">
+      <div class="page">
+        <div class="banner">
+          <div class="logo">Salong Nora</div>
+          <div class="slogan">~ Din frisör på Söder sedan 2009 ~</div>
+        </div>
+        <div class="menu">
+          <a class="on">Hem</a><a>Om oss</a><a>Behandlingar</a><a>Prislista</a><a>Produkter</a><a>Galleri</a><a>Gästbok</a><a>Länkar</a><a>Kontakt</a>
+        </div>
+        <div class="ticker">*** NYHET!!! Nu säljer vi hårvårdsprodukter i salongen *** Sommarerbjudande: 10% på slingor (gäller t.o.m. 31/8 2016) *** Vi har semesterstängt v.28-31 ***</div>
+        <div class="cols">
+          <div class="left">
+            <div class="box"><h4>Öppettider</h4><div class="in"><table>
+              <tr><td>Mån</td><td>10-18</td></tr><tr><td>Tis</td><td>10-18</td></tr><tr><td>Ons</td><td>10-19</td></tr>
+              <tr><td>Tor</td><td>10-19</td></tr><tr><td>Fre</td><td>10-17</td></tr><tr><td>Lör</td><td>10-14 (ojämna v.)</td></tr><tr><td>Sön</td><td>Stängt</td></tr>
+            </table></div></div>
+            <div class="box"><h4>Hitta hit</h4><div class="in">Götgatan (nära tunnelbanan), 2 tr. Ring på porttelefon "NORA".<br><span class="link">Klicka här för karta</span></div></div>
+            <div class="box"><h4>Besökare</h4><div class="in" style="text-align:center"><span class="counter">004127</span><br><span style="font-size:9px">sedan 2011</span></div></div>
+          </div>
+          <div class="mid">
+            <h1 class="welcome">Välkommen till <b>Salong Nora!</b></h1>
+            <p>Hos oss på Salong Nora får du alltid ett personligt bemötande i en lugn och avslappnad miljö. Vi erbjuder klippning, färgning, slingor, permanent, uppsättningar, bryn och fransar samt mycket mer för både dam, herr och barn. Vi använder endast produkter av högsta kvalitet och håller oss alltid uppdaterade med de senaste trenderna genom kurser och utbildningar.</p>
+            <p>Vårt mål är att du ska gå härifrån nöjd och känna dig fin. Varmt välkommen in till oss! Har du frågor är du alltid välkommen att ringa eller skicka ett mejl så återkommer vi så snart vi kan (vanligtvis inom 2-3 arbetsdagar).</p>
+            <div class="stock"><div class="s1"></div><div class="s2"></div><div class="s3"></div></div>
+            <table class="prices">
+              <tr><th>Behandling</th><th>Pris från</th></tr>
+              <tr><td>Klippning dam kort/mellan/långt</td><td>450:- / 520:- / 590:-</td></tr>
+              <tr><td>Klippning herr</td><td>380:-</td></tr>
+              <tr><td>Färg + klipp (ring för offert)</td><td>ring!</td></tr>
+              <tr><td>Slingor folie (halvt huvud / helt)</td><td>890:- / 1190:-</td></tr>
+              <tr><td>Barnklippning (upp till 12 år)</td><td>290:-</td></tr>
+            </table>
+            <div class="call">RING FÖR TIDSBOKNING: 08-12 34 56<small>Vi har tyvärr ingen bokning på nätet. Lämna gärna meddelande på telefonsvararen.</small></div>
+            <p style="font-size:10px;color:#666">Priserna kan komma att ändras. Avbokning senast 24 timmar innan, annars debiteras full avgift. Vi tar ej kort under 100 kr.</p>
+          </div>
+          <div class="right">
+            <div class="box"><h4>Senaste nytt</h4><div class="in">
+              <div class="gb"><b>12/03/2014</b> Ny hemsida!! Titta runt och skriv gärna i gästboken.</div>
+              <div class="gb"><b>04/11/2013</b> Vi har fått in nya färger från Italien.</div>
+              <div class="gb"><b>20/06/2013</b> Glad midsommar önskar vi på Salong Nora!</div>
+            </div></div>
+            <div class="box"><h4>Gästbok</h4><div class="in">
+              <div class="gb">"Bästa frisören på söder!!" <i>- Anna</i></div>
+              <div class="gb">"Supernöjd med mina slingor" <i>- M.</i></div>
+              <span class="link">Skriv i gästboken &raquo;</span>
+            </div></div>
+            <div><span class="badge88">Bäst i Internet Explorer 8<br>1024x768</span><span class="badge88">Gjord med<br>HTML 4.01</span></div>
+          </div>
+        </div>
+        <div class="foot">&copy; 2013 Salong Nora &nbsp;|&nbsp; Senast uppdaterad 12/03/2014 &nbsp;|&nbsp; Webbdesign: Nora &amp; kusin &nbsp;|&nbsp; <span class="link">Till toppen</span></div>
+      </div>
+      <div class="popup"><div class="t"><span>Meddelande</span><span>X</span></div><div class="c">Gilla oss! Du vet väl att vi finns på sociala medier? Klicka här för att följa oss och få våra erbjudanden.</div></div>
+      <div class="cookie">Denna webbplats använder cookies. Genom att fortsätta surfa godkänner du detta. <span class="link" style="color:#9CC3FF">Läs mer</span><button>OK</button></div>
+    </div>
+  </div>
+</div>
+<script src="_base.js"></script>
+</body>
+</html>
