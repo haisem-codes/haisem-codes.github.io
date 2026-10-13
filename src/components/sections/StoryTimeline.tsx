@@ -11,6 +11,23 @@ type Story = Dictionary["story"];
 /** Below this viewport height the pinned stage cannot show a frame legibly, so the storyboard is used. */
 const PIN_MIN_HEIGHT = "(min-height: 600px)";
 
+const SAVED_Y = "story-pinned-y";
+
+/**
+ * On reload and back/forward, the offset the reader left at (saved with the pinned layout in place), else null.
+ * Browsers restore that offset inconsistently while the shorter storyboard is still shown, so it is re-applied after the swap.
+ */
+function savedOffset(): number | null {
+  const nav = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined;
+  if (nav?.type !== "reload" && nav?.type !== "back_forward") return null;
+  try {
+    const saved = JSON.parse(sessionStorage.getItem(SAVED_Y) ?? "null") as { path: string; y: number } | null;
+    return saved?.path === location.pathname ? saved.y : null;
+  } catch {
+    return null;
+  }
+}
+
 function Storyboard({ dict, frames, still }: { dict: Story; frames: ReactNode[]; still?: ReactNode }) {
   return (
     <>
@@ -53,7 +70,7 @@ export function StoryTimeline({ dict, frames, onProgress, still, backdrop }: Sto
   const root = useRef<HTMLDivElement>(null);
   const [tier, setTier] = useState<Tier>("static");
   const [Pinned, setPinned] = useState<ComponentType<StoryPinnedProps> | null>(null);
-  const anchor = useRef<number | null>(null);
+  const anchor = useRef<{ bottom: number } | { y: number } | null>(null);
   const toStatic = useRef(() => setTier("static")).current;
 
   useEffect(() => {
@@ -68,27 +85,35 @@ export function StoryTimeline({ dict, frames, onProgress, still, backdrop }: Sto
         .then((m) => {
           if (!alive || !mql.matches) return;
           const bottom = root.current?.getBoundingClientRect().bottom ?? 1;
-          anchor.current = bottom <= 0 ? bottom : null;
+          const y = savedOffset();
+          anchor.current = bottom <= 0 ? (y === null ? { bottom } : { y }) : null;
           setPinned(() => m.default);
         })
         .catch(toStatic);
     };
+    const save = () => {
+      try {
+        sessionStorage.setItem(SAVED_Y, JSON.stringify({ path: location.pathname, y: scrollY }));
+      } catch {}
+    };
     apply();
     mql.addEventListener("change", apply);
+    addEventListener("pagehide", save);
     return () => {
       alive = false;
       mql.removeEventListener("change", apply);
+      removeEventListener("pagehide", save);
     };
   }, [toStatic]);
 
-  // The storyboard and the pinned track differ in height; when the story sits above the viewport (hash link, reload
-  // mid-page) keep whatever the reader was looking at in place.
+  // The storyboard and the pinned track differ in height; when the story sits above the viewport, a hash link keeps
+  // what the reader sees in place and a reload or back/forward returns to the saved offset.
   useLayoutEffect(() => {
     const before = anchor.current;
     anchor.current = null;
     if (before === null || !root.current) return;
-    const delta = root.current.getBoundingClientRect().bottom - before;
-    if (delta) window.scrollTo({ top: window.scrollY + delta, behavior: "instant" });
+    const top = "y" in before ? before.y : window.scrollY + root.current.getBoundingClientRect().bottom - before.bottom;
+    if (top !== window.scrollY) window.scrollTo({ top, behavior: "instant" });
   }, [Pinned]);
 
   const pinned = tier !== "static" && Pinned;
