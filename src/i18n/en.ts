@@ -173,7 +173,7 @@ export const en = {
   work: {
     index: "03",
     eyebrow: "Selected work",
-    title: "Real systems, real numbers.",
+    title: "Real systems, in production.",
     more: "More projects",
     filters: { all: "All", business: "Business automation", products: "AI products", research: "Research" },
     view: "View case study",

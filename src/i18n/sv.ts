@@ -175,7 +175,7 @@ export const sv = {
   work: {
     index: "03",
     eyebrow: "Utvalda projekt",
-    title: "Riktiga system, riktiga siffror.", // REVIEW-SV
+    title: "Riktiga system i produktion.", // REVIEW-SV
     more: "Fler projekt",
     filters: { all: "Alla", business: "Företagsautomation", products: "AI-produkter", research: "Forskning" },
     view: "Läs caset",

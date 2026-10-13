@@ -280,6 +280,11 @@ export const projects: Project[] = [
     featured: false,
     order: 13,
     category: "products",
+    sv: {
+      title: "Claude Code Mastery", // REVIEW-SV
+      tagline:
+        "Ett konfigurationssystem för Claude Code och Agent SDK: installerbara skills, subagenter, hooks och färdiga mallar", // REVIEW-SV
+    },
   },
 
   // ===================== SECONDARY (6) =====================
@@ -319,6 +324,11 @@ export const projects: Project[] = [
     order: 7,
     category: "products",
     employer: "metaviz",
+    sv: {
+      title: "AI-baserad SaaS för resehantering mellan företag", // REVIEW-SV
+      tagline:
+        "En plattform för flera kunder som kopplar ihop hotell, transportbolag, researrangörer och DMC:er, med taligenkänning direkt i mobilen", // REVIEW-SV
+    },
   },
 
   {
@@ -360,6 +370,11 @@ export const projects: Project[] = [
     order: 8,
     category: "products",
     employer: "metaviz",
+    sv: {
+      title: "AI-baserad marknadsplats för hantverkare med en AI-assistent att prata med", // REVIEW-SV
+      tagline:
+        "En AI-assistent i chatten, smart hybridsökning och en marknadsplats för flera kunder på webb och mobil", // REVIEW-SV
+    },
   },
 
   {
@@ -400,6 +415,11 @@ export const projects: Project[] = [
     order: 9,
     category: "products",
     employer: "metaviz",
+    sv: {
+      title: "AI Tools Suite, en SaaS-plattform med åtta verktyg", // REVIEW-SV
+      tagline:
+        "Åtta AI-verktyg under samma tak, bland annat en chatt som växlar mellan flera LLM:er", // REVIEW-SV
+    },
   },
 
   {
@@ -428,6 +448,11 @@ export const projects: Project[] = [
     order: 11,
     category: "business",
     employer: "metaviz",
+    sv: {
+      title: "AI-videoflöde, en n8n-automation med 60 noder", // REVIEW-SV
+      tagline:
+        "Manus → video → publicering på flera plattformar, helt automatiskt", // REVIEW-SV
+    },
   },
 
   {
@@ -458,5 +483,10 @@ export const projects: Project[] = [
     featured: false,
     order: 12,
     category: "products",
+    sv: {
+      title: "DietApp, AI för kost och träning", // REVIEW-SV
+      tagline:
+        "En AI-baserad kostapp med måltidsplanering, streckkodsskanning och synk med träningsklockor", // REVIEW-SV
+    },
   },
 ];
