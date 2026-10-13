@@ -69,6 +69,17 @@ type StoryTimelineProps = {
   backdrop?: StoryPinnedProps["backdrop"];
 };
 
+/** First element after `from` in document order (siblings, then ancestors' siblings) whose box reaches the viewport. */
+export function contentBelow(from: Element): Element | null {
+  for (let node: Element | null = from; node && node !== document.body; node = node.parentElement)
+    for (let el = node.nextElementSibling; el; el = el.nextElementSibling) {
+      const style = getComputedStyle(el);
+      if (style.position === "fixed" || style.display === "none") continue;
+      if (el.getBoundingClientRect().bottom > 0) return el;
+    }
+  return null;
+}
+
 export function StoryTimeline({ dict, frames, onProgress, still, backdrop }: StoryTimelineProps) {
   const root = useRef<HTMLDivElement>(null);
   const [tier, setTier] = useState<Tier>("static");
@@ -84,20 +95,23 @@ export function StoryTimeline({ dict, frames, onProgress, still, backdrop }: Sto
     const mql = matchMedia(PIN_MIN_HEIGHT);
     let alive = true;
     let saved = takeSavedOffset();
-    // With the story above the viewport, whatever sits at the viewport's top edge is below it: keep that still.
+    // With the story above the viewport, keep the first in-flow content below it that is still on screen.
     const hold = () => {
-      if ((root.current?.getBoundingClientRect().bottom ?? 1) > 0) return (anchor.current = null);
-      const el = document.elementFromPoint(innerWidth / 2, 1) ?? root.current!;
-      anchor.current = { el, top: el.getBoundingClientRect().top };
+      const el = root.current && root.current.getBoundingClientRect().bottom <= 0 ? contentBelow(root.current) : null;
+      anchor.current = el && { el, top: el.getBoundingClientRect().top };
     };
     const apply = () => {
-      if (!mql.matches) return setPinned(null);
+      const y = saved;
+      saved = null;
+      if (!mql.matches) {
+        hold();
+        return setPinned(null);
+      }
       import("./StoryPinned")
         .then((m) => {
           if (!alive || !mql.matches) return;
           hold();
-          if (anchor.current && saved !== null) anchor.current = { y: saved };
-          saved = null;
+          if (anchor.current && y !== null) anchor.current = { y };
           setPinned(() => m.default);
         })
         .catch(toStatic);
