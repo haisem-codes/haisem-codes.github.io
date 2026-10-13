@@ -3,7 +3,7 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { WorkPicture } from "@/components/ui/WorkPicture";
 import { BeforeAfterSlider } from "@/components/sections/BeforeAfterSlider";
 
-/** Illustrative Lighthouse-style scores for the concept redesign; not measured. */
+/** Illustrative scores for the concept redesign; not measured. */
 const SCORES = [
   { key: "performance", from: 38, to: 96 },
   { key: "accessibility", from: 64, to: 98 },

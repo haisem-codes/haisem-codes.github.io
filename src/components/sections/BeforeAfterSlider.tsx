@@ -15,6 +15,7 @@ export type SliderText = {
   sliderLabel: string;
   valueText: string;
   hint: string;
+  hintTouch: string;
   scoresLabel: string;
   scoresNote: string;
   from: string;
@@ -39,7 +40,7 @@ function SideChip({ label, side }: { label: string; side: "left" | "right" }) {
 }
 
 function Dial({ label, value, caption }: { label: string; value: number; caption: string }) {
-  const tone = value >= 90 ? "text-accent" : value >= 50 ? "text-live" : "text-danger";
+  const tone = value >= 50 ? "text-accent" : "text-text-secondary";
   return (
     <li className="flex flex-col items-center gap-2 text-center lg:flex-row lg:gap-4 lg:text-left">
       <span className="relative size-16 shrink-0 sm:size-[72px]">
@@ -91,41 +92,40 @@ function Dials({ scores, values, captions, t }: { scores: Score[]; values: numbe
 
 const frame = "overflow-hidden rounded-2xl border border-border bg-bg-card p-1.5 shadow-[0_40px_80px_-40px_rgba(15,23,42,0.35)] dark:shadow-[0_40px_80px_-40px_rgba(0,0,0,0.8)]";
 
-export function BeforeAfterSlider({ before, after, scores, t }: { before: ReactNode; after: ReactNode; scores: Score[]; t: SliderText }) {
-  const [tier, setTier] = useState<Tier>("full");
+type Props = { before: ReactNode; after: ReactNode; scores: Score[]; t: SliderText };
+
+function StaticView({ before, after, scores, t }: Props) {
+  return (
+    <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_220px] lg:items-center lg:gap-14">
+      <div>
+        <div className="grid gap-6 sm:grid-cols-2 sm:gap-4">
+          {[
+            { img: before, label: t.before },
+            { img: after, label: t.after },
+          ].map(({ img, label }) => (
+            <figure key={label}>
+              <div className={frame}>
+                <div className="relative aspect-[8/5] overflow-hidden rounded-[11px]">
+                  {img}
+                  <ConceptChip label={t.concept} />
+                </div>
+              </div>
+              <figcaption className="mt-3 font-mono text-xs uppercase tracking-[0.14em] text-text-secondary">{label}</figcaption>
+            </figure>
+          ))}
+        </div>
+        <p className="mt-5 font-mono text-xs text-text-secondary">{t.conceptNote}</p>
+      </div>
+      <Dials scores={scores} values={scores.map((s) => s.to)} captions={scores.map((s) => `${t.from} ${s.from}`)} t={t} />
+    </div>
+  );
+}
+
+function Slider({ before, after, scores, t }: Props) {
   const [pct, setPct] = useState(START);
   const [dragging, setDragging] = useState(false);
   const track = useRef<HTMLDivElement>(null);
   const handle = useRef<HTMLDivElement>(null);
-
-  useEffect(() => setTier(readTier()), []);
-
-  if (tier === "static") {
-    return (
-      <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_220px] lg:items-center lg:gap-14">
-        <div>
-          <div className="grid gap-6 sm:grid-cols-2 sm:gap-4">
-            {[
-              { img: before, label: t.before },
-              { img: after, label: t.after },
-            ].map(({ img, label }) => (
-              <figure key={label}>
-                <div className={frame}>
-                  <div className="relative aspect-[8/5] overflow-hidden rounded-[11px]">
-                    {img}
-                    <ConceptChip label={t.concept} />
-                  </div>
-                </div>
-                <figcaption className="mt-3 font-mono text-xs uppercase tracking-[0.14em] text-text-secondary">{label}</figcaption>
-              </figure>
-            ))}
-          </div>
-          <p className="mt-5 font-mono text-xs text-text-secondary">{t.conceptNote}</p>
-        </div>
-        <Dials scores={scores} values={scores.map((s) => s.to)} captions={scores.map((s) => `${t.from} ${s.from}`)} t={t} />
-      </div>
-    );
-  }
 
   const shown = 100 - pct;
   const now = Math.round(pct);
@@ -219,7 +219,10 @@ export function BeforeAfterSlider({ before, after, scores, t }: { before: ReactN
         </div>
         <div className="mt-5 flex flex-col gap-1 font-mono text-xs text-text-secondary sm:flex-row sm:justify-between sm:gap-6">
           <p>{t.conceptNote}</p>
-          <p aria-hidden>{t.hint}</p>
+          <p aria-hidden>
+            <span className="sm:[@media(pointer:fine)]:hidden">{t.hintTouch}</span>
+            <span className="hidden sm:[@media(pointer:fine)]:inline">{t.hint}</span>
+          </p>
         </div>
       </div>
       <Dials
@@ -229,5 +232,20 @@ export function BeforeAfterSlider({ before, after, scores, t }: { before: ReactN
         t={t}
       />
     </div>
+  );
+}
+
+/** Before hydration both layouts render and CSS picks one by reduced motion, so the static tier rarely swaps layout. */
+export function BeforeAfterSlider(props: Props) {
+  const [tier, setTier] = useState<Tier | null>(null);
+  useEffect(() => setTier(readTier()), []);
+  const isStatic = tier === "static";
+  return (
+    <>
+      <div className={tier === null ? "motion-reduce:hidden" : isStatic ? "hidden" : undefined}>{!isStatic && <Slider {...props} />}</div>
+      <div className={tier === null ? "hidden motion-reduce:block" : isStatic ? undefined : "hidden"}>
+        {(tier === null || isStatic) && <StaticView {...props} />}
+      </div>
+    </>
   );
 }

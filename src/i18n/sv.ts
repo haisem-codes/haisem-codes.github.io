@@ -201,19 +201,20 @@ export const sv = {
   beforeAfter: {
     index: "04",
     eyebrow: "Före och efter", // REVIEW-SV
-    title: "Samma salong. En sajt som tar bokningar.", // REVIEW-SV
-    kicker: "Dra i reglaget och jämför en typisk lokal företagssajt med en ny design som tar bokningar och svarar på frågor.", // REVIEW-SV
+    title: "Samma salong. En webbplats som tar emot bokningar.", // REVIEW-SV
+    kicker: "Dra i reglaget och jämför en typisk webbplats för ett lokalt företag med en ny design som tar emot bokningar och svarar på frågor.", // REVIEW-SV
     concept: "Koncept", // REVIEW-SV
-    conceptNote: "Konceptdesign av en typisk lokal sajt", // REVIEW-SV
+    conceptNote: "Konceptdesign av en typisk lokal webbplats", // REVIEW-SV
     before: "Före",
     after: "Efter",
-    beforeAlt: "Daterad salongssajt med liten text, röriga spalter, en popup och ingen bokning på nätet", // REVIEW-SV
-    afterAlt: "Ny salongssajt med tydlig rubrik, bokning på nätet och en chattassistent", // REVIEW-SV
+    beforeAlt: "Föråldrad salongswebbplats med liten text, röriga spalter, en popup och ingen bokning på nätet", // REVIEW-SV
+    afterAlt: "Ny salongswebbplats med tydlig rubrik, bokning på nätet och en chattassistent", // REVIEW-SV
     sliderLabel: "Jämför före och efter", // REVIEW-SV
-    valueText: "{before} % före, {after} % efter", // REVIEW-SV
+    valueText: "{before}\u00A0% före, {after}\u00A0% efter", // REVIEW-SV
     hint: "Dra, eller använd piltangenterna", // REVIEW-SV
-    scoresLabel: "Poäng i Lighthouse-stil", // REVIEW-SV
-    scoresNote: "Illustrativa poäng för en konceptdesign", // REVIEW-SV
+    hintTouch: "Dra i reglaget", // REVIEW-SV
+    scoresLabel: "Exempelpoäng för fart och kvalitet", // REVIEW-SV
+    scoresNote: "Illustrativa siffror för en konceptdesign, inte en mätning. Mätarna följer reglaget.", // REVIEW-SV
     from: "från",
     dials: { performance: "Prestanda", accessibility: "Tillgänglighet", seo: "SEO" },
   },
