@@ -9,6 +9,7 @@ import {
   Color,
   ExtrudeGeometry,
   InstancedMesh,
+  LineBasicMaterial,
   Material,
   MeshBasicMaterial,
   MeshLambertMaterial,
@@ -70,6 +71,7 @@ function useAssets() {
     const city = new ExtrudeGeometry(shapeOf(SILHOUETTE), { depth: 0.5, bevelEnabled: false });
     city.translate(0, 0, -0.5);
     const ridge = new ShapeGeometry(shapeOf(RIDGE));
+    const outline = new BufferGeometry().setFromPoints(SILHOUETTE.map(([x, y]) => new Vector3(wx(x), wy(y), 0.002)));
     const win = new PlaneGeometry(WIN_W / 100, WIN_H / 100);
     const halo = new PlaneGeometry(0.2, 0.2);
     const water = new PlaneGeometry(60, 14);
@@ -84,21 +86,22 @@ function useAssets() {
     const core = hops.map((c) => new TubeGeometry(c, SEGMENTS, 0.011, RADIAL, false));
     const aura = hops.map((c) => new TubeGeometry(c, SEGMENTS, 0.04, RADIAL, false));
     const mats = {
-      city: new MeshLambertMaterial({ color: "#182B37" }),
-      mirror: new MeshBasicMaterial({ color: "#0A1218" }),
-      ridge: new MeshBasicMaterial({ color: "#0C141A" }),
+      city: new MeshLambertMaterial({ color: "#284A5A" }),
+      outline: new LineBasicMaterial({ color: "#4F8DA3", transparent: true, opacity: 0.75 }),
+      mirror: new MeshBasicMaterial({ color: "#10202A" }),
+      ridge: new MeshBasicMaterial({ color: "#13212B" }),
       win: new MeshBasicMaterial({ toneMapped: false }),
       halo: new MeshBasicMaterial({ map: glow, blending: AdditiveBlending, transparent: true, depthWrite: false, toneMapped: false }),
       water: new MeshBasicMaterial({ color: BG, transparent: true, opacity: 0.74, depthWrite: false }),
       core: new MeshBasicMaterial({ color: "#D6F1FF", toneMapped: false }),
       aura: new MeshBasicMaterial({ color: ICE, transparent: true, opacity: 0.22, blending: AdditiveBlending, depthWrite: false, toneMapped: false }),
     };
-    return { city, ridge, win, halo, water, glow, hops, core, aura, mats };
+    return { city, ridge, outline, win, halo, water, glow, hops, core, aura, mats };
   }, []);
   useEffect(
     () => () => {
-      const { city, ridge, win, halo, water, glow, core, aura, mats } = assets;
-      [city, ridge, win, halo, water, ...core, ...aura].forEach((g: BufferGeometry) => g.dispose());
+      const { city, ridge, outline, win, halo, water, glow, core, aura, mats } = assets;
+      [city, ridge, outline, win, halo, water, ...core, ...aura].forEach((g: BufferGeometry) => g.dispose());
       Object.values(mats).forEach((m: Material) => m.dispose());
       (glow as Texture).dispose();
     },
@@ -138,6 +141,7 @@ function Town({ a, mirror, layers }: { a: Assets; mirror?: boolean; layers: { cu
   return (
     <group scale={mirror ? [1, -0.55, 1] : 1}>
       <mesh geometry={a.city} material={mirror ? a.mats.mirror : a.mats.city} />
+      {!mirror && <lineLoop geometry={a.outline} material={a.mats.outline} />}
       <instancedMesh ref={win} args={[a.win, a.mats.win, WINDOWS.length]} />
       <instancedMesh ref={halo} args={[a.halo, a.mats.halo, WINDOWS.length]} />
     </group>
@@ -237,7 +241,7 @@ function Scene({ progress, inView }: { progress: Progress; inView: boolean }) {
   return (
     <>
       <fog attach="fog" args={[BG, fit.d + 1, fit.d + 5]} />
-      <ambientLight intensity={0.7} color="#9FB4C4" />
+      <ambientLight intensity={0.9} color="#9FB4C4" />
       <directionalLight position={[-2, 6, 3]} intensity={1.1} color="#BFE6FF" />
       <mesh geometry={a.ridge} material={a.mats.ridge} position={[0, 0, -2.4]} scale={[1.5, 1, 1]} />
       <Town a={a} layers={layers} />

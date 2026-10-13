@@ -31,3 +31,11 @@ test("the lead route runs west to east across the view", () => {
   ANCHORS.forEach(([x], i) => i && expect(x).toBeGreaterThan(ANCHORS[i - 1][0]));
   expect(ANCHORS.every(([x, y]) => x > 0 && x < VIEW_W && y < WATER_Y)).toBe(true);
 });
+
+test("every route anchor sits on a building, not in empty sky", () => {
+  for (const a of ANCHORS) expect(inside(a), `${a}`).toBe(true);
+});
+
+test("the route stays west of the pinned card, which covers the east half on desktop", () => {
+  expect(ANCHORS.at(-1)![0]).toBeLessThan(VIEW_W * 0.47);
+});

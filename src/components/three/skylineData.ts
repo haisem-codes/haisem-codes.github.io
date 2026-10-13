@@ -70,12 +70,15 @@ export const WINDOWS: Pt[] = (() => {
   return out.sort((a, b) => a.k - b.k).map((w) => w.p);
 })();
 
-/** The lead's route: ad → phone → calendar → CRM, each a point floating above the roofs. */
+/**
+ * The lead's route: ad → phone → calendar → CRM, each pinned to a façade so it lands on something visible.
+ * On desktop the pinned card covers the east half, so the route ends on the roof just west of the card's edge.
+ */
 export const ANCHORS: Pt[] = [
-  [214, 104],
-  [520, 140],
-  [1030, 100],
-  [1304, 58],
+  [118, 124],
+  [271, 122],
+  [485, 174],
+  [656, 158],
 ];
 
 /** Height of each hop's arc above its higher anchor. Kept low so the route stays under the story's step list. */
