@@ -171,7 +171,10 @@ export const en = {
     transcriptNote: "Lightly edited from the auto-generated captions.",
   },
   work: {
-    title: "Selected work",
+    index: "03",
+    eyebrow: "Selected work",
+    title: "Real systems, real numbers.",
+    more: "More projects",
     filters: { all: "All", business: "Business automation", products: "AI products", research: "Research" },
     view: "View case study",
     employerNote: "Built at Metaviz AI",

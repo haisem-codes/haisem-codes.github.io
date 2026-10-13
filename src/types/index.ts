@@ -2,6 +2,7 @@ export interface Project {
   slug: string;
   title: string;
   tagline: string;
+  outcome?: string;
   description: string;
   problem: string;
   solution: string;
@@ -20,7 +21,7 @@ export interface Project {
 export type ProjectCategory = "business" | "products" | "research";
 
 export type ProjectCopy = Partial<
-  Pick<Project, "title" | "tagline" | "description" | "problem" | "solution" | "result">
+  Pick<Project, "title" | "tagline" | "outcome" | "description" | "problem" | "solution" | "result">
 >;
 
 export interface Skill {

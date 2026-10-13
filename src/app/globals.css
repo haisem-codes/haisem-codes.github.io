@@ -304,3 +304,11 @@ img {
   .live-dot::after,
   #control-room .cr-rise { animation: none; }
 }
+
+@keyframes work-row-in {
+  from { opacity: 0; transform: translateY(8px); }
+}
+
+@keyframes work-preview-in {
+  from { opacity: 0; scale: 0.9; }
+}

@@ -173,7 +173,10 @@ export const sv = {
     transcriptNote: "Lätt redigerad från automatiska undertexter. Videon är på engelska.",
   },
   work: {
-    title: "Utvalda projekt",
+    index: "03",
+    eyebrow: "Utvalda projekt",
+    title: "Riktiga system, riktiga siffror.", // REVIEW-SV
+    more: "Fler projekt",
     filters: { all: "Alla", business: "Företagsautomation", products: "AI-produkter", research: "Forskning" },
     view: "Läs caset",
     employerNote: "Byggt på Metaviz AI",
