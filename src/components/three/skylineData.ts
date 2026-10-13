@@ -72,14 +72,14 @@ export const WINDOWS: Pt[] = (() => {
 
 /** The lead's route: ad → phone → calendar → CRM, each a point floating above the roofs. */
 export const ANCHORS: Pt[] = [
-  [214, 80],
-  [520, 112],
-  [1030, 92],
-  [1304, 50],
+  [214, 104],
+  [520, 140],
+  [1030, 100],
+  [1304, 58],
 ];
 
-/** Height of each hop's arc above the straight line between anchors. */
-export const ARC_LIFT = 34;
+/** Height of each hop's arc above its higher anchor. Kept low so the route stays under the story's step list. */
+export const ARC_LIFT = 20;
 
 export const windowsLit = (p: number, total: number) => Math.round(Math.min(1, Math.max(0, p)) * total);
 

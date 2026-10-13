@@ -10,6 +10,7 @@ const BUSY: [number, number][] = [[0, 1], [1, 3], [2, 0], [2, 2], [4, 1], [4, 4]
 const SLOT: [number, number] = [3, 1];
 const HOURS = ["09", "10", "11", "12", "13"];
 
+/** Keep `bg-bg-card` opaque: the night skyline glows behind the translucent stage, and all frame text sits on this. */
 function Frame({ children, className }: { children: ReactNode; className?: string }) {
   return (
     <div className={cn("w-full max-w-[440px] rounded-[24px] border border-border bg-bg-card p-5 shadow-[0_40px_90px_-40px_rgba(56,189,248,0.3),inset_0_1px_0_rgba(255,255,255,0.04)] sm:p-6", className)}>

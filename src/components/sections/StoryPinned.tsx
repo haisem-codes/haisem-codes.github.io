@@ -155,8 +155,10 @@ export default function StoryPinned({ dict, frames, tier, onProgress, onFail, ba
   return (
     <div ref={track} data-pinned className="relative mt-8" style={{ height: tier === "full" ? "300vh" : "200vh" }}>
       <div className="sticky top-0 flex h-svh flex-col justify-center pt-28 pb-6 lg:pt-24 lg:pb-10">
+        {/* Contrast invariant: the skyline band glows behind this stage. Text inside the stage must sit on an opaque
+            frame surface (the story-ui cards), and the step list must stay above the band's lead route. */}
         {near && backdrop && (
-          <div aria-hidden className="pointer-events-none absolute bottom-0 left-1/2 -z-10 h-[34%] w-screen lg:h-[42%] -translate-x-1/2">
+          <div aria-hidden className="pointer-events-none absolute bottom-0 left-1/2 -z-10 h-[34%] w-screen lg:h-[42%] lg:[@media(max-height:820px)]:h-[32%] -translate-x-1/2">
             {backdrop(tier)}
           </div>
         )}
@@ -194,7 +196,7 @@ export default function StoryPinned({ dict, frames, tier, onProgress, onFail, ba
             <p className="mt-1 text-[15px] leading-snug text-text-secondary [@media(max-height:720px)]:hidden">{dict.steps[active].body}</p>
           </div>
 
-          <div ref={stage} aria-hidden className="relative flex h-full max-h-[640px] min-h-0 flex-col self-center overflow-hidden rounded-[32px] border border-border bg-[#0D0E10]/70 backdrop-blur-[3px] bg-[radial-gradient(rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:22px_22px]">
+          <div ref={stage} aria-hidden className="relative flex h-full max-h-[640px] min-h-0 flex-col self-center overflow-hidden rounded-[32px] border border-border bg-[#0D0E10] lg:bg-[#0D0E10]/70 lg:backdrop-blur-[3px] bg-[radial-gradient(rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:22px_22px]">
             <div className="flex items-center justify-between px-5 pt-4 font-mono text-[11px] tracking-[0.12em] uppercase sm:px-6 sm:pt-5">
               <span className="flex items-center gap-2 text-text-secondary">
                 {dict.ui.business}

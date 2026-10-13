@@ -26,7 +26,11 @@ import {
 import { storyProgress } from "@/lib/story";
 import { ANCHORS, ARC_LIFT, RIDGE, SILHOUETTE, WATER_Y, WIN_H, WIN_W, WINDOWS, windowsLit } from "./skylineData";
 
-type Progress = { current: number };
+/** `wake` is set by the scene; the story calls it on every progress change. */
+type Progress = { current: number; wake?: () => void };
+
+/** After the last change, keep drawing this long so damping and the anchor pulse can settle. */
+const SETTLE_MS = 1200;
 
 const BG = "#08090B";
 const AMBER = new Color("#FFB547");
@@ -142,7 +146,8 @@ function Town({ a, mirror, layers }: { a: Assets; mirror?: boolean; layers: { cu
 
 function Scene({ progress, inView }: { progress: Progress; inView: boolean }) {
   const a = useAssets();
-  const { camera, size } = useThree();
+  const { camera, size, invalidate } = useThree();
+  const until = useRef(0);
   const layers = useRef<InstancedMesh[]>([]);
   const shown = useRef(-1);
   const travel = useRef(0);
@@ -152,27 +157,40 @@ function Scene({ progress, inView }: { progress: Progress; inView: boolean }) {
   const look = useMemo(() => new Vector3(), []);
   const fit = useMemo(() => {
     const aspect = size.width / Math.max(1, size.height);
-    const h = Math.min(4.6, Math.max(2.6, 13.4 / aspect));
+    const h = Math.min(4.6, Math.max(2.3, 13.4 / aspect));
     return {
       d: h / 2 / Math.tan((15 * Math.PI) / 180) + FRONT_Z,
       cx: 0.4 * (1 - Math.min(1, (h * aspect) / 13.4)),
-      cy: 0.3 * h,
+      cy: 0.38 * h,
     };
   }, [size]);
 
   useEffect(() => {
     if (!inView) return;
+    const wake = () => {
+      until.current = performance.now() + SETTLE_MS;
+      invalidate();
+    };
+    progress.wake = wake;
+    wake();
     const move = (e: PointerEvent) => {
       nudge.current.tx = (e.clientX / innerWidth - 0.5) * 2;
       nudge.current.ty = (e.clientY / innerHeight - 0.5) * 2;
+      wake();
     };
     addEventListener("pointermove", move, { passive: true });
-    return () => removeEventListener("pointermove", move);
-  }, [inView]);
+    return () => {
+      removeEventListener("pointermove", move);
+      progress.wake = undefined;
+    };
+  }, [inView, invalidate, progress]);
 
   useFrame((state, dt) => {
     const p = progress.current;
     const k = Math.min(1, dt * 6);
+    const left = until.current - performance.now();
+    if (left > 0) invalidate();
+    const pulse = Math.min(1, Math.max(0, left / 600));
 
     const n = nudge.current;
     n.x += (n.tx - n.x) * k;
@@ -204,14 +222,14 @@ function Scene({ progress, inView }: { progress: Progress; inView: boolean }) {
     const hop = Math.min(a.hops.length - 1, Math.floor(f));
     if (head.current) {
       a.hops[hop].getPoint(Math.min(1, f - hop), head.current.position);
-      head.current.scale.setScalar(0.34 + Math.sin(state.clock.elapsedTime * 3) * 0.04);
+      head.current.scale.setScalar(0.34 + Math.sin(state.clock.elapsedTime * 3) * 0.04 * pulse);
     }
     const step = Math.min(3, Math.round(f));
     marks.current.forEach((s, i) => {
       const reached = f >= i - 0.02;
       (s.material as SpriteMaterial).color.copy(reached ? AMBER : ICE);
       (s.material as SpriteMaterial).opacity = reached ? 0.95 : 0.3;
-      const ring = i === step ? 1 + Math.abs(Math.sin(state.clock.elapsedTime * 2.4)) * 0.35 : 1;
+      const ring = i === step ? 1 + Math.abs(Math.sin(state.clock.elapsedTime * 2.4)) * 0.35 * pulse : 1;
       s.scale.setScalar(0.26 * ring);
     });
   });
@@ -250,8 +268,16 @@ function Scene({ progress, inView }: { progress: Progress; inView: boolean }) {
   );
 }
 
-/** Full-tier skyline: one canvas, rendering only while on screen. */
-export default function NightSkyline({ progress, onReady }: { progress: Progress; onReady?: () => void }) {
+/** Full-tier skyline: one canvas, drawing on demand (progress, pointer) and only while on screen. */
+export default function NightSkyline({
+  progress,
+  onReady,
+  onFail,
+}: {
+  progress: Progress;
+  onReady?: () => void;
+  onFail?: () => void;
+}) {
   const box = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
   useEffect(() => {
@@ -265,11 +291,14 @@ export default function NightSkyline({ progress, onReady }: { progress: Progress
     <div ref={box} className="absolute inset-0">
       <Canvas
         dpr={[1, 1.5]}
-        frameloop={inView ? "always" : "never"}
+        frameloop={inView ? "demand" : "never"}
         flat
         gl={{ alpha: true, antialias: true, powerPreference: "low-power" }}
         camera={{ fov: 30, near: 0.1, far: 40, position: [0, 1, 10] }}
-        onCreated={() => onReady?.()}
+        onCreated={({ gl }) => {
+          gl.domElement.addEventListener("webglcontextlost", () => onFail?.(), { once: true });
+          onReady?.();
+        }}
         style={{ pointerEvents: "none" }}
       >
         <Scene progress={progress} inView={inView} />

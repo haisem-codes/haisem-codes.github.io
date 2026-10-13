@@ -15,6 +15,7 @@ export function StoryStage({ dict, frames, still }: { dict: Dictionary["story"];
     (p: number) => {
       progress.current = p;
       progress.listen?.(p);
+      progress.wake?.();
     },
     [progress],
   );

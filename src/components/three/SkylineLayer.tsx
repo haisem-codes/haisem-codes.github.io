@@ -5,10 +5,16 @@ import type { Tier } from "@/lib/capability";
 import { SkylineSvg } from "./SkylineSvg";
 import { WINDOWS, windowsLit } from "./skylineData";
 
-/** Story progress (0..1) shared by ref; `listen` lets the SVG re-render only when the lit count changes. */
-export type SkylineProgress = { current: number; listen?: (p: number) => void };
+/**
+ * Story progress (0..1) shared by ref. `listen` lets the SVG re-render only when the lit count changes;
+ * `wake` asks the on-demand canvas for a frame.
+ */
+export type SkylineProgress = { current: number; listen?: (p: number) => void; wake?: () => void };
 
-type Night = ComponentType<{ progress: SkylineProgress; onReady?: () => void }>;
+type Night = ComponentType<{ progress: SkylineProgress; onReady?: () => void; onFail?: () => void }>;
+
+/** Below lg the stage card hides most of the band, so the scene is not worth its download or GPU time. */
+const SCENE_MIN = "(min-width: 1024px)";
 
 class Fallback extends Component<{ children: ReactNode; onError: () => void }, { failed: boolean }> {
   state = { failed: false };
@@ -25,7 +31,7 @@ class Fallback extends Component<{ children: ReactNode; onError: () => void }, {
 
 const N = WINDOWS.length;
 
-/** Pinned-stage backdrop: three.js on the full tier (SVG until the canvas is up, and if WebGL fails), SVG otherwise. */
+/** Pinned-stage backdrop: three.js on full-tier desktops (SVG until the canvas is up, and if WebGL fails), SVG otherwise. */
 export default function SkylineLayer({ tier, progress }: { tier: Tier; progress: SkylineProgress }) {
   const [lit, setLit] = useState(() => windowsLit(progress.current, N));
   const [Night, setNight] = useState<Night | null>(null);
@@ -41,7 +47,7 @@ export default function SkylineLayer({ tier, progress }: { tier: Tier; progress:
   }, [progress]);
 
   useEffect(() => {
-    if (tier !== "full") return;
+    if (tier !== "full" || !matchMedia(SCENE_MIN).matches) return;
     let alive = true;
     import("./NightSkyline")
       .then((m) => alive && setNight(() => m.default))
@@ -60,11 +66,11 @@ export default function SkylineLayer({ tier, progress }: { tier: Tier; progress:
   return (
     <>
       <div className="absolute inset-0 transition-opacity duration-700" style={{ opacity: ready ? 0 : 1 }}>
-        <SkylineSvg litRatio={tier === "static" ? 1 : lit / N} />
+        <SkylineSvg litRatio={lit / N} />
       </div>
       {Night && (
         <Fallback onError={fail}>
-          <Night progress={progress} onReady={() => setReady(true)} />
+          <Night progress={progress} onReady={() => setReady(true)} onFail={fail} />
         </Fallback>
       )}
     </>
