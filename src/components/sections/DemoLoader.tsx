@@ -4,8 +4,17 @@ import { useCallback, useEffect, useRef, useState, type ReactNode } from "react"
 import dynamic from "next/dynamic";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n";
+import { ClientBoundary } from "@/components/ui/ClientBoundary";
 
-const DemoChat = dynamic(() => import("./DemoChat").then((mod) => mod.DemoChat), { ssr: false });
+// A missing chunk resolves to nothing and `ready` never flips, so the server-rendered preview stays.
+const DemoChat = dynamic(
+  () =>
+    import("./DemoChat").then(
+      (mod) => mod.DemoChat,
+      () => () => null,
+    ),
+  { ssr: false },
+);
 
 /** Shows the server-rendered preview until the section nears the viewport and the live chat has mounted. */
 export function DemoLoader({ lang, dict, children }: { lang: Locale; dict: Dictionary["controlRoom"]; children: ReactNode }) {
@@ -13,6 +22,7 @@ export function DemoLoader({ lang, dict, children }: { lang: Locale; dict: Dicti
   const [near, setNear] = useState(false);
   const [ready, setReady] = useState(false);
   const onReady = useCallback(() => setReady(true), []);
+  const onError = useCallback(() => setReady(false), []);
 
   useEffect(() => {
     const el = ref.current;
@@ -32,7 +42,11 @@ export function DemoLoader({ lang, dict, children }: { lang: Locale; dict: Dicti
   return (
     <div ref={ref}>
       {!ready && children}
-      {near && <DemoChat lang={lang} dict={dict} onReady={onReady} />}
+      {near && (
+        <ClientBoundary onError={onError}>
+          <DemoChat lang={lang} dict={dict} onReady={onReady} />
+        </ClientBoundary>
+      )}
     </div>
   );
 }

@@ -1,15 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import dynamic from "next/dynamic";
+import { useEffect, useRef, useState, type ComponentType } from "react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { localHref, type Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n";
 import { BulbCord } from "@/components/layout/BulbCord";
 import { LanguageSwitch } from "@/components/i18n/LanguageSwitch";
+import { ClientBoundary } from "@/components/ui/ClientBoundary";
 
-const HangingBulb = dynamic(() => import("@/components/layout/HangingBulb").then((mod) => mod.HangingBulb), { ssr: false });
+type Bulb = ComponentType<{ dict: Dictionary["nav"]; retracted: boolean }>;
 
 const RETRACT_AT = 80;
 
@@ -27,6 +27,46 @@ function useScrollState() {
     return () => removeEventListener("scroll", onScroll);
   }, []);
   return state;
+}
+
+/** Desktop-only hanging bulb, loaded on demand; `false` once it failed, so the compact cord takes over. */
+function useHangingBulb(desktop: boolean) {
+  const [bulb, setBulb] = useState<Bulb | false | null>(null);
+  useEffect(() => {
+    if (!desktop || bulb !== null) return;
+    import("@/components/layout/HangingBulb").then(
+      (mod) => setBulb(() => mod.HangingBulb),
+      () => setBulb(false),
+    );
+  }, [desktop, bulb]);
+  return [bulb, () => setBulb(false)] as const;
+}
+
+/** True while the nav floats over a `data-nav-theme="dark"` band, so it can switch to its night surface. */
+function useOverDark() {
+  const [dark, setDark] = useState(false);
+  useEffect(() => {
+    const bands = [...document.querySelectorAll<HTMLElement>("[data-nav-theme=dark]")];
+    if (!bands.length) return;
+    let frame = 0;
+    const check = () => {
+      frame = 0;
+      setDark(bands.some((b) => {
+        const r = b.getBoundingClientRect();
+        return r.top <= 48 && r.bottom >= 48;
+      }));
+    };
+    const onScroll = () => (frame ||= requestAnimationFrame(check));
+    check();
+    addEventListener("scroll", onScroll, { passive: true });
+    addEventListener("resize", onScroll, { passive: true });
+    return () => {
+      cancelAnimationFrame(frame);
+      removeEventListener("scroll", onScroll);
+      removeEventListener("resize", onScroll);
+    };
+  }, []);
+  return dark;
 }
 
 function useDesktop() {
@@ -49,6 +89,8 @@ export function Navbar({ dict, lang }: { dict: Dictionary["nav"]; lang: Locale }
   const isHire = pathname.replace(/\/+$/, "") === `/${lang}/hire`;
   const { scrolled, retracted } = useScrollState();
   const desktop = useDesktop();
+  const [HangingBulb, bulbFailed] = useHangingBulb(desktop);
+  const overDark = useOverDark();
   const [activeId, setActiveId] = useState<string | null>(null);
 
   useEffect(() => {
@@ -105,7 +147,7 @@ export function Navbar({ dict, lang }: { dict: Dictionary["nav"]; lang: Locale }
   const bar = "absolute left-1/2 h-0.5 w-6 -translate-x-1/2 rounded bg-text transition-[transform,opacity] duration-300 ease-[var(--ease-silk)]";
 
   return (
-    <header className="fixed top-4 right-4 left-4 z-50 mx-auto max-w-6xl">
+    <header className={cn("fixed top-4 right-4 left-4 z-50 mx-auto max-w-6xl text-text", overDark && "dark")}>
       <nav className={cn(surface, "flex h-16 items-center justify-between gap-4 rounded-2xl pr-3 pl-6", scrolled && "nav-scrolled")}>
         <a href={localHref(lang, "/")} className="font-display text-xl font-bold tracking-tight text-accent">
           HN
@@ -132,7 +174,7 @@ export function Navbar({ dict, lang }: { dict: Dictionary["nav"]; lang: Locale }
         </ul>
 
         <div className="flex items-center gap-2">
-          <BulbCord dict={dict} retracted={retracted} />
+          <BulbCord dict={dict} retracted={retracted || HangingBulb === false} />
           <LanguageSwitch lang={lang} label={dict.switchTo} />
           <a
             href={localHref(lang, "/start/")}
@@ -156,7 +198,11 @@ export function Navbar({ dict, lang }: { dict: Dictionary["nav"]; lang: Locale }
         </div>
       </nav>
 
-      {desktop && <HangingBulb dict={dict} retracted={retracted} />}
+      {desktop && HangingBulb && (
+        <ClientBoundary onError={bulbFailed}>
+          <HangingBulb dict={dict} retracted={retracted} />
+        </ClientBoundary>
+      )}
 
       <div
         id="mobile-menu"

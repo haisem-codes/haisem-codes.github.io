@@ -1,6 +1,7 @@
 "use client";
 
-import { Component, useEffect, useRef, useState, type ComponentType, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ComponentType } from "react";
+import { ClientBoundary } from "@/components/ui/ClientBoundary";
 import type { Tier } from "@/lib/capability";
 import { SkylineSvg } from "./SkylineSvg";
 import { WINDOWS, windowsLit } from "./skylineData";
@@ -15,19 +16,6 @@ type Night = ComponentType<{ progress: SkylineProgress; onReady?: () => void; on
 
 /** Below lg the stage card hides most of the band, so the scene is not worth its download or GPU time. */
 const SCENE_MIN = "(min-width: 1024px)";
-
-class Fallback extends Component<{ children: ReactNode; onError: () => void }, { failed: boolean }> {
-  state = { failed: false };
-  static getDerivedStateFromError() {
-    return { failed: true };
-  }
-  componentDidCatch() {
-    this.props.onError();
-  }
-  render() {
-    return this.state.failed ? null : this.props.children;
-  }
-}
 
 const N = WINDOWS.length;
 
@@ -69,9 +57,9 @@ export default function SkylineLayer({ tier, progress }: { tier: Tier; progress:
         <SkylineSvg litRatio={lit / N} />
       </div>
       {Night && (
-        <Fallback onError={fail}>
+        <ClientBoundary onError={fail}>
           <Night progress={progress} onReady={() => setReady(true)} onFail={fail} />
-        </Fallback>
+        </ClientBoundary>
       )}
     </>
   );

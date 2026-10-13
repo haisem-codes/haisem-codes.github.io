@@ -14,10 +14,12 @@ export function LenisProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (readTier() === "static") return;
     let cancelled = false;
-    import("lenis").then(({ default: Lenis }) => {
-      if (cancelled) return;
-      instance = new Lenis({ autoRaf: true, lerp: 0.1, duration: 1.2, smoothWheel: true, wheelMultiplier: 1 });
-    });
+    import("lenis")
+      .then(({ default: Lenis }) => {
+        if (cancelled) return;
+        instance = new Lenis({ autoRaf: true, lerp: 0.1, duration: 1.2, smoothWheel: true, wheelMultiplier: 1 });
+      })
+      .catch(() => {});
     return () => {
       cancelled = true;
       instance?.destroy();
