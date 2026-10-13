@@ -327,7 +327,7 @@ export const projects: Project[] = [
     sv: {
       title: "AI-baserad SaaS för resehantering mellan företag", // REVIEW-SV
       tagline:
-        "En plattform för flera kunder som kopplar ihop hotell, transportbolag, researrangörer och DMC:er, med taligenkänning direkt i mobilen", // REVIEW-SV
+        "En flerkundsplattform som kopplar ihop hotell, transportbolag, researrangörer och DMC:er, med AI-tal direkt i enheten", // REVIEW-SV
     },
   },
 
@@ -371,9 +371,9 @@ export const projects: Project[] = [
     category: "products",
     employer: "metaviz",
     sv: {
-      title: "AI-baserad marknadsplats för hantverkare med en AI-assistent att prata med", // REVIEW-SV
+      title: "Marknadsplats för hantverkare med AI-assistent", // REVIEW-SV
       tagline:
-        "En AI-assistent i chatten, smart hybridsökning och en marknadsplats för flera kunder på webb och mobil", // REVIEW-SV
+        "En konverserande AI-assistent, smart hybridsökning och en flerkundsmarknadsplats på webb och mobil", // REVIEW-SV
     },
   },
 
