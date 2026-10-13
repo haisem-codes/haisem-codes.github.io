@@ -53,21 +53,29 @@ function buildTimeline(gsap: Gsap, root: HTMLElement, track: HTMLElement, onUpda
   return () => typed.forEach((el, i) => (el.textContent = full[i]));
 }
 
-export default function StoryPinned({
-  dict,
-  frames,
-  tier,
-  onProgress,
-  onFail,
-}: {
+export type StoryPinnedProps = {
   dict: Story;
   frames: ReactNode[];
   tier: Tier;
   onProgress?: (p: number) => void;
   onFail: () => void;
-}) {
+};
+
+/** Shrinks each frame (scale only, never layout) so its whole payoff fits the stage on short viewports. */
+function fitFrames(slot: HTMLElement) {
+  for (const panel of slot.querySelectorAll<HTMLElement>("[data-panel]")) {
+    const frame = panel.firstElementChild as HTMLElement | null;
+    if (!frame) continue;
+    const cs = getComputedStyle(panel);
+    const room = panel.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+    frame.style.scale = String(Math.min(1, room / frame.offsetHeight));
+  }
+}
+
+export default function StoryPinned({ dict, frames, tier, onProgress, onFail }: StoryPinnedProps) {
   const track = useRef<HTMLDivElement>(null);
   const stage = useRef<HTMLDivElement>(null);
+  const slot = useRef<HTMLDivElement>(null);
   const clock = useRef<HTMLSpanElement>(null);
   const rail = useRef<HTMLSpanElement[]>([]);
   const report = useRef(onProgress);
@@ -91,6 +99,15 @@ export default function StoryPinned({
   }, []);
 
   useEffect(() => {
+    const el = slot.current;
+    if (!el) return;
+    const ro = new ResizeObserver(() => fitFrames(el));
+    ro.observe(el);
+    for (const f of el.querySelectorAll("[data-panel] > *")) ro.observe(f);
+    return () => ro.disconnect();
+  }, []);
+
+  useEffect(() => {
     if (!near) return;
     let undo: (() => void) | undefined;
     let cancelled = false;
@@ -99,6 +116,7 @@ export default function StoryPinned({
         if (cancelled || !stage.current || !track.current) return;
         gsap.registerPlugin(ScrollTrigger);
         const lenis = getLenis();
+        // Lenis keeps its own autoRaf loop; the pin is CSS sticky, so syncing ScrollTrigger on each Lenis scroll is enough.
         const unsync = lenis?.on("scroll", () => ScrollTrigger.update());
         const update = (p: number) => {
           const { progress } = storyProgress(p);
@@ -111,7 +129,16 @@ export default function StoryPinned({
         const ctx = gsap.context(() => {
           restore = buildTimeline(gsap, stage.current!, track.current!, update);
         }, stage.current);
+        let refresh: ReturnType<typeof setTimeout> | undefined;
+        const ro = new ResizeObserver(() => {
+          clearTimeout(refresh);
+          refresh = setTimeout(() => ScrollTrigger.refresh(), 150);
+        });
+        const room = track.current.closest("section");
+        if (room) ro.observe(room);
         undo = () => {
+          ro.disconnect();
+          clearTimeout(refresh);
           unsync?.();
           ctx.revert();
           restore();
@@ -135,7 +162,7 @@ export default function StoryPinned({
                 aria-current={i === active ? "step" : undefined}
                 className={cn(
                   "relative border-l py-4 pl-6 transition-[opacity,border-color] duration-[var(--dur-ui)]",
-                  i === active ? "border-live opacity-100" : "border-border opacity-40",
+                  i === active ? "border-live opacity-100" : "border-border opacity-60",
                 )}
               >
                 <p className="font-mono text-xs tracking-[0.1em] text-live tabular-nums">{dict.clocks[i]}</p>
@@ -152,17 +179,21 @@ export default function StoryPinned({
             ))}
           </ol>
 
-          <div aria-hidden className="min-h-[96px] lg:hidden">
+          <div aria-hidden className="min-h-[96px] lg:hidden [@media(max-height:720px)]:min-h-0">
             <p className="font-mono text-xs tracking-[0.1em] text-live tabular-nums">
-              {String(active + 1).padStart(2, "0")} / 04 · {dict.clocks[active]}
+              {dict.stepOf.replace("{n}", String(active + 1).padStart(2, "0")).replace("{total}", String(dict.steps.length).padStart(2, "0"))} ·{" "}
+              {dict.clocks[active]}
             </p>
             <p className="mt-1 font-display text-2xl font-semibold tracking-tight text-text">{dict.steps[active].title}</p>
-            <p className="mt-1 text-[15px] leading-snug text-text-secondary">{dict.steps[active].body}</p>
+            <p className="mt-1 text-[15px] leading-snug text-text-secondary [@media(max-height:720px)]:hidden">{dict.steps[active].body}</p>
           </div>
 
           <div ref={stage} aria-hidden className="relative flex h-full max-h-[640px] min-h-0 flex-col self-center overflow-hidden rounded-[32px] border border-border bg-[#0D0E10] bg-[radial-gradient(rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:22px_22px]">
             <div className="flex items-center justify-between px-5 pt-4 font-mono text-[11px] tracking-[0.12em] uppercase sm:px-6 sm:pt-5">
-              <span className="text-text-secondary">Salong Åsa</span>
+              <span className="flex items-center gap-2 text-text-secondary">
+                {dict.ui.business}
+                <span className="rounded-full border border-border-hover px-2 py-0.5 text-[10px]">{dict.ui.demo}</span>
+              </span>
               <span className="flex items-center gap-2 text-live tabular-nums">
                 <span className="live-dot h-[7px] w-[7px] rounded-full bg-live" />
                 <span ref={clock} className="text-sm tracking-[0.06em] lg:text-base">
@@ -170,7 +201,7 @@ export default function StoryPinned({
                 </span>
               </span>
             </div>
-            <div className="relative min-h-0 flex-1">
+            <div ref={slot} className="relative min-h-0 flex-1">
               {frames.map((f, i) => (
                 <div key={i} data-panel className={cn("absolute inset-0 flex items-center justify-center p-4 sm:p-8", i > 0 && "invisible opacity-0")}>
                   {f}

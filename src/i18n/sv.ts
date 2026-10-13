@@ -137,16 +137,19 @@ export const sv = {
   },
   story: {
     title: "Så här ser en automation ut",
-    note: "Så fungerar systemet jag byggde på Metaviz åt Jakes byrå.", // REVIEW-SV
+    note: "Samma flöde som jag byggde på Metaviz åt en byrås amerikanska kunder, här med en påhittad salong.", // REVIEW-SV
     steps: [
       { title: "En lead kommer in", body: "Någon fyller i ditt formulär eller din annons kl. 21.40." },
       { title: "AI:n ringer", body: "Inom några minuter ringer den upp, kan redan svaren och frågar bara det som saknas." },
       { title: "En bokning landar", body: "De som är redo väljer en tid direkt i din kalender." },
       { title: "Ditt CRM uppdateras", body: "Anteckningar, taggar och ett sammanfattande mejl, innan du hunnit äta frukost." }, // REVIEW-SV
     ],
-    clocks: ["21.40.00", "21.40.04", "21.42.10", "21.44.00"], // REVIEW-SV
+    clocks: ["21.40.00", "21.41.30", "21.43.20", "21.44.00"], // REVIEW-SV
+    stepOf: "{n} av {total}", // REVIEW-SV
     ui: {
-      form: { url: "salongasa.se/boka", title: "Boka en tid", name: "Namn", phone: "Telefon", message: "Meddelande", nameValue: "Sara Lind", phoneValue: "070-123 45 67", messageValue: "Hej! Har ni en tid för färgning den här veckan?", send: "Skicka", sent: "Skickat" }, // REVIEW-SV
+      business: "Salong Åsa",
+      demo: "Demo",
+      form: { url: "salong-asa.example/boka", title: "Boka en tid", name: "Namn", phone: "Telefon", message: "Meddelande", nameValue: "Sara Lind", phoneValue: "070-123 45 67", messageValue: "Hej! Har ni en tid för färgning den här veckan?", send: "Skicka", sent: "Skickat" }, // REVIEW-SV
       call: { calling: "Ringer…", connected: "Ansluten", caller: "AI-receptionist", line: "Hej Sara, det är Salong Åsa. Färgning den här veckan, var det? Torsdag kl. 10 är ledig." }, // REVIEW-SV
       calendar: { title: "Den här veckan", days: ["Mån", "Tis", "Ons", "Tor", "Fre"], busy: "Bokad", service: "Färgning", client: "Sara L.", slot: "Tor 10.00", confirmed: "Bekräftelse skickad via sms" }, // REVIEW-SV
       crm: { title: "CRM · leads", name: "Sara Lind", status: "Bokad", source: "Webbformulär", others: [["Jonas B.", "Kontaktad"], ["Mira K.", "Uppföljning"]], tags: ["färgning", "ny kund"], summary: "Sammanfattning mejlad" }, // REVIEW-SV

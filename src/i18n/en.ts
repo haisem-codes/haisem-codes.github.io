@@ -135,16 +135,19 @@ export const en = {
   },
   story: {
     title: "What an automation looks like",
-    note: "This is how the system I built at Metaviz for Jake's agency works.",
+    note: "The same flow I built at Metaviz for an agency's US clients, shown here with a fictional salon.",
     steps: [
       { title: "A lead arrives", body: "Someone fills in your form or ad at 21:40." },
       { title: "The AI calls", body: "Within minutes it calls, already knows their answers, and asks only what's missing." },
       { title: "A booking lands", body: "Ready leads pick a time straight into your calendar." },
       { title: "Your CRM is updated", body: "Notes, tags and a summary email, before you've had breakfast." },
     ],
-    clocks: ["21:40:00", "21:40:04", "21:42:10", "21:44:00"],
+    clocks: ["21:40:00", "21:41:30", "21:43:20", "21:44:00"],
+    stepOf: "{n} / {total}",
     ui: {
-      form: { url: "salongasa.se/book", title: "Book a time", name: "Name", phone: "Phone", message: "Message", nameValue: "Sara Lind", phoneValue: "070-123 45 67", messageValue: "Hi! Do you have a time for colour this week?", send: "Send", sent: "Sent" },
+      business: "Salong Åsa",
+      demo: "Demo",
+      form: { url: "salong-asa.example/book", title: "Book a time", name: "Name", phone: "Phone", message: "Message", nameValue: "Sara Lind", phoneValue: "070-123 45 67", messageValue: "Hi! Do you have a time for colour this week?", send: "Send", sent: "Sent" },
       call: { calling: "Calling…", connected: "Connected", caller: "AI receptionist", line: "Hi Sara, Salong Åsa here. Colour this week, was it? Thursday at 10 is free." },
       calendar: { title: "This week", days: ["Mon", "Tue", "Wed", "Thu", "Fri"], busy: "Booked", service: "Colour", client: "Sara L.", slot: "Thu 10:00", confirmed: "Confirmation sent by SMS" },
       crm: { title: "CRM · leads", name: "Sara Lind", status: "Booked", source: "Web form", others: [["Jonas B.", "Contacted"], ["Mira K.", "Follow-up"]], tags: ["colour", "new client"], summary: "Summary emailed" },

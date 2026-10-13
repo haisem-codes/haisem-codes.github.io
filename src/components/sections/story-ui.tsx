@@ -95,12 +95,12 @@ function CallPanel({ ui, who }: { ui: Ui["call"]; who: string }) {
   );
 }
 
-function CalendarPanel({ ui }: { ui: Ui["calendar"] }) {
+function CalendarPanel({ ui, business }: { ui: Ui["calendar"]; business: string }) {
   return (
     <Frame>
       <div className="flex items-baseline justify-between">
         <p className="font-display text-xl font-semibold tracking-tight text-text">{ui.title}</p>
-        <p className="font-mono text-[11px] tracking-[0.12em] text-text-secondary uppercase">Salong Åsa</p>
+        <p className="font-mono text-[11px] tracking-[0.12em] text-text-secondary uppercase">{business}</p>
       </div>
       <div className="mt-4 grid grid-cols-[28px_repeat(5,minmax(0,1fr))] gap-1.5">
         <span />
@@ -201,7 +201,7 @@ export function storyFrames(ui: Ui) {
   return [
     <FormPanel key="form" ui={ui.form} />,
     <CallPanel key="call" ui={ui.call} who={ui.form.nameValue} />,
-    <CalendarPanel key="cal" ui={ui.calendar} />,
+    <CalendarPanel key="cal" ui={ui.calendar} business={ui.business} />,
     <CrmPanel key="crm" ui={ui.crm} />,
   ];
 }
