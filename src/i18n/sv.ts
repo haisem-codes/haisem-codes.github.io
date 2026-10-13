@@ -198,6 +198,25 @@ export const sv = {
     notFound: "Projektet hittades inte",
     englishOnly: "Det här caset finns bara på engelska.", // REVIEW-SV
   },
+  beforeAfter: {
+    index: "04",
+    eyebrow: "Före och efter", // REVIEW-SV
+    title: "Samma salong. En sajt som tar bokningar.", // REVIEW-SV
+    kicker: "Dra i reglaget och jämför en typisk lokal företagssajt med en ny design som tar bokningar och svarar på frågor.", // REVIEW-SV
+    concept: "Koncept", // REVIEW-SV
+    conceptNote: "Konceptdesign av en typisk lokal sajt", // REVIEW-SV
+    before: "Före",
+    after: "Efter",
+    beforeAlt: "Daterad salongssajt med liten text, röriga spalter, en popup och ingen bokning på nätet", // REVIEW-SV
+    afterAlt: "Ny salongssajt med tydlig rubrik, bokning på nätet och en chattassistent", // REVIEW-SV
+    sliderLabel: "Jämför före och efter", // REVIEW-SV
+    valueText: "{before} % före, {after} % efter", // REVIEW-SV
+    hint: "Dra, eller använd piltangenterna", // REVIEW-SV
+    scoresLabel: "Poäng i Lighthouse-stil", // REVIEW-SV
+    scoresNote: "Illustrativa poäng för en konceptdesign", // REVIEW-SV
+    from: "från",
+    dials: { performance: "Prestanda", accessibility: "Tillgänglighet", seo: "SEO" },
+  },
   how: {
     title: "Så jobbar vi tillsammans",
     steps: [

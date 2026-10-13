@@ -9,7 +9,7 @@ function srcSet(base: string, ext: "avif" | "webp") {
   return `${asset(`${base}-800.${ext}`)} 800w, ${asset(`${base}-1600.${ext}`)} 1600w`;
 }
 
-function Variant({ base, sizes, w, h, className }: { base: string; sizes: string; w: number; h: number; className: string }) {
+function Variant({ base, sizes, w, h, alt, className }: { base: string; sizes: string; w: number; h: number; alt: string; className: string }) {
   return (
     <picture>
       <source type="image/avif" srcSet={srcSet(base, "avif")} sizes={sizes} />
@@ -19,7 +19,7 @@ function Variant({ base, sizes, w, h, className }: { base: string; sizes: string
         sizes={sizes}
         width={w}
         height={h}
-        alt=""
+        alt={alt}
         loading="lazy"
         decoding="async"
         className={cn("h-auto w-full", className)}
@@ -29,7 +29,7 @@ function Variant({ base, sizes, w, h, className }: { base: string; sizes: string
 }
 
 /** Light + night renders; the class-based theme hides one, and lazy + display:none keeps it from downloading. */
-export function WorkPicture({ slug, sizes, className }: { slug: string; sizes: string; className?: string }) {
+export function WorkPicture({ slug, sizes, alt = "", className }: { slug: string; sizes: string; alt?: string; className?: string }) {
   const meta = images[slug];
   if (!meta) return null;
   return (
@@ -40,8 +40,8 @@ export function WorkPicture({ slug, sizes, className }: { slug: string; sizes: s
       )}
       style={{ "--blur": `url(${meta.blur})`, "--blur-night": `url(${meta.nightBlur})` } as CSSProperties}
     >
-      <Variant base={`/work/${slug}`} sizes={sizes} w={meta.w} h={meta.h} className="dark:hidden" />
-      <Variant base={`/work/${slug}-night`} sizes={sizes} w={meta.w} h={meta.h} className="hidden dark:block" />
+      <Variant base={`/work/${slug}`} sizes={sizes} w={meta.w} h={meta.h} alt={alt} className="dark:hidden" />
+      <Variant base={`/work/${slug}-night`} sizes={sizes} w={meta.w} h={meta.h} alt={alt} className="hidden dark:block" />
     </div>
   );
 }
