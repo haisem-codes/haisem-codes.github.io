@@ -155,13 +155,6 @@ export default function StoryPinned({ dict, frames, tier, onProgress, onFail, ba
   return (
     <div ref={track} data-pinned className="relative mt-8" style={{ height: tier === "full" ? "300vh" : "200vh" }}>
       <div className="sticky top-0 flex h-svh flex-col justify-center pt-28 pb-6 lg:pt-24 lg:pb-10">
-        {/* Contrast invariant: the skyline band glows behind this stage. Text inside the stage must sit on an opaque
-            frame surface (the story-ui cards), and the step list must stay above the band's lead route. */}
-        {near && backdrop && (
-          <div aria-hidden className="pointer-events-none absolute bottom-0 left-1/2 -z-10 h-[34%] w-screen lg:h-[42%] lg:[@media(max-height:820px)]:h-[32%] -translate-x-1/2">
-            {backdrop(tier)}
-          </div>
-        )}
         <div className="grid min-h-0 flex-1 grid-rows-[auto_minmax(0,1fr)] items-center gap-4 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:grid-rows-[minmax(0,1fr)] lg:gap-14">
           <ol className="max-lg:sr-only">
             {dict.steps.map((s, i) => (
@@ -174,7 +167,7 @@ export default function StoryPinned({ dict, frames, tier, onProgress, onFail, ba
                 )}
               >
                 <p className="font-mono text-xs tracking-[0.1em] text-live tabular-nums">{dict.clocks[i]}</p>
-                <p className="mt-1.5 font-display text-2xl font-semibold tracking-tight text-text">{s.title}</p>
+                <h3 className="mt-1.5 font-display text-2xl font-semibold tracking-tight text-text">{s.title}</h3>
                 <p
                   className={cn(
                     "grid text-base leading-relaxed text-text-secondary transition-[grid-template-rows,opacity] duration-[var(--dur-ui)]",
@@ -231,6 +224,17 @@ export default function StoryPinned({ dict, frames, tier, onProgress, onFail, ba
             </div>
           </div>
         </div>
+        {/* Contrast invariant: on desktop the skyline band glows behind this stage. Text inside the stage must sit on an
+            opaque frame surface (the story-ui cards), and the step list must stay above the band's lead route.
+            Below lg the band is a strip under the card instead, so the card never hides it. */}
+        {backdrop && (
+          <div
+            aria-hidden
+            className="pointer-events-none relative left-1/2 mt-4 h-24 w-screen shrink-0 -translate-x-1/2 [@media(max-height:720px)]:h-14 lg:absolute lg:bottom-0 lg:-z-10 lg:mt-0 lg:h-[42%] lg:[@media(max-height:820px)]:h-[32%]"
+          >
+            {near && backdrop(tier)}
+          </div>
+        )}
       </div>
     </div>
   );

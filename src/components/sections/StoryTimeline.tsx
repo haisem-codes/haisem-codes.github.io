@@ -3,21 +3,13 @@
 import { useEffect, useLayoutEffect, useRef, useState, type ComponentType, type ReactNode } from "react";
 import type { Dictionary } from "@/i18n";
 import { readTier, type Tier } from "@/lib/capability";
+import { ClientBoundary } from "@/components/ui/ClientBoundary";
 import type { StoryPinnedProps } from "./StoryPinned";
 
 type Story = Dictionary["story"];
 
 /** Below this viewport height the pinned stage cannot show a frame legibly, so the storyboard is used. */
 const PIN_MIN_HEIGHT = "(min-height: 600px)";
-
-function Heading({ dict }: { dict: Story }) {
-  return (
-    <div className="max-w-2xl">
-      <h3 className="font-display text-3xl font-semibold tracking-tight text-balance text-text sm:text-4xl">{dict.title}</h3>
-      <p className="mt-3 text-lg text-text-secondary">{dict.note}</p>
-    </div>
-  );
-}
 
 function Storyboard({ dict, frames, still }: { dict: Story; frames: ReactNode[]; still?: ReactNode }) {
   return (
@@ -30,7 +22,7 @@ function Storyboard({ dict, frames, still }: { dict: Story; frames: ReactNode[];
         {dict.steps.map((s, i) => (
           <li key={s.title} className="flex flex-col rounded-[28px] border border-border bg-[#0D0E10] p-5 sm:p-6">
             <p className="font-mono text-xs tracking-[0.1em] text-live tabular-nums">{dict.clocks[i]}</p>
-            <h4 className="mt-2 font-display text-2xl font-semibold tracking-tight text-text">{s.title}</h4>
+            <h3 className="mt-2 font-display text-2xl font-semibold tracking-tight text-text">{s.title}</h3>
             <p className="mt-2 text-base leading-relaxed text-text-secondary">{s.body}</p>
             <div aria-hidden className="mt-6 flex flex-1 items-center justify-center">
               {frames[i]}
@@ -102,9 +94,10 @@ export function StoryTimeline({ dict, frames, onProgress, still, backdrop }: Sto
   const pinned = tier !== "static" && Pinned;
   return (
     <div ref={root} id="story" className="scroll-mt-24">
-      <Heading dict={dict} />
       {pinned ? (
-        <Pinned dict={dict} frames={frames} tier={tier} onProgress={onProgress} onFail={toStatic} backdrop={backdrop} />
+        <ClientBoundary onError={toStatic}>
+          <Pinned dict={dict} frames={frames} tier={tier} onProgress={onProgress} onFail={toStatic} backdrop={backdrop} />
+        </ClientBoundary>
       ) : (
         <Storyboard dict={dict} frames={frames} still={still} />
       )}

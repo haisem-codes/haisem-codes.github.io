@@ -65,7 +65,7 @@ export function Toolbar({
 
 export function ChatCard({ dict, business, children }: { dict: Dict; business: string; children: ReactNode }) {
   return (
-    <div className="flex h-[560px] flex-col overflow-hidden rounded-[28px] border border-border bg-bg-card shadow-[0_40px_90px_-40px_rgba(56,189,248,0.28),inset_0_1px_0_rgba(255,255,255,0.04)] sm:h-[600px]">
+    <div className="flex h-[500px] flex-col overflow-hidden rounded-[28px] border border-border bg-bg-card shadow-[0_40px_90px_-40px_rgba(56,189,248,0.28),inset_0_1px_0_rgba(255,255,255,0.04)] lg:h-[520px]">
       <div className="flex shrink-0 items-center justify-between gap-3 border-b border-border px-5 py-3.5 sm:px-6">
         <div className="flex min-w-0 items-center gap-3">
           <span aria-hidden className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent-tint font-display text-sm font-bold text-accent">
@@ -73,14 +73,36 @@ export function ChatCard({ dict, business, children }: { dict: Dict; business: s
           </span>
           <span className="truncate font-mono text-xs tracking-[0.08em] text-text uppercase">{business}</span>
         </div>
-        <div className="flex shrink-0 items-center gap-3 font-mono text-[11px] tracking-[0.08em] uppercase">
-          <span className="hidden rounded-full border border-border-hover px-2 py-0.5 text-text-secondary sm:inline">{dict.demoBadge}</span>
-          <span className="flex items-center gap-1.5 text-live">
-            <span aria-hidden className="live-dot h-[7px] w-[7px] rounded-full bg-live" />
-            {dict.live}
-          </span>
-        </div>
+        <span className="shrink-0 rounded-full border border-border-hover px-2 py-0.5 font-mono text-[11px] tracking-[0.08em] text-text-secondary uppercase">
+          {dict.demoBadge}
+        </span>
       </div>
+      {children}
+    </div>
+  );
+}
+
+/** Messages and chips scroll together, top-aligned so the first view already shows the greeting and its chips. */
+export function ChatScroll({ ref, children }: { ref?: Ref<HTMLDivElement>; children: ReactNode }) {
+  return (
+    <div
+      ref={ref}
+      className="flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto overscroll-contain px-4 pt-6 pb-4 [mask-image:linear-gradient(to_bottom,transparent,#000_24px)] sm:px-6"
+    >
+      {children}
+    </div>
+  );
+}
+
+/** One row that scrolls sideways on phones, wrapping from sm up. */
+export function Chips({ ref, label, children }: { ref?: Ref<HTMLDivElement>; label: string; children: ReactNode }) {
+  return (
+    <div
+      ref={ref}
+      role="group"
+      aria-label={label}
+      className="-mx-4 flex shrink-0 gap-2 overflow-x-auto px-4 py-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0"
+    >
       {children}
     </div>
   );
@@ -118,7 +140,7 @@ export function Chip({ slot, disabled, onClick, children }: { slot?: boolean; di
       disabled={disabled}
       onClick={onClick && ((e) => onClick(e.detail === 0))}
       className={cn(
-        "min-h-[40px] rounded-full border px-4 text-sm transition-[color,border-color,background-color] duration-[var(--dur-micro)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:cursor-default",
+        "min-h-[40px] shrink-0 rounded-full border px-4 text-sm whitespace-nowrap transition-[color,border-color,background-color] duration-[var(--dur-micro)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:cursor-default",
         slot
           ? "border-live/40 font-mono text-live tabular-nums enabled:hover:border-live enabled:hover:bg-live enabled:hover:text-[#1A1205]"
           : "border-accent/30 text-accent enabled:hover:border-accent enabled:hover:bg-accent-tint",
@@ -166,7 +188,7 @@ export function Composer({
       <button
         type="submit"
         disabled={!canSend}
-        className="inline-flex min-h-[48px] shrink-0 items-center gap-2 rounded-full bg-button px-5 text-sm font-semibold text-button-text transition-[filter,opacity] duration-[var(--dur-micro)] enabled:hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:opacity-40"
+        className="inline-flex min-h-[48px] shrink-0 items-center gap-2 rounded-full bg-button px-5 text-sm font-semibold text-button-text shadow-[0_10px_30px_-12px_var(--color-button)] transition-[filter,background-color,color] duration-[var(--dur-micro)] enabled:hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:bg-white/[0.06] disabled:text-text-secondary disabled:shadow-none"
       >
         <span className="max-sm:sr-only">{dict.send}</span>
         <svg aria-hidden width="14" height="14" viewBox="0 0 12 12" fill="none">
@@ -202,29 +224,29 @@ export function PanelBody({ dict, lang, crm, instant }: { dict: Dict; lang: Loca
   const delay = (ms: number) => (on && move ? { transitionDelay: `${ms}ms` } : undefined);
   const rise = (ms: number) => (move ? { animationDelay: `${ms}ms` } : undefined);
   const fade = move ? "transition-colors duration-300" : "";
-  const rows: [string, string | undefined][] = [
-    [dict.crm.status, crm?.status],
-    [dict.crm.service, crm?.service],
-    [dict.crm.reply, crm && dict.crm.replyValue.replace("{n}", String(crm.replySeconds))],
-    [dict.crm.source, crm && dict.crm.sourceValue],
+  const rows: [string, string | undefined, string][] = [
+    [dict.crm.status, crm?.status, dict.waiting],
+    [dict.crm.service, crm?.service, dict.pendingValue],
+    [dict.crm.reply, crm && dict.crm.replyValue.replace("{n}", String(crm.replySeconds)), dict.pendingValue],
+    [dict.crm.source, crm && dict.crm.sourceValue, dict.crm.sourceValue],
   ];
   return (
-    <div className="mt-6 flex flex-1 flex-col">
+    <div className="mt-4 flex flex-1 flex-col">
       <div
         className={cn(
           "rounded-2xl border p-4",
           move && "transition-[border-color,background-color,box-shadow,translate] duration-500 ease-[var(--ease-silk)]",
           on
             ? "border-live/35 bg-[#141416] shadow-[0_24px_60px_-24px_rgba(255,181,71,0.4)]"
-            : "translate-y-1 border-dashed border-border-hover",
+            : "border-dashed border-border-hover",
         )}
       >
         <p className={cn("flex items-center justify-between font-mono text-[11px] tracking-[0.1em] uppercase", on ? "text-accent" : "text-text-secondary")}>
           {dict.crm.title}
           <span aria-hidden className={cn("h-2 w-2 rounded-full", on ? "live-dot bg-live" : "border border-border-hover")} />
         </p>
-        <dl className="mt-3 text-sm">
-          {rows.map(([k, v], i) => (
+        <dl className="mt-2 text-sm">
+          {rows.map(([k, v, idle], i) => (
             <div key={k} className="flex items-center justify-between gap-4 border-t border-border py-2 first:border-t-0">
               <dt className="text-text-secondary">{k}</dt>
               <dd className="relative text-right font-medium">
@@ -233,7 +255,7 @@ export function PanelBody({ dict, lang, crm, instant }: { dict: Dict; lang: Loca
                     {v}
                   </span>
                 ) : (
-                  <span aria-hidden className="inline-block h-2 w-16 rounded-full bg-white/[0.06] align-middle" />
+                  <span className="text-text-secondary">{idle}</span>
                 )}
               </dd>
             </div>
@@ -241,9 +263,9 @@ export function PanelBody({ dict, lang, crm, instant }: { dict: Dict; lang: Loca
         </dl>
       </div>
 
-      <ol className="mt-5">
+      <ol className="mt-4">
         {STEPS.map((s, i) => (
-          <li key={s} className="relative flex items-center gap-3 py-2 pl-1">
+          <li key={s} className="relative flex items-center gap-3 py-1 pl-1">
             <span
               aria-hidden
               className={cn(
@@ -266,13 +288,13 @@ export function PanelBody({ dict, lang, crm, instant }: { dict: Dict; lang: Loca
         ))}
       </ol>
 
-      <div className="mt-auto border-t border-border pt-5">
+      <div className="mt-auto border-t border-border pt-4">
         {on ? (
           <div className={cn(move && "cr-rise")} style={rise(1500)}>
             <p className="text-sm leading-relaxed text-text-secondary">{dict.ctaNote}</p>
             <a
               href={localHref(lang, "/start/?goal=missed_calls")}
-              className="mt-4 inline-flex min-h-[48px] items-center gap-2 rounded-full bg-button px-6 text-sm font-semibold text-button-text shadow-[0_10px_30px_-12px_var(--color-button)] transition-[filter] duration-[var(--dur-micro)] hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+              className="mt-3 inline-flex min-h-[48px] items-center gap-2 rounded-full bg-button px-6 text-sm font-semibold text-button-text shadow-[0_10px_30px_-12px_var(--color-button)] transition-[filter] duration-[var(--dur-micro)] hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
             >
               {dict.cta}
               <span aria-hidden>→</span>
@@ -280,11 +302,14 @@ export function PanelBody({ dict, lang, crm, instant }: { dict: Dict; lang: Loca
           </div>
         ) : (
           <>
-            <p className="flex items-center gap-2 text-sm font-medium text-text">
-              <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-text-secondary" />
-              {dict.waiting}
-            </p>
-            <p className="mt-1.5 text-sm leading-relaxed text-text-secondary">{dict.waitingHint}</p>
+            <p className="text-sm leading-relaxed text-text-secondary">{dict.waitingHint}</p>
+            <a
+              href={localHref(lang, "/start/?goal=missed_calls")}
+              className="mt-3 inline-flex min-h-[44px] items-center gap-2 text-sm font-medium text-accent underline decoration-accent/40 underline-offset-4 transition-colors hover:decoration-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            >
+              {dict.cta}
+              <span aria-hidden>→</span>
+            </a>
           </>
         )}
       </div>

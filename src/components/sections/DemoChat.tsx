@@ -8,7 +8,7 @@ import { demoKey, reply, startDemo } from "@/lib/demo/engine";
 import type { BotMessage, CrmCard, DemoState, Vertical } from "@/lib/demo/types";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n";
-import { Bubble, ChatCard, DayMark, Chip, Composer, DemoLayout, PanelBody, PanelCard, Toolbar } from "./demo-ui";
+import { Bubble, ChatCard, ChatScroll, Chips, DayMark, Chip, Composer, DemoLayout, PanelBody, PanelCard, Toolbar } from "./demo-ui";
 
 type Dict = Dictionary["controlRoom"];
 type Item = { id: number; me: boolean; text: string; options?: string[]; live?: boolean; animate: boolean };
@@ -51,7 +51,7 @@ function Conversation({ lang, dict, vertical, fresh }: { lang: Locale; dict: Dic
   const [typing, setTyping] = useState(false);
   const [crm, setCrm] = useState<CrmCard>();
   const [draft, setDraft] = useState("");
-  const logRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
   const chipsRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const keyboardChip = useRef(false);
@@ -60,8 +60,8 @@ function Conversation({ lang, dict, vertical, fresh }: { lang: Locale; dict: Dic
   useEffect(() => () => clearTimeout(timer.current), []);
 
   useEffect(() => {
-    const log = logRef.current;
-    if (log) log.scrollTo({ top: log.scrollHeight, behavior: instant ? "auto" : "smooth" });
+    const box = scrollRef.current;
+    if (box) box.scrollTo({ top: box.scrollHeight, behavior: instant ? "auto" : "smooth" });
   }, [items.length, typing, instant]);
 
   // A keyboard user who picked a chip lands on the next set of chips (or the input) instead of <body>.
@@ -102,50 +102,40 @@ function Conversation({ lang, dict, vertical, fresh }: { lang: Locale; dict: Dic
   return (
     <>
       <ChatCard dict={dict} business={script.business}>
-        <div
-          ref={logRef}
-          role="log"
-          aria-live="polite"
-          aria-label={dict.chatLabel}
-          className="flex min-h-0 flex-1 flex-col gap-2.5 overflow-y-auto overscroll-contain px-4 py-5 sm:px-6"
-        >
-          <div className="mt-auto" />
-          <DayMark dict={dict} />
-          {items.map((it) => (
-            <m.div key={it.id} {...(it.animate ? ENTER : { initial: false })}>
-              <Bubble me={it.me} live={it.live} who={it.me ? dict.you : dict.bot}>
-                {it.text}
-              </Bubble>
-            </m.div>
-          ))}
-          {typing && (
-            <m.span aria-hidden {...ENTER} className="flex w-fit gap-1 rounded-2xl rounded-bl-[5px] bg-[#1D1F23] px-4 py-3.5">
-              {[0, 1, 2].map((i) => (
-                <span key={i} className="demo-dot h-1.5 w-1.5 rounded-full bg-text-secondary" style={{ animationDelay: `${i * 0.15}s` }} />
-              ))}
-            </m.span>
-          )}
-        </div>
-        <div
-          ref={chipsRef}
-          role="group"
-          aria-label={dict.suggestionsLabel}
-          className="flex min-h-[56px] shrink-0 flex-wrap content-end gap-2 px-4 pb-3 sm:px-6"
-        >
-          {options?.map((o) => (
-            <Chip
-              key={o}
-              slot={state.stage === "slots"}
-              onClick={(keyboard) => {
-                keyboardChip.current = keyboard;
-                send(o);
-                if (keyboard) inputRef.current?.focus();
-              }}
-            >
-              {o}
-            </Chip>
-          ))}
-        </div>
+        <ChatScroll ref={scrollRef}>
+          <div role="log" aria-live="polite" aria-label={dict.chatLabel} className="flex flex-col gap-2.5">
+            <DayMark dict={dict} />
+            {items.map((it) => (
+              <m.div key={it.id} {...(it.animate ? ENTER : { initial: false })}>
+                <Bubble me={it.me} live={it.live} who={it.me ? dict.you : dict.bot}>
+                  {it.text}
+                </Bubble>
+              </m.div>
+            ))}
+            {typing && (
+              <m.span aria-hidden {...ENTER} className="flex w-fit gap-1 rounded-2xl rounded-bl-[5px] bg-[#1D1F23] px-4 py-3.5">
+                {[0, 1, 2].map((i) => (
+                  <span key={i} className="demo-dot h-1.5 w-1.5 rounded-full bg-text-secondary" style={{ animationDelay: `${i * 0.15}s` }} />
+                ))}
+              </m.span>
+            )}
+          </div>
+          <Chips ref={chipsRef} label={dict.suggestionsLabel}>
+            {options?.map((o) => (
+              <Chip
+                key={o}
+                slot={state.stage === "slots"}
+                onClick={(keyboard) => {
+                  keyboardChip.current = keyboard;
+                  send(o);
+                  if (keyboard) inputRef.current?.focus();
+                }}
+              >
+                {o}
+              </Chip>
+            ))}
+          </Chips>
+        </ChatScroll>
         <Composer
           dict={dict}
           value={draft}

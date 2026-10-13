@@ -36,8 +36,14 @@ describe("storyClock", () => {
     expect(storyClock(1.85 / 4, en)).toBe("21:43:20");
     expect(storyClock(2.85 / 4, en)).toBe("21:44:00");
   });
+  it("holds each step's label while its caption is shown", () => {
+    expect(storyClock(0.5 / 4, en)).toBe("21:40:00");
+    expect(storyClock(1.35 / 4, en)).toBe("21:41:30");
+    expect(storyClock(1.65 / 4, en)).toBe("21:41:30");
+    expect(storyClock(3.5 / 4, en)).toBe("21:44:00");
+  });
   it("ticks forward between labels and keeps the locale separator", () => {
-    expect(storyClock(1.35 / 4, en)).toBe("21:42:25");
+    expect(storyClock(1.775 / 4, en)).toBe("21:42:25");
     expect(storyClock(0.5, ["21.40.00", "21.41.30", "21.43.20", "21.44.00"])).toMatch(/^21\.4[23]\.\d\d$/);
   });
 });

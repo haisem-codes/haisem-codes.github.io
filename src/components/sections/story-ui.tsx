@@ -115,9 +115,6 @@ function CalendarPanel({ ui, business }: { ui: Ui["calendar"]; business: string 
         ))}
       </div>
       <p data-s="confirmed" className="mt-4 text-sm text-text-secondary">
-        <span className="mb-1 block font-mono text-xs text-live sm:hidden">
-          {ui.slot} · {ui.service} · {ui.client}
-        </span>
         <span className="flex items-center gap-2">
           <span className="h-1.5 w-1.5 rounded-full bg-live" />
           {ui.confirmed}
@@ -140,11 +137,11 @@ function Row({ hour, r, ui }: { hour: string; r: number; ui: Ui["calendar"] }) {
             {slot && (
               <span
                 data-s="booking"
-                className="absolute -inset-x-px -top-px z-10 flex h-[calc(200%+8px)] flex-col gap-0.5 overflow-hidden rounded-lg border border-live bg-[#2A1E0A] p-1.5 shadow-[0_12px_30px_-10px_rgba(255,181,71,0.6)]"
+                className="absolute -inset-x-px -top-px z-10 flex h-[calc(200%+8px)] flex-col gap-0.5 overflow-hidden rounded-lg border border-live bg-[#2A1E0A] p-1.5 shadow-[0_12px_30px_-10px_rgba(255,181,71,0.6)] max-sm:right-[calc(-100%-6px)]"
               >
                 <span className="font-mono text-[10px] text-live tabular-nums">{ui.slot.split(" ")[1]}</span>
-                <span className="truncate text-[11px] leading-tight font-medium text-text max-sm:hidden">{ui.service}</span>
-                <span className="truncate text-[11px] leading-tight text-text-secondary max-sm:hidden">{ui.client}</span>
+                <span className="truncate text-[11px] leading-tight font-medium text-text">{ui.service}</span>
+                <span className="truncate text-[11px] leading-tight text-text-secondary">{ui.client}</span>
               </span>
             )}
           </span>

@@ -107,13 +107,13 @@ export const sv = {
   controlRoom: {
     index: "02",
     eyebrow: "Kontrollrummet", // REVIEW-SV
-    title: "21.40. En kund hör av sig.", // REVIEW-SV
+    title: "21.40. En förfrågan kommer in.", // REVIEW-SV
     accent: "Du sover redan.", // REVIEW-SV
-    kicker: "Testa själv. Välj ett företag och skriv det en kund skulle skicka sent på kvällen. Receptionisten svarar, ställer en fråga, bokar en tid och loggar kunden.", // REVIEW-SV
+    tryTitle: "Testa själv nu", // REVIEW-SV
+    kicker: "Välj ett företag och skriv det en kund skulle skicka sent på kvällen. Receptionisten svarar, bokar en tid och loggar förfrågan.", // REVIEW-SV
     verticalsLabel: "Demoföretag", // REVIEW-SV
     verticals: { salon: "Salong", clinic: "Klinik", trades: "Hantverkare", restaurant: "Restaurang" }, // REVIEW-SV
     demoBadge: "Skriptad demo", // REVIEW-SV
-    live: "Live",
     tonight: "I kväll · 21.40", // REVIEW-SV
     chatLabel: "Demochatt med en AI-receptionist", // REVIEW-SV
     you: "Du",
@@ -127,20 +127,20 @@ export const sv = {
     waiting: "Väntar på en bokning", // REVIEW-SV
     waitingHint: "Boka en tid i chatten och se vad som händer medan du sover.", // REVIEW-SV
     panelJump: "Se vad som hände bakom kulisserna ↓", // REVIEW-SV
-    crm: { title: "CRM · ny kund", status: "Status", service: "Bokat", reply: "Svarstid", replyValue: "{n} sekunder", source: "Källa", sourceValue: "Chatt på webbplatsen" }, // REVIEW-SV
+    crm: { title: "CRM · ny förfrågan", status: "Status", service: "Tjänst", reply: "Svarstid i chatten", replyValue: "{n} s", source: "Källa", sourceValue: "Chatt på webbplatsen" }, // REVIEW-SV
     timeline: { sms: "Sms skickat", calendar: "Kalendern uppdaterad", summary: "Sammanfattning mejlad" }, // REVIEW-SV
     timelineAt: { sms: "0:04", calendar: "0:06", summary: "0:09" },
     pendingTime: "–:––",
+    pendingValue: "–",
     clock: "21.40", // REVIEW-SV
     cta: "Vill du ha det här i ditt företag?", // REVIEW-SV
     ctaNote: "Svara på några frågor så visar jag hur det skulle fungera för dig.", // REVIEW-SV
   },
   story: {
-    title: "Så här ser en automation ut",
     note: "Samma flöde som jag byggde på Metaviz åt en byrås amerikanska kunder, här med en påhittad salong.", // REVIEW-SV
     steps: [
-      { title: "En lead kommer in", body: "Någon fyller i ditt formulär eller din annons kl. 21.40." },
-      { title: "AI:n ringer", body: "Inom några minuter ringer den upp, kan redan svaren och frågar bara det som saknas." },
+      { title: "En förfrågan kommer in", body: "Någon fyller i ditt formulär eller din annons kl. 21.40." }, // REVIEW-SV
+      { title: "AI:n ringer", body: "Inom några minuter ringer den upp, vet redan vad de svarat och frågar bara det som saknas." }, // REVIEW-SV
       { title: "En bokning landar", body: "De som är redo väljer en tid direkt i din kalender." },
       { title: "Ditt CRM uppdateras", body: "Anteckningar, taggar och ett sammanfattande mejl, innan du hunnit äta frukost." }, // REVIEW-SV
     ],
@@ -152,7 +152,7 @@ export const sv = {
       form: { url: "salong-asa.example/boka", title: "Boka en tid", name: "Namn", phone: "Telefon", message: "Meddelande", nameValue: "Sara Lind", phoneValue: "070-123 45 67", messageValue: "Hej! Har ni en tid för färgning den här veckan?", send: "Skicka", sent: "Skickat" }, // REVIEW-SV
       call: { calling: "Ringer…", connected: "Ansluten", caller: "AI-receptionist", line: "Hej Sara, det är Salong Åsa. Färgning den här veckan, var det? Torsdag kl. 10 är ledig." }, // REVIEW-SV
       calendar: { title: "Den här veckan", days: ["Mån", "Tis", "Ons", "Tor", "Fre"], busy: "Bokad", service: "Färgning", client: "Sara L.", slot: "Tor 10.00", confirmed: "Bekräftelse skickad via sms" }, // REVIEW-SV
-      crm: { title: "CRM · leads", name: "Sara Lind", status: "Bokad", source: "Webbformulär", others: [["Jonas B.", "Kontaktad"], ["Mira K.", "Uppföljning"]], tags: ["färgning", "ny kund"], summary: "Sammanfattning mejlad" }, // REVIEW-SV
+      crm: { title: "CRM · förfrågningar", name: "Sara Lind", status: "Bokad", source: "Webbformulär", others: [["Jonas B.", "Kontaktad"], ["Mira K.", "Uppföljning"]], tags: ["färgning", "ny kund"], summary: "Sammanfattning mejlad" }, // REVIEW-SV
     },
   },
   jake: {

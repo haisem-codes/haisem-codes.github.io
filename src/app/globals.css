@@ -267,10 +267,19 @@ img {
 
 /* ── Control-room live dot ── */
 @keyframes live-pulse {
-  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-live) 45%, transparent); }
-  100% { box-shadow: 0 0 0 7px transparent; }
+  from { opacity: 0.45; transform: scale(1); }
+  to { opacity: 0; transform: scale(3); }
 }
 .live-dot {
+  position: relative;
+}
+.live-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--color-live);
+  opacity: 0;
   animation: live-pulse 1.8s ease-out infinite;
 }
 @keyframes cr-rise {
@@ -292,6 +301,6 @@ img {
     animation-delay: 0s !important;
     transition-delay: 0s !important;
   }
-  .live-dot,
+  .live-dot::after,
   #control-room .cr-rise { animation: none; }
 }
