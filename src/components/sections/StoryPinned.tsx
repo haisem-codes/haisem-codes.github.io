@@ -59,6 +59,7 @@ export type StoryPinnedProps = {
   tier: Tier;
   onProgress?: (p: number) => void;
   onFail: () => void;
+  backdrop?: (tier: Tier) => ReactNode;
 };
 
 /** Shrinks each frame (scale only, never layout) so its whole payoff fits the stage on short viewports. */
@@ -72,7 +73,7 @@ function fitFrames(slot: HTMLElement) {
   }
 }
 
-export default function StoryPinned({ dict, frames, tier, onProgress, onFail }: StoryPinnedProps) {
+export default function StoryPinned({ dict, frames, tier, onProgress, onFail, backdrop }: StoryPinnedProps) {
   const track = useRef<HTMLDivElement>(null);
   const stage = useRef<HTMLDivElement>(null);
   const slot = useRef<HTMLDivElement>(null);
@@ -154,6 +155,11 @@ export default function StoryPinned({ dict, frames, tier, onProgress, onFail }: 
   return (
     <div ref={track} data-pinned className="relative mt-8" style={{ height: tier === "full" ? "300vh" : "200vh" }}>
       <div className="sticky top-0 flex h-svh flex-col justify-center pt-28 pb-6 lg:pt-24 lg:pb-10">
+        {near && backdrop && (
+          <div aria-hidden className="pointer-events-none absolute bottom-0 left-1/2 -z-10 h-[34%] w-screen lg:h-[42%] -translate-x-1/2">
+            {backdrop(tier)}
+          </div>
+        )}
         <div className="grid min-h-0 flex-1 grid-rows-[auto_minmax(0,1fr)] items-center gap-4 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:grid-rows-[minmax(0,1fr)] lg:gap-14">
           <ol className="max-lg:sr-only">
             {dict.steps.map((s, i) => (
@@ -188,7 +194,7 @@ export default function StoryPinned({ dict, frames, tier, onProgress, onFail }: 
             <p className="mt-1 text-[15px] leading-snug text-text-secondary [@media(max-height:720px)]:hidden">{dict.steps[active].body}</p>
           </div>
 
-          <div ref={stage} aria-hidden className="relative flex h-full max-h-[640px] min-h-0 flex-col self-center overflow-hidden rounded-[32px] border border-border bg-[#0D0E10] bg-[radial-gradient(rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:22px_22px]">
+          <div ref={stage} aria-hidden className="relative flex h-full max-h-[640px] min-h-0 flex-col self-center overflow-hidden rounded-[32px] border border-border bg-[#0D0E10]/70 backdrop-blur-[3px] bg-[radial-gradient(rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:22px_22px]">
             <div className="flex items-center justify-between px-5 pt-4 font-mono text-[11px] tracking-[0.12em] uppercase sm:px-6 sm:pt-5">
               <span className="flex items-center gap-2 text-text-secondary">
                 {dict.ui.business}

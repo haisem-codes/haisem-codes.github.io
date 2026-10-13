@@ -3,7 +3,8 @@ import type { Locale } from "@/i18n/config";
 import { SCRIPTS } from "@/lib/demo/scripts";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { DemoLoader } from "./DemoLoader";
-import { StoryTimeline } from "./StoryTimeline";
+import { SkylineSvg } from "@/components/three/SkylineSvg";
+import { StoryStage } from "./StoryStage";
 import { storyFrames } from "./story-ui";
 import { Bubble, ChatCard, DayMark, Chip, Composer, DemoLayout, PanelBody, PanelCard, Toolbar } from "./demo-ui";
 
@@ -43,7 +44,7 @@ export function ControlRoom({ dict, story, lang }: { dict: Dictionary["controlRo
           </DemoLoader>
         </div>
         <div className="mt-24 sm:mt-32">
-          <StoryTimeline dict={story} frames={storyFrames(story.ui)} />
+          <StoryStage dict={story} frames={storyFrames(story.ui)} still={<SkylineSvg litRatio={1} />} />
         </div>
       </div>
     </section>

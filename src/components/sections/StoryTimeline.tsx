@@ -19,7 +19,7 @@ function Heading({ dict }: { dict: Story }) {
   );
 }
 
-function Storyboard({ dict, frames }: { dict: Story; frames: ReactNode[] }) {
+function Storyboard({ dict, frames, still }: { dict: Story; frames: ReactNode[]; still?: ReactNode }) {
   return (
     <>
       <p className="mt-8 flex items-center gap-2 font-mono text-[11px] tracking-[0.12em] text-text-secondary uppercase">
@@ -38,11 +38,26 @@ function Storyboard({ dict, frames }: { dict: Story; frames: ReactNode[] }) {
           </li>
         ))}
       </ol>
+      {still && (
+        <div aria-hidden className="relative left-1/2 mt-12 h-40 w-screen -translate-x-1/2 sm:h-56">
+          {still}
+        </div>
+      )}
     </>
   );
 }
 
-export function StoryTimeline({ dict, frames, onProgress }: { dict: Story; frames: ReactNode[]; onProgress?: (p: number) => void }) {
+type StoryTimelineProps = {
+  dict: Story;
+  frames: ReactNode[];
+  onProgress?: (p: number) => void;
+  /** Shown under the storyboard (static tier, short viewports). */
+  still?: ReactNode;
+  /** Rendered behind the pinned stage once the story is near. */
+  backdrop?: StoryPinnedProps["backdrop"];
+};
+
+export function StoryTimeline({ dict, frames, onProgress, still, backdrop }: StoryTimelineProps) {
   const root = useRef<HTMLDivElement>(null);
   const [tier, setTier] = useState<Tier>("static");
   const [Pinned, setPinned] = useState<ComponentType<StoryPinnedProps> | null>(null);
@@ -88,7 +103,11 @@ export function StoryTimeline({ dict, frames, onProgress }: { dict: Story; frame
   return (
     <div ref={root} id="story" className="scroll-mt-24">
       <Heading dict={dict} />
-      {pinned ? <Pinned dict={dict} frames={frames} tier={tier} onProgress={onProgress} onFail={toStatic} /> : <Storyboard dict={dict} frames={frames} />}
+      {pinned ? (
+        <Pinned dict={dict} frames={frames} tier={tier} onProgress={onProgress} onFail={toStatic} backdrop={backdrop} />
+      ) : (
+        <Storyboard dict={dict} frames={frames} still={still} />
+      )}
     </div>
   );
 }
