@@ -11,7 +11,10 @@ const DemoChat = dynamic(
   () =>
     import("./DemoChat").then(
       (mod) => mod.DemoChat,
-      () => () => null,
+      (err) => {
+        if (process.env.NODE_ENV !== "production") console.error(err);
+        return () => null;
+      },
     ),
   { ssr: false },
 );

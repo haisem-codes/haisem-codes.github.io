@@ -19,7 +19,9 @@ export function LenisProvider({ children }: { children: ReactNode }) {
         if (cancelled) return;
         instance = new Lenis({ autoRaf: true, lerp: 0.1, duration: 1.2, smoothWheel: true, wheelMultiplier: 1 });
       })
-      .catch(() => {});
+      .catch((err) => {
+        if (process.env.NODE_ENV !== "production") console.error(err);
+      });
     return () => {
       cancelled = true;
       instance?.destroy();

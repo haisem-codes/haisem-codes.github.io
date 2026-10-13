@@ -36,18 +36,21 @@ function useHangingBulb(desktop: boolean) {
     if (!desktop || bulb !== null) return;
     import("@/components/layout/HangingBulb").then(
       (mod) => setBulb(() => mod.HangingBulb),
-      () => setBulb(false),
+      (err) => {
+        if (process.env.NODE_ENV !== "production") console.error(err);
+        setBulb(false);
+      },
     );
   }, [desktop, bulb]);
   return [bulb, () => setBulb(false)] as const;
 }
 
 /** True while the nav floats over a `data-nav-theme="dark"` band, so it can switch to its night surface. */
-function useOverDark() {
+function useOverDark(pathname: string) {
   const [dark, setDark] = useState(false);
   useEffect(() => {
     const bands = [...document.querySelectorAll<HTMLElement>("[data-nav-theme=dark]")];
-    if (!bands.length) return;
+    if (!bands.length) return setDark(false);
     let frame = 0;
     const check = () => {
       frame = 0;
@@ -65,7 +68,7 @@ function useOverDark() {
       removeEventListener("scroll", onScroll);
       removeEventListener("resize", onScroll);
     };
-  }, []);
+  }, [pathname]);
   return dark;
 }
 
@@ -90,7 +93,7 @@ export function Navbar({ dict, lang }: { dict: Dictionary["nav"]; lang: Locale }
   const { scrolled, retracted } = useScrollState();
   const desktop = useDesktop();
   const [HangingBulb, bulbFailed] = useHangingBulb(desktop);
-  const overDark = useOverDark();
+  const overDark = useOverDark(pathname);
   const [activeId, setActiveId] = useState<string | null>(null);
 
   useEffect(() => {

@@ -15,13 +15,16 @@ const SAVED_Y = "story-pinned-y";
 
 /**
  * On reload and back/forward, the offset the reader left at (saved with the pinned layout in place), else null.
- * Browsers restore that offset inconsistently while the shorter storyboard is still shown, so it is re-applied after the swap.
+ * Browsers restore that offset inconsistently while the shorter storyboard is still shown, so it is re-applied after
+ * the first swap. One-shot: the key is removed on read, so later swaps (rotation) fall back to bottom anchoring.
  */
-function savedOffset(): number | null {
-  const nav = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined;
-  if (nav?.type !== "reload" && nav?.type !== "back_forward") return null;
+function takeSavedOffset(): number | null {
   try {
-    const saved = JSON.parse(sessionStorage.getItem(SAVED_Y) ?? "null") as { path: string; y: number } | null;
+    const raw = sessionStorage.getItem(SAVED_Y);
+    sessionStorage.removeItem(SAVED_Y);
+    const nav = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined;
+    if (nav?.type !== "reload" && nav?.type !== "back_forward") return null;
+    const saved = JSON.parse(raw ?? "null") as { path: string; y: number } | null;
     return saved?.path === location.pathname ? saved.y : null;
   } catch {
     return null;
@@ -70,8 +73,9 @@ export function StoryTimeline({ dict, frames, onProgress, still, backdrop }: Sto
   const root = useRef<HTMLDivElement>(null);
   const [tier, setTier] = useState<Tier>("static");
   const [Pinned, setPinned] = useState<ComponentType<StoryPinnedProps> | null>(null);
-  const anchor = useRef<{ bottom: number } | { y: number } | null>(null);
+  const anchor = useRef<{ el: Element; top: number } | { y: number } | null>(null);
   const toStatic = useRef(() => setTier("static")).current;
+  const pinnedOn = useRef(false);
 
   useEffect(() => {
     const t = readTier();
@@ -79,19 +83,27 @@ export function StoryTimeline({ dict, frames, onProgress, still, backdrop }: Sto
     setTier(t);
     const mql = matchMedia(PIN_MIN_HEIGHT);
     let alive = true;
+    let saved = takeSavedOffset();
+    // With the story above the viewport, whatever sits at the viewport's top edge is below it: keep that still.
+    const hold = () => {
+      if ((root.current?.getBoundingClientRect().bottom ?? 1) > 0) return (anchor.current = null);
+      const el = document.elementFromPoint(innerWidth / 2, 1) ?? root.current!;
+      anchor.current = { el, top: el.getBoundingClientRect().top };
+    };
     const apply = () => {
       if (!mql.matches) return setPinned(null);
       import("./StoryPinned")
         .then((m) => {
           if (!alive || !mql.matches) return;
-          const bottom = root.current?.getBoundingClientRect().bottom ?? 1;
-          const y = savedOffset();
-          anchor.current = bottom <= 0 ? (y === null ? { bottom } : { y }) : null;
+          hold();
+          if (anchor.current && saved !== null) anchor.current = { y: saved };
+          saved = null;
           setPinned(() => m.default);
         })
         .catch(toStatic);
     };
     const save = () => {
+      if (!pinnedOn.current) return;
       try {
         sessionStorage.setItem(SAVED_Y, JSON.stringify({ path: location.pathname, y: scrollY }));
       } catch {}
@@ -106,13 +118,18 @@ export function StoryTimeline({ dict, frames, onProgress, still, backdrop }: Sto
     };
   }, [toStatic]);
 
-  // The storyboard and the pinned track differ in height; when the story sits above the viewport, a hash link keeps
-  // what the reader sees in place and a reload or back/forward returns to the saved offset.
+  useEffect(() => {
+    pinnedOn.current = tier !== "static" && Pinned !== null;
+  }, [tier, Pinned]);
+
+  // The storyboard and the pinned track differ in height. With the story above the viewport, the swap to the pinned
+  // track (hash link, rotating back) keeps what the reader sees in place; a reload or back/forward returns to the
+  // saved offset once.
   useLayoutEffect(() => {
     const before = anchor.current;
     anchor.current = null;
-    if (before === null || !root.current) return;
-    const top = "y" in before ? before.y : window.scrollY + root.current.getBoundingClientRect().bottom - before.bottom;
+    if (before === null || ("el" in before && !before.el.isConnected)) return;
+    const top = "y" in before ? before.y : window.scrollY + before.el.getBoundingClientRect().top - before.top;
     if (top !== window.scrollY) window.scrollTo({ top, behavior: "instant" });
   }, [Pinned]);
 

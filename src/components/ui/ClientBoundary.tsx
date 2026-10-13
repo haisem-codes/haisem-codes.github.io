@@ -8,7 +8,8 @@ export class ClientBoundary extends Component<{ children: ReactNode; fallback?: 
   static getDerivedStateFromError() {
     return { failed: true };
   }
-  componentDidCatch() {
+  componentDidCatch(error: unknown) {
+    if (process.env.NODE_ENV !== "production") console.error(error);
     this.props.onError?.();
   }
   render() {

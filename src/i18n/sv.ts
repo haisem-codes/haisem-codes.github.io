@@ -82,11 +82,11 @@ export const sv = {
       },
       {
         id: "followup",
-        title: "Uppföljning av leads på autopilot",
+        title: "Uppföljning av förfrågningar på autopilot", // REVIEW-SV
         problem: "Förfrågningar från annonser, formulär och DM blir liggande i timmar, och då har de redan frågat någon annan.",
         get: [
-          "Varje ny lead kontaktas inom några minuter via samtal, sms eller mejl",
-          "Leads sorteras efter hur redo de är; de som är redo bokas in direkt",
+          "Varje ny förfrågan besvaras inom några minuter via samtal, sms eller mejl", // REVIEW-SV
+          "Förfrågningar sorteras efter hur redo de är; de som är redo bokas in direkt", // REVIEW-SV
           "Allt loggas i ditt CRM",
         ],
         time: "Oftast 2–3 veckor",
@@ -152,18 +152,18 @@ export const sv = {
       form: { url: "salong-asa.example/boka", title: "Boka en tid", name: "Namn", phone: "Telefon", message: "Meddelande", nameValue: "Sara Lind", phoneValue: "070-123 45 67", messageValue: "Hej! Har ni en tid för färgning den här veckan?", send: "Skicka", sent: "Skickat" }, // REVIEW-SV
       call: { calling: "Ringer…", connected: "Ansluten", caller: "AI-receptionist", line: "Hej Sara, det är Salong Åsa. Färgning den här veckan, var det? Torsdag kl. 10 är ledig." }, // REVIEW-SV
       calendar: { title: "Den här veckan", days: ["Mån", "Tis", "Ons", "Tor", "Fre"], busy: "Bokad", service: "Färgning", client: "Sara L.", slot: "Tor 10.00", confirmed: "Bekräftelse skickad via sms" }, // REVIEW-SV
-      crm: { title: "CRM · förfrågningar", name: "Sara Lind", status: "Bokad", source: "Webbformulär", others: [["Jonas B.", "Kontaktad"], ["Mira K.", "Uppföljning"]], tags: ["färgning", "ny kund"], summary: "Sammanfattning mejlad" }, // REVIEW-SV
+      crm: { title: "CRM · förfrågningar", name: "Sara Lind", status: "Bokad", source: "Webbformulär", others: [["Jonas B.", "Kontaktad"], ["Mira K.", "Uppföljning"]], tags: ["färgning", "ny förfrågan"], summary: "Sammanfattning mejlad" }, // REVIEW-SV
     },
   },
   jake: {
     eyebrow: "Kundcase",
     title: "AI-uppföljning för en växande byrå",
     intro:
-      "Jake Wims startade en byrå som säljer AI-uppföljning av leads till mäklarteam och en bolåneförmedlare. På Metaviz AI byggde jag hela systemet åt honom: röstagenterna, CRM-automationerna och flödena mellan dem.", // REVIEW-SV
+      "Jake Wims startade en byrå som säljer AI-uppföljning av förfrågningar till mäklarteam och en bolåneförmedlare. På Metaviz AI byggde jag hela systemet åt honom: röstagenterna, CRM-automationerna och flödena mellan dem.", // REVIEW-SV
     points: [
-      "En AI som ringer nya leads från Facebook-annonser, kvalificerar dem enligt regler Jake godkänt och bokar möten",
+      "En AI som ringer upp nya förfrågningar från Facebook-annonser, kvalificerar dem enligt regler Jake godkänt och bokar möten", // REVIEW-SV
       "En mall som kan klonas, byggd för fler än fem av hans kunder", // REVIEW-SV
-      "Varje samtal sparas i GoHighLevel, med sammanfattningar till både lead och team",
+      "Varje samtal sparas i GoHighLevel, med sammanfattningar till både den som hört av sig och teamet", // REVIEW-SV
     ],
     confidential: "Resultaten är konfidentiella för Jakes kunder.",
     transcriptLabel: "Läs transkriptionen",
@@ -257,7 +257,7 @@ export const sv = {
       goal: { more_customers: "Fler kunder", missed_calls: "Färre missade samtal och förfrågningar", admin_time: "Mindre tid på administration", website: "En ny eller bättre webbplats", unsure: "Vet inte än" },
       industry: { clinic_health: "Klinik eller vård", beauty_wellness: "Skönhet eller friskvård", restaurant_cafe: "Restaurang eller kafé", real_estate: "Fastigheter", trades_construction: "Hantverk eller bygg", retail_ecommerce: "Handel eller e-handel", professional_services: "Konsult- eller tjänsteföretag", education: "Utbildning", fitness: "Träning", other: "Annat" },
       teamSize: { solo: "Bara jag", "2to5": "2–5", "6to20": "6–20", "21to50": "21–50", gt50: "50+" },
-      tasks: { calls: "Svara i telefon", booking: "Bokning och ombokning", enquiries: "Svara på förfrågningar", lead_followup: "Följa upp leads", quotes_invoices: "Offerter och fakturor", data_entry: "Flytta data mellan system", reports: "Rapporter", reviews_social: "Recensioner och sociala medier", other: "Något annat" },
+      tasks: { calls: "Svara i telefon", booking: "Bokning och ombokning", enquiries: "Svara på förfrågningar", lead_followup: "Följa upp förfrågningar", quotes_invoices: "Offerter och fakturor", data_entry: "Flytta data mellan system", reports: "Rapporter", reviews_social: "Recensioner och sociala medier", other: "Något annat" }, // REVIEW-SV
       hours: { lt2: "Under 2", "2to5": "2–5", "5to10": "5–10", "10to20": "10–20", gt20: "20+" },
       enquiries: { lt10: "Under 10", "10to50": "10–50", "50to200": "50–200", gt200: "200+" },
       websiteState: { none: "Har ingen", outdated: "Gammal", not_converting: "Ser bra ut men ger få bokningar", ok: "Den fungerar" },
