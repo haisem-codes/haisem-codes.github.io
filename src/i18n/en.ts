@@ -166,6 +166,12 @@ export const en = {
     confidential: "Results stay confidential to Jake's clients.",
     transcriptLabel: "Read the transcript",
     videoLabel: "Video testimonial from Jake Wims",
+    play: "Play Jake's video testimonial, 52 seconds",
+    duration: "0:52",
+    pullQuote: "My clients have been extremely happy with how good the follow-up processes are for them.",
+    quote: "I really appreciate the attention to detail and how good the support has been.",
+    quoteBy: "Jake Wims, agency founder",
+    builtAt: "System built at Metaviz AI",
     transcript:
       "Yo, Haisem, just wanted to say thanks for all the fulfillment work you've helped me with over the past few months. Just starting up my agency, I would not have been able to scale as fast as I have been without the support. Everything from the AI callers to the automation work, I really appreciate the attention to detail and how good the support has been, honing in on the specifics of what needs to be done. My clients have been extremely happy with how good the follow-up processes are for them, and I can say the same for my agency as well. So anybody looking for a top-tier GHL developer, I highly recommend Haisem.",
     transcriptNote: "Lightly edited from the auto-generated captions.",

@@ -14,14 +14,18 @@ export function ProofStrip({ dict }: { dict: Dictionary["proof"]; lang: Locale }
           </blockquote>
           <figcaption className="mt-4 text-sm text-text-secondary">{dict.quoteBy}</figcaption>
         </figure>
-        <ul className="flex flex-wrap items-center gap-x-3 gap-y-2 text-base text-text-secondary lg:justify-end">
-          {dict.items.map((item, i) => (
-            <li key={item} className="flex items-center gap-3">
-              {i > 0 && <span aria-hidden className="h-1 w-1 rounded-full bg-accent" />}
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
+        <div className="overflow-hidden">
+          <ul className="-ml-7 flex flex-wrap gap-y-2 text-base text-text-secondary">
+            {dict.items.map((item) => (
+              <li
+                key={item}
+                className="relative pl-7 not-first:before:absolute not-first:before:top-[0.7em] not-first:before:left-3 not-first:before:size-1 not-first:before:rounded-full not-first:before:bg-accent not-first:before:content-['']"
+              >
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
       </ScrollReveal>
     </section>
   );
