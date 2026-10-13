@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>CodeCheck review</title>
+<link rel="stylesheet" href="_base.css">
+<style>
+  .pipeline { display: flex; align-items: center; gap: 10px; }
+  .step { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; color: var(--text-2); }
+  .step .ico { color: var(--ok); width: 15px; height: 15px; }
+  .step.run .ico { color: var(--live); }
+  .sep { width: 18px; height: 1px; background: var(--border-strong); }
+  .work { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 470px; }
+  .viewer { position: relative; background: var(--surface-2); border-right: 1px solid var(--border); padding: 18px 22px; display: flex; flex-direction: column; gap: 12px; }
+  .sheet { position: relative; flex: 1; border-radius: 6px; background: #FFFFFF; box-shadow: 0 1px 3px rgba(0,0,0,.08), 0 0 0 1px rgba(0,0,0,.05); overflow: hidden; }
+  html[data-theme="night"] .sheet { background: #101826; box-shadow: 0 0 0 1px #24324a; }
+  .sheet svg.plan { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .plan .wall { stroke: #23314a; stroke-width: 5; fill: none; }
+  .plan .thin { stroke: #8A97AB; stroke-width: 1.2; fill: none; }
+  .plan .duct { stroke: #5B8DB8; stroke-width: 9; fill: none; opacity: .35; stroke-linejoin: round; }
+  .plan .duct2 { stroke: #5B8DB8; stroke-width: 1.4; fill: none; }
+  .plan .eq { fill: #fff; stroke: #23314a; stroke-width: 1.6; }
+  .plan text { font-family: var(--font-mono); font-size: 10px; fill: #3A4A63; }
+  .plan .room { font-family: var(--font-sans); font-size: 10px; fill: #8A97AB; letter-spacing: .08em; }
+  html[data-theme="night"] .plan .wall { stroke: #A9B8CF; }
+  html[data-theme="night"] .plan .thin { stroke: #4C5E7A; }
+  html[data-theme="night"] .plan .eq { fill: #101826; stroke: #A9B8CF; }
+  html[data-theme="night"] .plan text { fill: #A9B8CF; }
+  html[data-theme="night"] .plan .room { fill: #5D6F8C; }
+  .hit { position: absolute; border: 2px solid var(--accent); background: color-mix(in srgb, var(--accent) 10%, transparent); border-radius: 4px; }
+  .hit.bad { border-color: var(--bad); background: color-mix(in srgb, var(--bad) 10%, transparent); }
+  .hit.warn { border-color: var(--warn); background: color-mix(in srgb, var(--warn) 12%, transparent); }
+  .hit span { position: absolute; top: -22px; left: -2px; font-family: var(--font-mono); font-size: 10.5px; font-weight: 600; padding: 2px 6px; border-radius: 4px; background: var(--accent); color: var(--accent-ink); white-space: nowrap; }
+  .hit.bad span { background: var(--bad); color: #fff; }
+  .hit.warn span { background: var(--warn); color: #fff; }
+  html[data-theme="night"] .hit.bad span, html[data-theme="night"] .hit.warn span { color: #0A0A0B; }
+  .plan .hb, .plan .hw, .plan .ha { stroke-width: 2; }
+  .plan .hb { fill: color-mix(in srgb, var(--bad) 10%, transparent); stroke: var(--bad); }
+  .plan .hw { fill: color-mix(in srgb, var(--warn) 10%, transparent); stroke: var(--warn); }
+  .plan .ha { fill: color-mix(in srgb, var(--accent) 10%, transparent); stroke: var(--accent); }
+  .plan .hl.bad { fill: var(--bad); } .plan .hl.warn { fill: var(--warn); } .plan .hl.acc { fill: var(--accent); }
+  .plan text.ht { fill: #fff; font-weight: 600; font-size: 10.5px; }
+  html[data-theme="night"] .plan text.ht { fill: #0A0A0B; }
+  .plan .tb rect, .plan .tb path { fill: none; stroke: #23314a; stroke-width: 1.4; }
+  html[data-theme="night"] .plan .tb rect, html[data-theme="night"] .plan .tb path { stroke: #A9B8CF; }
+  .titleblock { position: absolute; right: 14px; bottom: 14px; width: 210px; border: 1.5px solid #23314a; font-family: var(--font-mono); font-size: 9.5px; color: #23314a; background: #fff; }
+  html[data-theme="night"] .titleblock { border-color: #A9B8CF; color: #A9B8CF; background: #101826; }
+  .titleblock div { padding: 4px 7px; border-top: 1px solid currentColor; }
+  .titleblock div:first-child { border-top: 0; font-weight: 600; font-size: 11px; }
+  .pages { display: flex; gap: 8px; align-items: center; }
+  .thumb { width: 52px; height: 36px; border-radius: 4px; background: var(--surface); border: 1px solid var(--border); position: relative; }
+  .thumb::after { content: ""; position: absolute; inset: 6px 8px; border: 1px solid var(--border-strong); border-radius: 1px; }
+  .thumb.on { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .panel { display: flex; flex-direction: column; min-height: 0; background: var(--surface); }
+  .tabs { display: flex; gap: 2px; padding: 12px 16px 0; border-bottom: 1px solid var(--border); }
+  .tab { padding: 8px 9px 11px; font-weight: 500; color: var(--muted); display: flex; gap: 6px; align-items: center; border-bottom: 2px solid transparent; margin-bottom: -1px; white-space: nowrap; }
+  .tab.on { color: var(--text); border-color: var(--accent); }
+  .tab .n { font-size: 10.5px; font-weight: 700; background: var(--surface-3); color: var(--text-2); border-radius: 999px; padding: 1px 6px; }
+  .tab.on .n { background: var(--accent-soft); color: var(--accent); }
+  .finding { padding: 14px 16px; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; gap: 8px; }
+  .finding.sel { background: color-mix(in srgb, var(--accent) 5%, var(--surface)); box-shadow: inset 3px 0 0 var(--accent); }
+  .ref { font-family: var(--font-mono); font-size: 11px; color: var(--accent); background: var(--accent-soft); padding: 2px 6px; border-radius: 4px; }
+  .kv { display: grid; grid-template-columns: auto 1fr auto; gap: 4px 14px; font-size: 12px; padding: 10px 12px; background: var(--surface-2); border-radius: 8px; border: 1px solid var(--border); }
+  .kv .mono { font-weight: 600; }
+  .conf { display: flex; align-items: center; gap: 8px; font-size: 11.5px; color: var(--muted); }
+  .conf .bar { width: 70px; }
+  .foot-cost { padding: 14px 16px; border-top: 1px solid var(--border); margin-top: auto; background: var(--surface-2); display: flex; flex-direction: column; gap: 8px; }
+</style>
+</head>
+<body>
+<div class="window">
+  <div class="window-bar" data-url="app.codecheck.dev/reviews/riverside-block-c"></div>
+  <div class="viewport">
+    <div class="app">
+      <aside class="side">
+        <div class="brand"><div class="mark"><i data-i="shield" data-w="2.2"></i></div>CodeCheck</div>
+        <div class="nav"><i data-i="home"></i>Overview</div>
+        <div class="nav on"><i data-i="file"></i>Reviews<span class="count">12</span></div>
+        <div class="nav"><i data-i="folder"></i>Projects</div>
+        <div class="nav"><i data-i="book"></i>Code library</div>
+        <div class="nav"><i data-i="chart"></i>Usage &amp; cost</div>
+        <div class="up sec">Disciplines</div>
+        <div class="nav"><span class="dot" style="color:#0EA5E9"></span>Mechanical</div>
+        <div class="nav"><span class="dot" style="color:#F59E0B"></span>Electrical</div>
+        <div class="nav"><span class="dot" style="color:#10B981"></span>Plumbing</div>
+        <div class="nav"><span class="dot" style="color:#8B5CF6"></span>Structural</div>
+        <div class="nav"><span class="dot" style="color:#EC4899"></span>Architectural</div>
+        <div class="foot">
+          <div class="av c1">EL</div>
+          <div class="col grow"><span class="b sm">Elin Lindqvist</span><span class="xs muted">Lead reviewer</span></div>
+          <i data-i="more" class="s" style="color:var(--muted)"></i>
+        </div>
+      </aside>
+      <section class="main">
+        <div class="topbar">
+          <div class="crumb">Reviews <i data-i="right" class="s"></i> Riverside Block C <i data-i="right" class="s"></i> <b>M-201 Level 2 Mechanical</b></div>
+          <div class="grow"></div>
+          <div class="pipeline">
+            <div class="step"><i data-i="checkc"></i>OCR</div><div class="sep"></div>
+            <div class="step"><i data-i="checkc"></i>Extraction</div><div class="sep"></div>
+            <div class="step"><i data-i="checkc"></i>Code retrieval</div><div class="sep"></div>
+            <div class="step"><i data-i="checkc"></i>Reasoning</div>
+          </div>
+          <div class="btn"><i data-i="check" data-w="2.4" class="s"></i>Sign off review</div>
+        </div>
+        <div class="work">
+          <div class="viewer">
+            <div class="row between">
+              <div class="row gap10">
+                <span class="h2">Sheet 14 of 64</span>
+                <span class="badge acc">Mechanical</span>
+                <span class="badge out">Rev C</span>
+              </div>
+              <div class="row gap8">
+                <span class="chip">Entities <b style="color:var(--text)">38</b></span>
+                <span class="chip on"><i data-i="eye" class="s"></i>Show overlays</span>
+                <span class="chip">100%<i data-i="down" class="s"></i></span>
+              </div>
+            </div>
+            <div class="sheet">
+              <svg class="plan" viewBox="22 30 656 580" preserveAspectRatio="xMidYMid meet">
+                <path class="wall" d="M40 40H660V520H40Z"/>
+                <path class="wall" d="M40 230H300M380 230H660M300 40V160M300 230V520M480 230V520M480 380H660M140 380H300"/>
+                <path class="thin" d="M300 160V230M60 60H280M60 210H280"/>
+                <path class="duct" d="M80 130H600V300M380 130V440M600 300H560M190 130V320"/>
+                <path class="duct2" d="M80 125H600M80 135H600M375 135V440M385 135V440M185 135V320M195 135V320M595 135V300M605 135V300"/>
+                <rect class="eq" x="56" y="110" width="40" height="40" rx="2"/><text x="60" y="166">AHU-2</text>
+                <rect class="eq" x="170" y="300" width="40" height="26" rx="2"/><text x="166" y="342">VAV-11</text>
+                <rect class="eq" x="360" y="430" width="40" height="26" rx="2"/><text x="306" y="447">VAV-14</text>
+                <rect class="eq" x="580" y="290" width="40" height="26" rx="2"/><text x="578" y="342">VAV-17</text>
+                <circle class="eq" cx="520" cy="470" r="9"/><circle class="eq" cx="600" cy="470" r="9"/><circle class="eq" cx="420" cy="300" r="9"/><circle class="eq" cx="110" cy="470" r="9"/>
+                <text x="404" y="285">SD-4</text><text x="505" y="497">SD-7</text><text x="585" y="497">SD-8</text><text x="94" y="497">SD-2</text>
+                <text class="room" x="62" y="196">OPEN OFFICE 2.01</text>
+                <text class="room" x="320" y="70">CORRIDOR</text>
+                <text class="room" x="500" y="196">MEETING 2.04</text>
+                <text class="room" x="160" y="440">SERVER 2.02</text>
+                <text class="room" x="330" y="500">KITCHEN 2.03</text>
+                <text class="room" x="500" y="412">STORAGE 2.05</text>
+                <text x="460" y="120">24"×14" SUPPLY</text>
+                <g class="tb"><rect x="440" y="534" width="220" height="66"/><path d="M440 556H660M440 578H660"/>
+                  <text x="448" y="549" style="font-weight:600">M-201 · LEVEL 2 HVAC</text><text x="448" y="571">RIVERSIDE BLOCK C</text><text x="448" y="593">SCALE 1:100 · REV C</text></g>
+                <g class="hits">
+                  <rect class="hb" x="350" y="420" width="62" height="46" rx="4"/><rect class="hl bad" x="350" y="398" width="118" height="19" rx="4"/><text class="ht" x="357" y="411">VAV-14 · 450 CFM</text>
+                  <rect class="hw" x="48" y="388" width="244" height="124" rx="4"/><rect class="hl warn" x="48" y="366" width="188" height="19" rx="4"/><text class="ht" x="55" y="379">Server 2.02 · no exhaust</text>
+                  <rect class="ha" x="50" y="104" width="52" height="52" rx="4"/><rect class="hl acc" x="50" y="82" width="46" height="19" rx="4"/><text class="ht" x="57" y="95">AHU-2</text>
+                  <rect class="ha" x="572" y="282" width="56" height="42" rx="4"/><rect class="hl acc" x="514" y="260" width="114" height="19" rx="4"/><text class="ht" x="521" y="273">VAV-17 · 320 CFM</text>
+                </g>
+
+                <text x="210" y="250">12"Ø</text>
+              </svg>
+            </div>
+            <div class="pages">
+              <i data-i="left" class="s" style="color:var(--muted)"></i>
+              <div class="thumb"></div><div class="thumb"></div><div class="thumb on"></div><div class="thumb"></div><div class="thumb"></div><div class="thumb"></div><div class="thumb"></div>
+              <i data-i="right" class="s" style="color:var(--muted)"></i>
+              <span class="grow"></span>
+              <span class="sm muted">OCR · 64 pages</span>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="tabs">
+              <div class="tab on">Mech<span class="n">6</span></div>
+              <div class="tab">Elec<span class="n">3</span></div>
+              <div class="tab">Plumb<span class="n">2</span></div>
+              <div class="tab">Struct<span class="n">0</span></div>
+              <div class="tab">Arch<span class="n">1</span></div>
+            </div>
+            <div class="finding sel">
+              <div class="row between"><span class="badge bad"><span class="dot"></span>Non-compliant</span><span class="ref">Cross-sheet check</span></div>
+              <div class="b md">VAV-14 supply airflow exceeds the schedule</div>
+              <div class="kv">
+                <span class="muted">Drawing</span><span class="mono">450 CFM</span><span class="xs muted">p.14</span>
+                <span class="muted">Schedule M-601</span><span class="mono">400 CFM</span><span class="xs muted">p.52</span>
+              </div>
+              <div class="sm t2">Supply to Kitchen 2.03 contradicts the equipment schedule. Confirm the design value or update M-601 before sign-off.</div>
+              <div class="row between">
+                <div class="conf">Confidence <div class="bar"><i style="width:92%"></i></div>0.92</div>
+                <div class="row gap6"><span class="btn ghost sm">Edit</span><span class="btn sm"><i data-i="check" data-w="2.4" class="s"></i>Accept</span></div>
+              </div>
+            </div>
+            <div class="finding">
+              <div class="row between"><span class="badge warn"><span class="dot"></span>Needs review</span><span class="ref">IMC 502.1</span></div>
+              <div class="b md">No exhaust shown for Server 2.02</div>
+              <div class="sm t2">Room is tagged as equipment space; no exhaust terminal or transfer path found on M-201.</div>
+            </div>
+            <div class="finding">
+              <div class="row between"><span class="badge ok"><span class="dot"></span>Compliant</span><span class="ref">IMC 603.4</span></div>
+              <div class="b md">Duct sizing matches design airflow</div>
+              <div class="sm t2">24"×14" main supply checked against the scheduled airflow for AHU-2.</div>
+            </div>
+            <div class="finding">
+              <div class="row between"><span class="badge ok"><span class="dot"></span>Compliant</span><span class="ref">IMC 403.3</span></div>
+              <div class="b md">Outdoor air rate for Meeting 2.04</div>
+              <div class="sm t2">VAV-17 at 320 CFM covers the occupancy shown on A-201.</div>
+            </div>
+            <div class="foot-cost">
+              <div class="row between sm"><span class="row gap6 b"><i data-i="coins" class="s" style="color:var(--accent)"></i>LLM spend on this document</span><span class="mono b">$6.40 <span class="muted">/ $15.00 cap</span></span></div>
+              <div class="bar"><i style="width:42.6%"></i></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+<script src="_base.js"></script>
+</body>
+</html>

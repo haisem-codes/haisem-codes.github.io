@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Coach screens</title>
+<link rel="stylesheet" href="_base.css">
+<style>
+  .streak { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 18px; background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 55%, var(--violet))); color: var(--accent-ink); }
+  .streak .ico { width: 30px; height: 30px; }
+  .streak b { font-family: var(--font-display); font-size: 22px; letter-spacing: -.02em; }
+  .week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; text-align: center; font-size: 10.5px; color: var(--muted); font-weight: 600; }
+  .week i { display: block; margin: 4px auto 0; width: 30px; height: 30px; border-radius: 50%; border: 2px solid var(--border-strong); }
+  .week i.d { background: var(--accent); border-color: var(--accent); }
+  .week i.t { border-color: var(--accent); border-style: dashed; }
+  .habit { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid var(--border); }
+  .habit:first-child { border-top: 0; }
+  .hb-ic { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; flex: none; }
+  .tick { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--ok); color: #fff; }
+  html[data-theme="night"] .tick { color: #0A0A0B; }
+  .tick svg { width: 15px; height: 15px; }
+  .proofbtn { display: inline-flex; align-items: center; gap: 5px; height: 30px; padding: 0 11px; border-radius: 999px; background: var(--accent); color: var(--accent-ink); font-size: 12px; font-weight: 600; }
+  .photo { position: relative; height: 360px; border-radius: 22px; overflow: hidden; }
+  .photo svg.ph { width: 100%; height: 100%; display: block; }
+  .scanline { position: absolute; left: 0; right: 0; top: 58%; height: 2px; background: linear-gradient(90deg, transparent, #7DD3FC, transparent); box-shadow: 0 0 12px #7DD3FC; }
+  .vbadge { position: absolute; left: 14px; top: 14px; display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 12px; border-radius: 999px; background: rgba(255,255,255,.92); color: #15803D; font-weight: 700; font-size: 12.5px; }
+  .voice .screen { background: radial-gradient(420px 380px at 50% 36%, #164E6E 0%, #0B1C2A 55%, #070D14 100%); color: #EDEDEF; }
+  .voice .status { color: #fff; }
+  .orb { position: relative; width: 210px; height: 210px; margin: 26px auto 0; }
+  .orb i { position: absolute; inset: 0; border-radius: 50%; }
+  .orb i:nth-child(1) { background: radial-gradient(circle, rgba(125,211,252,.25), transparent 70%); transform: scale(1.35); }
+  .orb i:nth-child(2) { inset: 26px; background: radial-gradient(circle at 35% 30%, #BAE6FD, #38BDF8 45%, #0369A1 100%); box-shadow: 0 0 60px rgba(56,189,248,.55); }
+  .orb i:nth-child(3) { inset: 26px; border: 2px solid rgba(255,255,255,.35); transform: scale(1.14); }
+  .caption { margin: 26px 22px 0; font-size: 17px; line-height: 1.45; text-align: center; font-weight: 500; }
+  .caption span { color: rgba(237,237,239,.45); }
+  .ctl { display: flex; justify-content: center; gap: 22px; margin-top: auto; padding-bottom: 46px; }
+  .ctl div { width: 62px; height: 62px; border-radius: 50%; display: grid; place-items: center; background: rgba(255,255,255,.1); color: #fff; }
+  .ctl div.end { background: #E5484D; }
+  .ctl .ico { width: 24px; height: 24px; }
+</style>
+</head>
+<body>
+<div class="phones">
+
+  <div class="phone tilt">
+    <div class="screen">
+      <div class="status"></div>
+      <div class="ph-body" style="padding-top:8px">
+        <div class="row between"><div class="col"><span class="sm muted">Tuesday 14 Oct</span><span class="ph-title">Morning, Elsa</span></div><div class="av l c5">E</div></div>
+        <div class="streak"><i data-i="flame" data-w="2"></i><div class="col"><b>12-day streak</b><span class="xs" style="opacity:.85">Two habits left today</span></div></div>
+        <div class="week"><span>M<i class="d"></i></span><span>T<i class="t"></i></span><span>W<i></i></span><span>T<i></i></span><span>F<i></i></span><span>S<i></i></span><span>S<i></i></span></div>
+        <div class="ph-card" style="padding:4px 16px">
+          <div class="habit"><div class="hb-ic" style="background:var(--accent-soft);color:var(--accent)"><i data-i="drop"></i></div><div class="col grow"><span class="b">Water before coffee</span><span class="xs muted">Verified 07:12</span></div><div class="tick"><i data-i="check" data-w="3"></i></div></div>
+          <div class="habit"><div class="hb-ic" style="background:var(--violet-soft);color:var(--violet)"><i data-i="book"></i></div><div class="col grow"><span class="b">Read 20 pages</span><span class="xs muted">Snap a photo as proof</span></div><span class="proofbtn"><i data-i="camera" class="s"></i>Proof</span></div>
+          <div class="habit"><div class="hb-ic" style="background:var(--ok-soft);color:var(--ok)"><i data-i="heart"></i></div><div class="col grow"><span class="b">Evening walk</span><span class="xs muted">After 18:00</span></div><span class="proofbtn" style="background:var(--surface-3);color:var(--text-2)"><i data-i="clock" class="s"></i>Later</span></div>
+        </div>
+        <div class="ph-card row gap12">
+          <div class="hb-ic" style="background:var(--accent);color:var(--accent-ink);border-radius:50%"><i data-i="mic"></i></div>
+          <div class="col grow"><span class="b">Voice check-in</span><span class="xs muted">Tonight 19:30 · 5 min with your coach</span></div>
+          <i data-i="right" class="s" style="color:var(--muted)"></i>
+        </div>
+      </div>
+      <div class="tabbar"><span class="on"><i data-i="home"></i>Today</span><span><i data-i="mic"></i>Coach</span><span><i data-i="chart"></i>Progress</span><span><i data-i="user"></i>You</span></div>
+    </div>
+  </div>
+
+  <div class="phone">
+    <div class="screen">
+      <div class="status"></div>
+      <div class="ph-top"><div class="ph-round"><i data-i="x"></i></div><span class="b md">Proof · Read 20 pages</span><div style="width:38px"></div></div>
+      <div class="ph-body">
+        <div class="photo"><svg class="ph" viewBox="0 0 320 330" preserveAspectRatio="xMidYMid slice" id="book"></svg><div class="scanline"></div><span class="vbadge"><i data-i="checkc" class="s"></i>Verified</span></div>
+        <div class="ph-card col gap10">
+          <div class="row between"><span class="b">Confidence</span><span class="mono b">0.94</span></div>
+          <div class="bar"><i style="width:94%;background:var(--ok)"></i></div>
+          <span class="sm t2">Open book with the page number visible, and a reading light on. Nice work, that's 20 pages since yesterday's bookmark.</span>
+        </div>
+        <div class="row gap8">
+          <span class="btn" style="flex:1;justify-content:center;height:46px;border-radius:14px"><i data-i="flame" class="s"></i>Add to streak</span>
+          <span class="btn ghost" style="height:46px;border-radius:14px">Retake</span>
+        </div>
+        <div class="row gap10 sm t2" style="padding:2px 4px"><i data-i="sparkles" class="s" style="color:var(--accent)"></i>Checked by the vision model</div>
+      </div>
+      <div style="height:30px"></div>
+    </div>
+  </div>
+
+  <div class="phone tilt voice">
+    <div class="screen">
+      <div class="status"></div>
+      <div class="row between" style="padding:6px 20px 0">
+        <span class="badge" style="background:rgba(255,181,71,.16);color:#FFB547"><span class="dot"></span>Live · 03:24</span>
+        <span class="xs" style="color:rgba(237,237,239,.6)">Coach style: calm, direct</span>
+      </div>
+      <div class="orb"><i></i><i></i><i></i></div>
+      <div class="caption">“You walked four evenings last week. What got in the way on Friday?” <span>Take your time.</span></div>
+      <div class="row gap10" style="margin:22px 26px 0;padding:12px 14px;border-radius:16px;background:rgba(255,255,255,.07)">
+        <span class="row gap4" id="uw"></span><span class="sm" style="color:rgba(237,237,239,.75)">“A late meeting, then I skipped it…”</span>
+      </div>
+      <div class="ctl">
+        <div><i data-i="micoff"></i></div>
+        <div class="end"><i data-i="phone" style="transform:rotate(135deg)"></i></div>
+        <div><i data-i="msg"></i></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<script>
+  document.getElementById("book").innerHTML = `
+    <defs>
+      <linearGradient id="tb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8B6A50"/><stop offset="1" stop-color="#5E4433"/></linearGradient>
+      <radialGradient id="lamp" cx=".78" cy=".1" r=".8"><stop offset="0" stop-color="#FFE8B8" stop-opacity=".75"/><stop offset="1" stop-color="#FFE8B8" stop-opacity="0"/></radialGradient>
+    </defs>
+    <rect width="320" height="330" fill="url(#tb)"/>
+    <path d="M0 40H320M0 120H320M0 210H320M0 290H320" stroke="#4E3828" stroke-opacity=".35" stroke-width="2"/>
+    <rect width="320" height="330" fill="url(#lamp)"/>
+    <ellipse cx="160" cy="250" rx="140" ry="20" fill="#2E2018" opacity=".35"/>
+    <path d="M30 80 Q95 64 160 84 Q225 64 290 80 V250 Q225 234 160 254 Q95 234 30 250Z" fill="#F7F1E6"/>
+    <path d="M160 84V254" stroke="#D8CDBC" stroke-width="3"/>
+    <path d="M30 250 Q95 234 160 254 Q225 234 290 250 V258 Q225 242 160 262 Q95 242 30 258Z" fill="#E1D6C3"/>
+    <g stroke="#B3A794" stroke-width="3" stroke-linecap="round">
+      ${[0,1,2,3,4,5,6,7,8].map(i => `<path d="M48 ${104 + i*15}H${142 - (i%3)*12}"/><path d="M178 ${104 + i*15}H${272 - ((i+1)%3)*14}"/>`).join("")}
+    </g>
+    <text x="80" y="244" font-family="Inter" font-size="10" fill="#8A7E6C">112</text>
+    <text x="226" y="244" font-family="Inter" font-size="10" fill="#8A7E6C">113</text>
+    <rect x="236" y="10" width="56" height="62" rx="8" fill="#2D5A7B"/>
+    <path d="M292 26c16 0 16 26 0 26" stroke="#2D5A7B" stroke-width="7" fill="none"/>
+    <ellipse cx="264" cy="12" rx="26" ry="6" fill="#4A2E1E"/>`;
+</script>
+<script>document.getElementById("uw").innerHTML=[8,14,10,18,12,6,10].map(h=>`<i style="display:block;width:3px;height:${h}px;border-radius:2px;background:#FFB547"></i>`).join("");</script>
+<script src="_base.js"></script>
+</body>
+</html>

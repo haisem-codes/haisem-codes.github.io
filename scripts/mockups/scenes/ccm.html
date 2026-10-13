@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Claude Code Mastery docs</title>
+<link rel="stylesheet" href="_base.css">
+<style>
+  .app { grid-template-columns: 1fr; grid-template-rows: 60px 1fr; }
+  .tb { display: flex; align-items: center; gap: 26px; padding: 0 28px; border-bottom: 1px solid var(--border); background: var(--surface); }
+  .tb .brand { padding: 0; font-size: 16px; }
+  .tb .links { display: flex; gap: 22px; color: var(--text-2); font-weight: 500; }
+  .tb .links .on { color: var(--accent); }
+  .body { display: grid; grid-template-columns: 250px 1fr 330px; min-height: 0; background: var(--bg); }
+  .toc { padding: 22px 18px; border-right: 1px solid var(--border); display: flex; flex-direction: column; gap: 2px; background: var(--surface); }
+  .ch { display: flex; gap: 10px; padding: 7px 10px; border-radius: 8px; color: var(--text-2); font-size: 13px; }
+  .ch .mono { color: var(--muted); font-size: 11.5px; padding-top: 1px; }
+  .ch.on { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+  .ch.on .mono { color: var(--accent); }
+  .doc { padding: 30px 40px; display: flex; flex-direction: column; gap: 16px; overflow: hidden; }
+  .doc h1 { font-family: var(--font-display); font-size: 30px; letter-spacing: -.03em; font-weight: 600; line-height: 1.15; }
+  .doc p { font-size: 14.5px; line-height: 1.65; color: var(--text-2); max-width: 640px; }
+  .doc code { font-family: var(--font-mono); font-size: 12.5px; padding: 1px 6px; border-radius: 5px; background: var(--surface-3); color: var(--text); }
+  .term { border-radius: 12px; background: #0E0E11; border: 1px solid #26262B; box-shadow: 0 16px 40px -20px rgba(0,0,0,.45); overflow: hidden; }
+  .term .th { height: 36px; display: flex; align-items: center; gap: 8px; padding: 0 14px; background: #17171B; border-bottom: 1px solid #26262B; color: #8E8E96; font-size: 12px; }
+  .term .th i { width: 10px; height: 10px; border-radius: 50%; background: #3A3A40; }
+  .term pre { font-family: var(--font-mono); font-size: 12.5px; line-height: 1.75; color: #D4D4DA; padding: 14px 18px; white-space: pre; }
+  .p { color: #7DD3FC; } .g { color: #4ADE80; } .y { color: #FFB547; } .d { color: #6E6E78; } .w { color: #FFFFFF; font-weight: 600; }
+  .guar { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .guar div { display: flex; gap: 10px; padding: 12px 14px; border-radius: 10px; background: var(--surface); border: 1px solid var(--border); font-size: 12.5px; }
+  .guar .ico { color: var(--ok); margin-top: 1px; }
+  .aside { padding: 22px 20px; border-left: 1px solid var(--border); display: flex; flex-direction: column; gap: 14px; background: var(--surface); overflow: hidden; }
+  .preset { display: flex; align-items: center; gap: 10px; padding: 9px 11px; border-radius: 9px; border: 1px solid var(--border); font-size: 12.5px; }
+  .preset.on { border-color: var(--accent-line); background: var(--accent-soft); }
+  .preset .mono { font-weight: 600; }
+  .radio { width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid var(--border-strong); flex: none; }
+  .preset.on .radio { border: 4px solid var(--accent); }
+  .tree { font-family: var(--font-mono); font-size: 12px; line-height: 1.8; color: var(--text-2); padding: 12px 14px; border-radius: 10px; background: var(--surface-2); border: 1px solid var(--border); white-space: pre; }
+  .tree b { color: var(--accent); font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="window">
+  <div class="window-bar" data-url="claude-code-mastery / guide / bootstrapping"></div>
+  <div class="viewport">
+    <div class="app">
+      <div class="tb">
+        <div class="brand"><div class="mark"><i data-i="term" data-w="2.2"></i></div>Claude Code Mastery</div>
+        <div class="links"><span class="on">Guide</span><span>Skills</span><span>Agents</span><span>Hooks</span><span>Templates</span></div>
+        <div class="grow"></div>
+        <div class="search"><i data-i="search" class="s"></i>Search the guide<span class="kbd">/</span></div>
+        <span class="badge out">MIT</span>
+        <div class="btn ghost sm"><i data-i="star" class="s"></i>Star</div>
+      </div>
+      <div class="body">
+        <nav class="toc">
+          <span class="up" style="margin:0 10px 8px">Learning path</span>
+          <div class="ch"><span class="mono">01</span>Getting started</div>
+          <div class="ch"><span class="mono">02</span>Writing CLAUDE.md</div>
+          <div class="ch"><span class="mono">03</span>Settings &amp; permissions</div>
+          <div class="ch"><span class="mono">04</span>Hooks</div>
+          <div class="ch"><span class="mono">05</span>Skills</div>
+          <div class="ch"><span class="mono">06</span>Subagents</div>
+          <div class="ch"><span class="mono">07</span>MCP servers</div>
+          <div class="ch"><span class="mono">08</span>GitHub Actions</div>
+          <div class="ch"><span class="mono">09</span>Advanced patterns</div>
+          <div class="ch on"><span class="mono">10</span>Bootstrapping</div>
+          <div class="ch"><span class="mono">11</span>Real-world configs</div>
+          <div class="card pad col gap6" style="margin-top:auto;padding:12px">
+            <span class="b sm row gap6"><i data-i="sparkles" class="s" style="color:var(--accent)"></i>One-prompt setup</span>
+            <span class="xs muted">Run <code style="font-family:var(--font-mono)">/bootstrap-claude</code> and Claude picks a preset for your stack.</span>
+          </div>
+        </nav>
+        <main class="doc">
+          <div class="row gap8 sm muted">Guide <i data-i="right" class="s"></i> Bootstrapping</div>
+          <h1>Install a preset in one command</h1>
+          <p>Pick the preset closest to your work. The installer previews every change first, backs up <code>~/.claude</code>, and merges settings instead of overwriting them.</p>
+          <div class="term">
+            <div class="th"><i></i><i></i><i></i><span style="margin-left:8px">~/claude-code-mastery — zsh</span></div>
+<pre><span class="p">❯</span> <span class="w">./install.sh --preset backend-python --dry-run</span>
+<span class="d">Preset</span>  Backend — Python  <span class="d">FastAPI/Django services</span>
+<span class="d">Backup</span>  ~/.claude → ~/.claude.backup-20261013-0941  <span class="y">(dry run, not written)</span>
+
+  <span class="g">+ skill</span>  engineering/api-design-reviewer
+  <span class="g">+ skill</span>  engineering/pr-review-expert
+  <span class="g">+ skill</span>  reference/fastapi-patterns
+  <span class="g">+ agent</span>  backend-architect, debugger, code-reviewer-pro
+  <span class="g">+ hook </span>  pre-tool-use/block-main-branch
+  <span class="g">+ hook </span>  pre-tool-use/block-secret-reads
+  <span class="y">~ merge</span>  settings.json  <span class="d">keeps your model, env, permissions.allow</span>
+  <span class="d">= skip </span>  CLAUDE.md  <span class="d">edited by you since last install</span>
+
+<span class="p">❯</span> <span class="d">Looks right? Run without --dry-run. Undo any time with --uninstall.</span></pre>
+          </div>
+          <div class="guar">
+            <div><i data-i="checkc" class="s"></i><span><b>Backs up first.</b> <span class="t2">Timestamped copy and a restore command.</span></span></div>
+            <div><i data-i="checkc" class="s"></i><span><b>Merges settings.</b> <span class="t2">Deny rules and hooks are unioned in.</span></span></div>
+            <div><i data-i="checkc" class="s"></i><span><b>Never clobbers edits.</b> <span class="t2">Changed files are reported and skipped.</span></span></div>
+            <div><i data-i="checkc" class="s"></i><span><b>Reversible.</b> <span class="t2">Uninstall removes exactly what it added.</span></span></div>
+          </div>
+        </main>
+        <aside class="aside">
+          <span class="h2">Presets</span>
+          <div class="preset on"><span class="radio"></span><span class="mono">backend-python</span><span class="xs muted" style="margin-left:auto">FastAPI, Django</span></div>
+          <div class="preset"><span class="radio"></span><span class="mono">frontend-ts</span><span class="xs muted" style="margin-left:auto">React, Next.js</span></div>
+          <div class="preset"><span class="radio"></span><span class="mono">fullstack</span></div>
+          <div class="preset"><span class="radio"></span><span class="mono">data-ai</span></div>
+          <div class="preset"><span class="radio"></span><span class="mono">devops</span></div>
+          <span class="up" style="margin-top:6px">Result in ~/.claude</span>
+<div class="tree">~/.claude/
+├── <b>CLAUDE.md</b>
+├── <b>settings.json</b>
+├── skills/
+│   ├── api-design-reviewer/
+│   └── fastapi-patterns/
+├── agents/
+│   └── backend-architect.md
+└── hooks/
+    └── block-main-branch.sh</div>
+          <div class="row gap8 xs muted" style="margin-top:auto"><i data-i="shield" class="s" style="color:var(--ok)"></i>Catalog verified in CI on every push</div>
+        </aside>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="_base.js"></script>
+</body>
+</html>

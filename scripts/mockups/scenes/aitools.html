@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Lumen assistant</title>
+<link rel="stylesheet" href="_base.css">
+<style>
+  .tool-ic { width: 26px; height: 26px; border-radius: 7px; display: grid; place-items: center; flex: none; }
+  .tool-ic svg { width: 14px; height: 14px; }
+  .t1 { background: #E0F2FE; color: #0369A1; } .t2c { background: #EDE9FE; color: #6D28D9; } .t3 { background: #DCFCE7; color: #15803D; } .t4 { background: #FEF3C7; color: #B45309; }
+  .t5 { background: #FCE7F3; color: #BE185D; } .t6 { background: #E0E7FF; color: #4338CA; } .t7 { background: #CCFBF1; color: #0F766E; } .t8 { background: #FFE4E6; color: #BE123C; }
+  html[data-theme="night"] .tool-ic { background: var(--surface-3); color: var(--accent); }
+  .side .nav { padding: 6px 8px; }
+  .content { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 420px; background: var(--bg); }
+  .chat { display: flex; flex-direction: column; min-height: 0; border-right: 1px solid var(--border); }
+  .thread { flex: 1; min-height: 0; padding: 24px 40px; display: flex; flex-direction: column; gap: 18px; overflow: hidden; }
+  .q { align-self: flex-end; max-width: 72%; padding: 12px 15px; border-radius: 14px; background: var(--surface); border: 1px solid var(--border); font-size: 13.5px; box-shadow: var(--shadow); }
+  .file { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 10px; background: var(--surface-2); border: 1px solid var(--border); margin-top: 10px; font-size: 12.5px; }
+  .file .fi { width: 28px; height: 32px; border-radius: 5px; background: var(--bad-soft); color: var(--bad); display: grid; place-items: center; font-size: 9px; font-weight: 800; }
+  .route { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); }
+  .route .mono { color: var(--text-2); }
+  .ans { display: flex; gap: 12px; }
+  .ans .mk { width: 30px; height: 30px; border-radius: 9px; background: var(--text); color: var(--bg); display: grid; place-items: center; flex: none; }
+  .ans .mk svg { width: 16px; height: 16px; }
+  .ans .body { display: flex; flex-direction: column; gap: 10px; font-size: 13.5px; line-height: 1.6; }
+  .ans h4 { font-family: var(--font-display); font-size: 14.5px; font-weight: 600; }
+  .ans ul { padding-left: 18px; display: flex; flex-direction: column; gap: 4px; }
+  .tweets { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .tweet { padding: 12px; font-size: 12.5px; line-height: 1.5; display: flex; flex-direction: column; gap: 8px; }
+  .cursor { display: inline-block; width: 8px; height: 15px; background: var(--accent); vertical-align: -2px; border-radius: 1px; }
+  .composer { margin: 0 40px 20px; display: flex; align-items: center; gap: 10px; height: 50px; padding: 0 8px 0 16px; border-radius: 14px; border: 1px solid var(--border-strong); background: var(--surface); box-shadow: var(--shadow); color: var(--muted); }
+  .composer .send { margin-left: auto; width: 36px; height: 36px; border-radius: 10px; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; }
+  .graph-panel { padding: 18px; display: flex; flex-direction: column; gap: 14px; background: var(--surface); overflow: hidden; }
+  .graph { position: relative; height: 290px; border-radius: 12px; border: 1px solid var(--border); background-color: var(--surface-2); background-image: radial-gradient(var(--border-strong) 1px, transparent 1px); background-size: 16px 16px; }
+  .graph > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .node { position: absolute; transform: translate(-50%, -50%); padding: 7px 11px; border-radius: 9px; background: var(--surface); border: 1px solid var(--border-strong); font-size: 12px; font-weight: 600; white-space: nowrap; display: flex; align-items: center; gap: 6px; box-shadow: var(--shadow); }
+  .node.on { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); color: var(--accent); }
+  .node.off { color: var(--muted); border-style: dashed; }
+  .trace { display: grid; grid-template-columns: 16px 1fr auto; gap: 10px; align-items: center; font-size: 12.5px; padding: 7px 0; border-top: 1px solid var(--border); }
+  .trace:first-child { border-top: 0; }
+  .trace .ico { color: var(--ok); }
+</style>
+</head>
+<body>
+<div class="window">
+  <div class="window-bar" data-url="lumen.tools/assistant"></div>
+  <div class="viewport">
+    <div class="app">
+      <aside class="side">
+        <div class="brand"><div class="mark"><i data-i="sparkles" data-w="2.2"></i></div>Lumen</div>
+        <div class="up sec" style="margin-top:0">Tools</div>
+        <div class="nav on"><span class="tool-ic t1"><i data-i="msg"></i></span>Voice &amp; Chat Assistant</div>
+        <div class="nav"><span class="tool-ic t2c"><i data-i="code"></i></span>Code Explainer</div>
+        <div class="nav"><span class="tool-ic t3"><i data-i="user"></i></span>Interview Coach</div>
+        <div class="nav"><span class="tool-ic t4"><i data-i="globe"></i></span>Multilingual Blog</div>
+        <div class="nav"><span class="tool-ic t5"><i data-i="spark"></i></span>Prompt Generator</div>
+        <div class="nav"><span class="tool-ic t6"><i data-i="box"></i></span>Product Copywriter</div>
+        <div class="nav"><span class="tool-ic t7"><i data-i="image"></i></span>PDF Logo Removal</div>
+        <div class="nav"><span class="tool-ic t8"><i data-i="doc"></i></span>Text Humanizer</div>
+        <div class="foot">
+          <div class="av c6">ON</div>
+          <div class="col grow"><span class="b sm">Oskar Norén</span><span class="xs muted">Team plan</span></div>
+          <i data-i="gear" class="s" style="color:var(--muted)"></i>
+        </div>
+      </aside>
+      <section class="main">
+        <div class="topbar">
+          <div class="crumb"><b>Launch brief</b></div>
+          <span class="badge ok"><span class="dot"></span>Live socket</span>
+          <div class="grow"></div>
+          <div class="chip">Model: <b style="color:var(--text)">Auto-route</b><i data-i="down" class="s"></i></div>
+          <div class="btn ghost sm"><i data-i="mic" class="s"></i>Voice</div>
+        </div>
+        <div class="content">
+          <div class="chat">
+            <div class="thread">
+              <div class="q">Summarise this product spec and draft two launch posts, one in Swedish and one in English.
+                <div class="file"><span class="fi">PDF</span><div class="col"><span class="b">Product spec v3.pdf</span><span class="xs muted">38 pages</span></div></div>
+              </div>
+              <div class="route"><i data-i="route" class="s"></i>Router chose <span class="mono">gemini</span> for the long document, then <span class="mono">openai</span> for copy</div>
+              <div class="ans">
+                <div class="mk"><i data-i="sparkles" data-w="2"></i></div>
+                <div class="body">
+                  <h4>Summary</h4>
+                  <ul>
+                    <li>A shared inbox for small clinics that sorts patient messages by urgency.</li>
+                    <li>Launches in Sweden and Norway first; English and Swedish interfaces.</li>
+                    <li>Main risk in the spec: no plan yet for after-hours escalation.</li>
+                  </ul>
+                  <h4>Launch posts</h4>
+                  <div class="tweets">
+                    <div class="card tweet"><span class="badge out" style="align-self:flex-start">SV</span>Varje meddelande hamnar rätt från början. Vår nya inkorg sorterar patientfrågor efter hur bråttom de är, så att ni hinner med det viktiga.</div>
+                    <div class="card tweet"><span class="badge out" style="align-self:flex-start">EN</span>Every patient message, sorted by urgency before your team opens it. Meet the inbox built for small clinics<span class="cursor"></span></div>
+                  </div>
+                </div>
+              </div>
+              <div class="row gap8 wrap" style="padding-left:42px">
+                <span class="chip"><i data-i="globe" class="s"></i>Add a Norwegian version</span>
+                <span class="chip"><i data-i="spark" class="s"></i>Make it shorter</span>
+                <span class="chip"><i data-i="mic" class="s"></i>Read it aloud</span>
+              </div>
+              <div class="q" style="display:flex;align-items:center;gap:12px"><i data-i="mic" style="color:var(--accent)"></i><span class="row gap4" id="vw"></span><span class="mono xs muted">0:06</span></div>
+              <div class="route"><i data-i="mic" class="s"></i>Transcribed: <span class="t2">“Keep the Swedish one, but end it with a question.”</span></div>
+            </div>
+            <div class="composer"><i data-i="plus"></i><span>Message Lumen…</span><span class="send"><i data-i="send" class="s"></i></span></div>
+          </div>
+          <div class="graph-panel">
+            <div class="row between"><span class="h2">Run graph</span><span class="badge acc">LangGraph</span></div>
+            <div class="graph">
+              <svg viewBox="0 0 382 290" preserveAspectRatio="none">
+                <g fill="none" stroke-width="2">
+                  <path d="M191 34V78" stroke="var(--accent)"/>
+                  <path d="M191 100C191 130 96 120 96 150" stroke="var(--accent)"/>
+                  <path d="M191 100C191 130 286 120 286 150" stroke="var(--accent)"/>
+                  <path d="M96 172C96 200 191 196 191 222" stroke="var(--accent)"/>
+                  <path d="M286 172C286 200 191 196 191 222" stroke="var(--accent)"/>
+                  <path d="M191 244V262" stroke="var(--border-strong)" stroke-dasharray="4 4"/>
+                </g>
+              </svg>
+              <div class="node" style="left:50%;top:12%"><i data-i="user" class="s"></i>Input + file</div>
+              <div class="node on" style="left:50%;top:31%"><i data-i="route" class="s"></i>Router</div>
+              <div class="node on" style="left:25%;top:55%"><i data-i="doc" class="s"></i>Gemini · summarise</div>
+              <div class="node on" style="left:75%;top:55%"><i data-i="spark" class="s"></i>OpenAI · copy</div>
+              <div class="node on" style="left:50%;top:80%"><i data-i="users" class="s"></i>AG2 reviewer</div>
+              <div class="node off" style="left:50%;top:94%">Stream answer</div>
+            </div>
+            <div class="card pad" style="padding:6px 14px">
+              <div class="trace"><i data-i="checkc" class="s"></i><span>Extract text · 38 pages</span><span class="mono xs muted">done</span></div>
+              <div class="trace"><i data-i="checkc" class="s"></i><span>Summarise · long-context model</span><span class="mono xs muted">done</span></div>
+              <div class="trace"><i data-i="checkc" class="s"></i><span>Draft SV + EN posts</span><span class="mono xs muted">done</span></div>
+              <div class="trace"><i data-i="checkc" class="s"></i><span>Reviewer agent checks tone</span><span class="mono xs muted">done</span></div>
+              <div class="trace"><i data-i="refresh" class="s" style="color:var(--live)"></i><span>Streaming over WebSocket</span><span class="mono xs" style="color:var(--live)">live</span></div>
+            </div>
+            <div class="card pad col gap8">
+              <div class="row between"><span class="b">Model mix today</span><span class="xs muted">by requests</span></div>
+              <div class="row" style="height:8px;border-radius:4px;overflow:hidden"><i style="flex:58;height:100%;background:var(--accent)"></i><i style="flex:42;height:100%;background:var(--violet)"></i></div>
+              <div class="row between xs t2"><span class="row gap6"><span class="dot" style="color:var(--accent)"></span>OpenAI 58%</span><span class="row gap6"><span class="dot" style="color:var(--violet)"></span>Gemini 42%</span></div>
+            </div>
+            <div class="row between sm" style="margin-top:auto"><span class="muted">Rate limit</span><span class="mono">42 / 60 req · min</span></div>
+            <div class="bar"><i style="width:70%"></i></div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+<script>document.getElementById("vw").innerHTML=[6,12,18,10,22,14,8,16,20,12,6,14,18,8,12,6].map(h=>`<i style="width:3px;height:${h}px;border-radius:2px;background:var(--accent);display:block"></i>`).join("");</script>
+<script src="_base.js"></script>
+</body>
+</html>

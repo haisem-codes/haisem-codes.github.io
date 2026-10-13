@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Tripline operations</title>
+<link rel="stylesheet" href="_base.css">
+<style>
+  .content { flex: 1; min-height: 0; padding: 20px 24px; display: flex; flex-direction: column; gap: 16px; background: var(--bg); }
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .kpi { padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; }
+  .kpi .v { font-family: var(--font-display); font-size: 26px; font-weight: 600; letter-spacing: -.02em; line-height: 1.1; }
+  .kpi .ic { width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); }
+  .grid2 { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 380px; gap: 16px; }
+  .lcol { display: flex; flex-direction: column; gap: 16px; min-height: 0; }
+  .tbl td { padding: 9px 16px; }
+  .gantt { display: flex; flex-direction: column; min-height: 0; }
+  .g-head, .g-row { display: grid; grid-template-columns: 170px 1fr; }
+  .g-head .hours { display: grid; grid-template-columns: repeat(8, 1fr); font-size: 11px; color: var(--muted); padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .g-head .hours span { padding-left: 6px; border-left: 1px solid var(--border); }
+  .g-row { border-bottom: 1px solid var(--border); height: 50px; }
+  .g-row .who { display: flex; align-items: center; gap: 10px; padding: 0 16px; font-size: 12.5px; border-right: 1px solid var(--border); }
+  .g-row .who .ic { width: 26px; height: 26px; border-radius: 7px; background: var(--surface-2); display: grid; place-items: center; color: var(--text-2); }
+  .g-row .who .ic svg { width: 14px; height: 14px; }
+  .track { position: relative; background-image: linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 12.5% 100%; }
+  .job { position: absolute; top: 9px; height: 32px; border-radius: 7px; padding: 0 9px; display: flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 600; white-space: nowrap; overflow: hidden; }
+  .job.a { background: var(--accent-soft); color: var(--accent); box-shadow: inset 3px 0 0 var(--accent); }
+  .job.v { background: var(--violet-soft); color: var(--violet); box-shadow: inset 3px 0 0 var(--violet); }
+  .job.o { background: var(--ok-soft); color: var(--ok); box-shadow: inset 3px 0 0 var(--ok); }
+  .job.w { background: var(--warn-soft); color: var(--warn); box-shadow: inset 3px 0 0 var(--warn); }
+  .now { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--bad); left: 41%; }
+  .g-row:not(:nth-child(3)) .now::before { display: none; }
+  .now::before { content: ""; position: absolute; top: -4px; left: -4px; width: 10px; height: 10px; border-radius: 50%; background: var(--bad); }
+  .tl { position: relative; padding-left: 22px; display: flex; flex-direction: column; gap: 14px; }
+  .tl::before { content: ""; position: absolute; left: 7px; top: 6px; bottom: 6px; width: 2px; background: var(--border); }
+  .tl .it { position: relative; display: flex; flex-direction: column; gap: 2px; }
+  .tl .it::before { content: ""; position: absolute; left: -20px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: var(--surface); border: 2px solid var(--accent); }
+  .tl .it.done::before { background: var(--accent); }
+  .note { border-radius: 10px; padding: 10px 12px; background: var(--surface-2); border: 1px solid var(--border); display: flex; gap: 10px; }
+  .note .wv { display: flex; gap: 2px; align-items: center; }
+  .note .wv i { width: 2.5px; border-radius: 2px; background: var(--accent); }
+</style>
+</head>
+<body>
+<div class="window">
+  <div class="window-bar" data-url="ops.tripline.travel/dashboard"></div>
+  <div class="viewport">
+    <div class="app">
+      <aside class="side">
+        <div class="brand"><div class="mark"><i data-i="route" data-w="2.2"></i></div>Tripline</div>
+        <div class="nav on"><i data-i="grid"></i>Operations</div>
+        <div class="nav"><i data-i="cal"></i>Bookings<span class="count">46</span></div>
+        <div class="nav"><i data-i="car"></i>Fleet</div>
+        <div class="nav"><i data-i="map"></i>Itineraries</div>
+        <div class="nav"><i data-i="card"></i>Payments</div>
+        <div class="up sec">Partners</div>
+        <div class="nav"><i data-i="bed"></i>Hotels</div>
+        <div class="nav"><i data-i="car"></i>Fleet operators</div>
+        <div class="nav"><i data-i="globe"></i>Tour operators</div>
+        <div class="nav"><i data-i="users"></i>Team &amp; roles</div>
+        <div class="foot">
+          <div class="mark" style="width:30px;height:30px;background:var(--violet-soft);color:var(--violet)"><i data-i="globe"></i></div>
+          <div class="col grow"><span class="b sm">Nordlys DMC</span><span class="xs muted">Tenant · Ops manager</span></div>
+          <i data-i="down" class="s" style="color:var(--muted)"></i>
+        </div>
+      </aside>
+      <section class="main">
+        <div class="topbar">
+          <div class="col"><span class="h2">Operations</span></div>
+          <span class="badge out">Tue 14 Oct</span>
+          <div class="grow"></div>
+          <div class="search"><i data-i="search" class="s"></i>Search bookings, guests<span class="kbd">⌘K</span></div>
+          <div class="btn"><i data-i="plus" data-w="2.4" class="s"></i>New booking</div>
+        </div>
+        <div class="content">
+          <div class="kpis">
+            <div class="card kpi"><div class="row between"><span class="sm muted">Active bookings</span><div class="ic"><i data-i="cal" class="s"></i></div></div><span class="v">46</span><span class="xs muted">12 arriving this week</span></div>
+            <div class="card kpi"><div class="row between"><span class="sm muted">Vehicles on the road</span><div class="ic"><i data-i="car" class="s"></i></div></div><span class="v">12<span class="muted" style="font-size:16px"> / 18</span></span><span class="xs muted">3 transfers in the next hour</span></div>
+            <div class="card kpi"><div class="row between"><span class="sm muted">Tours today</span><div class="ic"><i data-i="globe" class="s"></i></div></div><span class="v">7</span><span class="xs muted">2 operators confirmed late</span></div>
+            <div class="card kpi"><div class="row between"><span class="sm muted">Payments pending</span><div class="ic"><i data-i="card" class="s"></i></div></div><span class="v">3</span><span class="xs muted">Card rail · local currency</span></div>
+          </div>
+          <div class="grid2">
+            <div class="lcol">
+            <div class="card gantt">
+              <div class="card-h"><span>Fleet schedule</span><div class="row gap6"><span class="chip on">Today</span><span class="chip">Week</span></div></div>
+              <div class="g-head"><div></div><div class="hours"><span>08:00</span><span>09:00</span><span>10:00</span><span>11:00</span><span>12:00</span><span>13:00</span><span>14:00</span><span>15:00</span></div></div>
+              <div class="g-row"><div class="who"><div class="ic"><i data-i="car"></i></div><div class="col"><span class="b">Van 04</span><span class="xs muted">Driver · L. Moberg</span></div></div><div class="track"><div class="now"></div><div class="job a" style="left:3%;width:30%"><i data-i="plane" class="s"></i>Airport → Hotel Kaj</div><div class="job o" style="left:46%;width:36%">Archipelago tour · 6 pax</div></div></div>
+              <div class="g-row"><div class="who"><div class="ic"><i data-i="car"></i></div><div class="col"><span class="b">Sedan 11</span><span class="xs muted">Driver · A. Karimi</span></div></div><div class="track"><div class="now"></div><div class="job v" style="left:14%;width:22%">Hotel → Conference</div><div class="job w" style="left:44%;width:24%"><i data-i="clock" class="s"></i>Delayed pickup</div></div></div>
+              <div class="g-row"><div class="who"><div class="ic"><i data-i="car"></i></div><div class="col"><span class="b">Coach 02</span><span class="xs muted">Partner operator</span></div></div><div class="track"><div class="now"></div><div class="job o" style="left:0;width:52%">Old Town walking tour · 32 pax</div><div class="job a" style="left:60%;width:28%">Return transfer</div></div></div>
+              <div class="g-row"><div class="who"><div class="ic"><i data-i="car"></i></div><div class="col"><span class="b">Van 07</span><span class="xs muted">Driver · S. Nyberg</span></div></div><div class="track"><div class="now"></div><div class="job a" style="left:26%;width:26%"><i data-i="plane" class="s"></i>Airport → Strand</div><div class="job v" style="left:66%;width:30%">Dinner shuttle</div></div></div>
+              <div class="g-row" style="border-bottom:0"><div class="who"><div class="ic"><i data-i="car"></i></div><div class="col"><span class="b">Sedan 03</span><span class="xs muted">Unassigned</span></div></div><div class="track"><div class="now"></div><div class="job" style="left:36%;width:30%;border:1.5px dashed var(--border-strong);color:var(--muted)">+ Assign 13:30 transfer</div></div></div>
+            </div>
+            <div class="card" style="flex:1;min-height:0;overflow:hidden">
+              <div class="card-h"><span>Latest bookings</span><span class="chip">All partners<i data-i="down" class="s"></i></span></div>
+              <table class="tbl">
+                <tr><th>Ref</th><th>Partner</th><th>Service</th><th>Guests</th><th>Status</th></tr>
+                <tr><td class="mono">TL-2417</td><td><div class="row gap8"><i data-i="bed" class="s" style="color:var(--muted)"></i>Hotel Kaj</div></td><td class="t2">3 rooms · 4 nights</td><td>6</td><td><span class="badge ok">Confirmed</span></td></tr>
+                <tr><td class="mono">TL-2421</td><td><div class="row gap8"><i data-i="globe" class="s" style="color:var(--muted)"></i>Skärgård Tours</div></td><td class="t2">Boat tour · 12:00</td><td>6</td><td><span class="badge acc">Seats held</span></td></tr>
+                <tr><td class="mono">TL-2426</td><td><div class="row gap8"><i data-i="car" class="s" style="color:var(--muted)"></i>Fleet · Van 07</div></td><td class="t2">Airport transfer</td><td>4</td><td><span class="badge warn">Awaiting driver</span></td></tr>
+              </table>
+            </div>
+            </div>
+            <div class="card pad col gap12">
+              <div class="row between"><span class="h2">Itinerary · Group 2417</span><span class="badge ok">On track</span></div>
+              <div class="row gap8 sm t2"><div class="av s c3">HV</div>Hanna Viklund + 5 guests · Day 2 of 4</div>
+              <div class="hr"></div>
+              <div class="tl">
+                <div class="it done"><span class="b sm">08:40 Airport pickup</span><span class="xs muted">Van 04 · arrivals hall</span></div>
+                <div class="it done"><span class="b sm">10:15 Check-in, Hotel Kaj</span><span class="xs muted">3 rooms · confirmed by hotel</span></div>
+                <div class="it"><span class="b sm">12:00 Archipelago boat tour</span><span class="xs muted">Tour operator · 6 seats held</span></div>
+                <div class="it"><span class="b sm">19:00 Dinner shuttle</span><span class="xs muted">Van 07 · return 22:30</span></div>
+              </div>
+              <div class="note">
+                <div class="wv"><i style="height:8px"></i><i style="height:14px"></i><i style="height:10px"></i><i style="height:16px"></i><i style="height:7px"></i></div>
+                <div class="col gap4"><span class="xs b">Driver voice note · transcribed on device</span><span class="sm t2">“Group is through security, heading to the van now.”</span></div>
+              </div>
+              <div class="col gap8">
+                <span class="up">Access on this booking</span>
+                <div class="row between sm"><div class="row gap8"><div class="av s c6">MS</div>Mira Sjöberg</div><span class="badge acc">Ops manager</span></div>
+                <div class="row between sm"><div class="row gap8"><div class="av s c4">LM</div>L. Moberg</div><span class="badge">Driver · own trips</span></div>
+                <div class="row between sm"><div class="row gap8"><div class="av s c2">HK</div>Hotel Kaj front desk</div><span class="badge vio">Partner · rooms only</span></div>
+              </div>
+              <div class="note" style="margin-top:auto;background:var(--surface);align-items:center">
+                <div class="mark" style="width:30px;height:30px;background:var(--ok-soft);color:var(--ok)"><i data-i="card" class="s"></i></div>
+                <div class="col grow"><span class="sm b">Deposit paid · 18 400 kr</span><span class="xs muted">Card rail · balance due 20 Oct</span></div>
+                <span class="btn ghost sm">Invoice</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+<script src="_base.js"></script>
+</body>
+</html>

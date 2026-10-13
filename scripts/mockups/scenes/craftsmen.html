@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Handyr assistant</title>
+<link rel="stylesheet" href="_base.css">
+<style>
+  .seg { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px; border-radius: 10px; background: var(--surface-2); border: 1px solid var(--border); margin-bottom: 14px; }
+  .seg span { text-align: center; padding: 6px 0; border-radius: 7px; font-size: 12px; font-weight: 600; color: var(--muted); }
+  .seg span.on { background: var(--surface); color: var(--text); box-shadow: var(--shadow); }
+  .content { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 400px; background: var(--bg); }
+  .chat { display: flex; flex-direction: column; min-height: 0; border-right: 1px solid var(--border); }
+  .thread { flex: 1; min-height: 0; padding: 22px 28px; display: flex; flex-direction: column; gap: 18px; overflow: hidden; }
+  .me { align-self: flex-end; max-width: 70%; display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+  .me .bub { background: var(--accent); color: var(--accent-ink); padding: 11px 14px; border-radius: 14px 14px 4px 14px; font-size: 13.5px; }
+  .photo { width: 270px; height: 170px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); position: relative; }
+  .photo svg { width: 100%; height: 100%; display: block; }
+  .photo .tag { position: absolute; left: 10px; top: 10px; padding: 3px 7px; border-radius: 5px; background: var(--bad); color: #fff; font-size: 10.5px; font-weight: 700; }
+  html[data-theme="night"] .photo .tag { color: #0A0A0B; }
+  .bot { display: flex; gap: 12px; max-width: 88%; }
+  .bot-av { width: 32px; height: 32px; border-radius: 10px; background: linear-gradient(135deg, var(--accent), var(--violet)); color: #fff; display: grid; place-items: center; flex: none; }
+  .bot-av svg { width: 17px; height: 17px; }
+  .bot .body { display: flex; flex-direction: column; gap: 10px; }
+  .bot .txt { font-size: 13.5px; line-height: 1.55; }
+  .summary { display: grid; grid-template-columns: repeat(4, auto); gap: 0; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); overflow: hidden; }
+  .summary > div { padding: 10px 14px; border-left: 1px solid var(--border); display: flex; flex-direction: column; gap: 2px; }
+  .summary > div:first-child { border-left: 0; }
+  .pros { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .pro { padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+  .pro.best { border-color: var(--accent-line); box-shadow: 0 0 0 3px var(--accent-soft); }
+  .stars { color: #F59E0B; display: flex; align-items: center; gap: 4px; font-weight: 600; font-size: 12px; }
+  .stars svg { width: 13px; height: 13px; fill: currentColor; }
+  .composer { margin: 0 28px 20px; display: flex; align-items: center; gap: 10px; height: 50px; padding: 0 8px 0 16px; border-radius: 14px; border: 1px solid var(--border-strong); background: var(--surface); box-shadow: var(--shadow); color: var(--muted); }
+  .composer .send { margin-left: auto; width: 36px; height: 36px; border-radius: 10px; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; }
+  .insp { padding: 18px; display: flex; flex-direction: column; gap: 14px; background: var(--surface); overflow: hidden; }
+  .code { font-family: var(--font-mono); font-size: 12px; line-height: 1.7; padding: 12px 14px; border-radius: 10px; background: var(--surface-2); border: 1px solid var(--border); color: var(--text-2); }
+  .code .k { color: var(--violet); } .code .s { color: var(--ok); } .code .n { color: var(--warn); }
+  .stage { display: flex; align-items: center; gap: 8px; font-size: 12px; }
+  .stage .num { width: 20px; height: 20px; border-radius: 6px; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; font-size: 11px; font-weight: 700; }
+  .rank { display: grid; grid-template-columns: 1fr 110px 40px; align-items: center; gap: 10px; font-size: 12.5px; padding: 6px 0; }
+</style>
+</head>
+<body>
+<div class="window">
+  <div class="window-bar" data-url="app.handyr.se/assistant"></div>
+  <div class="viewport">
+    <div class="app">
+      <aside class="side">
+        <div class="brand"><div class="mark"><i data-i="wrench" data-w="2.2"></i></div>Handyr</div>
+        <div class="seg"><span class="on">Customer</span><span>Pro</span><span>Field</span><span>Admin</span></div>
+        <div class="nav on"><i data-i="sparkles"></i>Assistant</div>
+        <div class="nav"><i data-i="search"></i>Find a pro</div>
+        <div class="nav"><i data-i="file"></i>My jobs<span class="count">2</span></div>
+        <div class="nav"><i data-i="msg"></i>Messages<span class="count">1</span></div>
+        <div class="nav"><i data-i="card"></i>Payments</div>
+        <div class="up sec">Recent</div>
+        <div class="nav"><span class="ellipsis">Kitchen sink leak</span></div>
+        <div class="nav"><span class="ellipsis">Repaint hallway</span></div>
+        <div class="nav"><span class="ellipsis">Replace bathroom fan</span></div>
+        <div class="foot">
+          <div class="av c4">KB</div>
+          <div class="col grow"><span class="b sm">Klara Berg</span><span class="xs muted">Customer</span></div>
+          <i data-i="more" class="s" style="color:var(--muted)"></i>
+        </div>
+      </aside>
+      <section class="main">
+        <div class="topbar">
+          <div class="crumb"><b>Kitchen sink leak</b></div>
+          <span class="badge acc"><i data-i="sparkles" class="s"></i>Assistant</span>
+          <div class="grow"></div>
+          <span class="sm muted">Remembers: prefers mornings · pays by card</span>
+          <div class="btn ghost sm"><i data-i="refresh" class="s"></i>New request</div>
+        </div>
+        <div class="content">
+          <div class="chat">
+            <div class="thread">
+              <div class="me">
+                <div class="photo"><svg viewBox="0 0 270 170" id="sink"></svg><span class="tag">Leak · P-trap</span></div>
+                <div class="bub">Water is dripping under the kitchen sink. Can someone come tomorrow morning?</div>
+              </div>
+              <div class="bot">
+                <div class="bot-av"><i data-i="sparkles" data-w="2"></i></div>
+                <div class="body">
+                  <div class="txt">From the photo it looks like a loose or worn <b>P-trap seal</b>, usually a short visit. Put a bowl under it and close the valve under the sink if it gets worse. I found three plumbers free tomorrow morning near you:</div>
+                  <div class="summary">
+                    <div><span class="up">Category</span><span class="b">Plumbing</span></div>
+                    <div><span class="up">When</span><span class="b">Tomorrow 08–11</span></div>
+                    <div><span class="up">Where</span><span class="b">Södermalm</span></div>
+                    <div><span class="up">Estimate</span><span class="b">900–1 400 kr</span></div>
+                  </div>
+                  <div class="pros">
+                    <div class="card pro best">
+                      <div class="row gap8"><div class="av c1">NR</div><div class="col"><span class="b sm">Nils Rör AB</span><span class="xs muted">1.2 km away</span></div></div>
+                      <div class="row between"><span class="stars"><i data-i="star"></i>4.9</span><span class="badge ok">08:30</span></div>
+                      <span class="btn sm" style="justify-content:center">Book 08:30</span>
+                    </div>
+                    <div class="card pro">
+                      <div class="row gap8"><div class="av c3">SV</div><div class="col"><span class="b sm">Sofia VVS</span><span class="xs muted">2.0 km away</span></div></div>
+                      <div class="row between"><span class="stars"><i data-i="star"></i>4.8</span><span class="badge ok">09:00</span></div>
+                      <span class="btn ghost sm" style="justify-content:center">Book 09:00</span>
+                    </div>
+                    <div class="card pro">
+                      <div class="row gap8"><div class="av c6">AE</div><div class="col"><span class="b sm">Ali Eriksson</span><span class="xs muted">2.6 km away</span></div></div>
+                      <div class="row between"><span class="stars"><i data-i="star"></i>4.7</span><span class="badge ok">10:30</span></div>
+                      <span class="btn ghost sm" style="justify-content:center">Book 10:30</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row gap10" style="align-self:center">
+                <span class="badge ok" style="height:28px;padding:0 12px"><i data-i="checkc" class="s"></i>Booked · Nils Rör AB · tomorrow 08:30 · deposit held</span>
+              </div>
+            </div>
+            <div class="composer"><i data-i="camera"></i><span>Ask anything, or add a photo…</span><span class="send"><i data-i="send" class="s"></i></span></div>
+          </div>
+          <div class="insp">
+            <div class="row between"><span class="h2">How this was matched</span><span class="badge out">Admin view</span></div>
+            <div class="col gap8">
+              <div class="stage"><span class="num">1</span>Intake parsed the request and photo</div>
+              <div class="code">{<br>&nbsp;&nbsp;<span class="k">"category"</span>: <span class="s">"plumbing"</span>,<br>&nbsp;&nbsp;<span class="k">"issue"</span>: <span class="s">"p_trap_leak"</span>,<br>&nbsp;&nbsp;<span class="k">"urgency"</span>: <span class="s">"next_day_am"</span>,<br>&nbsp;&nbsp;<span class="k">"area"</span>: <span class="s">"Södermalm"</span>,<br>&nbsp;&nbsp;<span class="k">"needs_vision"</span>: <span class="n">true</span><br>}</div>
+            </div>
+            <div class="col gap8">
+              <div class="stage"><span class="num">2</span>Hybrid search · semantic + keyword</div>
+              <div class="stage"><span class="num">3</span>Cross-encoder rerank</div>
+              <div class="card pad" style="padding:8px 14px">
+                <div class="rank"><span>Nils Rör AB</span><div class="bar"><i style="width:94%"></i></div><span class="mono xs">0.94</span></div>
+                <div class="rank"><span>Sofia VVS</span><div class="bar"><i style="width:88%"></i></div><span class="mono xs">0.88</span></div>
+                <div class="rank"><span>Ali Eriksson</span><div class="bar"><i style="width:81%"></i></div><span class="mono xs">0.81</span></div>
+                <div class="rank muted"><span>Stad &amp; Bygg</span><div class="bar"><i style="width:42%;background:var(--border-strong)"></i></div><span class="mono xs">0.42</span></div>
+              </div>
+            </div>
+            <div class="col gap8">
+              <div class="stage"><span class="num">4</span>Tools available in Customer mode</div>
+              <div class="row gap6 wrap"><span class="chip">estimate_price</span><span class="chip">find_slots</span><span class="chip">book_job</span><span class="chip">analyse_photo</span><span class="chip">pay_deposit</span></div>
+            </div>
+            <div class="card pad col gap8" style="margin-top:auto">
+              <div class="row between"><span class="b">Long-term memory</span><span class="xs muted">Across sessions</span></div>
+              <div class="row gap8 sm t2"><i data-i="clock" class="s" style="color:var(--accent)"></i>Prefers morning visits</div>
+              <div class="row gap8 sm t2"><i data-i="card" class="s" style="color:var(--accent)"></i>Pays by card · deposit OK</div>
+              <div class="row gap8 sm t2"><i data-i="home" class="s" style="color:var(--accent)"></i>Rental flat · landlord approves larger jobs</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+<script>
+  const night = new URLSearchParams(location.search).get("theme") === "night";
+  const c = night
+    ? { bg1: "#1E2228", bg2: "#14171B", cab: "#2A2622", pipe: "#9AA3AD", sh: "#5F6872", drop: "#7DD3FC", floor: "#191512" }
+    : { bg1: "#EDE7DF", bg2: "#DCD3C8", cab: "#F7F2EA", pipe: "#B9C1C9", sh: "#8A939C", drop: "#38A3E0", floor: "#C9B79F" };
+  document.getElementById("sink").innerHTML = `
+    <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c.bg2}"/><stop offset="1" stop-color="${c.bg1}"/></linearGradient>
+    <linearGradient id="p" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="${c.sh}"/><stop offset=".45" stop-color="${c.pipe}"/><stop offset="1" stop-color="${c.sh}"/></linearGradient></defs>
+    <rect width="270" height="170" fill="url(#g)"/>
+    <path d="M30 0H240V14C240 30 220 38 200 38H70C50 38 30 30 30 14Z" fill="${c.sh}" opacity=".55"/>
+    <rect x="0" y="0" width="16" height="170" fill="${c.cab}"/><rect x="254" y="0" width="16" height="170" fill="${c.cab}"/>
+    <rect x="0" y="146" width="270" height="24" fill="${c.floor}"/>
+    <path d="M110 36V88a26 26 0 0 0 52 0V76H254" stroke="url(#p)" stroke-width="14" fill="none" stroke-linejoin="round"/>
+    <path d="M110 36V88a26 26 0 0 0 52 0V76H254" stroke="${c.pipe}" stroke-width="2" fill="none" opacity=".6" transform="translate(-3 0)"/>
+    <rect x="101" y="78" width="18" height="8" rx="2" fill="${c.sh}"/><rect x="153" y="70" width="18" height="8" rx="2" fill="${c.sh}"/>
+    <path d="M200 120V146M230 120V146" stroke="${c.pipe}" stroke-width="5"/><circle cx="200" cy="120" r="6" fill="#2F6FB5"/><circle cx="230" cy="120" r="6" fill="#C0392B"/>
+    <path d="M136 120c-3 6-3 9 0 10 3-1 3-4 0-10zM130 134c-2 4-2 6 0 7 2-1 2-3 0-7z" fill="${c.drop}"/>
+    <ellipse cx="134" cy="152" rx="30" ry="5" fill="${c.drop}" opacity=".4"/>
+    <rect x="96" y="62" width="82" height="62" rx="8" fill="none" stroke="#E5484D" stroke-width="2.2" stroke-dasharray="6 4"/>`;
+</script>
+<script src="_base.js"></script>
+</body>
+</html>

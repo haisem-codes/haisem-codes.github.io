@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>VoiceDesk live call</title>
+<link rel="stylesheet" href="_base.css">
+<style>
+  .content { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 440px; gap: 20px; padding: 20px 24px; background: var(--bg); }
+  .left, .right { display: flex; flex-direction: column; gap: 16px; min-height: 0; }
+  .call { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+  .callhead { display: flex; align-items: center; gap: 14px; padding: 16px 18px; border-bottom: 1px solid var(--border); }
+  .wave { display: flex; align-items: center; gap: 3px; height: 34px; }
+  .wave i { width: 3px; border-radius: 2px; background: var(--accent); opacity: .85; }
+  .wave i.dim { background: var(--border-strong); opacity: 1; }
+  .tx { flex: 1; min-height: 0; padding: 18px; display: flex; flex-direction: column; gap: 14px; overflow: hidden; }
+  .msg { display: flex; gap: 10px; max-width: 86%; }
+  .msg .bub { padding: 10px 13px; border-radius: 12px; background: var(--surface-2); border: 1px solid var(--border); font-size: 13.5px; line-height: 1.5; }
+  .msg.agent .bub { background: var(--accent-soft); border-color: transparent; }
+  .msg.lead { align-self: flex-end; flex-direction: row-reverse; }
+  .msg .who { font-size: 11px; color: var(--muted); margin-bottom: 4px; font-weight: 600; }
+  .msg.lead .who { text-align: right; }
+  .agent-av { width: 30px; height: 30px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; flex: none; }
+  .agent-av svg { width: 16px; height: 16px; }
+  .tool { align-self: center; display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-2); padding: 6px 12px; border-radius: 999px; border: 1px dashed var(--border-strong); background: var(--surface); }
+  .tool .mono { color: var(--accent); }
+  .typing { display: flex; gap: 4px; padding: 12px 14px; }
+  .typing i { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); opacity: .5; }
+  .typing i:nth-child(2) { opacity: .75; } .typing i:nth-child(3) { opacity: 1; }
+  .tier { display: flex; gap: 6px; }
+  .tier span { flex: 1; text-align: center; padding: 8px 0; border-radius: 8px; border: 1px solid var(--border); font-weight: 600; color: var(--muted); font-size: 12.5px; }
+  .tier span.hot { background: var(--bad-soft); color: var(--bad); border-color: transparent; box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--bad) 40%, transparent); }
+  .rule { display: flex; align-items: center; gap: 9px; font-size: 12.5px; padding: 5px 0; }
+  .rule .ico { color: var(--ok); }
+  .rule .src { margin-left: auto; font-size: 11px; color: var(--muted); }
+  .slots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .slot { text-align: center; padding: 7px 0; border-radius: 8px; border: 1px solid var(--border); font-size: 12px; font-weight: 500; color: var(--text-2); }
+  .slot.off { color: var(--muted); text-decoration: line-through; background: var(--surface-2); }
+  .slot.pick { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 600; }
+  .auto { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-top: 1px solid var(--border); font-size: 12.5px; }
+  .auto:first-child { border-top: 0; }
+  .auto .ic { width: 26px; height: 26px; border-radius: 7px; display: grid; place-items: center; background: var(--surface-2); color: var(--text-2); flex: none; }
+  .auto .ic svg { width: 14px; height: 14px; }
+  .q td { padding: 9px 16px; }
+</style>
+</head>
+<body>
+<div class="window">
+  <div class="window-bar" data-url="app.voicedesk.io/live"></div>
+  <div class="viewport">
+    <div class="app">
+      <aside class="side">
+        <div class="brand"><div class="mark"><i data-i="wave" data-w="2.2"></i></div>VoiceDesk</div>
+        <div class="nav on"><i data-i="phone"></i>Live calls<span class="count" style="color:var(--live)">2</span></div>
+        <div class="nav"><i data-i="users"></i>Leads</div>
+        <div class="nav"><i data-i="cal"></i>Bookings</div>
+        <div class="nav"><i data-i="cpu"></i>Agents</div>
+        <div class="nav"><i data-i="layers"></i>Templates</div>
+        <div class="nav"><i data-i="route"></i>Automations</div>
+        <div class="up sec">Templates</div>
+        <div class="nav"><i data-i="home"></i>Real estate</div>
+        <div class="nav"><i data-i="card"></i>Mortgage</div>
+        <div class="nav"><i data-i="msg"></i>Inbound concierge</div>
+        <div class="foot">
+          <div class="mark" style="width:30px;height:30px;background:var(--surface-3);color:var(--text)"><i data-i="home"></i></div>
+          <div class="col grow"><span class="b sm">Harbor Homes</span><span class="xs muted">Demo workspace</span></div>
+          <i data-i="down" class="s" style="color:var(--muted)"></i>
+        </div>
+      </aside>
+      <section class="main">
+        <div class="topbar">
+          <div class="crumb">Live calls <i data-i="right" class="s"></i> <b>Maja Ekström</b></div>
+          <span class="badge live" style="background:var(--warn-soft)"><span class="dot"></span>Live · 01:52</span>
+          <div class="grow"></div>
+          <div class="search"><i data-i="search" class="s"></i>Search leads<span class="kbd">⌘K</span></div>
+          <div class="btn ghost"><i data-i="phone" class="s"></i>Take over call</div>
+        </div>
+        <div class="content">
+          <div class="left">
+            <div class="card call">
+              <div class="callhead">
+                <div class="av l c5">ME</div>
+                <div class="col gap4 grow">
+                  <span class="h2">Maja Ekström</span>
+                  <span class="sm muted">New lead from ad form · buying in 3 months · called 21:40</span>
+                </div>
+                <div class="wave" id="wave"></div>
+                <div class="btn ghost sm"><i data-i="micoff" class="s"></i>Mute</div>
+              </div>
+              <div class="tx">
+                <div class="msg agent">
+                  <div class="agent-av"><i data-i="wave" data-w="2.2"></i></div>
+                  <div><div class="who">Agent · Real-estate template</div><div class="bub">Hi Maja, this is Nova calling for Harbor Homes. You asked about three-bedroom homes near the waterfront tonight. Is now a good time?</div></div>
+                </div>
+                <div class="msg lead">
+                  <div class="av c5">ME</div>
+                  <div><div class="who">Maja</div><div class="bub">Yes, perfect. We sold our flat, so we want to move before summer.</div></div>
+                </div>
+                <div class="msg agent">
+                  <div class="agent-av"><i data-i="wave" data-w="2.2"></i></div>
+                  <div><div class="who">Agent</div><div class="bub">Great. Your form says a budget up to $650k and you're already pre-approved. Would you like a call with an agent this week to walk through listings?</div></div>
+                </div>
+                <div class="tool"><i data-i="cal" class="s"></i>Checked calendar <span class="mono">get_free_slots</span> · 4 slots Thu</div>
+                <div class="msg lead">
+                  <div class="av c5">ME</div>
+                  <div><div class="who">Maja</div><div class="bub">Thursday morning works.</div></div>
+                </div>
+                <div class="msg agent">
+                  <div class="agent-av"><i data-i="wave" data-w="2.2"></i></div>
+                  <div class="bub typing"><i></i><i></i><i></i></div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-h"><span>Lead queue</span><span class="sm muted" style="font-weight:500">Auto-dial on every new form</span></div>
+              <table class="tbl q">
+                <tr><td><div class="row gap10"><div class="av s c2">JS</div>Johan Sund</div></td><td class="muted">Mortgage</td><td><span class="badge live" style="background:var(--warn-soft)"><span class="dot"></span>Calling</span></td><td class="muted sm">21:43</td></tr>
+                <tr><td><div class="row gap10"><div class="av s c4">AL</div>Amira Lund</div></td><td class="muted">Real estate</td><td><span class="badge ok">Booked · Fri 14:00</span></td><td class="muted sm">21:12</td></tr>
+                <tr><td><div class="row gap10"><div class="av s c3">PH</div>Petter Holm</div></td><td class="muted">Real estate</td><td><span class="badge">No answer · SMS sent</span></td><td class="muted sm">20:58</td></tr>
+              </table>
+            </div>
+          </div>
+          <div class="right">
+            <div class="card pad col gap12">
+              <div class="row between"><span class="h2">Qualification</span><span class="xs muted">Client-approved rules</span></div>
+              <div class="tier"><span class="hot">Hot</span><span>Warm</span><span>Cold</span></div>
+              <div>
+                <div class="rule"><i data-i="checkc" class="s"></i>Timeline under 6 months<span class="src">“before summer”</span></div>
+                <div class="rule"><i data-i="checkc" class="s"></i>Pre-approved for financing<span class="src">Form</span></div>
+                <div class="rule"><i data-i="checkc" class="s"></i>Area in service region<span class="src">Form</span></div>
+                <div class="rule"><i data-i="checkc" class="s"></i>Wants to speak with an agent<span class="src">Call</span></div>
+              </div>
+            </div>
+            <div class="card pad col gap12">
+              <div class="row between"><span class="h2">Book into calendar</span><span class="badge acc">Thu 16 Oct</span></div>
+              <div class="slots">
+                <div class="slot off">09:00</div><div class="slot pick">10:30</div><div class="slot">13:00</div><div class="slot">15:30</div>
+              </div>
+              <div class="row gap8 sm t2"><i data-i="user" class="s"></i>Listing call with Erik Dahl · 30 min</div>
+            </div>
+            <div class="card pad" style="flex:1">
+              <div class="row between" style="margin-bottom:6px"><span class="h2">After the call</span><span class="xs muted">n8n flow</span></div>
+              <div class="auto"><div class="ic"><i data-i="doc"></i></div><span class="grow">Write call notes to CRM contact</span><span class="badge acc">Queued</span></div>
+              <div class="auto"><div class="ic"><i data-i="hash"></i></div><span class="grow">Tag lead <b>Hot</b> · move pipeline stage</span><span class="badge acc">Queued</span></div>
+              <div class="auto"><div class="ic"><i data-i="send"></i></div><span class="grow">Confirmation email to lead</span><span class="badge acc">Queued</span></div>
+              <div class="auto"><div class="ic"><i data-i="bell"></i></div><span class="grow">Internal email to the listing agent</span><span class="badge acc">Queued</span></div>
+              <div class="auto"><div class="ic"><i data-i="msg"></i></div><span class="grow muted">SMS + nurture if no answer</span><span class="badge">Skipped</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+<script>
+  const h = [6,10,16,24,30,22,14,26,32,20,12,18,28,34,24,16,10,20,26,14,8,12,6,6,6,6];
+  document.getElementById("wave").innerHTML = h.map((v, i) => `<i class="${i > 21 ? "dim" : ""}" style="height:${v}px"></i>`).join("");
+</script>
+<script src="_base.js"></script>
+</body>
+</html>

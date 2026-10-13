@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Postura screens</title>
+<link rel="stylesheet" href="_base.css">
+<style>
+  .cam .screen { background: #0B0F14; color: #fff; }
+  .cam .status { color: #fff; position: absolute; top: 0; left: 0; right: 0; z-index: 3; }
+  .cam svg.scene { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .cam .over { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; padding: 62px 18px 34px; }
+  .glass { background: rgba(10, 14, 20, .55); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.12); border-radius: 14px; }
+  .cam .pill { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 12px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+  .angles { display: grid; grid-template-columns: repeat(4, 1fr); padding: 10px 6px; text-align: center; }
+  .angles b { display: block; font-family: var(--font-display); font-size: 18px; }
+  .angles span { font-size: 10.5px; color: rgba(255,255,255,.65); }
+  .shutter { width: 70px; height: 70px; border-radius: 50%; border: 4px solid #fff; display: grid; place-items: center; }
+  .shutter i { width: 54px; height: 54px; border-radius: 50%; background: #fff; }
+  .gauge { position: relative; width: 200px; height: 120px; margin: 4px auto 0; }
+  .gauge svg { width: 200px; height: 120px; }
+  .gauge .num { position: absolute; left: 0; right: 0; bottom: 4px; text-align: center; }
+  .gauge .num b { font-family: var(--font-display); font-size: 46px; font-weight: 600; letter-spacing: -.04em; line-height: 1; }
+  .sect { display: flex; flex-direction: column; gap: 6px; padding: 10px 0; border-top: 1px solid var(--border); }
+  .sect:first-child { border-top: 0; padding-top: 2px; }
+  .score { font-family: var(--font-mono); font-weight: 600; font-size: 12px; padding: 2px 8px; border-radius: 6px; }
+  .s-ok { background: var(--ok-soft); color: var(--ok); } .s-warn { background: var(--warn-soft); color: var(--warn); } .s-bad { background: var(--bad-soft); color: var(--bad); }
+  .desk { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-top: 1px solid var(--border); }
+  .desk:first-child { border-top: 0; }
+  .desk .thumbp { width: 42px; height: 42px; border-radius: 10px; background: var(--surface-2); border: 1px solid var(--border); display: grid; place-items: center; color: var(--muted); }
+  .seg2 { display: grid; grid-template-columns: repeat(3, 1fr); padding: 3px; border-radius: 10px; background: var(--surface-3); }
+  .seg2 span { text-align: center; padding: 6px 0; border-radius: 8px; font-size: 12px; font-weight: 600; color: var(--muted); }
+  .seg2 span.on { background: var(--surface); color: var(--text); box-shadow: var(--shadow); }
+</style>
+</head>
+<body>
+<div class="phones">
+
+  <div class="phone tilt cam">
+    <div class="screen">
+      <div class="status"></div>
+      <svg class="scene" viewBox="0 0 362 790" preserveAspectRatio="xMidYMid slice" id="scene"></svg>
+      <div class="over">
+        <div class="row between">
+          <span class="pill glass"><i data-i="lock" class="s"></i>On-device · offline</span>
+          <span class="pill glass" style="color:#7DD3FC"><span class="dot"></span>Tracking</span>
+        </div>
+        <div class="grow"></div>
+        <div class="glass angles">
+          <div><b>38°</b><span>Neck</span></div>
+          <div><b>104°</b><span>Hip</span></div>
+          <div><b>92°</b><span>Knee</span></div>
+          <div><b>88°</b><span>Elbow</span></div>
+        </div>
+        <div class="row between" style="margin-top:18px;padding:0 18px">
+          <div class="ph-round" style="background:rgba(255,255,255,.12);border-color:transparent;color:#fff"><i data-i="image"></i></div>
+          <div class="shutter"><i></i></div>
+          <div class="ph-round" style="background:rgba(255,255,255,.12);border-color:transparent;color:#fff"><i data-i="refresh"></i></div>
+        </div>
+        <div style="text-align:center;margin-top:14px;font-size:12.5px;color:rgba(255,255,255,.75)">Side view · hold still for a moment</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="phone">
+    <div class="screen">
+      <div class="status"></div>
+      <div class="ph-top"><div class="ph-round"><i data-i="left"></i></div><span class="b md">Assessment</span><div class="ph-round"><i data-i="upload"></i></div></div>
+      <div class="ph-body">
+        <div class="ph-card" style="padding-bottom:12px">
+          <div class="gauge">
+            <svg viewBox="0 0 200 120"><path d="M20 105A80 80 0 0 1 180 105" stroke="var(--surface-3)" stroke-width="14" fill="none" stroke-linecap="round"/><path d="M20 105A80 80 0 0 1 82 27" stroke="var(--warn)" stroke-width="14" fill="none" stroke-linecap="round"/></svg>
+            <div class="num"><b>4</b><span class="muted md"> / 10</span></div>
+          </div>
+          <div style="text-align:center" class="col gap4">
+            <span class="badge warn" style="align-self:center">Medium risk · ROSA</span>
+            <span class="xs muted">Desk 3B · scored on this phone in real time</span>
+          </div>
+        </div>
+        <div class="ph-card">
+          <div class="sect"><div class="row between"><span class="b">Chair</span><span class="score s-warn">5</span></div><span class="xs muted">Seat too high · no lumbar support in use</span><div class="bar"><i style="width:55%;background:var(--warn)"></i></div></div>
+          <div class="sect"><div class="row between"><span class="b">Monitor &amp; phone</span><span class="score s-bad">6</span></div><span class="xs muted">Screen below eye level · neck 38° forward</span><div class="bar"><i style="width:66%;background:var(--bad)"></i></div></div>
+          <div class="sect"><div class="row between"><span class="b">Keyboard &amp; mouse</span><span class="score s-ok">2</span></div><span class="xs muted">Wrists neutral · mouse within reach</span><div class="bar"><i style="width:22%;background:var(--ok)"></i></div></div>
+        </div>
+        <div class="ph-card col gap8">
+          <span class="b">Quick fixes</span>
+          <div class="row gap8 sm t2"><i data-i="checkc" class="s" style="color:var(--accent)"></i>Raise the monitor about 10 cm</div>
+          <div class="row gap8 sm t2"><i data-i="checkc" class="s" style="color:var(--accent)"></i>Lower the seat until feet rest flat</div>
+        </div>
+      </div>
+      <div class="tabbar"><span><i data-i="camera"></i>Assess</span><span class="on"><i data-i="chart"></i>Results</span><span><i data-i="grid"></i>Desks</span><span><i data-i="gear"></i>Settings</span></div>
+    </div>
+  </div>
+
+  <div class="phone tilt">
+    <div class="screen">
+      <div class="status"></div>
+      <div class="ph-body" style="padding-top:10px">
+        <div class="col gap4"><span class="up">Office audit</span><span class="ph-title">Floor 3</span></div>
+        <div class="ph-card col gap8">
+          <div class="row between sm"><span class="b">18 of 40 desks</span><span class="muted">45%</span></div>
+          <div class="bar"><i style="width:45%"></i></div>
+          <div class="row gap6 xs t2"><span class="badge ok">11 low</span><span class="badge warn">5 medium</span><span class="badge bad">2 high</span></div>
+        </div>
+        <div class="seg2"><span class="on">All</span><span>Needs action</span><span>To do</span></div>
+        <div class="ph-card" style="padding:4px 16px">
+          <div class="desk"><div class="thumbp"><i data-i="user"></i></div><div class="col grow"><span class="b">Desk 3A</span><span class="xs muted">Today 09:12</span></div><span class="score s-ok">2</span></div>
+          <div class="desk"><div class="thumbp"><i data-i="user"></i></div><div class="col grow"><span class="b">Desk 3B</span><span class="xs muted">Today 09:18</span></div><span class="score s-warn">4</span></div>
+          <div class="desk"><div class="thumbp"><i data-i="user"></i></div><div class="col grow"><span class="b">Desk 3C</span><span class="xs muted">Today 09:25</span></div><span class="score s-bad">7</span></div>
+          <div class="desk"><div class="thumbp"><i data-i="user"></i></div><div class="col grow"><span class="b">Desk 3D</span><span class="xs muted">Today 09:31</span></div><span class="score s-ok">3</span></div>
+          <div class="desk"><div class="thumbp"><i data-i="camera"></i></div><div class="col grow"><span class="b">Desk 3E</span><span class="xs muted">Not assessed</span></div><i data-i="right" class="s" style="color:var(--muted)"></i></div>
+        </div>
+      </div>
+      <div class="tabbar"><span><i data-i="camera"></i>Assess</span><span><i data-i="chart"></i>Results</span><span class="on"><i data-i="grid"></i>Desks</span><span><i data-i="gear"></i>Settings</span></div>
+    </div>
+  </div>
+
+</div>
+<script>
+  document.getElementById("scene").innerHTML = `
+    <defs>
+      <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2A3442"/><stop offset="1" stop-color="#151B23"/></linearGradient>
+      <linearGradient id="win" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5B7A99"/><stop offset="1" stop-color="#2C3E52"/></linearGradient>
+      <radialGradient id="mon" cx=".5" cy=".5" r=".7"><stop offset="0" stop-color="#9FD3F5"/><stop offset="1" stop-color="#3E6D8E"/></radialGradient>
+    </defs>
+    <rect width="362" height="790" fill="url(#wall)"/>
+    <rect x="18" y="120" width="120" height="170" rx="4" fill="url(#win)" opacity=".55"/>
+    <path d="M78 120V290M18 205H138" stroke="#1C242E" stroke-width="5"/>
+    <rect x="0" y="620" width="362" height="170" fill="#11161C"/>
+    <rect x="190" y="430" width="172" height="12" rx="3" fill="#6B5240"/>
+    <rect x="340" y="442" width="10" height="178" fill="#4A392D"/>
+    <rect x="276" y="318" width="74" height="98" rx="5" fill="#0D1117" stroke="#2E3946" stroke-width="3"/>
+    <rect x="281" y="323" width="64" height="88" rx="2" fill="url(#mon)" opacity=".75"/>
+    <rect x="306" y="416" width="14" height="14" fill="#2E3946"/>
+    <rect x="236" y="424" width="40" height="6" rx="2" fill="#2E3946"/>
+    <path d="M96 360V500" stroke="#262E38" stroke-width="16" stroke-linecap="round"/>
+    <path d="M92 506H196" stroke="#262E38" stroke-width="14" stroke-linecap="round"/>
+    <path d="M144 512V600M110 610H180" stroke="#262E38" stroke-width="8" stroke-linecap="round"/>
+    <g stroke="#4F6275" stroke-linecap="round" fill="none">
+      <path d="M128 486L156 336" stroke-width="44"/>
+      <path d="M134 492H244L250 600" stroke-width="30"/>
+      <path d="M160 350L186 418L248 424" stroke-width="16"/>
+      <path d="M250 600H276" stroke-width="16"/>
+    </g>
+    <circle cx="190" cy="282" r="30" fill="#4F6275"/>
+    <rect x="96" y="232" width="180" height="384" rx="6" fill="none" stroke="#FFB547" stroke-width="2"/>
+    <rect x="96" y="212" width="98" height="20" rx="4" fill="#FFB547"/><text x="103" y="226" font-family="JetBrains Mono" font-size="11" font-weight="600" fill="#1A1206">person 0.97</text>
+    <rect x="270" y="312" width="86" height="124" rx="6" fill="none" stroke="#FFB547" stroke-width="2"/>
+    <rect x="270" y="292" width="86" height="20" rx="4" fill="#FFB547"/><text x="276" y="306" font-family="JetBrains Mono" font-size="11" font-weight="600" fill="#1A1206">monitor .94</text>
+    <g stroke="#7DD3FC" stroke-width="3" fill="none" stroke-linecap="round">
+      <path d="M200 276L158 340L132 488L244 494L250 598"/>
+      <path d="M158 340L186 416L246 424"/>
+    </g>
+    <path d="M158 300A40 40 0 0 1 178 306" stroke="#FFFFFF" stroke-width="2" fill="none" stroke-dasharray="3 3"/>
+    <g fill="#FFFFFF" stroke="#0369A1" stroke-width="2">
+      <circle cx="200" cy="276" r="6"/><circle cx="158" cy="340" r="6"/><circle cx="186" cy="416" r="6"/><circle cx="246" cy="424" r="6"/>
+      <circle cx="132" cy="488" r="6"/><circle cx="244" cy="494" r="6"/><circle cx="250" cy="598" r="6"/>
+    </g>
+    <text x="206" y="262" font-family="Inter" font-size="12" font-weight="700" fill="#FFB547">38°</text>`;
+</script>
+<script src="_base.js"></script>
+</body>
+</html>

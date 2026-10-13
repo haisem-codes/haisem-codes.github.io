@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Reelflow pipeline</title>
+<link rel="stylesheet" href="_base.css">
+<style>
+  .app { grid-template-columns: 64px 1fr; }
+  .rail { background: var(--surface); border-right: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px 0; }
+  .rail .mark { margin-bottom: 14px; }
+  .rail span { width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; color: var(--muted); }
+  .rail span.on { background: var(--accent-soft); color: var(--accent); }
+  .content { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 380px; }
+  .canvas { position: relative; overflow: hidden; background-color: var(--bg); background-image: radial-gradient(color-mix(in srgb, var(--text) 14%, transparent) 1px, transparent 1px); background-size: 20px 20px; }
+  .canvas > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .wire { fill: none; stroke: var(--accent); stroke-width: 2.2; }
+  .wire.idle { stroke: var(--border-strong); stroke-dasharray: 5 5; }
+  .n { position: absolute; width: 220px; border-radius: 12px; background: var(--surface); border: 1px solid var(--border); box-shadow: 0 4px 14px -6px rgba(0,0,0,.18); }
+  .n .hd { display: flex; align-items: center; gap: 9px; padding: 10px 12px; }
+  .n .ic { width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center; flex: none; }
+  .n .ic svg { width: 16px; height: 16px; }
+  .n .ft { display: flex; align-items: center; justify-content: space-between; padding: 7px 12px; border-top: 1px solid var(--border); font-size: 11.5px; color: var(--muted); }
+  .n.run { border-color: var(--live); box-shadow: 0 0 0 3px color-mix(in srgb, var(--live) 18%, transparent); }
+  .n.wait { opacity: .72; }
+  .port { position: absolute; top: 24px; width: 10px; height: 10px; border-radius: 50%; background: var(--surface); border: 2px solid var(--accent); }
+  .port.in { left: -6px; } .port.out { right: -6px; }
+  .ok-i { color: var(--ok); }
+  .toolbar { position: absolute; left: 44px; top: 24px; display: flex; gap: 8px; align-items: center; }
+  .zoom { position: absolute; right: 20px; bottom: 18px; display: flex; border: 1px solid var(--border); border-radius: 9px; background: var(--surface); }
+  .zoom span { padding: 6px 11px; font-size: 12px; color: var(--text-2); }
+  .zoom span + span { border-left: 1px solid var(--border); }
+  .preview { border-left: 1px solid var(--border); background: var(--surface); padding: 18px; display: flex; flex-direction: column; gap: 14px; overflow: hidden; }
+  .reel { width: 190px; height: 338px; border-radius: 14px; overflow: hidden; position: relative; flex: none; box-shadow: 0 10px 30px -10px rgba(0,0,0,.4); }
+  .reel svg { width: 100%; height: 100%; display: block; }
+  .cap { position: absolute; left: 12px; right: 12px; bottom: 22px; text-align: center; font-family: var(--font-display); font-weight: 700; font-size: 17px; line-height: 1.15; color: #fff; text-shadow: 0 2px 0 #000, 0 0 6px rgba(0,0,0,.6); }
+  .cap em { font-style: normal; color: #FFD34D; }
+  .reel .prog { position: absolute; left: 10px; right: 10px; top: 10px; height: 3px; border-radius: 2px; background: rgba(255,255,255,.35); }
+  .reel .prog i { display: block; width: 46%; height: 100%; border-radius: 2px; background: #fff; }
+  .plat { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-top: 1px solid var(--border); font-size: 12.5px; }
+  .plat:first-child { border-top: 0; }
+  .plat .pi { width: 26px; height: 26px; border-radius: 7px; background: var(--surface-2); border: 1px solid var(--border); display: grid; place-items: center; font-size: 11px; font-weight: 700; color: var(--text-2); }
+</style>
+</head>
+<body>
+<div class="window">
+  <div class="window-bar" data-url="reelflow.app/pipelines/daily-pov"></div>
+  <div class="viewport">
+    <div class="app">
+      <aside class="rail">
+        <div class="mark"><i data-i="video" data-w="2.2"></i></div>
+        <span class="on"><i data-i="route"></i></span>
+        <span><i data-i="video"></i></span>
+        <span><i data-i="cal"></i></span>
+        <span><i data-i="chart"></i></span>
+        <span><i data-i="gear"></i></span>
+      </aside>
+      <section class="main">
+        <div class="topbar">
+          <div class="crumb">Pipelines <i data-i="right" class="s"></i> <b>Daily POV short</b></div>
+          <span class="badge live" style="background:var(--warn-soft)"><span class="dot"></span>Running · step 4 of 7</span>
+          <div class="grow"></div>
+          <span class="sm muted">Trigger: new row in content sheet</span>
+          <div class="btn ghost sm"><i data-i="clock" class="s"></i>History</div>
+          <div class="btn sm"><i data-i="play" class="s"></i>Run now</div>
+        </div>
+        <div class="content">
+          <div class="canvas">
+            <svg viewBox="0 0 996 776" preserveAspectRatio="xMinYMin meet">
+              <path class="wire" d="M264 113H364"/>
+              <path class="wire" d="M584 113H684"/>
+              <path class="wire" d="M904 113C950 113 950 230 880 236H90C30 236 20 357 44 357"/>
+              <path class="wire idle" d="M264 357H364"/>
+              <path class="wire idle" d="M584 357H684"/>
+              <path class="wire idle" d="M794 424V540"/>
+            </svg>
+            <div class="toolbar"><span class="chip"><i data-i="plus" class="s"></i>Add node</span><span class="chip">Auto-layout</span></div>
+
+            <div class="n" style="left:44px;top:84px"><span class="port out"></span>
+              <div class="hd"><div class="ic" style="background:var(--surface-3);color:var(--text-2)"><i data-i="grid"></i></div><div class="col grow"><span class="b">Idea</span><span class="xs muted">Content sheet</span></div><i data-i="checkc" class="s ok-i"></i></div>
+              <div class="ft"><span class="ellipsis">“Opening a café at 6am”</span></div>
+            </div>
+            <div class="n" style="left:364px;top:84px"><span class="port in"></span><span class="port out"></span>
+              <div class="hd"><div class="ic" style="background:var(--ok-soft);color:var(--ok)"><i data-i="doc"></i></div><div class="col grow"><span class="b">Script</span><span class="xs muted">GPT-4o</span></div><i data-i="checkc" class="s ok-i"></i></div>
+              <div class="ft"><span>Hook, 4 beats, captions</span></div>
+            </div>
+            <div class="n" style="left:684px;top:84px"><span class="port in"></span><span class="port out"></span>
+              <div class="hd"><div class="ic" style="background:var(--violet-soft);color:var(--violet)"><i data-i="image"></i></div><div class="col grow"><span class="b">POV images</span><span class="xs muted">Flux · 540×960</span></div><i data-i="checkc" class="s ok-i"></i></div>
+              <div class="ft"><span>4 frames</span><span class="row gap4"><i style="width:14px;height:22px;border-radius:3px;background:linear-gradient(#F7B267,#6B3E26)"></i><i style="width:14px;height:22px;border-radius:3px;background:linear-gradient(#9BC1BC,#36454F)"></i><i style="width:14px;height:22px;border-radius:3px;background:linear-gradient(#F4D58D,#8D5524)"></i><i style="width:14px;height:22px;border-radius:3px;background:linear-gradient(#C3B1E1,#3B2F5C)"></i></span></div>
+            </div>
+            <div class="n run" style="left:44px;top:328px"><span class="port in"></span><span class="port out"></span>
+              <div class="hd"><div class="ic" style="background:var(--warn-soft);color:var(--warn)"><i data-i="video"></i></div><div class="col grow"><span class="b">Motion clips</span><span class="xs muted">Kling · 5 s each</span></div><span class="mono xs live">2/4</span></div>
+              <div class="ft" style="display:block"><div class="bar"><i style="width:50%;background:var(--live)"></i></div></div>
+            </div>
+            <div class="n wait" style="left:364px;top:328px"><span class="port in"></span><span class="port out"></span>
+              <div class="hd"><div class="ic" style="background:var(--accent-soft);color:var(--accent)"><i data-i="mic"></i></div><div class="col grow"><span class="b">Voiceover</span><span class="xs muted">ElevenLabs</span></div><i data-i="clock" class="s" style="color:var(--muted)"></i></div>
+              <div class="ft"><span>Waiting</span></div>
+            </div>
+            <div class="n wait" style="left:684px;top:328px"><span class="port in"></span><span class="port out"></span>
+              <div class="hd"><div class="ic" style="background:var(--surface-3);color:var(--text-2)"><i data-i="layers"></i></div><div class="col grow"><span class="b">Composite</span><span class="xs muted">Captions + transitions</span></div><i data-i="clock" class="s" style="color:var(--muted)"></i></div>
+              <div class="ft"><span>Waiting</span></div>
+            </div>
+            <div class="n wait" style="left:684px;top:540px;width:220px"><span class="port in" style="left:104px;top:-6px"></span>
+              <div class="hd"><div class="ic" style="background:var(--bad-soft);color:var(--bad)"><i data-i="upload"></i></div><div class="col grow"><span class="b">Publish</span><span class="xs muted">Tuned per platform</span></div><i data-i="clock" class="s" style="color:var(--muted)"></i></div>
+              <div class="ft"><span>5 platforms · via APIs</span></div>
+            </div>
+            <div class="card" style="position:absolute;left:44px;top:540px;width:540px">
+              <div class="card-h" style="padding:10px 14px"><span class="row gap8"><i data-i="term" class="s"></i>Run log</span><span class="xs muted mono">run #318</span></div>
+              <div class="col mono xs" style="padding:10px 14px;gap:6px;line-height:1.5">
+                <span><span class="muted">06:00:02</span> &nbsp;trigger · new idea row</span>
+                <span><span class="muted">06:00:09</span> &nbsp;script ready · 4 beats, 92 words</span>
+                <span><span class="muted">06:01:15</span> &nbsp;images 4/4 · 540×960</span>
+                <span class="live"><span class="muted">06:02:40</span> &nbsp;motion clip 2/4 rendering…</span>
+              </div>
+            </div>
+            <div class="zoom"><span>−</span><span>100%</span><span>+</span></div>
+          </div>
+          <div class="preview">
+            <div class="row between"><span class="h2">Preview</span><span class="badge out">9:16 · draft</span></div>
+            <div class="row gap16" style="align-items:flex-start">
+              <div class="reel"><svg viewBox="0 0 190 338" id="reel"></svg><div class="prog"><i></i></div><div class="cap">POV: you open your café at <em>6am</em></div></div>
+              <div class="col gap10 grow">
+                <div class="col gap4"><span class="up">Hook</span><span class="sm">“Nobody tells you the first hour is the best one.”</span></div>
+                <div class="col gap4"><span class="up">Beats</span><span class="sm t2">Keys · espresso · first regular · sunrise</span></div>
+                <div class="col gap4"><span class="up">Voice</span><span class="sm t2">Warm, calm</span></div>
+              </div>
+            </div>
+            <div class="card pad" style="padding:6px 14px">
+              <div class="plat"><span class="pi">Tk</span><span class="grow">TikTok</span><span class="badge">Queued</span></div>
+              <div class="plat"><span class="pi">Ig</span><span class="grow">Instagram Reels</span><span class="badge">Queued</span></div>
+              <div class="plat"><span class="pi">Yt</span><span class="grow">YouTube Shorts</span><span class="badge">Queued</span></div>
+              <div class="plat"><span class="pi">Fb</span><span class="grow">Facebook</span><span class="badge">Queued</span></div>
+              <div class="plat"><span class="pi">In</span><span class="grow">LinkedIn</span><span class="badge">Queued</span></div>
+            </div>
+            <div class="card pad col gap8" style="margin-top:auto">
+              <div class="row between"><span class="b">Schedule</span><span class="badge acc">Daily · 06:00</span></div>
+              <div class="row between sm t2"><span>Last runs</span><span class="row gap4"><span class="badge ok">✓</span><span class="badge ok">✓</span><span class="badge ok">✓</span><span class="badge ok">✓</span><span class="badge live" style="background:var(--warn-soft)">…</span></span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+<script>
+  document.getElementById("reel").innerHTML = `
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2B3A67"/><stop offset=".45" stop-color="#E07A5F"/><stop offset=".7" stop-color="#F2CC8F"/></linearGradient>
+      <linearGradient id="room" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3D2C24"/><stop offset="1" stop-color="#1E1410"/></linearGradient>
+      <radialGradient id="glow" cx=".5" cy=".42" r=".6"><stop offset="0" stop-color="#FFD9A0" stop-opacity=".55"/><stop offset="1" stop-color="#FFD9A0" stop-opacity="0"/></radialGradient>
+    </defs>
+    <rect width="190" height="338" fill="url(#room)"/>
+    <rect x="22" y="40" width="146" height="150" rx="4" fill="url(#sky)"/>
+    <path d="M22 150 L50 128 L72 140 L98 118 L128 136 L168 120 V190 H22Z" fill="#1F2A44" opacity=".85"/>
+    <path d="M95 40V190M22 115H168" stroke="#3D2C24" stroke-width="6"/>
+    <rect x="22" y="40" width="146" height="150" rx="4" fill="none" stroke="#2A1D17" stroke-width="8"/>
+    <rect width="190" height="338" fill="url(#glow)"/>
+    <rect x="0" y="232" width="190" height="106" fill="#5A3B2A"/>
+    <rect x="0" y="232" width="190" height="6" fill="#7A5038"/>
+    <ellipse cx="96" cy="262" rx="34" ry="7" fill="#2A1D17" opacity=".5"/>
+    <path d="M72 222h46l-5 38c-1 4-4 6-8 6H85c-4 0-7-2-8-6z" fill="#F4EDE4"/>
+    <path d="M118 230c12 0 12 18 0 18" stroke="#F4EDE4" stroke-width="5" fill="none"/>
+    <ellipse cx="95" cy="223" rx="23" ry="4" fill="#6B3E26"/>
+    <path d="M86 210c-6-8 6-12 0-20M98 206c-6-8 6-12 0-20M108 210c-6-8 6-12 0-20" stroke="#fff" stroke-opacity=".5" stroke-width="2" fill="none" stroke-linecap="round"/>`;
+</script>
+<script src="_base.js"></script>
+</body>
+</html>
