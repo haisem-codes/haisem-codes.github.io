@@ -90,9 +90,13 @@ export function Navbar({ dict, lang }: { dict: Dictionary["nav"]; lang: Locale }
   const pathname = usePathname() ?? "";
   const isHome = pathname.replace(/\/+$/, "") === `/${lang}`;
   const isHire = pathname.replace(/\/+$/, "") === `/${lang}/hire`;
-  const { scrolled, retracted } = useScrollState();
+  /** Case studies open on a mockup hero, so the bulb stays docked in the nav there. */
+  const isProject = pathname.includes("/projects/");
+  const scroll = useScrollState();
+  const { scrolled } = scroll;
+  const retracted = scroll.retracted || isProject;
   const desktop = useDesktop();
-  const [HangingBulb, bulbFailed] = useHangingBulb(desktop);
+  const [HangingBulb, bulbFailed] = useHangingBulb(desktop && !isProject);
   const overDark = useOverDark(pathname);
   const [activeId, setActiveId] = useState<string | null>(null);
 
