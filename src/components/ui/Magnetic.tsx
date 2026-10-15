@@ -1,41 +1,32 @@
 "use client";
 
 import { useRef, type ReactNode } from "react";
-import { motion, useMotionValue, useReducedMotion, useSpring } from "motion/react";
 import { cn } from "@/lib/utils";
 
 const STRENGTH = 0.25;
-const spring = { stiffness: 220, damping: 18, mass: 0.4 };
 
 export function Magnetic({ children, className }: { children: ReactNode; className?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const reduce = useReducedMotion();
-  const x = useSpring(useMotionValue(0), spring);
-  const y = useSpring(useMotionValue(0), spring);
 
   function onPointerMove(e: React.PointerEvent<HTMLSpanElement>) {
-    if (reduce || e.pointerType !== "mouse" || window.matchMedia("(pointer: coarse)").matches) return;
     const el = ref.current;
-    if (!el) return;
+    if (!el || e.pointerType !== "mouse" || matchMedia("(prefers-reduced-motion: reduce), (pointer: coarse)").matches) return;
     const r = el.getBoundingClientRect();
-    x.set((e.clientX - (r.left + r.width / 2)) * STRENGTH);
-    y.set((e.clientY - (r.top + r.height / 2)) * STRENGTH);
+    el.style.translate = `${(e.clientX - (r.left + r.width / 2)) * STRENGTH}px ${(e.clientY - (r.top + r.height / 2)) * STRENGTH}px`;
   }
 
   function reset() {
-    x.set(0);
-    y.set(0);
+    if (ref.current) ref.current.style.translate = "";
   }
 
   return (
-    <motion.span
+    <span
       ref={ref}
-      className={cn("inline-block", className)}
-      style={{ x, y }}
+      className={cn("inline-block transition-[translate] duration-300 ease-[var(--ease-silk)]", className)}
       onPointerMove={onPointerMove}
       onPointerLeave={reset}
     >
       {children}
-    </motion.span>
+    </span>
   );
 }

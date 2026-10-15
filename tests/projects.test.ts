@@ -15,3 +15,8 @@ test("Metaviz work is attributed", () => {
     expect(projects.find((p) => p.slug === s)?.employer).toBe("metaviz");
 });
 test("icore-careerhub removed", () => expect(projects.some((p) => p.slug === "icore-careerhub")).toBe(false));
+test("exactly three featured projects with rendered mockups", () => {
+  const f = projects.filter((p) => p.featured);
+  expect(f.map((p) => p.slug).sort()).toEqual(["ai-compliance-platform", "postura", "voice-agents-suite"]);
+  for (const p of projects) expect(p.image.startsWith("/work/")).toBe(true);
+});

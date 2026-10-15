@@ -9,7 +9,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { lang } = await params;
   if (!isLocale(lang)) return {};
   const { privacy } = getDictionary(lang);
-  const title = `${privacy.title} | Haisem Naeem`;
+  const title = `${privacy.title} | Haisem N.`;
   return {
     title,
     description: privacy.description,

@@ -2,7 +2,7 @@
 import { asset } from "@/lib/utils";
 
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { m, AnimatePresence } from "motion/react";
 import { silkEase } from "@/lib/animations";
 // Cyborg portrait used instead of PixelAvatar
 
@@ -103,7 +103,7 @@ export function VoiceBot() {
     <div className="fixed bottom-6 right-6 z-40">
       <AnimatePresence mode="wait">
         {!isOpen ? (
-          <motion.div
+          <m.div
             key="orb"
             className="relative"
             initial={{ scale: 0 }}
@@ -111,14 +111,14 @@ export function VoiceBot() {
             exit={{ scale: 0 }}
           >
             {/* Sonar ping */}
-            <motion.div
+            <m.div
               className="absolute inset-0 rounded-full border border-accent/30"
               animate={{ scale: [1, 2], opacity: [0.3, 0] }}
               transition={{ duration: 2, repeat: Infinity, repeatDelay: 5, ease: "easeOut" }}
             />
 
             {/* Cyborg portrait orb */}
-            <motion.button
+            <m.button
               onClick={() => setIsOpen(true)}
               className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-accent/40 cursor-pointer shadow-lg"
               animate={{ scale: [1, 1.06, 1] }}
@@ -134,25 +134,25 @@ export function VoiceBot() {
                 alt="Talk to Haisem AI"
                 className="w-full h-full object-cover object-top"
               />
-            </motion.button>
+            </m.button>
 
             {/* Tooltip */}
             <AnimatePresence>
               {showTooltip && (
-                <motion.div
+                <m.div
                   className="absolute right-16 top-1/2 -translate-y-1/2 whitespace-nowrap bg-bg-card border border-border rounded-lg px-3 py-1.5 text-xs text-text-secondary"
                   initial={{ x: 10, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   exit={{ x: 10, opacity: 0 }}
                 >
                   Talk to me
-                </motion.div>
+                </m.div>
               )}
             </AnimatePresence>
-          </motion.div>
+          </m.div>
         ) : (
           /* ── Expanded Panel ── */
-          <motion.div
+          <m.div
             key="panel"
             className="w-80 rounded-2xl glass overflow-hidden shadow-2xl"
             initial={{ scale: 0, borderRadius: "50%" }}
@@ -190,7 +190,7 @@ export function VoiceBot() {
                   </div>
                   <div className="flex items-end gap-1 h-12 mb-4">
                     {[0.3, 0.6, 1, 0.7, 0.4, 0.8, 0.5].map((h, i) => (
-                      <motion.div
+                      <m.div
                         key={i}
                         className="w-1 rounded-full bg-accent/50"
                         animate={status === "speaking" ? { scaleY: [0.2, h, 0.2] } : { scaleY: 0.2 }}
@@ -202,7 +202,7 @@ export function VoiceBot() {
                   <p className="text-sm text-text-secondary capitalize">
                     {status === "idle" ? "Ready to listen" : `${status}...`}
                   </p>
-                  <motion.button
+                  <m.button
                     className="mt-6 w-14 h-14 rounded-full bg-accent/20 border border-accent/30 flex items-center justify-center cursor-pointer"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
@@ -213,25 +213,25 @@ export function VoiceBot() {
                       <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
                       <line x1="12" x2="12" y1="19" y2="22" />
                     </svg>
-                  </motion.button>
+                  </m.button>
                 </>
               ) : (
                 /* ── Funny Fallback with Cyborg Avatar + Audio ── */
                 <div className="text-center flex flex-col items-center">
                   {/* Cyborg portrait */}
-                  <motion.div
+                  <m.div
                     className="mb-3 w-28 h-28 overflow-hidden"
                     animate={{ y: [0, -3, 0] }}
                     transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                     
                   >
                     <img src={asset("/haisem-ai.webp")} alt="Haisem AI" className="w-full h-full object-cover object-top" />
-                  </motion.div>
+                  </m.div>
 
                   {/* Speaking wave - reacts to audio */}
                   <div className="flex items-end gap-1 h-8 mb-3">
                     {[0.2, 0.4, 0.7, 1, 0.7, 0.4, 0.2].map((h, i) => (
-                      <motion.div
+                      <m.div
                         key={i}
                         className="w-1 rounded-full bg-accent/40"
                         animate={
@@ -257,14 +257,14 @@ export function VoiceBot() {
                   </p>
 
                   {/* CTA */}
-                  <motion.a
+                  <m.a
                     href="mailto:haisem.work@gmail.com"
                     className="mt-4 px-5 py-2 rounded-full bg-accent/20 border border-accent/30 text-xs font-medium text-accent hover:bg-accent/30 transition-colors inline-block"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.98 }}
                   >
                     Message the real Haisem
-                  </motion.a>
+                  </m.a>
 
                   <p className="text-[10px] text-text-secondary/50 mt-3">
                     Voice agent launching soon
@@ -272,7 +272,7 @@ export function VoiceBot() {
                 </div>
               )}
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>

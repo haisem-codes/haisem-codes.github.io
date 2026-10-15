@@ -64,7 +64,7 @@ export function Chips(props: Props) {
             onKeyDown={(e) => onKeyDown(e, i)}
             className={`inline-flex min-h-[44px] items-center gap-2 rounded-full border px-4 py-2 text-left text-[15px] leading-snug transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${
               on
-                ? "border-accent bg-accent text-white"
+                ? "border-button bg-button text-button-text"
                 : "border-border-hover bg-bg-card text-text hover:border-accent/60"
             }`}
           >

@@ -1,7 +1,39 @@
-export function canRender3D(env: { reducedMotion: boolean; webgl: boolean; cores: number; mobile: boolean }): boolean {
-  if (env.reducedMotion || !env.webgl) return false;
-  if (env.mobile && env.cores <= 4) return false;
-  return true;
+export type Tier = "full" | "lite" | "static";
+
+export function getTier(e: {
+  reducedMotion: boolean;
+  webgl: boolean;
+  cores: number;
+  mobile: boolean;
+  saveData?: boolean;
+}): Tier {
+  if (e.reducedMotion || e.saveData) return "static";
+  if (e.cores <= 2 && !e.webgl) return "static";
+  if (!e.webgl) return "lite";
+  if (e.mobile && e.cores <= 4) return "lite";
+  return "full";
+}
+
+/**
+ * Pre-paint copy of getTier's cheap static conditions (reduced motion, save-data), so CSS can show static
+ * fallbacks on first paint. The WebGL-dependent case is left to LenisProvider, which adds the same class after hydration.
+ */
+export const staticTierBootScript = `try{if(matchMedia("(prefers-reduced-motion: reduce)").matches||(navigator.connection&&navigator.connection.saveData))document.documentElement.classList.add("tier-static")}catch(e){}`;
+
+let tierMemo: Tier | undefined;
+
+export function readTier(): Tier {
+  if (tierMemo) return tierMemo;
+  try {
+    const env = readEnv();
+    const saveData = Boolean(
+      (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData,
+    );
+    tierMemo = getTier({ ...env, saveData });
+  } catch {
+    tierMemo = "static";
+  }
+  return tierMemo;
 }
 
 export function isSoftwareRenderer(name: string): boolean {

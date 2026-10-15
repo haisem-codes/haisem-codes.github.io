@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<title>Salong Nora (after)</title>
+<link rel="stylesheet" href="_base.css">
+<link rel="stylesheet" href="_salon-grid.css">
+<style>
+  /* The same fictional salon, redesigned on the shared grid in _salon-grid.css: header, hero (photo | headline), booking band. */
+  .site {
+    --brand: #9A3B1E;
+    --brand-ink: #FFFFFF;
+    --brand-soft: #F8E7DE;
+    --cream: #FBF7F2;
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    background: var(--cream);
+    color: var(--text);
+    font-size: 14px;
+  }
+  html[data-theme="night"] .site {
+    --brand: #F2A27E;
+    --brand-ink: #1B0D07;
+    --brand-soft: rgba(242, 162, 126, .13);
+    --cream: #0F0D0C;
+  }
+  .head { border-bottom: 1px solid var(--border); }
+  .wordmark { font-family: var(--font-display); font-weight: 700; font-size: 24px; letter-spacing: -.03em; display: flex; align-items: center; gap: 10px; }
+  .wordmark i { width: 11px; height: 11px; border-radius: 50%; background: var(--brand); display: block; }
+  .links { display: flex; gap: 30px; color: var(--text-2); font-weight: 500; font-size: 15px; }
+  .head .end { margin-left: auto; display: flex; align-items: center; gap: 18px; }
+  .lang { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+  .cta { height: 46px; padding: 0 22px; border-radius: 999px; background: var(--brand); color: var(--brand-ink); display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 15px; }
+  .cta.ghost { background: transparent; color: var(--text); border: 1px solid var(--border-strong); }
+
+  .photo {
+    height: 100%;
+    border-radius: 22px;
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(120px 150px at 30% 38%, #F6E2C9 0 55%, transparent 57%),
+      linear-gradient(90deg, transparent 22%, rgba(255, 255, 255, .55) 22% 23%, transparent 23%),
+      radial-gradient(90px 130px at 72% 58%, #3B2A24 0 60%, transparent 62%),
+      radial-gradient(70px 70px at 72% 36%, #D9B59C 0 60%, transparent 62%),
+      radial-gradient(160px 60px at 70% 100%, #6E3B2A 0 60%, transparent 62%),
+      linear-gradient(180deg, #E9D8C6 0 62%, #C9A68D 62% 100%);
+  }
+  html[data-theme="night"] .photo {
+    background:
+      radial-gradient(120px 150px at 30% 38%, rgba(255, 214, 170, .35) 0 55%, transparent 57%),
+      linear-gradient(90deg, transparent 22%, rgba(255, 255, 255, .12) 22% 23%, transparent 23%),
+      radial-gradient(90px 130px at 72% 58%, #120C0A 0 60%, transparent 62%),
+      radial-gradient(70px 70px at 72% 36%, #6B4C3D 0 60%, transparent 62%),
+      radial-gradient(160px 60px at 70% 100%, #3E2219 0 60%, transparent 62%),
+      linear-gradient(180deg, #3A2C24 0 62%, #241914 62% 100%);
+  }
+  .tag { position: absolute; left: 18px; top: 18px; padding: 6px 12px; border-radius: 999px; background: rgba(255, 255, 255, .9); color: #2A1E1A; font-size: 12.5px; font-weight: 600; }
+  .bubble { position: absolute; left: 18px; right: 18px; bottom: 18px; display: flex; align-items: flex-end; gap: 10px; }
+  .bubble .msg { flex: 1; background: var(--surface); border: 1px solid var(--border); border-radius: 18px 18px 18px 4px; padding: 12px 14px; box-shadow: 0 20px 40px -20px rgba(60, 30, 15, .4); font-size: 13.5px; line-height: 1.45; }
+  .bubble .msg b { display: flex; align-items: center; gap: 6px; font-size: 12px; margin-bottom: 3px; }
+  .bubble .msg b .dot { color: #22A06B; }
+  .bubble .fab { width: 52px; height: 52px; flex: none; border-radius: 50%; background: var(--brand); color: var(--brand-ink); display: grid; place-items: center; }
+  .bubble .fab svg { width: 24px; height: 24px; }
+
+  .copy { padding-top: 36px; }
+  .eyebrow { font-family: var(--font-mono); font-size: 13px; text-transform: uppercase; letter-spacing: .14em; color: var(--brand); display: flex; align-items: center; gap: 10px; }
+  .eyebrow::before { content: ""; width: 28px; height: 1.5px; background: var(--brand); }
+  h1 { font-family: var(--font-display); font-weight: 600; font-size: 66px; line-height: 1; letter-spacing: -.045em; margin: 18px 0 20px; }
+  h1 em { font-style: normal; color: var(--brand); }
+  .lede { font-size: 19px; line-height: 1.55; color: var(--text-2); max-width: 600px; }
+  .actions { display: flex; gap: 12px; margin-top: 30px; align-items: center; }
+  .rating { display: flex; align-items: center; gap: 8px; margin-left: 16px; color: var(--text-2); font-size: 14px; }
+  .rating .stars { color: #E7A33E; display: flex; gap: 1px; }
+  .rating .stars svg { width: 15px; height: 15px; fill: currentColor; stroke: none; }
+
+  .book { height: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: 22px; box-shadow: 0 30px 60px -30px rgba(60, 30, 15, .28); padding: 22px 26px; display: grid; grid-template-columns: 300px 1fr 1fr 260px; gap: 30px; }
+  html[data-theme="night"] .book { box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .8); }
+  .lbl { font-family: var(--font-mono); font-size: 11.5px; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); margin-bottom: 12px; display: flex; justify-content: space-between; }
+  .svc { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 14px; border: 1px solid var(--border); margin-bottom: 8px; }
+  .svc.on { border-color: var(--brand); background: var(--brand-soft); }
+  .svc .radio { width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid var(--border-strong); flex: none; }
+  .svc.on .radio { border: 5px solid var(--brand); }
+  .svc .price { margin-left: auto; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .days { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .day { border: 1px solid var(--border); border-radius: 12px; padding: 10px 0; text-align: center; display: flex; flex-direction: column; gap: 2px; }
+  .day small { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+  .day b { font-family: var(--font-display); font-size: 19px; }
+  .day.on { background: var(--text); color: var(--bg); border-color: var(--text); }
+  .day.on small { color: color-mix(in srgb, var(--bg) 70%, transparent); }
+  .times { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .time { height: 40px; border-radius: 10px; border: 1px solid var(--border); display: grid; place-items: center; font-family: var(--font-mono); font-size: 13.5px; }
+  .time.on { border-color: var(--brand); background: var(--brand-soft); color: var(--brand); font-weight: 600; }
+  .time.gone { color: var(--muted); text-decoration: line-through; opacity: .6; }
+  .sum { border-left: 1px solid var(--border); padding-left: 26px; display: flex; flex-direction: column; gap: 10px; }
+  .sum .big { font-family: var(--font-display); font-size: 24px; font-weight: 600; letter-spacing: -.02em; line-height: 1.15; }
+  .confirm { margin-top: auto; height: 52px; border-radius: 14px; background: var(--brand); color: var(--brand-ink); display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 600; font-size: 15.5px; }
+  .fine { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="window">
+  <div class="window-bar" data-url="salongnora.example"></div>
+  <div class="viewport">
+    <div class="site g">
+      <div class="g-head head">
+        <div class="g-left wordmark"><i></i>Salong Nora</div>
+        <div class="g-right row" style="width:100%">
+          <div class="links"><span>Behandlingar</span><span>Priser</span><span>Om oss</span><span>Hitta hit</span></div>
+          <div class="end"><span class="lang">SV / EN</span><span class="cta">Boka tid <i data-i="arrow" class="s"></i></span></div>
+        </div>
+      </div>
+      <div class="g-hero">
+        <div class="g-left">
+          <div class="photo">
+            <span class="tag">Södermalm · sedan 2009</span>
+            <div class="bubble">
+              <div class="msg"><b><span class="dot"></span>Nora-assistenten</b>Hej! Letar du efter en tid i kväll? Jag kan boka åt dig direkt.</div>
+              <div class="fab"><i data-i="msg" data-w="2"></i></div>
+            </div>
+          </div>
+        </div>
+        <div class="g-right copy">
+          <div class="eyebrow">Frisör på Södermalm</div>
+          <h1>Klipp, färg och styling.<br><em>Boka på 30 sekunder.</em></h1>
+          <p class="lede">Välj behandling, frisör och tid direkt här. Du får en bekräftelse och en påminnelse dagen innan, och kan omboka själv.</p>
+          <div class="actions">
+            <span class="cta">Boka tid <i data-i="arrow" class="s"></i></span>
+            <span class="cta ghost">Se priser</span>
+            <span class="rating"><span class="stars"><i data-i="star"></i><i data-i="star"></i><i data-i="star"></i><i data-i="star"></i><i data-i="star"></i></span><b>4,9</b> · 212 omdömen</span>
+          </div>
+        </div>
+      </div>
+      <div class="g-band">
+        <div class="book">
+          <div>
+            <div class="lbl"><span>1 · Behandling</span></div>
+            <div class="svc on"><span class="radio"></span><span class="col"><b>Klippning &amp; fön</b><span class="sm muted">60 min · valfri frisör</span></span><span class="price">650 kr</span></div>
+            <div class="svc"><span class="radio"></span><span class="col"><b>Färg &amp; klipp</b><span class="sm muted">2 h 30 min</span></span><span class="price">1 690 kr</span></div>
+          </div>
+          <div>
+            <div class="lbl"><span>2 · Dag</span><span>Oktober</span></div>
+            <div class="days">
+              <div class="day"><small>Mån</small><b>13</b></div>
+              <div class="day on"><small>Tis</small><b>14</b></div>
+              <div class="day"><small>Ons</small><b>15</b></div>
+              <div class="day"><small>Tor</small><b>16</b></div>
+              <div class="day"><small>Fre</small><b>17</b></div>
+            </div>
+          </div>
+          <div>
+            <div class="lbl"><span>3 · Tid</span></div>
+            <div class="times">
+              <div class="time gone">09:30</div><div class="time">11:00</div><div class="time">13:15</div>
+              <div class="time on">14:30</div><div class="time">15:45</div><div class="time gone">16:30</div>
+            </div>
+          </div>
+          <div class="sum">
+            <div class="lbl"><span>Din tid</span></div>
+            <div class="big">Tisdag 14 okt<br>kl. 14:30</div>
+            <div class="confirm">Bekräfta bokning <i data-i="arrow" class="s"></i></div>
+            <div class="fine"><i data-i="check" class="s"></i>Sms-bekräftelse · fri avbokning 24 h</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="_base.js"></script>
+</body>
+</html>

@@ -2,7 +2,7 @@
 import { asset } from "@/lib/utils";
 
 import { useRef, useEffect } from "react";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 
 interface PixelAvatarProps {
   size?: number;
@@ -79,7 +79,7 @@ export function PixelAvatar({ size = 80 }: PixelAvatarProps) {
   }, [size]);
 
   return (
-    <motion.div
+    <m.div
       className="relative"
       animate={{ y: [0, -3, 0] }}
       transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
@@ -96,6 +96,6 @@ export function PixelAvatar({ size = 80 }: PixelAvatarProps) {
         className="absolute inset-0 rounded-xl blur-xl opacity-20 -z-10"
         style={{ backgroundColor: "var(--color-accent)" }}
       />
-    </motion.div>
+    </m.div>
   );
 }

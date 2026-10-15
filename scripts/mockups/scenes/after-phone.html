@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<title>Salong Nora on a phone (after)</title>
+<link rel="stylesheet" href="_base.css">
+<link rel="stylesheet" href="_phone-scene.css">
+<style>
+  /* The redesign at phone width: one column, booking in reach of the thumb. Same tokens as after-site.html. */
+  .screen { --brand: #9A3B1E; --brand-ink: #FFFFFF; --brand-soft: #F8E7DE; --cream: #FBF7F2; }
+  html[data-theme="night"] .screen { --brand: #F2A27E; --brand-ink: #1B0D07; --brand-soft: rgba(242, 162, 126, .13); --cream: #0F0D0C; }
+  .site { flex: 1; min-height: 0; background: var(--cream); position: relative; overflow: hidden; }
+  .screen { background: var(--cream) !important; }
+  .nav { height: 48px; display: flex; align-items: center; gap: 10px; padding: 0 16px; border-bottom: 1px solid var(--border); }
+  .wordmark { font-family: var(--font-display); font-weight: 700; font-size: 17px; letter-spacing: -.03em; display: flex; align-items: center; gap: 7px; }
+  .wordmark i { width: 8px; height: 8px; border-radius: 50%; background: var(--brand); display: block; }
+  .pill { margin-left: auto; height: 30px; padding: 0 13px; border-radius: 999px; background: var(--brand); color: var(--brand-ink); display: inline-flex; align-items: center; font-weight: 600; font-size: 12.5px; }
+  .burger { width: 30px; height: 30px; display: grid; place-items: center; color: var(--text); }
+  .hero { padding: 20px 16px 0; }
+  .eyebrow { font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: .14em; color: var(--brand); }
+  h1 { font-family: var(--font-display); font-weight: 600; font-size: 31px; line-height: 1.02; letter-spacing: -.04em; margin: 10px 0 10px; }
+  h1 em { font-style: normal; color: var(--brand); }
+  .lede { font-size: 13px; line-height: 1.5; color: var(--text-2); }
+  .rating { display: flex; align-items: center; gap: 5px; margin-top: 10px; font-size: 11.5px; color: var(--text-2); }
+  .rating .stars { color: #E7A33E; display: flex; }
+  .rating .stars svg { width: 11px; height: 11px; fill: currentColor; stroke: none; }
+  .book { margin: 14px 12px 0; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 20px 40px -24px rgba(60, 30, 15, .35); }
+  .lbl { font-family: var(--font-mono); font-size: 9.5px; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); display: flex; justify-content: space-between; }
+  .days { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; }
+  .day { border: 1px solid var(--border); border-radius: 10px; padding: 6px 0; text-align: center; display: flex; flex-direction: column; }
+  .day small { font-size: 9px; color: var(--muted); text-transform: uppercase; }
+  .day b { font-family: var(--font-display); font-size: 15px; }
+  .day.on { background: var(--text); color: var(--bg); border-color: var(--text); }
+  .day.on small { color: color-mix(in srgb, var(--bg) 70%, transparent); }
+  .times { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
+  .time { height: 30px; border-radius: 8px; border: 1px solid var(--border); display: grid; place-items: center; font-family: var(--font-mono); font-size: 11.5px; }
+  .time.on { border-color: var(--brand); background: var(--brand-soft); color: var(--brand); font-weight: 600; }
+  .time.gone { color: var(--muted); text-decoration: line-through; opacity: .6; }
+  .confirm { height: 40px; border-radius: 12px; background: var(--brand); color: var(--brand-ink); display: flex; align-items: center; justify-content: center; gap: 6px; font-weight: 600; font-size: 13.5px; }
+</style>
+</head>
+<body>
+<div class="phone big">
+  <div class="screen">
+    <div class="status"></div>
+    <div class="urlbar"><i data-i="lock"></i>salongnora.example</div>
+    <div class="site">
+      <div class="nav"><div class="wordmark"><i></i>Salong Nora</div><span class="pill">Boka tid</span><span class="burger"><i data-i="grid"></i></span></div>
+      <div class="hero">
+        <div class="eyebrow">Frisör på Södermalm</div>
+        <h1>Klipp, färg och styling. <em>Boka på 30 sekunder.</em></h1>
+        <p class="lede">Välj behandling och tid direkt här. Påminnelse dagen innan.</p>
+        <div class="rating"><span class="stars"><i data-i="star"></i><i data-i="star"></i><i data-i="star"></i><i data-i="star"></i><i data-i="star"></i></span><b>4,9</b> · 212 omdömen</div>
+      </div>
+      <div class="book">
+        <div class="lbl"><span>Klippning &amp; fön · 650 kr</span><span>Okt</span></div>
+        <div class="days">
+          <div class="day"><small>Mån</small><b>13</b></div><div class="day on"><small>Tis</small><b>14</b></div><div class="day"><small>Ons</small><b>15</b></div><div class="day"><small>Tor</small><b>16</b></div><div class="day"><small>Fre</small><b>17</b></div>
+        </div>
+        <div class="times"><div class="time gone">09:30</div><div class="time">11:00</div><div class="time on">14:30</div></div>
+        <div class="confirm">Boka tisdag 14:30 <i data-i="arrow" class="s"></i></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="_base.js"></script>
+</body>
+</html>

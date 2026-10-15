@@ -10,6 +10,7 @@ import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { SkillsBento } from "@/components/sections/SkillsBento";
 import { Credentials } from "@/components/sections/Credentials";
 import { TechMarquee } from "@/components/sections/TechMarquee";
+import { BulbCone } from "@/components/layout/BulbCone";
 
 type Props = { params: Promise<{ lang: string }> };
 
@@ -44,7 +45,8 @@ export default async function HirePage({ params }: Props) {
 
   return (
     <main>
-      <section className="px-6 pt-36 pb-16 sm:pt-44 sm:pb-24">
+      <section className="relative isolate px-6 pt-36 pb-16 sm:pt-44 sm:pb-24">
+        <BulbCone />
         <div className="mx-auto max-w-6xl">
           <ScrollReveal>
             <h1 className="max-w-4xl font-display text-5xl leading-[1.04] font-semibold tracking-tight text-balance text-text sm:text-7xl">
@@ -54,7 +56,7 @@ export default async function HirePage({ params }: Props) {
             <a
               href={asset("/Haisem-Naeem-CV.pdf")}
               download
-              className="mt-10 inline-flex min-h-[52px] items-center gap-2 rounded-full bg-accent px-7 text-base font-medium text-white transition-colors hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+              className="mt-10 inline-flex min-h-[52px] items-center gap-2 rounded-full bg-button px-7 text-base font-medium text-button-text transition-[filter] hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
             >
               {hire.cv}
               <span aria-hidden>↓</span>
@@ -74,8 +76,8 @@ export default async function HirePage({ params }: Props) {
         </div>
       </section>
 
-      <SkillsBento title={hire.skillsTitle} />
-      <Credentials title={hire.credentialsTitle} />
+      <SkillsBento index="01" eyebrow={hire.skillsEyebrow} title={hire.skillsTitle} />
+      <Credentials index="02" eyebrow={hire.credentialsEyebrow} title={hire.credentialsTitle} />
       <TechMarquee />
 
       <section className="px-6 py-24 sm:py-32">

@@ -10,7 +10,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { lang } = await params;
   if (!isLocale(lang)) return {};
   const { intake } = getDictionary(lang);
-  const title = `${intake.title} | Haisem Naeem`;
+  const title = `${intake.title} | Haisem N.`;
   return {
     title,
     description: intake.sub,

@@ -1,20 +1,23 @@
 @import "tailwindcss";
 
-@theme {
-  --font-sans: "Inter", system-ui, sans-serif;
-  --font-display: "Space Grotesk", sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
+@custom-variant dark (&:where(.dark, .dark *));
 
+@theme {
   --color-bg: #FAFAF8;
   --color-bg-card: #FFFFFF;
   --color-bg-glass: rgba(255, 255, 255, 0.7);
   --color-border: rgba(0, 0, 0, 0.07);
   --color-border-hover: rgba(0, 0, 0, 0.14);
-  --color-text: #16161A;
+  --color-text: #1A1A1E;
   --color-text-secondary: #5B6170;
-  --color-accent: #0D7C72;
-  --color-accent-hover: #0A655D;
-  --color-accent-glow: rgba(13, 124, 114, 0.12);
+  --color-accent: #0369A1;
+  --color-accent-hover: #075985;
+  --color-accent-glow: rgba(56, 189, 248, 0.18);
+  --color-accent-tint: #E0F2FE;
+  --color-button: #0369A1;
+  --color-button-text: #FFFFFF;
+  --color-glow: rgba(56, 189, 248, 0.18);
+  --color-live: #B45309;
   --color-danger: #B42318;
 
   --breakpoint-sm: 640px;
@@ -23,18 +26,41 @@
   --breakpoint-xl: 1280px;
 }
 
-/* ── Dark theme overrides ── */
+/* next/font injects --font-sans/--font-display/--font-mono on <html> */
+@theme inline {
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-display: var(--font-space-grotesk), sans-serif;
+  --font-mono: var(--font-jetbrains), monospace;
+}
+
+:root {
+  color-scheme: light;
+  /* the bulb hangs over the gap between the hero's text column and the 340px phone column */
+  --bulb-dx: calc(min(576px, 50vw - 24px) - 360px);
+  --ease-silk: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-micro: 150ms;
+  --dur-ui: 250ms;
+  --dur-editorial: 750ms;
+}
+
+/* ── Night theme (bulb dimmed) ── */
 .dark {
+  color-scheme: dark;
   --color-bg: #0A0A0B;
   --color-bg-card: #141416;
   --color-bg-glass: rgba(20, 20, 22, 0.6);
-  --color-border: rgba(237, 237, 239, 0.06);
-  --color-border-hover: rgba(237, 237, 239, 0.12);
+  --color-border: rgba(237, 237, 239, 0.08);
+  --color-border-hover: rgba(237, 237, 239, 0.14);
   --color-text: #EDEDEF;
   --color-text-secondary: #8B8B9E;
-  --color-accent: #0D9488;
-  --color-accent-hover: #0F766E;
-  --color-accent-glow: rgba(13, 148, 136, 0.15);
+  --color-accent: #7DD3FC;
+  --color-accent-hover: #BAE6FD;
+  --color-accent-glow: rgba(56, 189, 248, 0.16);
+  --color-accent-tint: #0C2A3A;
+  --color-button: #38BDF8;
+  --color-button-text: #04121C;
+  --color-glow: rgba(56, 189, 248, 0.16);
+  --color-live: #FFB547;
   --color-danger: #F97066;
 }
 
@@ -57,8 +83,8 @@ body {
   color: var(--color-bg);
 }
 
-/* ── Noise texture overlay ── */
-.noise-overlay::after {
+/* ── Grain ── */
+body::after {
   content: "";
   position: fixed;
   inset: 0;
@@ -68,6 +94,10 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 256px 256px;
+}
+
+.dark body::after {
+  opacity: 0.05;
 }
 
 /* ── Glass utility ── */
@@ -82,6 +112,25 @@ body {
   border-color: var(--color-border-hover);
 }
 
+/* ── Navbar surface ── */
+.nav-surface {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 1px 2px rgba(10, 10, 11, 0.04);
+}
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .nav-surface {
+    background: color-mix(in srgb, var(--color-bg-card) 92%, transparent);
+  }
+}
+.dark .nav-surface {
+  box-shadow: none;
+}
+.nav-scrolled,
+.dark .nav-scrolled {
+  box-shadow: 0 6px 24px -12px rgba(0, 0, 0, 0.25);
+}
+
 /* ── Marquee keyframes ── */
 @keyframes marquee {
   to {
@@ -94,45 +143,120 @@ body {
     transform: translateX(50%);
   }
 }
-/* ── Neural cable pulse ── */@keyframes pulse-travel {  0% { top: -20px; opacity: 0; }  10% { opacity: 1; }  90% { opacity: 1; }  100% { top: 100%; opacity: 0; }}
+/* ── Footer marquee: CSS loop plus a scroll-velocity offset (--scroll-phase, from LenisProvider) ── */
+.marquee-track {
+  font-size: clamp(4.25rem, 14vw, 13.75rem);
+  animation: marquee-third 28s linear infinite;
+  translate: calc(var(--scroll-phase, 0) * -100% / 3) 0;
+}
+@keyframes marquee-third {
+  to {
+    transform: translateX(calc(-100% / 3));
+  }
+}
+.marquee-outline {
+  color: transparent;
+  -webkit-text-stroke: 2px var(--color-text);
+  transition: color var(--dur-ui) var(--ease-silk), -webkit-text-stroke-color var(--dur-ui) var(--ease-silk);
+}
+.marquee-em {
+  color: var(--color-text);
+  transition: color var(--dur-ui) var(--ease-silk);
+}
+.marquee-band a:is(:hover, :focus-visible) .marquee-track {
+  animation-play-state: paused;
+}
+.marquee-band a:is(:hover, :focus-visible) :is(.marquee-outline, .marquee-em) {
+  color: var(--color-accent);
+  -webkit-text-stroke-color: var(--color-accent);
+}
+/* Still headline: static tier (set by LenisProvider) and reduced motion */
+.tier-static .marquee-track {
+  width: auto;
+  max-width: 75rem;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+  font-size: clamp(3.5rem, 9vw, 8.5rem);
+  animation: none;
+  translate: none;
+}
+.tier-static .marquee-item:not(:first-child) {
+  display: none;
+}
+.tier-static .marquee-item {
+  flex-wrap: wrap;
+  flex-shrink: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    width: auto;
+    max-width: 75rem;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+    font-size: clamp(3.5rem, 9vw, 8.5rem);
+    animation: none;
+    translate: none;
+  }
+  .marquee-item:not(:first-child) {
+    display: none;
+  }
+  .marquee-item {
+    flex-wrap: wrap;
+    flex-shrink: 1;
+  }
+}
 
-/* ── Clip-path theme reveal ── */
-@keyframes clip-reveal {
+/* ── Page transitions: the shared project image morphs, the rest cross-fades (TransitionLink adds .vt-page) ── */
+.vt-page .vt-shared {
+  view-transition-name: var(--vt);
+}
+.vt-page::view-transition-old(root) {
+  animation: vt-out var(--dur-ui) var(--ease-silk) both;
+}
+.vt-page::view-transition-new(root) {
+  animation: vt-in 600ms var(--ease-silk) both;
+}
+.vt-page::view-transition-group(*) {
+  animation-duration: 700ms;
+  animation-timing-function: var(--ease-silk);
+}
+@keyframes vt-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes vt-in {
   from {
-    clip-path: circle(0% at var(--cx) var(--cy));
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}
+
+/* ── Theme reveal: circle grows from the bulb (View Transitions) ── */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-new(root) {
+  animation: theme-reveal 700ms var(--ease-silk) both;
+}
+
+.theme-switching,
+.theme-switching *,
+.theme-switching *::before,
+.theme-switching *::after {
+  transition: none !important;
+}
+
+@keyframes theme-reveal {
+  from {
+    clip-path: circle(0 at var(--vt-x, 50%) var(--vt-y, 0));
   }
   to {
-    clip-path: circle(150% at var(--cx) var(--cy));
+    clip-path: circle(var(--vt-r, 150vmax) at var(--vt-x, 50%) var(--vt-y, 0));
   }
-}
-
-/* ── Gradient text ── */
-.gradient-text {
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-size: 200% auto;
-  animation: gradient-shift 4s ease infinite;
-}
-
-@keyframes gradient-shift {
-  0%, 100% {
-    background-position: 0% center;
-  }
-  50% {
-    background-position: 100% center;
-  }
-}
-
-/* ── SVG line draw ── */
-.draw-line {
-  stroke-dasharray: 200;
-  stroke-dashoffset: 200;
-  transition: stroke-dashoffset 0.8s ease-out;
-}
-
-.draw-line.visible {
-  stroke-dashoffset: 0;
 }
 
 /* ── Scrollbar ── */
@@ -177,8 +301,16 @@ body {
   animation-duration: 0.8s;
 }
 
-/* ── Scroll reveals stay visible without JS ── */
-html:not(.js) [data-reveal] {
+@keyframes bulb-in {
+  from { opacity: 0; }
+}
+.bulb-in {
+  animation: bulb-in 0.6s var(--ease-silk) both;
+}
+
+/* ── Scroll reveals stay visible without JS, or when the reveal scripts never ran (src/lib/reveal.ts) ── */
+html:not(.js) [data-reveal],
+html.reveal-fallback [data-reveal] {
   opacity: 1 !important;
   transform: none !important;
 }
@@ -199,34 +331,6 @@ html:not(.js) [data-reveal] {
   }
 }
 
-/* ── Critical: instant first paint ── */
-body {
-  /* Prevent layout shift - reserve space for content */
-  min-height: 100vh;
-}
-
-/* Content-visibility for below-fold sections */
-section:not(:first-child) {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 800px;
-}
-
-/* Optimize paint for fixed elements */
-.fixed {
-  will-change: transform;
-}
-
-/* GPU-accelerate glass blur */
-.glass {
-  will-change: backdrop-filter;
-  transform: translateZ(0);
-}
-
-/* Optimize image rendering */
-img {
-  content-visibility: auto;
-}
-
 /* ── Hide scrollbar for pill tabs ── */
 .scrollbar-hide {
   -ms-overflow-style: none;
@@ -236,34 +340,228 @@ img {
   display: none;
 }
 
-/* ── Mobile responsiveness fixes ── */
-@media (max-width: 640px) {
-  /* Smaller hero text on mobile */
-  .font-display {
-    letter-spacing: -0.02em;
-  }
-
-  /* Fix bento grid on small screens */
-  .grid {
-    gap: 0.75rem;
-  }
-
-  /* Tighter padding on mobile */
-  section {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-
-  /* Voice bot panel - full width on mobile */
-  .fixed.bottom-6.right-6 {
-    bottom: 1rem;
-    right: 1rem;
-  }
-}
-
 /* ── Ensure images never overflow ── */
 img {
   max-width: 100%;
   height: auto;
 }
-/* a11y improvements */
+
+/* ── Demo phone typing dots ── */
+@keyframes demo-typing {
+  0%, 60%, 100% { opacity: 0.35; transform: none; }
+  30% { opacity: 1; transform: translateY(-2px); }
+}
+.demo-dot {
+  animation: demo-typing 1s var(--ease-silk) infinite;
+}
+
+/* ── Control-room live dot ── */
+@keyframes live-pulse {
+  from { opacity: 0.45; transform: scale(1); }
+  to { opacity: 0; transform: scale(3); }
+}
+.live-dot {
+  position: relative;
+}
+.live-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--color-live);
+  opacity: 0;
+  animation: live-pulse 1.8s ease-out infinite;
+}
+/* ── Night bands (Control room, Work row 02): hard edges with an ice hairline and a glow that stays inside the band ── */
+.band-edge {
+  --band-edge: rgba(125, 211, 252, 0.25);
+  box-shadow: inset 0 1px 0 var(--band-edge), inset 0 -1px 0 var(--band-edge);
+}
+html.dark .band-edge {
+  --band-edge: rgba(125, 211, 252, 0.18);
+}
+.band-edge::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(125, 211, 252, 0.09), transparent 24px),
+    linear-gradient(to top, rgba(125, 211, 252, 0.06), transparent 24px);
+}
+/* In night mode the page is dark too, so the band goes one layer deeper: darker ground, dot grid, skyline glow */
+.night-band {
+  background-color: #08090b;
+}
+html.dark .night-band {
+  background-color: #050608;
+  background-image:
+    radial-gradient(90% 38% at 50% 100%, rgba(56, 189, 248, 0.07), transparent 70%),
+    radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: auto, 22px 22px;
+}
+@keyframes cr-rise {
+  from { opacity: 0; transform: translateY(8px); }
+}
+.cr-rise {
+  animation: cr-rise 450ms var(--ease-silk) both;
+}
+@keyframes story-ring {
+  from { opacity: 0.9; transform: scale(1); }
+  to { opacity: 0; transform: scale(1.7); }
+}
+[data-pinned] .story-ring {
+  animation: story-ring 1.6s ease-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  #control-room *,
+  #control-room *::before {
+    animation-delay: 0s !important;
+    transition-delay: 0s !important;
+  }
+  .live-dot::after,
+  #control-room .cr-rise { animation: none; }
+}
+
+@keyframes work-row-in {
+  from { opacity: 0; transform: translateY(8px); }
+}
+
+@keyframes work-preview-in {
+  from { opacity: 0; scale: 0.9; }
+}
+
+/* ── Scroll-driven reveals: CSS only, so sections stay server-rendered; fully visible without view timelines ── */
+@keyframes rise-in {
+  from { opacity: 0; translate: 0 2rem; }
+}
+@keyframes draw-x {
+  from { scale: 0 1; }
+}
+@keyframes draw-y {
+  from { scale: 1 0; }
+}
+@keyframes dot-on {
+  from { background-color: var(--color-bg); border-color: var(--color-border-hover); }
+}
+@keyframes travel-y {
+  from { top: 0; }
+}
+@keyframes travel-x {
+  from { left: 0; }
+}
+/* Process day axis: big day labels sized to their column; the ice traveller rests at the line's end when static */
+.how-track {
+  view-timeline: --how block;
+}
+.how-day {
+  font-size: 3.5rem;
+}
+.how-traveller {
+  position: absolute;
+  z-index: 1;
+  top: calc(100% - 11px);
+  left: 2px;
+  width: 11px;
+  height: 11px;
+  border-radius: 9999px;
+  background: var(--color-accent);
+  box-shadow: 0 0 0 4px var(--color-accent-glow), 0 0 20px 4px var(--color-accent-glow);
+  pointer-events: none;
+}
+@media (min-width: 1024px) {
+  .how-day {
+    font-size: min(6rem, calc(100cqi / 3.7));
+  }
+  .how-traveller {
+    top: 2px;
+    left: calc(100% - 11px);
+  }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    html:not(.tier-static) .rise {
+      animation: rise-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 14rem;
+    }
+    html:not(.tier-static) .how-progress {
+      animation: draw-y linear both;
+      animation-timeline: --how;
+      animation-range: entry 10% cover 70%;
+    }
+    html:not(.tier-static) .how-traveller {
+      animation: travel-y linear both;
+      animation-timeline: --how;
+      animation-range: entry 10% cover 70%;
+    }
+    html:not(.tier-static) .how-step,
+    html:not(.tier-static) .how-dot {
+      animation: rise-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 50%;
+    }
+    html:not(.tier-static) .how-dot {
+      animation-name: dot-on;
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) and (min-width: 1024px) {
+    html:not(.tier-static) .how-progress {
+      animation-name: draw-x;
+      animation-range: entry 40% cover 60%;
+    }
+    html:not(.tier-static) .how-traveller {
+      animation-name: travel-x;
+      animation-range: entry 40% cover 60%;
+    }
+    html:not(.tier-static) .how-step,
+    html:not(.tier-static) .how-dot {
+      animation-timeline: --how;
+      animation-range: entry calc(15% + var(--i) * 12%) entry calc(45% + var(--i) * 12%);
+    }
+  }
+}
+
+/* ── Duotone portrait: greyscale photo multiplied onto the light tone, shadows lifted to the dark tone ── */
+.duotone {
+  --duo-light: #E0F2FE;
+  --duo-dark: #0B4A6F;
+  position: relative;
+  isolation: isolate;
+  background: var(--duo-light);
+}
+/* Night: ink shadows, ice highlights capped below full brightness, extra contrast so the face keeps its depth */
+.dark .duotone {
+  --duo-light: #6FC2EC;
+  --duo-dark: #04121C;
+}
+.dark .duotone img {
+  filter: grayscale(1) contrast(1.32) brightness(0.86);
+}
+.duotone img {
+  filter: grayscale(1) contrast(1.12) brightness(1.04);
+  mix-blend-mode: multiply;
+}
+.duotone::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--duo-dark);
+  mix-blend-mode: lighten;
+  pointer-events: none;
+}
+
+/* ── Testimonial captions in the site type ── */
+/* Compact so a two-line cue stays in the bottom band, below the speaker's face (cues carry line:-1) */
+.testimonial-video::cue {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.3;
+  color: #fff;
+  background-color: rgba(10, 10, 11, 0.72);
+}
+.numeral-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--color-accent);
+}

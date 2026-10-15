@@ -1,7 +1,7 @@
 "use client";
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
-import { motion } from "motion/react";
-import { useLenis } from "lenis/react";
+import { m } from "motion/react";
+import { getLenis } from "@/components/providers/LenisProvider";
 import { OPTIONS, STEPS, type IntakeAnswers } from "@/lib/intake/schema";
 import { validateIntake, validateStep } from "@/lib/intake/validate";
 import { buildMailtoSummary } from "@/lib/intake/mailto";
@@ -92,7 +92,6 @@ export function IntakeForm({ dict, lang }: { dict: Dictionary["intake"]; lang: L
   const turnstileFailed = useRef(false);
   const tokenWaiters = useRef<((t: string) => void)[]>([]);
   const pendingFocus = useRef<keyof IntakeAnswers | null>(null);
-  const lenis = useLenis();
 
   const total = STEPS.length;
   const current = STEPS[step];
@@ -100,11 +99,17 @@ export function IntakeForm({ dict, lang }: { dict: Dictionary["intake"]; lang: L
   const headingId = `intake-step-${current.id}`;
 
   useEffect(() => {
+    let restoredAnswers: Answers = {};
     try {
       const saved = JSON.parse(sessionStorage.getItem(STORAGE_KEY) ?? "null") as { answers?: Answers; step?: number } | null;
-      setAnswers(sanitize(saved?.answers));
+      restoredAnswers = sanitize(saved?.answers);
       if (Number.isInteger(saved?.step) && saved!.step! >= 0 && saved!.step! < STEPS.length) setStep(saved!.step!);
     } catch {}
+    if (!restoredAnswers.goal) {
+      const { goal } = sanitize({ goal: new URLSearchParams(location.search).get("goal") });
+      if (goal) restoredAnswers = { ...restoredAnswers, goal };
+    }
+    setAnswers(restoredAnswers);
     setRestored(true);
     track("intake_opened");
   }, []);
@@ -123,9 +128,10 @@ export function IntakeForm({ dict, lang }: { dict: Dictionary["intake"]; lang: L
   const scrollToForm = useCallback(() => {
     const el = rootRef.current;
     if (!el || el.getBoundingClientRect().top >= 0) return;
+    const lenis = getLenis();
     if (lenis) lenis.scrollTo(el, { offset: -112, immediate: true });
     else window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 112 });
-  }, [lenis]);
+  }, []);
 
   useEffect(() => {
     if (!navigated.current) return;
@@ -284,7 +290,7 @@ export function IntakeForm({ dict, lang }: { dict: Dictionary["intake"]; lang: L
   if (status === "done") {
     return (
       <div ref={rootRef} className="rounded-[2rem] border border-border bg-bg-card px-6 py-12 sm:px-12 sm:py-16" aria-live="polite">
-        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-accent text-xl text-white" aria-hidden>✓</div>
+        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-button text-xl text-button-text" aria-hidden>✓</div>
         <h2 ref={headingRef} tabIndex={-1} className="mt-6 font-display text-3xl font-semibold tracking-tight text-text outline-none sm:text-4xl">
           {dict.successTitle}
         </h2>
@@ -303,7 +309,7 @@ export function IntakeForm({ dict, lang }: { dict: Dictionary["intake"]; lang: L
       </div>
 
       <form noValidate onSubmit={onSubmit} aria-labelledby={headingId} className="mt-8">
-        <motion.div
+        <m.div
           key={step}
           data-reveal
           initial={navigated.current ? { opacity: 0, y: 8 } : false}
@@ -338,7 +344,7 @@ export function IntakeForm({ dict, lang }: { dict: Dictionary["intake"]; lang: L
               </p>
             </>
           )}
-        </motion.div>
+        </m.div>
 
         {status === "error" && (
           <p role="alert" className="mt-6 rounded-2xl border border-danger/40 px-4 py-3 text-base text-text">
@@ -353,7 +359,7 @@ export function IntakeForm({ dict, lang }: { dict: Dictionary["intake"]; lang: L
             <p className="mt-2 text-base leading-relaxed text-text-secondary">{dict.offlineBody}</p>
             <a
               href={mailto}
-              className="mt-4 inline-flex min-h-[48px] items-center gap-2 rounded-full border border-accent px-6 text-base font-medium text-accent transition-colors hover:bg-accent hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+              className="mt-4 inline-flex min-h-[48px] items-center gap-2 rounded-full border border-accent px-6 text-base font-medium text-accent transition-colors hover:bg-button hover:text-button-text focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
             >
               {dict.offlineButton}
               <span aria-hidden>→</span>
@@ -365,7 +371,7 @@ export function IntakeForm({ dict, lang }: { dict: Dictionary["intake"]; lang: L
           <button
             type="submit"
             disabled={status === "sending"}
-            className="inline-flex min-h-[52px] items-center gap-2 rounded-full bg-accent px-8 text-base font-medium text-white transition-colors hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent disabled:opacity-70"
+            className="inline-flex min-h-[52px] items-center gap-2 rounded-full bg-button px-8 text-base font-medium text-button-text transition-[filter] hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent disabled:opacity-70"
           >
             {status === "sending" ? dict.sending : isLast ? dict.submit : dict.next}
             {status !== "sending" && <span aria-hidden>→</span>}

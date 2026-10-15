@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useInView } from "motion/react";
+import { m, useInView } from "motion/react";
 import { useRef } from "react";
 import { silkEase } from "@/lib/animations";
 
@@ -12,7 +12,7 @@ export function FillingChart() {
   return (
     <div ref={ref} className="flex items-end justify-center gap-1.5 h-10 sm:h-16">
       {heights.map((h, i) => (
-        <motion.div
+        <m.div
           key={i}
           className="w-3 rounded-t bg-accent/50"
           initial={{ scaleY: 0 }}

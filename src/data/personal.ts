@@ -27,7 +27,7 @@ export const personal: PersonalInfo = {
     {
       platform: "LinkedIn",
       url: "https://www.linkedin.com/in/haisem-naeem/",
-      label: "Haisem Naeem",
+      label: "Haisem N.",
     },
   ],
 };

@@ -1,8 +1,9 @@
 "use client";
 
-import { motion, type Variants } from "motion/react";
+import { m, type Variants } from "motion/react";
 import { fadeInUp } from "@/lib/animations";
-import type { ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
+import { markRevealReady, SCROLL_REVEAL } from "@/lib/reveal";
 
 interface ScrollRevealProps {
   children: ReactNode;
@@ -17,9 +18,10 @@ export function ScrollReveal({
   className,
   delay = 0,
 }: ScrollRevealProps) {
+  useEffect(() => markRevealReady("reveal-ready"), []);
   return (
-    <motion.div
-      data-reveal
+    <m.div
+      data-reveal={SCROLL_REVEAL}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
@@ -28,6 +30,6 @@ export function ScrollReveal({
       transition={delay ? { delay } : undefined}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }

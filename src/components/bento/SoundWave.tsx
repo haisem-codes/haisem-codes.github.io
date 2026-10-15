@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import { m } from "motion/react";
 
 export function SoundWave() {
   const bars = [0.3, 0.6, 1, 0.7, 0.4, 0.8];
@@ -8,7 +8,7 @@ export function SoundWave() {
   return (
     <div className="flex items-end justify-center gap-1 h-10 sm:h-16">
       {bars.map((height, i) => (
-        <motion.div
+        <m.div
           key={i}
           className="w-1.5 rounded-full bg-accent/60"
           animate={{ scaleY: [0.3, height, 0.3] }}

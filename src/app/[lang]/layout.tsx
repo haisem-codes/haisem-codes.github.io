@@ -7,8 +7,12 @@ import { MotionProvider } from "@/components/providers/MotionProvider";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { AnalyticsInit } from "@/components/analytics/AnalyticsInit";
+import { CursorLoader } from "@/components/ui/CursorLoader";
 import { locales, isLocale, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n";
+import { THEME_COLOR } from "@/lib/theme";
+import { revealBootScript } from "@/lib/reveal";
+import { staticTierBootScript } from "@/lib/capability";
 import "../globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
@@ -18,10 +22,7 @@ const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains", 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#FAFAF8" },
-    { media: "(prefers-color-scheme: dark)", color: "#0A0A0B" },
-  ],
+  themeColor: THEME_COLOR.light,
 };
 
 export function generateStaticParams() {
@@ -50,7 +51,7 @@ export default async function LangLayout({ children, params }: { children: React
   return (
     <html lang={lang} className={`${inter.variable} ${display.variable} ${mono.variable}`} suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: `document.documentElement.classList.add("js");try{if(localStorage.getItem("theme")==="dark")document.documentElement.classList.add("dark")}catch(e){}` }} />
+        <script dangerouslySetInnerHTML={{ __html: `${revealBootScript}${staticTierBootScript}try{if(localStorage.getItem("theme")==="dark"){document.documentElement.classList.add("dark");addEventListener("DOMContentLoaded",function(){var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content","${THEME_COLOR.dark}")})}}catch(e){}` }} />
       </head>
       <body className="bg-bg text-text antialiased">
         <AnalyticsInit />
@@ -59,7 +60,8 @@ export default async function LangLayout({ children, params }: { children: React
             <LenisProvider>
               <Navbar dict={d.nav} lang={lang as Locale} />
               {children}
-              <Footer dict={d.footer} lang={lang as Locale} />
+              <Footer dict={d.footer} nav={d.nav} lang={lang as Locale} />
+              <CursorLoader dict={d.cursor} />
             </LenisProvider>
           </MotionProvider>
         </ThemeProvider>

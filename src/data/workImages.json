@@ -1,0 +1,92 @@
+{
+  "ai-compliance-platform": {
+    "w": 1600,
+    "h": 1000,
+    "blur": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAABwAQCdASoKAAYAA4BaJZwC7AGIQAD+8ggNd2jI9utXH+GJQAA=",
+    "nightBlur": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAADQAQCdASoKAAYAA4BaJZQCdAEQFQnqgAD+9DZ5///rPZ6WAAA="
+  },
+  "voice-agents-suite": {
+    "w": 1600,
+    "h": 1000,
+    "blur": "data:image/webp;base64,UklGRi4AAABXRUJQVlA4ICIAAABwAQCdASoKAAYAA4BaJZwC7AF1AAD+8kzJjTYLqRMPEAAA",
+    "nightBlur": "data:image/webp;base64,UklGRi4AAABXRUJQVlA4ICIAAABwAQCdASoKAAYAA4BaJZwC7AFAAAD+8eVXP88R9FICbAAA"
+  },
+  "postura": {
+    "w": 1600,
+    "h": 1000,
+    "blur": "data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAACwAQCdASoKAAYAA4BaJYwCdADcx1YAAPz3c9g/GE9NNS2dLW4FvdsdmxSzCMblNI6WD7BitkeuAA==",
+    "nightBlur": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAADQAQCdASoKAAYAA4BaJQBOgCHgevnaQAD+8t7306LRNoQIPJ04AAAA"
+  },
+  "coach": {
+    "w": 1600,
+    "h": 1000,
+    "blur": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAADQAQCdASoKAAYAA4BaJQBOgMW0kkDBAAD+8Dsiv+Wo/5czcokJcFzKATcjLJkqqc33ye6gAHq5/ZM4uSbmVFSTTA3FBGBPAAA=",
+    "nightBlur": "data:image/webp;base64,UklGRkAAAABXRUJQVlA4IDQAAADQAQCdASoKAAYAA4BaJQBOgCPOqoFhAAD+8r8nvTpz78Dek+xrvyzRfEoU1bnj+XJp78AA"
+  },
+  "ai-real-estate-marketplace": {
+    "w": 1600,
+    "h": 1000,
+    "blur": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAADQAQCdASoKAAYAA4BaJZQCdAEO+W/p4AD+9OIiuzmn1EdnNqqlwAAA",
+    "nightBlur": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAABwAQCdASoKAAYAA4BaJZQCdAFAAAD+8Vvpt1DITG/otBPLmAA="
+  },
+  "claude-code-mastery": {
+    "w": 1600,
+    "h": 1000,
+    "blur": "data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAACQAQCdASoKAAYAA4BaJZwAAtyJC2AA/uiryQX/VOp+kCThG4lbQ0EteGvrNbKzCykuQFr1MeY1yfAA",
+    "nightBlur": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAABwAQCdASoKAAYAA4BaJZwC7AGIQAD+8jnsAbql1WKnlsMAAAA="
+  },
+  "b2b-travel-saas": {
+    "w": 1600,
+    "h": 1000,
+    "blur": "data:image/webp;base64,UklGRi4AAABXRUJQVlA4ICIAAACwAQCdASoKAAYAA4BaJZwAAup34sMSAP73BHlDHa6WYAAA",
+    "nightBlur": "data:image/webp;base64,UklGRi4AAABXRUJQVlA4ICIAAADQAQCdASoKAAYAA4BaJZwC7AEU913geAD+9XgIW1Nr8AAA"
+  },
+  "ai-craftsmen-marketplace": {
+    "w": 1600,
+    "h": 1000,
+    "blur": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAABwAQCdASoKAAYAA4BaJZwC7AGIQAD+8lbHGSHz3cxDgg/9mt8AAA==",
+    "nightBlur": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAADwAQCdASoKAAYAA4BaJZwC7AEPDE2nngAA/vV9Kvwnl21hxNtGLy8AAAA="
+  },
+  "ai-tools-suite": {
+    "w": 1600,
+    "h": 1000,
+    "blur": "data:image/webp;base64,UklGRiwAAABXRUJQVlA4ICAAAABQAQCdASoKAAYAA4BaJZwABDOAAP7yTRhaaWQ/GuyAAA==",
+    "nightBlur": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAABwAQCdASoKAAYAA4BaJZwC7AF1AAD+8fRRLxtL6Es3fRhAAAA="
+  },
+  "ai-video-pipeline": {
+    "w": 1600,
+    "h": 1000,
+    "blur": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAAAwAQCdASoKAAYAA4BaJZwAA3AA/vJMf1Z+P+uH00isrPWtoaq2sKUVonZ3AAAA",
+    "nightBlur": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAADQAQCdASoKAAYAA4BaJZwC7AEQ/aURAAD+9o5mUGkcmJdrewcY3rtfgAA="
+  },
+  "dietapp": {
+    "w": 1600,
+    "h": 1000,
+    "blur": "data:image/webp;base64,UklGRkIAAABXRUJQVlA4IDYAAADwAQCdASoKAAYAA4BaJYwCdAED/5cr5SAA/vJoZqqe0dw9oj+2K94nWef5Lp5JrBusrOQt8AA=",
+    "nightBlur": "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAACQAQCdASoKAAYAA4BaJQBOgBuZZUAA/vVxr2DCr3Zlopnt3+GXXpr4ICb9HEy8AAA="
+  },
+  "before-site": {
+    "w": 1600,
+    "h": 1000,
+    "blur": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAACwAQCdASoKAAYAA4BaJZwAApt5CrAAAP7oZMco+m4faQXqeOhCiHaeUQAAAA==",
+    "nightBlur": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAADQAQCdASoKAAYAA4BaJZwC7AEO4c9X0AD+Bh5Ntz8gNbyxYA8rtLXO/HTZo4+osIpsQOPgDTxbXc51U13ESYzAAAA="
+  },
+  "after-site": {
+    "w": 1600,
+    "h": 1000,
+    "blur": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAACwAQCdASoKAAYAA4BaJaQAAvl0T+AAAP7ycCoArByWo5bLnnYpmWgy4OAAAA==",
+    "nightBlur": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAACwAQCdASoKAAYAA4BaJaQAAup2NGBAAP70O4pW3cocBILH1LgAAA=="
+  },
+  "before-phone": {
+    "w": 800,
+    "h": 1000,
+    "blur": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAACwAQCdASoKAAYAA4BaJZwAAup2iHdgAP7XIVKFx/Vmd/PT2mxnOs8QcAA=",
+    "nightBlur": "data:image/webp;base64,UklGRj4AAABXRUJQVlA4IDIAAADQAQCdASoKAAYAA4BaJZwAAuoHqcYpAAD+bRg1LnZLrqHjTaab2dgWsCvZqDzK8CAAAA=="
+  },
+  "after-phone": {
+    "w": 800,
+    "h": 1000,
+    "blur": "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAADQAQCdASoKAAYAA4BaJZwAAvae5FaowAD+8JYebjq303Sf03sIwWImKDSZKQCAAAA=",
+    "nightBlur": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAADQAQCdASoKAAYAA4BaJZwAAvrd3S3IgAD+9JWJncDqkLeP2v7IM1Qr+bAuAAAA"
+  }
+}

@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>DietApp screens</title>
+<link rel="stylesheet" href="_base.css">
+<style>
+  .ring { position: relative; width: 150px; height: 150px; flex: none; }
+  .ring svg { width: 150px; height: 150px; transform: rotate(-90deg); }
+  .ring .c { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .ring .c b { font-family: var(--font-display); font-size: 28px; letter-spacing: -.03em; line-height: 1; }
+  .macro { display: flex; flex-direction: column; gap: 5px; }
+  .macro .bar { height: 7px; }
+  .meal { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-top: 1px solid var(--border); }
+  .meal:first-child { border-top: 0; }
+  .food { width: 42px; height: 42px; border-radius: 12px; flex: none; }
+  .scan .screen { background: #0B0F14; }
+  .scan .status { color: #fff; position: absolute; top: 0; left: 0; right: 0; z-index: 3; }
+  .scan svg.cam { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .frame { position: absolute; left: 50px; right: 50px; top: 250px; height: 150px; z-index: 2; }
+  .frame i { position: absolute; width: 34px; height: 34px; border: 4px solid #fff; }
+  .frame i:nth-child(1) { left: 0; top: 0; border-right: 0; border-bottom: 0; border-radius: 12px 0 0 0; }
+  .frame i:nth-child(2) { right: 0; top: 0; border-left: 0; border-bottom: 0; border-radius: 0 12px 0 0; }
+  .frame i:nth-child(3) { left: 0; bottom: 0; border-right: 0; border-top: 0; border-radius: 0 0 0 12px; }
+  .frame i:nth-child(4) { right: 0; bottom: 0; border-left: 0; border-top: 0; border-radius: 0 0 12px 0; }
+  .frame .laser { position: absolute; left: 14px; right: 14px; top: 50%; height: 2px; background: #FF5A5F; box-shadow: 0 0 10px #FF5A5F; }
+  .sheet { position: absolute; left: 0; right: 0; bottom: 0; z-index: 3; background: var(--surface); border-radius: 26px 26px 0 0; padding: 12px 20px 34px; display: flex; flex-direction: column; gap: 12px; }
+  .sheet .grab { width: 40px; height: 5px; border-radius: 3px; background: var(--border-strong); align-self: center; }
+  .mbox { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .mbox div { padding: 8px 4px; border-radius: 12px; background: var(--surface-2); text-align: center; display: flex; flex-direction: column; gap: 1px; }
+  .mbox b { font-family: var(--font-display); font-size: 16px; }
+  .days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+  .days span { display: flex; flex-direction: column; align-items: center; padding: 7px 0; border-radius: 12px; font-size: 10.5px; color: var(--muted); font-weight: 600; gap: 2px; }
+  .days span b { font-size: 15px; color: var(--text); font-family: var(--font-display); }
+  .days span.on { background: var(--accent); color: var(--accent-ink); }
+  .days span.on b { color: var(--accent-ink); }
+  .plan { display: flex; gap: 12px; align-items: center; padding: 12px; }
+  .plan .food { width: 56px; height: 56px; border-radius: 14px; }
+</style>
+</head>
+<body>
+<div class="phones">
+
+  <div class="phone tilt">
+    <div class="screen">
+      <div class="status"></div>
+      <div class="ph-body" style="padding-top:8px">
+        <div class="row between"><div class="col"><span class="sm muted">Today</span><span class="ph-title">Hi, Jonas</span></div><span class="badge acc"><i data-i="watch" class="s"></i>Synced</span></div>
+        <div class="ph-card row gap16">
+          <div class="ring">
+            <svg viewBox="0 0 150 150"><circle cx="75" cy="75" r="62" stroke="var(--surface-3)" stroke-width="14" fill="none"/><circle cx="75" cy="75" r="62" stroke="var(--accent)" stroke-width="14" fill="none" stroke-linecap="round" stroke-dasharray="389.6" stroke-dashoffset="126"/></svg>
+            <div class="c"><b>1 420</b><span class="xs muted">of 2 100 kcal</span></div>
+          </div>
+          <div class="col gap10 grow">
+            <div class="macro"><div class="row between xs"><span class="b">Protein</span><span class="muted">96 / 140 g</span></div><div class="bar"><i style="width:69%;background:#E5484D"></i></div></div>
+            <div class="macro"><div class="row between xs"><span class="b">Carbs</span><span class="muted">150 / 220 g</span></div><div class="bar"><i style="width:68%;background:#F59E0B"></i></div></div>
+            <div class="macro"><div class="row between xs"><span class="b">Fat</span><span class="muted">44 / 70 g</span></div><div class="bar"><i style="width:63%;background:#10B981"></i></div></div>
+          </div>
+        </div>
+        <div class="ph-card row gap12" style="padding:12px 16px">
+          <i data-i="heart" style="color:#E5484D"></i><span class="sm grow"><b>6 240 steps</b> <span class="muted">· 310 kcal burned</span></span><span class="xs muted">from watch</span>
+        </div>
+        <div class="ph-card" style="padding:4px 16px">
+          <div class="meal"><div class="food" style="background:radial-gradient(circle at 40% 40%,#F6E7C8,#D9B57A)"></div><div class="col grow"><span class="b">Breakfast</span><span class="xs muted">Oat porridge, blueberries</span></div><span class="sm b">420</span></div>
+          <div class="meal"><div class="food" style="background:radial-gradient(circle at 40% 40%,#C9E4B4,#6FA35A)"></div><div class="col grow"><span class="b">Lunch</span><span class="xs muted">Chicken salad, quinoa</span></div><span class="sm b">610</span></div>
+          <div class="meal"><div class="food" style="background:var(--surface-2);display:grid;place-items:center;color:var(--accent)"><i data-i="plus"></i></div><div class="col grow"><span class="b">Dinner</span><span class="xs muted">Planned: salmon, potatoes</span></div><span class="sm muted">~680</span></div>
+        </div>
+        <div class="ph-card col gap8" style="padding:12px 16px">
+          <div class="row between sm"><span class="b">Water</span><span class="muted">5 of 8 glasses</span></div>
+          <div class="row between" style="color:var(--accent)"><i data-i="drop" style="fill:currentColor"></i><i data-i="drop" style="fill:currentColor"></i><i data-i="drop" style="fill:currentColor"></i><i data-i="drop" style="fill:currentColor"></i><i data-i="drop" style="fill:currentColor"></i><i data-i="drop" style="color:var(--border-strong)"></i><i data-i="drop" style="color:var(--border-strong)"></i><i data-i="drop" style="color:var(--border-strong)"></i></div>
+        </div>
+      </div>
+      <div class="tabbar"><span class="on"><i data-i="home"></i>Today</span><span><i data-i="cal"></i>Plan</span><span><i data-i="scan"></i>Scan</span><span><i data-i="users"></i>Feed</span></div>
+    </div>
+  </div>
+
+  <div class="phone scan">
+    <div class="screen">
+      <div class="status"></div>
+      <svg class="cam" viewBox="0 0 362 790" preserveAspectRatio="xMidYMid slice" id="cam"></svg>
+      <div class="row between" style="position:absolute;top:62px;left:20px;right:20px;z-index:3">
+        <div class="ph-round" style="background:rgba(255,255,255,.14);border-color:transparent;color:#fff"><i data-i="x"></i></div>
+        <span class="badge" style="background:rgba(0,0,0,.45);color:#fff;height:30px;padding:0 12px">Point at a barcode</span>
+        <div class="ph-round" style="background:rgba(255,255,255,.14);border-color:transparent;color:#fff"><i data-i="bolt"></i></div>
+      </div>
+      <div class="frame"><i></i><i></i><i></i><i></i><div class="laser"></div></div>
+      <div class="sheet">
+        <div class="grab"></div>
+        <div class="row gap12">
+          <div class="food" style="width:52px;height:52px;border-radius:14px;background:linear-gradient(#2F6FB5 0 22%,#FFFFFF 22% 60%,#DCEAF5);border:1px solid var(--border)"></div>
+          <div class="col grow"><span class="b md">Greek yoghurt 2%</span><span class="xs muted">Found by barcode · per 150 g</span></div>
+          <span class="badge ok"><i data-i="check" data-w="3" class="s"></i>Match</span>
+        </div>
+        <div class="mbox">
+          <div><b>110</b><span class="xs muted">kcal</span></div>
+          <div><b>15 g</b><span class="xs muted">protein</span></div>
+          <div><b>6 g</b><span class="xs muted">carbs</span></div>
+          <div><b>3 g</b><span class="xs muted">fat</span></div>
+        </div>
+        <span class="btn" style="justify-content:center;height:48px;border-radius:14px">Add to lunch</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="phone tilt">
+    <div class="screen">
+      <div class="status"></div>
+      <div class="ph-body" style="padding-top:8px">
+        <div class="col gap4"><span class="up">AI meal plan</span><span class="ph-title">This week</span></div>
+        <div class="row gap6 wrap"><span class="chip on">High protein</span><span class="chip">No pork</span><span class="chip">30 min max</span></div>
+        <div class="days"><span>M<b>13</b></span><span class="on">T<b>14</b></span><span>W<b>15</b></span><span>T<b>16</b></span><span>F<b>17</b></span><span>S<b>18</b></span><span>S<b>19</b></span></div>
+        <div class="ph-card plan"><div class="food" style="background:radial-gradient(circle at 40% 40%,#F6E7C8,#D9B57A)"></div><div class="col grow gap4"><span class="up">Breakfast</span><span class="b">Oat porridge, berries</span><span class="xs muted">420 kcal · 18 g protein</span></div><i data-i="refresh" class="s" style="color:var(--muted)"></i></div>
+        <div class="ph-card plan"><div class="food" style="background:radial-gradient(circle at 40% 40%,#C9E4B4,#6FA35A)"></div><div class="col grow gap4"><span class="up">Lunch</span><span class="b">Chicken &amp; quinoa bowl</span><span class="xs muted">610 kcal · 46 g protein</span></div><i data-i="refresh" class="s" style="color:var(--muted)"></i></div>
+        <div class="ph-card plan"><div class="food" style="background:radial-gradient(circle at 40% 40%,#F9C6A8,#E07A5F)"></div><div class="col grow gap4"><span class="up">Dinner</span><span class="b">Baked salmon, dill potatoes</span><span class="xs muted">680 kcal · 42 g protein</span></div><i data-i="refresh" class="s" style="color:var(--muted)"></i></div>
+        <span class="btn ghost" style="justify-content:center;height:44px;border-radius:14px"><i data-i="sparkles" class="s" style="color:var(--accent)"></i>Regenerate the week</span>
+        <div class="ph-card row gap12" style="padding:12px 16px"><i data-i="file" style="color:var(--accent)"></i><span class="sm grow"><b>Shopping list</b> <span class="muted">· ready for the week</span></span><i data-i="right" class="s" style="color:var(--muted)"></i></div>
+      </div>
+      <div class="tabbar"><span><i data-i="home"></i>Today</span><span class="on"><i data-i="cal"></i>Plan</span><span><i data-i="scan"></i>Scan</span><span><i data-i="users"></i>Feed</span></div>
+    </div>
+  </div>
+
+</div>
+<script>
+  let bars = "";
+  let x = 110;
+  [3,1,2,1,3,2,1,1,3,1,2,2,1,3,1,2,1,3,2,1,1,2,3,1].forEach((w, i) => { if (i % 2 === 0) bars += `<rect x="${x}" y="300" width="${w * 2}" height="70" fill="#1A1A1E"/>`; x += w * 2 + 1; });
+  document.getElementById("cam").innerHTML = `
+    <defs>
+      <linearGradient id="bgk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3B3F45"/><stop offset="1" stop-color="#1A1C20"/></linearGradient>
+      <linearGradient id="cup" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#D9E6F0"/><stop offset=".5" stop-color="#FFFFFF"/><stop offset="1" stop-color="#C5D4E0"/></linearGradient>
+    </defs>
+    <rect width="362" height="790" fill="url(#bgk)"/>
+    <path d="M60 140H302L286 620H76Z" fill="url(#cup)"/>
+    <rect x="52" y="120" width="258" height="30" rx="8" fill="#2F6FB5"/>
+    <rect x="86" y="170" width="190" height="64" rx="10" fill="#2F6FB5"/>
+    <text x="181" y="210" text-anchor="middle" font-family="Space Grotesk" font-weight="700" font-size="24" fill="#FFFFFF">YOGHURT</text>
+    <text x="181" y="268" text-anchor="middle" font-family="Inter" font-weight="600" font-size="13" fill="#2F6FB5">GREEK STYLE · 2%</text>
+    <rect x="100" y="290" width="162" height="100" rx="6" fill="#FFFFFF"/>
+    ${bars}
+    <text x="181" y="384" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#1A1A1E">7 31234 56789 0</text>`;
+</script>
+<script src="_base.js"></script>
+</body>
+</html>
