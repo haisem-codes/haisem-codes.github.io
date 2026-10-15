@@ -3,10 +3,10 @@ import { pageError } from "./page-error";
 
 export const sv = {
   meta: {
-    title: "Haisem Naeem | Webbplatser och AI-automation, Stockholm",
+    title: "Haisem N. | Webbplatser och AI-automation, Stockholm",
     description:
       "Jag designar och bygger webbplatser, AI-receptionister och automationer som ger Stockholmsföretag fler kunder och sparar timmar varje vecka.",
-    hireTitle: "Haisem Naeem | AI-ingenjör, Stockholm",
+    hireTitle: "Haisem N. | AI-ingenjör, Stockholm",
     hireDescription: "AI/ML-ingenjör i Stockholm: LLM-produkter, RAG, röst-AI och fullstack-leverans.",
   },
   nav: {
@@ -16,7 +16,7 @@ export const sv = {
   },
   hero: {
     eyebrow: "Stockholm",
-    meta: ["Haisem Naeem, AI-ingenjör", "Webbplatser · Röst-AI · Automation"], // REVIEW-SV
+    meta: ["Haisem N., AI-ingenjör", "Webbplatser · Röst-AI · Automation"], // REVIEW-SV
     titleLead: "AI som jobbar", // REVIEW-SV
     titleAccent: "när du inte gör det.", // REVIEW-SV
     sub: "Jag designar och bygger webbplatser, AI-receptionister och automationer för företag i Stockholm, och tar hand om dem när de är i drift.", // REVIEW-SV
@@ -314,9 +314,9 @@ export const sv = {
   privacy: {
     title: "Integritetspolicy",
     updated: "Uppdaterad 8 oktober 2026",
-    description: "Hur Haisem Naeem hanterar svaren du skickar via formuläret: syfte, personuppgiftsbiträden, lagringstid och dina rättigheter enligt GDPR.", // REVIEW-SV
+    description: "Hur Haisem N. hanterar svaren du skickar via formuläret: syfte, personuppgiftsbiträden, lagringstid och dina rättigheter enligt GDPR.", // REVIEW-SV
     sections: [
-      { h: "Vem som ansvarar", p: "Haisem Naeem, Stockholm. Kontakt: haisem.work@gmail.com." },
+      { h: "Vem som ansvarar", p: "Haisem N., Stockholm. Kontakt: haisem.work@gmail.com." },
       { h: "Vad jag samlar in och varför", p: "Svaren du lämnar i formuläret, så att jag kan förbereda ett samtal och skicka ett förslag. Rättslig grund: åtgärder på din begäran innan ett eventuellt avtal (GDPR art. 6.1 b)." }, // REVIEW-SV
       { h: "Vem som behandlar uppgifterna", p: "Cloudflare (formulär och skräppostskydd), Supabase (databas, region Stockholm), Resend (aviseringsmejlet till mig) och PostHog EU (anonym statistik över sidvisningar och formulärsteg, utan kakor och utan formulärinnehåll). Alla har personuppgiftsbiträdesavtal. Supabase och PostHog lagrar uppgifterna inom EU; Cloudflare och Resend kan behandla dem utanför EU, med stöd av sina personuppgiftsbiträdesavtal och EU:s standardavtalsklausuler." }, // REVIEW-SV
       { h: "Hur länge jag sparar dem", p: "12 månader om vi inte jobbar ihop; under avtalet plus bokföringskrav om vi gör det." },

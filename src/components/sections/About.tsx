@@ -12,7 +12,7 @@ export function About({ dict }: { dict: Dictionary["about"]; lang: Locale }) {
           <div className="relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-3xl border border-border bg-bg-card">
             <Image
               src={asset("/haisem.webp")}
-              alt="Haisem Naeem"
+              alt="Haisem N."
               fill
               sizes="(min-width: 768px) 384px, 100vw"
               className="object-cover object-top"

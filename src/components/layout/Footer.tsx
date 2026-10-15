@@ -63,7 +63,7 @@ export function Footer({ dict, lang }: { dict: Dictionary["footer"]; lang: Local
 
         <div className="mt-10 pt-6 border-t border-border flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
           <p className="text-xs text-text-secondary">
-            &copy; {new Date().getFullYear()} Haisem Naeem. {dict.rights}
+            &copy; {new Date().getFullYear()} Haisem N. {dict.rights}
           </p>
           <a
             href={localHref(lang, "/privacy/")}

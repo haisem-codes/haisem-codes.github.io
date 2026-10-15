@@ -2,10 +2,10 @@ import { pageError } from "./page-error";
 
 export const en = {
   meta: {
-    title: "Haisem Naeem | Websites and AI automation, Stockholm",
+    title: "Haisem N. | Websites and AI automation, Stockholm",
     description:
       "I design and build websites, AI receptionists and automations that win Stockholm businesses more customers and save hours every week.",
-    hireTitle: "Haisem Naeem | AI engineer, Stockholm",
+    hireTitle: "Haisem N. | AI engineer, Stockholm",
     hireDescription: "AI/ML engineer in Stockholm: LLM products, RAG, voice AI and full-stack delivery.",
   },
   nav: {
@@ -15,7 +15,7 @@ export const en = {
   },
   hero: {
     eyebrow: "Stockholm",
-    meta: ["Haisem Naeem, AI engineer", "Websites · Voice AI · Automation"],
+    meta: ["Haisem N., AI engineer", "Websites · Voice AI · Automation"],
     titleLead: "AI that works",
     titleAccent: "while you don't.",
     sub: "I design and build websites, AI receptionists and automations for Stockholm businesses, and look after them once they're live.",
@@ -313,9 +313,9 @@ export const en = {
   privacy: {
     title: "Privacy notice",
     updated: "Updated 8 October 2026",
-    description: "How Haisem Naeem handles the answers you send through the intake form: purpose, processors, retention and your rights under GDPR.",
+    description: "How Haisem N. handles the answers you send through the intake form: purpose, processors, retention and your rights under GDPR.",
     sections: [
-      { h: "Who is responsible", p: "Haisem Naeem, Stockholm, Sweden. Contact: haisem.work@gmail.com." },
+      { h: "Who is responsible", p: "Haisem N., Stockholm, Sweden. Contact: haisem.work@gmail.com." },
       { h: "What I collect and why", p: "The answers you give in the intake form, so I can prepare for a call and send you a proposal. Legal basis: steps at your request before a possible contract (GDPR art. 6.1 b)." },
       { h: "Who processes it", p: "Cloudflare (form handling and spam protection), Supabase (database, Stockholm region), Resend (the notification email to me) and PostHog EU (anonymous page and form-step counts, no cookies, no form contents). Each has a data processing agreement. Supabase and PostHog store data in the EU; Cloudflare and Resend may process it outside the EU, covered by their data processing agreements and the EU standard contractual clauses." },
       { h: "How long I keep it", p: "12 months if we don't work together; for the duration of our contract plus bookkeeping requirements if we do." },

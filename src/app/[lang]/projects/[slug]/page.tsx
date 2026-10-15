@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!isLocale(lang)) return { title: "Not Found" };
   if (!found) return { title: getDictionary(lang).work.notFound };
   const project = localize(found, lang);
-  const title = `${project.title} | Haisem Naeem`;
+  const title = `${project.title} | Haisem N.`;
   const url = localHref(lang, `/projects/${slug}/`);
   return {
     title,
