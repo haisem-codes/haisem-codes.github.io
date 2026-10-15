@@ -27,10 +27,15 @@ const SCENES = {
   dietapp: "dietapp",
   "before-site": "before-site",
   "after-site": "after-site",
+  "before-phone": "before-phone",
+  "after-phone": "after-phone",
 };
+/** Scenes that are not 1600×1000 (the phone scenes are 4:5). */
+const SIZES = { "before-phone": { width: 800, height: 1000 }, "after-phone": { width: 800, height: 1000 } };
 const THEMES = { light: "", night: "-night" };
 const WIDTHS = [800, 1600];
-const VIEWPORT = { width: 1600, height: 1000, deviceScaleFactor: 2 };
+const VIEWPORT = { width: 1600, height: 1000 };
+const DPR = 2;
 const QUALITY = { avif: { quality: 50, effort: 6 }, webp: { quality: 80, effort: 6 } };
 
 const chromePath =
@@ -63,13 +68,14 @@ try {
 const browser = await puppeteer.launch({ executablePath: chromePath, headless: true });
 try {
   const page = await browser.newPage();
-  await page.setViewport(VIEWPORT);
   page.on("console", (m) => m.type() === "error" && console.error(`  [page] ${m.text()}`));
   page.on("pageerror", (e) => console.error(`  [page] ${e.message}`));
 
   for (const name of names) {
     const slug = SCENES[name];
-    const entry = { w: VIEWPORT.width, h: VIEWPORT.height };
+    const size = SIZES[name] ?? VIEWPORT;
+    await page.setViewport({ ...size, deviceScaleFactor: DPR });
+    const entry = { w: size.width, h: size.height };
     for (const [theme, suffix] of Object.entries(THEMES)) {
       const url = `${pathToFileURL(path.join(here, "scenes", `${name}.html`)).href}?theme=${theme}`;
       await page.goto(url, { waitUntil: "networkidle0" });

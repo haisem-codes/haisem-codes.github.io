@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent, type ReactNode } from "react";
 import { readTier, type Tier } from "@/lib/capability";
-import { clampPct, scoreAt } from "@/lib/slider";
+import { clampPct, dragIntent, scoreAt } from "@/lib/slider";
 import { cn } from "@/lib/utils";
 
 export type Score = { label: string; from: number; to: number };
@@ -19,9 +19,11 @@ export type SliderText = {
   scoresLabel: string;
   scoresNote: string;
   from: string;
+  compareLabel: string;
 };
 
-const START = 50;
+/** Starts left of centre so the redesign's headline is in view before anyone drags. */
+const START = 42;
 const RING = 2 * Math.PI * 26;
 
 const chip =
@@ -93,12 +95,13 @@ function Dials({ scores, values, captions, t }: { scores: Score[]; values: numbe
 const frame = "overflow-hidden rounded-2xl border border-border bg-bg-card p-1.5 shadow-[0_40px_80px_-40px_rgba(15,23,42,0.35)] dark:shadow-[0_40px_80px_-40px_rgba(0,0,0,0.8)]";
 
 type Props = { before: ReactNode; after: ReactNode; scores: Score[]; t: SliderText };
+type PhoneProps = { beforePhone: ReactNode; afterPhone: ReactNode; scores: Score[]; t: SliderText };
 
 function StaticView({ before, after, scores, t }: Props) {
   return (
     <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_220px] lg:items-center lg:gap-14">
       <div>
-        <div className="grid gap-6 sm:grid-cols-2 sm:gap-4">
+        <div className="grid grid-cols-2 gap-4">
           {[
             { img: before, label: t.before },
             { img: after, label: t.after },
@@ -126,6 +129,7 @@ function Slider({ before, after, scores, t }: Props) {
   const [dragging, setDragging] = useState(false);
   const track = useRef<HTMLDivElement>(null);
   const handle = useRef<HTMLDivElement>(null);
+  const gesture = useRef<{ id: number; x: number; y: number; dragging: boolean } | null>(null);
 
   const shown = 100 - pct;
   const now = Math.round(pct);
@@ -135,19 +139,41 @@ function Slider({ before, after, scores, t }: Props) {
     const r = track.current?.getBoundingClientRect();
     if (r && r.width > 0) setPct(clampPct(((clientX - r.left) / r.width) * 100));
   };
+  /** Mouse jumps on press. Touch waits for a clearly horizontal drag (or a press on the handle), so scrolling past the slider leaves it alone. */
   const down = (e: PointerEvent<HTMLDivElement>) => {
-    if (e.button !== 0) return;
-    e.preventDefault();
-    e.currentTarget.setPointerCapture(e.pointerId);
-    fromX(e.clientX);
-    handle.current?.focus({ preventScroll: true });
+    if (e.pointerType === "mouse") {
+      if (e.button !== 0) return;
+      e.preventDefault();
+      e.currentTarget.setPointerCapture(e.pointerId);
+      gesture.current = { id: e.pointerId, x: e.clientX, y: e.clientY, dragging: true };
+      fromX(e.clientX);
+      handle.current?.focus({ preventScroll: true });
+      return;
+    }
+    const onHandle = !!handle.current?.contains(e.target as Node);
+    gesture.current = { id: e.pointerId, x: e.clientX, y: e.clientY, dragging: onHandle };
+    if (onHandle) e.currentTarget.setPointerCapture(e.pointerId);
   };
   const move = (e: PointerEvent<HTMLDivElement>) => {
-    if (!e.currentTarget.hasPointerCapture(e.pointerId)) return;
+    const g = gesture.current;
+    if (!g || g.id !== e.pointerId) return;
+    if (!g.dragging) {
+      const intent = dragIntent(e.clientX - g.x, e.clientY - g.y);
+      if (intent === "pending") return;
+      if (intent === "scroll") {
+        gesture.current = null;
+        return;
+      }
+      g.dragging = true;
+      e.currentTarget.setPointerCapture(e.pointerId);
+    }
     setDragging(true);
     fromX(e.clientX);
   };
-  const end = () => setDragging(false);
+  const end = () => {
+    gesture.current = null;
+    setDragging(false);
+  };
   const key = (e: KeyboardEvent<HTMLDivElement>) => {
     const step = e.shiftKey ? 10 : 5;
     const next: Record<string, number> = {
@@ -202,7 +228,7 @@ function Slider({ before, after, scores, t }: Props) {
               aria-valuenow={now}
               aria-valuetext={valueText}
               onKeyDown={key}
-              className={cn("group absolute inset-y-0 z-10 flex w-11 -translate-x-1/2 justify-center outline-none transition-[left]", glide)}
+              className={cn("group absolute inset-y-0 z-10 flex w-11 -translate-x-1/2 touch-none justify-center outline-none transition-[left]", glide)}
               style={{ left: "var(--pct)" }}
             >
               <span aria-hidden className="h-full w-0.5 bg-white shadow-[0_0_0_1px_rgba(10,10,11,0.18)]" />
@@ -235,15 +261,67 @@ function Slider({ before, after, scores, t }: Props) {
   );
 }
 
-/** Before hydration both layouts render and CSS picks one by reduced motion, so the static tier rarely swaps layout. */
-export function BeforeAfterSlider(props: Props) {
+/** Phones get phone-sized renders and a Before/After toggle instead of a 300px-wide slider. No motion is needed, so every tier uses it. */
+function PhoneCompare({ beforePhone, afterPhone, scores, t }: PhoneProps) {
+  const [side, setSide] = useState<"before" | "after">("after");
+  const after = side === "after";
+  const layer = "absolute inset-0 transition-opacity duration-300 ease-out motion-reduce:transition-none";
+  return (
+    <div className="grid gap-10">
+      <div>
+        <div role="group" aria-label={t.compareLabel} className="grid grid-cols-2 rounded-full border border-border bg-bg-card p-1">
+          {(["before", "after"] as const).map((s) => (
+            <button
+              key={s}
+              type="button"
+              aria-pressed={side === s}
+              onClick={() => setSide(s)}
+              className="min-h-[44px] cursor-pointer rounded-full font-mono text-xs tracking-[0.14em] text-text-secondary uppercase transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent aria-pressed:bg-text aria-pressed:text-bg"
+            >
+              {t[s]}
+            </button>
+          ))}
+        </div>
+        <div className={cn(frame, "mt-4")}>
+          <div className="relative aspect-[4/5] overflow-hidden rounded-[11px]">
+            <div aria-hidden={after} className={cn(layer, after ? "opacity-0" : "opacity-100")}>
+              {beforePhone}
+            </div>
+            <div aria-hidden={!after} className={cn(layer, after ? "opacity-100" : "opacity-0")}>
+              {afterPhone}
+            </div>
+            <ConceptChip label={t.concept} />
+          </div>
+        </div>
+        <p className="mt-4 font-mono text-xs text-text-secondary">{t.conceptNote}</p>
+      </div>
+      <Dials
+        scores={scores}
+        values={scores.map((s) => (after ? s.to : s.from))}
+        captions={scores.map((s) => `${s.from} → ${s.to}`)}
+        t={t}
+      />
+    </div>
+  );
+}
+
+/**
+ * Below md: the phone toggle. From md: the slider, or side-by-side stills for the static tier. Before hydration
+ * both md+ layouts render and CSS picks one by reduced motion, so the static tier rarely swaps layout.
+ */
+export function BeforeAfterSlider(props: Props & PhoneProps) {
   const [tier, setTier] = useState<Tier | null>(null);
   useEffect(() => setTier(readTier()), []);
   const isStatic = tier === "static";
   return (
     <>
-      <div className={tier === null ? "motion-reduce:hidden" : isStatic ? "hidden" : undefined}>{!isStatic && <Slider {...props} />}</div>
-      <div className={tier === null ? "hidden motion-reduce:block" : isStatic ? undefined : "hidden"}>
+      <div className="md:hidden">
+        <PhoneCompare {...props} />
+      </div>
+      <div className={cn("hidden", tier === null ? "md:block md:motion-reduce:hidden" : !isStatic && "md:block")}>
+        {!isStatic && <Slider {...props} />}
+      </div>
+      <div className={cn("hidden", tier === null ? "md:motion-reduce:block" : isStatic && "md:block")}>
         {(tier === null || isStatic) && <StaticView {...props} />}
       </div>
     </>

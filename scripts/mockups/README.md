@@ -4,7 +4,8 @@ Original product-UI scenes for the Work showcase. No client names, logos, people
 metrics beyond the CV-allowed ones (`job-search/shared/profile-facts.md`); all names
 and data in the scenes are fictional.
 
-- `scenes/<name>.html` — one 1600×1000 scene per project. Shared frame, tokens and
+- `scenes/<name>.html` — one 1600×1000 scene per project (the before/after phone scenes are 800×1000,
+  see `SIZES` in `render.mjs`; the salon scenes share `_salon-grid.css` / `_phone-scene.css`). Shared frame, tokens and
   icons live in `scenes/_base.css` and `scenes/_base.js` (laptop browser window for web
   apps, three phones for mobile apps). `?theme=night` switches to the night palette.
 - `render.mjs` — opens each scene in system Chrome (puppeteer-core), screenshots at

@@ -1,5 +1,5 @@
 import { test, expect } from "vitest";
-import { clampPct, scoreAt } from "@/lib/slider";
+import { clampPct, dragIntent, scoreAt } from "@/lib/slider";
 
 test("clamp", () => {
   expect(clampPct(-5)).toBe(0);
@@ -16,4 +16,19 @@ test("score interpolates", () => {
 test("score clamps out-of-range percentages", () => {
   expect(scoreAt(-20, 38, 98)).toBe(38);
   expect(scoreAt(180, 38, 98)).toBe(98);
+});
+
+test("touch intent waits until the gesture clears the threshold", () => {
+  expect(dragIntent(3, 2)).toBe("pending");
+  expect(dragIntent(-7, 0)).toBe("pending");
+});
+
+test("touch intent drags on a mostly horizontal gesture", () => {
+  expect(dragIntent(12, 4)).toBe("drag");
+  expect(dragIntent(-20, -9)).toBe("drag");
+});
+
+test("touch intent yields to vertical scrolling", () => {
+  expect(dragIntent(4, 14)).toBe("scroll");
+  expect(dragIntent(10, -10)).toBe("scroll");
 });

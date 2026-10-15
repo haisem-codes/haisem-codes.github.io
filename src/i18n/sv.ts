@@ -212,7 +212,7 @@ export const sv = {
     index: "05",
     eyebrow: "Före och efter", // REVIEW-SV
     title: "Samma salong. En webbplats som tar emot bokningar.", // REVIEW-SV
-    kicker: "Dra i reglaget och jämför en typisk webbplats för ett lokalt företag med en ny design som tar emot bokningar och svarar på frågor.", // REVIEW-SV
+    kicker: "En typisk webbplats för ett lokalt företag bredvid en ny design som tar emot bokningar och svarar på frågor.", // REVIEW-SV
     concept: "Koncept", // REVIEW-SV
     conceptNote: "Konceptdesign av en typisk lokal webbplats", // REVIEW-SV
     before: "Före",
@@ -224,9 +224,10 @@ export const sv = {
     hint: "Dra, eller använd piltangenterna", // REVIEW-SV
     hintTouch: "Dra i reglaget", // REVIEW-SV
     scoresLabel: "Exempelpoäng för fart och kvalitet", // REVIEW-SV
-    scoresNote: "Illustrativa siffror för en konceptdesign, inte en mätning. Mätarna följer reglaget.", // REVIEW-SV
+    scoresNote: "Illustrativa siffror för en konceptdesign, inte en mätning. Mätarna följer jämförelsen.", // REVIEW-SV
     from: "från",
     dials: { performance: "Prestanda", accessibility: "Tillgänglighet", seo: "SEO" },
+    compareLabel: "Visa webbplatsen före eller efter", // REVIEW-SV
   },
   how: {
     title: "Så jobbar vi tillsammans",

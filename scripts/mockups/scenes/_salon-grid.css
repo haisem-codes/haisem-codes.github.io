@@ -1,0 +1,7 @@
+/* Shared grid for the before/after salon scenes, so the slider compares like with like at every split.
+   Viewport 1440×836: header 0–84 · hero 112–532 (488px photo column | 60px gap | copy column from x 620) · booking band 560–800. */
+.g-head { position: absolute; left: 0; right: 0; top: 0; height: 84px; display: flex; align-items: center; padding: 0 72px; }
+.g-head > .g-left { width: 488px; flex: none; }
+.g-head > .g-right { margin-left: 60px; min-width: 0; }
+.g-hero { position: absolute; top: 112px; left: 72px; right: 72px; height: 420px; display: grid; grid-template-columns: 488px 1fr; column-gap: 60px; }
+.g-band { position: absolute; top: 560px; left: 72px; right: 72px; height: 240px; }
