@@ -40,8 +40,6 @@ function Arrow() {
 function FeaturedRow({ p, i, dict, lang }: { p: Project; i: number; dict: WorkDict; lang: Locale }) {
   const flip = i % 2 === 1;
   const h = (dict.highlights as Record<string, Highlight>)[p.slug];
-  const titleId = `work-${p.slug}-title`;
-  const ctaId = `work-${p.slug}-cta`;
   const picture = (
     <div
       style={{ "--vt": `project-${p.slug}` } as CSSProperties}
@@ -58,7 +56,6 @@ function FeaturedRow({ p, i, dict, lang }: { p: Project; i: number; dict: WorkDi
     <li className={cn("relative overflow-hidden", BANDS[i % BANDS.length])} style={BLEED} data-nav-theme={i % BANDS.length === 1 ? "dark" : undefined}>
       <TransitionLink
         href={localHref(lang, `/projects/${p.slug}/`)}
-        aria-labelledby={`${titleId} ${ctaId}`}
         data-cursor="view"
         className="group block focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-accent"
       >
@@ -85,13 +82,12 @@ function FeaturedRow({ p, i, dict, lang }: { p: Project; i: number; dict: WorkDi
                 )}
               </p>
               <h3
-                id={titleId}
                 className="mt-3 font-display leading-[1.02] font-bold tracking-[-0.03em] text-balance text-text"
                 style={{ fontSize: "clamp(2rem, 3.1vw, 2.75rem)" }}
               >
                 {headline(p.title)}
               </h3>
-              <span id={ctaId} className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-accent">
+              <span className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-accent">
                 {dict.view} <Arrow />
               </span>
             </ScrollReveal>
@@ -108,17 +104,13 @@ function FeaturedRow({ p, i, dict, lang }: { p: Project; i: number; dict: WorkDi
 }
 
 function ListRow({ p, dict, lang }: { p: Project; dict: WorkDict; lang: Locale }) {
-  const titleId = `work-${p.slug}-title`;
   return (
     <TransitionLink
       href={localHref(lang, `/projects/${p.slug}/`)}
-      aria-labelledby={titleId}
       data-cursor="view"
       className="group grid grid-cols-[1fr_auto] items-center gap-x-6 gap-y-1.5 border-t border-border py-5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:grid-cols-[1fr_16rem_2rem] sm:py-6"
     >
-      <span
-        id={titleId}
-        className="relative z-20 font-display text-xl leading-snug font-semibold tracking-tight text-text transition-transform duration-300 ease-out sm:text-2xl sm:group-hover:translate-x-2"
+      <span className="relative z-20 font-display text-xl leading-snug font-semibold tracking-tight text-text transition-transform duration-300 ease-out sm:text-2xl sm:group-hover:translate-x-2"
       >
         {headline(p.title)}
       </span>

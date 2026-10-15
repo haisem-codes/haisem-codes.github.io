@@ -37,11 +37,11 @@ export function Toolbar({
             key={v}
             type="button"
             aria-pressed={v === active}
-            disabled={!onSelect}
+            aria-disabled={!onSelect || undefined}
             onClick={onSelect && (() => onSelect(v))}
             className={cn(
               "min-h-[36px] rounded-full px-3 text-[13px] font-medium whitespace-nowrap transition-colors duration-[var(--dur-micro)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:px-4 sm:text-sm",
-              v === active ? "bg-text text-bg" : "text-text-secondary enabled:hover:text-text",
+              v === active ? "bg-text text-bg" : "text-text-secondary hover:not-aria-disabled:text-text",
             )}
           >
             {dict.verticals[v]}
@@ -50,9 +50,9 @@ export function Toolbar({
       </div>
       <button
         type="button"
-        disabled={!onRestart}
+        aria-disabled={!onRestart || undefined}
         onClick={onRestart}
-        className="ml-auto inline-flex min-h-[36px] items-center gap-2 rounded-full px-3 text-sm text-text-secondary transition-colors duration-[var(--dur-micro)] enabled:hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        className="ml-auto inline-flex min-h-[36px] items-center gap-2 rounded-full px-3 text-sm text-text-secondary transition-colors duration-[var(--dur-micro)] hover:not-aria-disabled:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
       >
         <svg aria-hidden width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
           <path d="M2.5 8a5.5 5.5 0 1 0 1.7-4M2.5 2.5V5H5" />
@@ -137,13 +137,13 @@ export function Chip({ slot, disabled, onClick, children }: { slot?: boolean; di
   return (
     <button
       type="button"
-      disabled={disabled}
+      aria-disabled={disabled || undefined}
       onClick={onClick && ((e) => onClick(e.detail === 0))}
       className={cn(
-        "min-h-[40px] shrink-0 rounded-full border px-4 text-sm whitespace-nowrap transition-[color,border-color,background-color] duration-[var(--dur-micro)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:cursor-default",
+        "min-h-[40px] shrink-0 rounded-full border px-4 text-sm whitespace-nowrap transition-[color,border-color,background-color] duration-[var(--dur-micro)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent aria-disabled:cursor-default",
         slot
-          ? "border-live/40 font-mono text-live tabular-nums enabled:hover:border-live enabled:hover:bg-live enabled:hover:text-[#1A1205]"
-          : "border-accent/30 text-accent enabled:hover:border-accent enabled:hover:bg-accent-tint",
+          ? "border-live/40 font-mono text-live tabular-nums hover:not-aria-disabled:border-live hover:not-aria-disabled:bg-live hover:not-aria-disabled:text-[#1A1205]"
+          : "border-accent/30 text-accent hover:not-aria-disabled:border-accent hover:not-aria-disabled:bg-accent-tint",
         disabled && "opacity-60",
       )}
     >
@@ -177,13 +177,13 @@ export function Composer({
         value={value ?? ""}
         onChange={onChange && ((e) => onChange(e.target.value))}
         readOnly={!onChange}
-        disabled={disabled}
+        aria-disabled={disabled || undefined}
         maxLength={200}
         autoComplete="off"
         enterKeyHint="send"
         aria-label={dict.inputLabel}
         placeholder={dict.placeholder}
-        className="min-h-[48px] min-w-0 flex-1 rounded-full border border-border-hover bg-transparent px-5 text-base text-text placeholder:text-text-secondary focus:border-accent focus:outline-none disabled:opacity-60"
+        className="min-h-[48px] min-w-0 flex-1 rounded-full border border-border-hover bg-transparent px-5 text-base text-text placeholder:text-text-secondary focus:border-accent focus:outline-none aria-disabled:opacity-60"
       />
       <button
         type="submit"

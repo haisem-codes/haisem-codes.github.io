@@ -67,7 +67,7 @@ export function TestimonialPlayer({ media, labels, sizes, compact = false }: { m
         <button
           type="button"
           onClick={() => setPlaying(true)}
-          aria-label={labels.play}
+          aria-label={`${[labels.posterLabel, !compact && labels.name, `${labels.watch} ${labels.duration}`].filter(Boolean).join(", ")}: ${labels.videoLabel}`}
           className="group absolute inset-0 block size-full cursor-pointer text-left focus-visible:outline-none"
         >
           <picture>

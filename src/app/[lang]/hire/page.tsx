@@ -56,7 +56,7 @@ export default async function HirePage({ params }: Props) {
             <a
               href={asset("/Haisem-Naeem-CV.pdf")}
               download
-              className="mt-10 inline-flex min-h-[52px] items-center gap-2 rounded-full bg-accent px-7 text-base font-medium text-white transition-colors hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+              className="mt-10 inline-flex min-h-[52px] items-center gap-2 rounded-full bg-button px-7 text-base font-medium text-button-text transition-[filter] hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
             >
               {hire.cv}
               <span aria-hidden>↓</span>

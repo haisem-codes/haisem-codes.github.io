@@ -290,7 +290,7 @@ export function IntakeForm({ dict, lang }: { dict: Dictionary["intake"]; lang: L
   if (status === "done") {
     return (
       <div ref={rootRef} className="rounded-[2rem] border border-border bg-bg-card px-6 py-12 sm:px-12 sm:py-16" aria-live="polite">
-        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-accent text-xl text-white" aria-hidden>✓</div>
+        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-button text-xl text-button-text" aria-hidden>✓</div>
         <h2 ref={headingRef} tabIndex={-1} className="mt-6 font-display text-3xl font-semibold tracking-tight text-text outline-none sm:text-4xl">
           {dict.successTitle}
         </h2>
@@ -359,7 +359,7 @@ export function IntakeForm({ dict, lang }: { dict: Dictionary["intake"]; lang: L
             <p className="mt-2 text-base leading-relaxed text-text-secondary">{dict.offlineBody}</p>
             <a
               href={mailto}
-              className="mt-4 inline-flex min-h-[48px] items-center gap-2 rounded-full border border-accent px-6 text-base font-medium text-accent transition-colors hover:bg-accent hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+              className="mt-4 inline-flex min-h-[48px] items-center gap-2 rounded-full border border-accent px-6 text-base font-medium text-accent transition-colors hover:bg-button hover:text-button-text focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
             >
               {dict.offlineButton}
               <span aria-hidden>→</span>
@@ -371,7 +371,7 @@ export function IntakeForm({ dict, lang }: { dict: Dictionary["intake"]; lang: L
           <button
             type="submit"
             disabled={status === "sending"}
-            className="inline-flex min-h-[52px] items-center gap-2 rounded-full bg-accent px-8 text-base font-medium text-white transition-colors hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent disabled:opacity-70"
+            className="inline-flex min-h-[52px] items-center gap-2 rounded-full bg-button px-8 text-base font-medium text-button-text transition-[filter] hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent disabled:opacity-70"
           >
             {status === "sending" ? dict.sending : isLast ? dict.submit : dict.next}
             {status !== "sending" && <span aria-hidden>→</span>}
