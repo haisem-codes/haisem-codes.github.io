@@ -59,8 +59,8 @@ export function TestimonialPlayer({ media, labels, sizes, compact = false }: { m
           aria-label={labels.videoLabel}
           className="testimonial-video size-full bg-black object-cover focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent"
         >
-          <source src={media.webm} type="video/webm" />
           <source src={media.mp4} type="video/mp4" />
+          <source src={media.webm} type="video/webm" />
           {media.captions && <track kind="captions" src={media.captions} srcLang="en" label={labels.captionsLabel} default />}
         </video>
       ) : (

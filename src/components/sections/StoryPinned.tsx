@@ -182,7 +182,6 @@ export default function StoryPinned({ dict, frames, tier, onProgress, onFail, ba
 
           <div aria-hidden className="min-h-[96px] lg:hidden [@media(max-height:720px)]:min-h-0">
             <p className="font-mono text-xs tracking-[0.1em] text-live tabular-nums">
-              {dict.stepOf.replace("{n}", String(active + 1).padStart(2, "0")).replace("{total}", String(dict.steps.length).padStart(2, "0"))} ·{" "}
               {dict.clocks[active]}
             </p>
             <p className="mt-1 font-display text-2xl font-semibold tracking-tight text-text">{dict.steps[active].title}</p>

@@ -56,7 +56,7 @@ export function FooterMarquee({ dict, lang }: { dict: Dictionary["marquee"]; lan
                 <span aria-hidden>→</span>
               </a>
             </Magnetic>
-            <p className="text-base text-text-secondary">
+            <p className="text-base whitespace-nowrap text-text-secondary">
               {dict.orEmail}{" "}
               <a
                 href={`mailto:${personal.email}`}

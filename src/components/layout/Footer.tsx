@@ -40,7 +40,6 @@ export function Footer({ dict, nav, lang }: { dict: Dictionary["footer"]; nav: D
     { href: localHref(lang, "/#work"), label: nav.work },
     { href: localHref(lang, "/#about"), label: nav.about },
     { href: localHref(lang, "/hire/"), label: nav.hire },
-    { href: localHref(lang, "/start/"), label: nav.start },
   ];
   return (
     <footer className="border-t border-border px-6 pt-16 pb-10 sm:pt-20">
@@ -93,14 +92,9 @@ export function Footer({ dict, nav, lang }: { dict: Dictionary["footer"]; nav: D
         <p className="py-2">
           &copy; {new Date().getFullYear()} Haisem N. {dict.rights}
         </p>
-        <p className="flex flex-wrap gap-x-6 gap-y-2">
-          <a href={`mailto:${personal.email}`} className="inline-flex min-h-[32px] items-center normal-case tracking-[0.04em] transition-colors hover:text-accent">
-            {personal.email}
-          </a>
-          <a href={localHref(lang, "/privacy/")} className="inline-flex min-h-[32px] items-center transition-colors hover:text-accent">
-            {dict.privacy}
-          </a>
-        </p>
+        <a href={localHref(lang, "/privacy/")} className="inline-flex min-h-[32px] items-center transition-colors hover:text-accent">
+          {dict.privacy}
+        </a>
       </div>
     </footer>
   );

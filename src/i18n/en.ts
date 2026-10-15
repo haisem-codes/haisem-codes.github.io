@@ -149,7 +149,6 @@ export const en = {
       { title: "Your CRM is updated", body: "Notes, tags and a summary email, before you've had breakfast." },
     ],
     clocks: ["21:40:00", "21:41:30", "21:43:20", "21:44:00"],
-    stepOf: "{n} / {total}",
     ui: {
       business: "Salong Åsa",
       demo: "Demo",
@@ -183,7 +182,7 @@ export const en = {
     builtAt: "System built at Metaviz AI",
     transcript:
       "Yo Haisem, just wanted to say thanks for all the fulfillment work you've helped me with over the past few months, just starting up my agency. Would not have been able to scale as fast as I have been without the support. Yeah, everything from the AI callers to the automation work. Really appreciate just how attention to detail you've been, and how good support has been as to, like, absolutely just honing in on the specifics of what needs to be done. My clients have been extremely happy with how good the follow-up process is for them. And I can say the same for my agency as well. So yeah, anybody looking for a top-tier HighLevel developer, highly recommend Haisem.",
-    transcriptNote: "Lightly edited from the auto-generated captions.",
+    transcriptNote: "Transcript, as spoken.",
   },
   derin: {
     name: "Derin",
@@ -201,7 +200,7 @@ export const en = {
     transcriptLabel: "Read the transcript",
     transcript:
       "Hi, I'm Derin and I run Deepsea Media, a marketing agency. I work with Haisem and he's one of the rare people who gets both sides, the technology and the business. What stood out to us was his ownership. He took the project end-to-end and treated it like his own. When something wasn't right, he said so early and he always came up with a solution. The professional, the reliable, the easy to work with people, that's Haisem. He always explains things in plain language so I always know where you stand and he always genuinely is ahead on AI. He always comes up with the latest technology and he implements this to your business. He doesn't chase trends, he thinks about what will actually get a business noticed and growing, then builds it properly. If you want to use AI to grow your business, talk to Haisem.",
-    transcriptNote: "Lightly edited for readability.",
+    transcriptNote: "Transcript, as spoken.",
   },
   work: {
     index: "04",

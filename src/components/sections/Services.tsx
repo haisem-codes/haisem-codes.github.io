@@ -12,16 +12,16 @@ function Teaser({ dict }: { dict: Dictionary["services"] }) {
   return (
     <a
       href="#before-after"
-      className="group mt-10 flex items-center gap-5 rounded-2xl border border-text/10 bg-bg/60 p-3 pr-6 transition-colors hover:border-accent/40 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+      className="group mt-10 flex items-center gap-4 rounded-2xl border border-text/10 bg-bg/60 p-3 pr-4 sm:gap-5 sm:pr-6 transition-colors hover:border-accent/40 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
     >
-      <span aria-hidden className="relative block h-24 w-36 shrink-0 overflow-hidden rounded-xl ring-1 ring-black/5 sm:h-28 sm:w-44 dark:ring-white/10">
+      <span aria-hidden className="relative block h-20 w-24 shrink-0 overflow-hidden rounded-xl sm:h-28 sm:w-44 ring-1 ring-black/5 dark:ring-white/10">
         <span className="absolute top-0 left-0 block w-[340%] origin-top-left -translate-x-[70%] -translate-y-[66%] motion-safe:transition-transform motion-safe:duration-700 motion-safe:ease-[var(--ease-silk)] group-hover:-translate-x-[68%]">
           <WorkPicture slug="after-site" sizes="600px" />
         </span>
       </span>
       <span className="min-w-0">
         <span className="block font-mono text-[11px] tracking-[0.14em] text-text-secondary uppercase">{dict.teaserLabel}</span>
-        <span className="mt-1.5 inline-flex items-center gap-2 font-medium text-accent underline decoration-accent/30 underline-offset-[6px] group-hover:decoration-accent">
+        <span className="mt-1.5 inline-flex items-center gap-2 text-[15px] font-medium whitespace-nowrap text-accent sm:text-base underline decoration-accent/30 underline-offset-[6px] group-hover:decoration-accent">
           {dict.teaser}
           <span aria-hidden className="transition-transform duration-300 group-hover:translate-y-0.5">↓</span>
         </span>

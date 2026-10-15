@@ -110,7 +110,7 @@ export const projects: Project[] = [
 
   {
     slug: "postura",
-    title: "Postura, On-Device Ergonomic Assessment",
+    title: "Postura, On\u2011Device Ergonomic Assessment",
     tagline:
       "Real-time pose analysis + Cornell ROSA scoring, all offline, in Flutter",
     outcome:
