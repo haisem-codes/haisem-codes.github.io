@@ -16,7 +16,6 @@ type Highlight = { value: string; label: string };
 
 const LIST_CAP = 4;
 const sorted = [...projects].sort((a, b) => a.order - b.order);
-const pad = (n: number) => String(n).padStart(2, "0");
 const headline = (title: string) => title.split(":")[0];
 
 /** Band tones: ice tint, a night band that stays dark in both themes, warm paper. */
@@ -27,7 +26,7 @@ const BANDS = [
 ];
 
 /** Pushes the mockup from the container edge to the viewport edge (the band clips any scrollbar overshoot). */
-const BLEED = { "--bleed": "calc(-1 * (max(0px, (100vw - 72rem) / 2) + 1.5rem))" } as CSSProperties;
+const BLEED = { "--bleed": "calc(-1 * max(1.5rem, (100vw - 72rem) / 2))" } as CSSProperties;
 
 function Arrow() {
   return (
@@ -60,39 +59,44 @@ function FeaturedRow({ p, i, dict, lang }: { p: Project; i: number; dict: WorkDi
         aria-labelledby={`${titleId} ${ctaId}`}
         className="group block focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-accent"
       >
-        <div className="mx-auto grid max-w-6xl items-center gap-10 px-6 py-14 sm:py-16 lg:grid-cols-12 lg:gap-12 lg:py-16">
-          <ScrollReveal className={cn("lg:col-span-5", flip && "lg:order-2 lg:col-start-8")}>
-            <span
-              aria-hidden
-              className="-ml-[0.04em] block font-display text-[7rem] leading-[0.78] font-bold tracking-[-0.06em] text-transparent [-webkit-text-stroke:1.5px_var(--color-accent)] sm:text-[9rem] lg:text-[12.5rem]"
-            >
-              {pad(i + 1)}
-            </span>
-            <p className="mt-7 font-mono text-[11px] tracking-[0.18em] text-text-secondary uppercase">
-              {dict.categories[p.category]}
-              {p.employer === "metaviz" && <span className="before:mx-2 before:content-['·']">{dict.employerNote}</span>}
-            </p>
-            <h3
-              id={titleId}
-              className="mt-3 font-display leading-[1.02] font-bold tracking-[-0.03em] text-balance text-text"
-              style={{ fontSize: "clamp(2rem, 3.1vw, 2.75rem)" }}
-            >
-              {headline(p.title)}
-            </h3>
-            {h && (
-              <p className="mt-8 flex max-w-md items-baseline gap-5 border-t border-text/15 pt-6">
-                <span className="shrink-0 font-display text-5xl leading-none font-bold tracking-[-0.04em] text-accent tabular-nums sm:text-6xl">{h.value}</span>
-                <span className="text-sm leading-snug text-text-secondary sm:text-base">{h.label}</span>
+        <div className="px-6 py-12 sm:py-16">
+          <div className="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-12 lg:gap-12">
+            <ScrollReveal className={cn("lg:col-span-5", flip && "lg:order-2 lg:col-start-8")}>
+              {h && (
+                <p className="max-w-md">
+                  <span className="-ml-[0.04em] block font-display text-[4.5rem] leading-[0.85] font-bold tracking-[-0.05em] whitespace-nowrap text-transparent tabular-nums [-webkit-text-stroke:1.5px_var(--color-accent)] sm:text-[6rem] lg:text-[6.75rem]">
+                    {h.value}
+                  </span>
+                  <span className="mt-3 block text-sm leading-snug text-balance text-text-secondary sm:text-base">{h.label}</span>
+                </p>
+              )}
+              <p className="mt-7 font-mono text-[11px] tracking-[0.18em] text-text-secondary uppercase">
+                {dict.categories[p.category]}
+                {p.employer === "metaviz" && (
+                  <>
+                    <span aria-hidden className="ml-2">
+                      ·
+                    </span>{" "}
+                    <span className="whitespace-nowrap">{dict.employerNote}</span>
+                  </>
+                )}
               </p>
-            )}
-            <span id={ctaId} className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-accent">
-              {dict.view} <Arrow />
-            </span>
-          </ScrollReveal>
-          <div className={cn("-mr-6 lg:col-span-7", flip ? "lg:order-1 lg:mr-0 lg:ml-[var(--bleed)]" : "lg:mr-[var(--bleed)]")}>
-            <ClientBoundary fallback={picture}>
-              <TiltCard max={4}>{picture}</TiltCard>
-            </ClientBoundary>
+              <h3
+                id={titleId}
+                className="mt-3 font-display leading-[1.02] font-bold tracking-[-0.03em] text-balance text-text"
+                style={{ fontSize: "clamp(2rem, 3.1vw, 2.75rem)" }}
+              >
+                {headline(p.title)}
+              </h3>
+              <span id={ctaId} className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-accent">
+                {dict.view} <Arrow />
+              </span>
+            </ScrollReveal>
+            <div className={cn("-mr-6 lg:col-span-7", flip ? "lg:order-1 lg:mr-0 lg:ml-[var(--bleed)]" : "lg:mr-[var(--bleed)]")}>
+              <ClientBoundary fallback={picture}>
+                <TiltCard max={4}>{picture}</TiltCard>
+              </ClientBoundary>
+            </div>
           </div>
         </div>
       </a>
@@ -143,32 +147,30 @@ export function Work({ dict, lang }: { dict: WorkDict; lang: Locale }) {
 
   return (
     <section id="work" className="scroll-mt-24 py-20 sm:py-24">
-      <div className="mx-auto max-w-6xl px-6">
-        <SectionHeader index={dict.index} eyebrow={dict.eyebrow} title={dict.title} className="mb-12 sm:mb-16" />
+      <div className="px-6">
+        <div className="mx-auto max-w-6xl">
+          <SectionHeader index={dict.index} eyebrow={dict.eyebrow} title={dict.title} className="mb-12 sm:mb-16" />
+        </div>
       </div>
       <ol>
         {featured.map((p, i) => (
           <FeaturedRow key={p.slug} p={p} i={i} dict={dict} lang={lang} />
         ))}
       </ol>
-      <div className="mx-auto mt-16 max-w-6xl px-6 sm:mt-20">
-        <ClientBoundary
-          fallback={
-            <ul className="border-b border-border">
-              {rows.map((r) => (
-                <li key={r.slug}>{r.row}</li>
-              ))}
-            </ul>
-          }
-        >
-          <WorkList
-            rows={rows}
-            title={dict.more}
-            cap={LIST_CAP}
-            more={dict.allProjects.replace("{n}", String(sorted.length))}
-            fewer={dict.fewer}
-          />
-        </ClientBoundary>
+      <div className="mt-16 px-6 sm:mt-20">
+        <div className="mx-auto max-w-6xl">
+          <ClientBoundary
+            fallback={
+              <ul className="border-b border-border">
+                {rows.map((r) => (
+                  <li key={r.slug}>{r.row}</li>
+                ))}
+              </ul>
+            }
+          >
+            <WorkList rows={rows} title={dict.more} cap={LIST_CAP} more={dict.showMore} fewer={dict.fewer} />
+          </ClientBoundary>
+        </div>
       </div>
     </section>
   );

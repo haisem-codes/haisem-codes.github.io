@@ -47,7 +47,7 @@ export const en = {
   proof: {
     label: "At a glance",
     facts: [
-      { value: "5+", label: "businesses run voice agents I built at Metaviz" },
+      { value: "5+", label: "businesses I built voice agents for at Metaviz" },
       { value: "MSc", label: "AI and Language at Stockholm University" },
       { value: "ACM", label: "Peer-reviewed survey in ACM Computing Surveys" },
     ],
@@ -164,7 +164,7 @@ export const en = {
       "Jake Wims started an agency selling AI lead follow-up to real-estate teams and a mortgage lender. At Metaviz AI, I built the whole system for him: the voice agents, the CRM automations and the workflows between them.",
     points: [
       "An AI caller that phones new Facebook-ad leads, qualifies them on rules Jake approved and books consultations",
-      "A cloneable template, built for more than five of his clients",
+      "A cloneable template, built for his clients",
       "Every call written back to GoHighLevel, with summaries for the lead and the team",
     ],
     confidential: "Results stay confidential to Jake's clients.",
@@ -188,14 +188,14 @@ export const en = {
     more: "More projects",
     categories: { business: "Business automation", products: "AI products", research: "Research" },
     view: "View case study",
-    employerNote: "Built at Metaviz AI",
+    employerNote: "Built at Metaviz\u00A0AI",
     back: "All work",
     highlights: {
       "ai-compliance-platform": { value: "~80%", label: "less manual reviewer time per drawing, at Metaviz" },
-      "voice-agents-suite": { value: "5+", label: "businesses run these voice agents, built at Metaviz" },
+      "voice-agents-suite": { value: "5+", label: "businesses these voice agents were built for, at Metaviz" },
       postura: { value: "Offline", label: "posture scoring runs entirely on the phone" },
     },
-    allProjects: "All projects ({n})",
+    showMore: "Show {n} more projects",
     fewer: "Show fewer",
     problem: "The problem",
     solution: "The solution",

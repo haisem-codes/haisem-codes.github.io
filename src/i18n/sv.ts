@@ -48,7 +48,7 @@ export const sv = {
   proof: {
     label: "I korthet", // REVIEW-SV
     facts: [
-      { value: "5+", label: "företag använder röstagenter som jag byggde på Metaviz" }, // REVIEW-SV
+      { value: "5+", label: "företag som jag byggt röstagenter för på Metaviz" }, // REVIEW-SV
       { value: "MSc", label: "AI och språk vid Stockholms universitet" }, // REVIEW-SV
       { value: "ACM", label: "Referentgranskad översikt i ACM Computing Surveys" }, // REVIEW-SV
     ],
@@ -165,7 +165,7 @@ export const sv = {
       "Jake Wims startade en byrå som säljer AI-uppföljning av förfrågningar till mäklarteam och en bolåneförmedlare. På Metaviz AI byggde jag hela systemet åt honom: röstagenterna, CRM-automationerna och flödena mellan dem.", // REVIEW-SV
     points: [
       "En AI som ringer upp nya förfrågningar från Facebook-annonser, kvalificerar dem enligt regler Jake godkänt och bokar möten", // REVIEW-SV
-      "En mall som kan klonas, byggd för fler än fem av hans kunder", // REVIEW-SV
+      "En mall som kan klonas, byggd för hans kunder", // REVIEW-SV
       "Varje samtal sparas i GoHighLevel, med sammanfattningar till både den som hört av sig och teamet", // REVIEW-SV
     ],
     confidential: "Resultaten är konfidentiella för Jakes kunder.",
@@ -189,14 +189,14 @@ export const sv = {
     more: "Fler projekt",
     categories: { business: "Företagsautomation", products: "AI-produkter", research: "Forskning" },
     view: "Läs caset",
-    employerNote: "Byggt på Metaviz AI",
+    employerNote: "Byggt på Metaviz\u00A0AI",
     back: "Alla projekt",
     highlights: {
       "ai-compliance-platform": { value: "~80\u00A0%", label: "mindre manuell granskningstid per ritning, på Metaviz" }, // REVIEW-SV
-      "voice-agents-suite": { value: "5+", label: "företag använder röstagenterna, byggda på Metaviz" }, // REVIEW-SV
+      "voice-agents-suite": { value: "5+", label: "företag som röstagenterna byggts för, på Metaviz" }, // REVIEW-SV
       postura: { value: "Offline", label: "hållningsanalysen körs helt i telefonen" }, // REVIEW-SV
     },
-    allProjects: "Alla projekt ({n})", // REVIEW-SV
+    showMore: "Visa {n} projekt till", // REVIEW-SV
     fewer: "Visa färre", // REVIEW-SV
     problem: "Problemet",
     solution: "Lösningen",
