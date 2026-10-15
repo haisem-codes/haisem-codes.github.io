@@ -40,7 +40,7 @@ export function Cursor({ dict }: { dict: Dictionary["cursor"] }) {
     };
     const over = (e: PointerEvent) => {
       const t = (e.target as Element | null)?.closest?.("[data-cursor]")?.getAttribute("data-cursor");
-      setMode(t === "view" || t === "try" ? t : null);
+      setMode(t === "view" || t === "try" || t === "book" ? t : null);
     };
     const hide = () => {
       visible = false;

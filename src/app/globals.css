@@ -145,7 +145,7 @@ body::after {
 }
 /* ── Footer marquee: CSS loop plus a scroll-velocity offset (--scroll-phase, from LenisProvider) ── */
 .marquee-track {
-  font-size: clamp(3.5rem, 13vw, 11rem);
+  font-size: clamp(4.25rem, 14vw, 13.75rem);
   animation: marquee-third 28s linear infinite;
   translate: calc(var(--scroll-phase, 0) * -100% / 3) 0;
 }
@@ -176,7 +176,7 @@ body::after {
   max-width: 75rem;
   margin-inline: auto;
   padding-inline: 1.5rem;
-  font-size: clamp(3rem, 7.5vw, 7rem);
+  font-size: clamp(3.5rem, 9vw, 8.5rem);
   animation: none;
   translate: none;
 }
@@ -193,7 +193,7 @@ body::after {
     max-width: 75rem;
     margin-inline: auto;
     padding-inline: 1.5rem;
-    font-size: clamp(3rem, 7.5vw, 7rem);
+    font-size: clamp(3.5rem, 9vw, 8.5rem);
     animation: none;
     translate: none;
   }

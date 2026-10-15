@@ -60,7 +60,7 @@ export default async function LangLayout({ children, params }: { children: React
             <LenisProvider>
               <Navbar dict={d.nav} lang={lang as Locale} />
               {children}
-              <Footer dict={d.footer} lang={lang as Locale} />
+              <Footer dict={d.footer} nav={d.nav} lang={lang as Locale} />
               <CursorLoader dict={d.cursor} />
             </LenisProvider>
           </MotionProvider>

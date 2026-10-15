@@ -355,7 +355,22 @@ export const sv = {
     ],
   },
   pageError: pageError.sv,
-  footer: { rights: "Alla rättigheter förbehållna.", privacy: "Integritet" },
-  cursor: { view: "Visa", try: "Testa" }, // REVIEW-SV
-  marquee: { lead: "Låt oss bygga", em: "ditt", label: "Låt oss bygga ditt" }, // REVIEW-SV
+  footer: {
+    rights: "Alla rättigheter förbehållna.",
+    privacy: "Integritet",
+    tagline: "Webbplatser och AI för företag i Stockholm.", // REVIEW-SV
+    navLabel: "Sidfot", // REVIEW-SV
+    place: "Stockholm · 59,33°N 18,07°E", // REVIEW-SV
+    localTime: "Lokal tid", // REVIEW-SV
+  },
+  cursor: { view: "Visa", try: "Testa", book: "Boka" }, // REVIEW-SV
+  marquee: {
+    lead: "Nu bygger vi", // REVIEW-SV
+    em: "ditt nästa steg", // REVIEW-SV
+    label: "Nu bygger vi ditt nästa steg", // REVIEW-SV
+    note: "Steg ett · 20 min · gratis", // REVIEW-SV
+    sub: "Ett gratis samtal på 20 minuter. Inom två dagar har du en plan och ett fast pris.", // REVIEW-SV
+    button: "Boka ett gratis samtal", // REVIEW-SV
+    orEmail: "Eller mejla",
+  },
 } satisfies Dictionary;

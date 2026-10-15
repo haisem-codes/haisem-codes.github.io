@@ -1,6 +1,7 @@
 import { personal } from "@/data/personal";
 import { localHref, type Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n";
+import { LocalTime } from "./LocalTime";
 
 const socialIcons: Record<string, React.ReactNode> = {
   GitHub: (
@@ -31,47 +32,75 @@ const socialIcons: Record<string, React.ReactNode> = {
   ),
 };
 
-export function Footer({ dict, lang }: { dict: Dictionary["footer"]; lang: Locale }) {
+const MONO = "font-mono text-[11px] tracking-[0.16em] uppercase";
+
+export function Footer({ dict, nav, lang }: { dict: Dictionary["footer"]; nav: Dictionary["nav"]; lang: Locale }) {
+  const links = [
+    { href: localHref(lang, "/#services"), label: nav.services },
+    { href: localHref(lang, "/#work"), label: nav.work },
+    { href: localHref(lang, "/#about"), label: nav.about },
+    { href: localHref(lang, "/hire/"), label: nav.hire },
+    { href: localHref(lang, "/start/"), label: nav.start },
+  ];
   return (
-    <footer className="border-t border-border">
-      <div className="max-w-5xl mx-auto px-6 py-12">
-        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-8">
-          <div>
-            <a href={localHref(lang, "/")} className="font-display text-2xl font-bold text-accent">HN</a>
-            <p className="mt-3 text-xs text-text-secondary">{personal.email}</p>
-            <p className="mt-1 text-xs text-text-secondary">{personal.phone}</p>
-          </div>
-          <div className="flex gap-3">
+    <footer className="border-t border-border px-6 pt-16 pb-10 sm:pt-20">
+      <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-12 lg:gap-x-12">
+        <div className="lg:col-span-5">
+          <a href={localHref(lang, "/")} className="font-display text-2xl font-bold text-accent">
+            HN
+          </a>
+          <p className="mt-4 max-w-xs font-display text-2xl leading-tight font-semibold tracking-tight text-balance text-text">{dict.tagline}</p>
+        </div>
+        <nav aria-label={dict.navLabel} className="lg:col-span-4">
+          <ul className="grid grid-cols-2 gap-x-6 gap-y-1">
+            {links.map((l) => (
+              <li key={l.href}>
+                <a
+                  href={l.href}
+                  className={`${MONO} inline-flex min-h-[40px] items-center text-text-secondary transition-colors hover:text-accent focus-visible:rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent`}
+                >
+                  {l.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <div className="flex flex-col gap-6 lg:col-span-3 lg:items-end">
+          <div className="flex gap-2">
             {personal.socials.map((social) => (
               <a
                 key={social.platform}
                 href={social.url}
-                target={
-                  social.url.startsWith("mailto:") || social.url.startsWith("tel:")
-                    ? undefined
-                    : "_blank"
-                }
+                target={social.url.startsWith("mailto:") || social.url.startsWith("tel:") ? undefined : "_blank"}
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-lg bg-bg-card border border-border flex items-center justify-center text-text-secondary hover:text-accent hover:border-accent/30 transition-all duration-200"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-border text-text-secondary transition-colors duration-200 hover:border-accent/40 hover:text-accent"
                 aria-label={social.platform}
               >
                 {socialIcons[social.platform]}
               </a>
             ))}
           </div>
+          <div className={`${MONO} space-y-2 text-text-secondary lg:text-right`}>
+            <p>{dict.place}</p>
+            <p>
+              {dict.localTime} <span className="text-live">·</span> <span className="text-live"><LocalTime /></span>
+            </p>
+          </div>
         </div>
+      </div>
 
-        <div className="mt-10 pt-6 border-t border-border flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
-          <p className="text-xs text-text-secondary">
-            &copy; {new Date().getFullYear()} Haisem N. {dict.rights}
-          </p>
-          <a
-            href={localHref(lang, "/privacy/")}
-            className="text-xs text-text-secondary hover:text-accent transition-colors"
-          >
+      <div className={`${MONO} mx-auto mt-14 flex max-w-6xl flex-wrap items-center justify-between gap-x-8 gap-y-3 border-t border-border pt-6 text-text-secondary`}>
+        <p className="py-2">
+          &copy; {new Date().getFullYear()} Haisem N. {dict.rights}
+        </p>
+        <p className="flex flex-wrap gap-x-6 gap-y-2">
+          <a href={`mailto:${personal.email}`} className="inline-flex min-h-[32px] items-center normal-case tracking-[0.04em] transition-colors hover:text-accent">
+            {personal.email}
+          </a>
+          <a href={localHref(lang, "/privacy/")} className="inline-flex min-h-[32px] items-center transition-colors hover:text-accent">
             {dict.privacy}
           </a>
-        </div>
+        </p>
       </div>
     </footer>
   );
