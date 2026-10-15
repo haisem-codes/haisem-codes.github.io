@@ -59,6 +59,8 @@ export const sv = {
     title: "Så hjälper jag ditt företag att växa",
     pricing: "Fast pris, som vi kommer överens om efter ett gratis samtal.",
     exampleNote: "Du tittar på ett exempel.",
+    teaser: "Se före och efter", // REVIEW-SV
+    teaserLabel: "Före / efter", // REVIEW-SV
     items: [
       {
         id: "website",
@@ -159,7 +161,7 @@ export const sv = {
   },
   jake: {
     index: "01",
-    eyebrow: "Kundcase",
+    eyebrow: "Kundberättelser", // REVIEW-SV
     title: "AI-uppföljning för en växande byrå",
     intro:
       "Jake Wims startade en byrå som säljer AI-uppföljning av förfrågningar till mäklarteam och en bolåneförmedlare. På Metaviz AI byggde jag hela systemet åt honom: röstagenterna, CRM-automationerna och flödena mellan dem.", // REVIEW-SV
@@ -181,6 +183,22 @@ export const sv = {
     transcript:
       "Yo, Haisem, just wanted to say thanks for all the fulfillment work you've helped me with over the past few months. Just starting up my agency, I would not have been able to scale as fast as I have been without the support. Everything from the AI callers to the automation work, I really appreciate the attention to detail and how good the support has been, honing in on the specifics of what needs to be done. My clients have been extremely happy with how good the follow-up process is for them, and I can say the same for my agency as well. So anybody looking for a top-tier GHL developer, I highly recommend Haisem.",
     transcriptNote: "Lätt redigerad från automatiska undertexter. Videon är på engelska.",
+  },
+  derin: {
+    name: "Derin",
+    role: "Driver Deepsea Media, en marknadsföringsbyrå", // REVIEW-SV
+    builtAt: "Projektet byggdes på Metaviz AI", // REVIEW-SV
+    quote: "He took the project end\u2011to\u2011end and treated it like his own.",
+    videoLabel: "Videorekommendation från Derin", // REVIEW-SV
+    play: "Spela upp Derins videorekommendation, 48 sekunder på engelska", // REVIEW-SV
+    duration: "0:48",
+    posterLabel: "Kundvideo · på engelska", // REVIEW-SV
+    watch: "Spela", // REVIEW-SV
+    captionsLabel: "Engelska", // REVIEW-SV
+    transcriptLabel: "Läs transkriptionen",
+    transcript:
+      "Hi, I'm Derin and I run Deepsea Media, a marketing agency. I work with Haisem, and he's one of the rare people who gets both sides, the technology and the business. What stood out to us was his ownership. He took the project end-to-end and treated it like his own. When something wasn't right, he said so early, and he always came up with a solution. The professional, the reliable, the easy-to-work-with people: that's Haisem. He always explains things in plain language, so I always know where I stand, and he is genuinely ahead on AI. He always comes up with the latest technology and implements it in your business. He doesn't chase trends; he thinks about what will actually get a business noticed and growing, then builds it properly. If you want to use AI to grow your business, talk to Haisem.",
+    transcriptNote: "Lätt redigerad för läsbarhetens skull. Videon är på engelska.", // REVIEW-SV
   },
   work: {
     index: "04",
@@ -230,20 +248,32 @@ export const sv = {
     compareLabel: "Visa webbplatsen före eller efter", // REVIEW-SV
   },
   how: {
+    index: "06",
+    eyebrow: "Arbetsgång", // REVIEW-SV
     title: "Så jobbar vi tillsammans",
     steps: [
-      { title: "Gratis samtal, 20 minuter", body: "Du berättar hur verksamheten fungerar. Jag letar efter det som tar mest tid." },
-      { title: "Förslag till fast pris", body: "En tydlig plan, ett pris och en tidsplan i skrift, oftast inom två dagar." },
-      { title: "Bygge med avstämningar", body: "Ungefär två veckor. Du ser framstegen med några dagars mellanrum och testar själv." },
-      { title: "Överlämning och support", body: "Genomgång, dokumentation och en valfri månatlig supportplan." },
+      { when: "Start", title: "Gratis samtal, 20 minuter", body: "Du berättar hur verksamheten fungerar. Jag letar efter det som tar mest tid." },
+      { when: "Inom 2 dagar", title: "Förslag till fast pris", body: "En tydlig plan, ett pris och en tidsplan i skrift." },
+      { when: "Cirka 2 veckor", title: "Bygge med avstämningar", body: "Du ser framstegen med några dagars mellanrum och testar själv." },
+      { when: "Efter lansering", title: "Överlämning och support", body: "Genomgång, dokumentation och en valfri månatlig supportplan." },
     ],
   },
   about: {
-    title: "Om mig",
+    index: "07",
+    eyebrow: "Om mig",
+    title: "Från Lahore till Stockholm.", // REVIEW-SV
+    portraitAlt: "Haisem N.",
+    route: { from: "Lahore", to: "Stockholm" },
     paragraphs: [
-      "Jag heter Haisem. Efter ett år som ingenjör på Metaviz, där jag byggde AI-produkter, flyttade jag från Lahore till Stockholm för att läsa en master i AI och språk vid Stockholms universitet.",
-      "Jag bygger helheten: design, webbplats, backend, AI:n och kopplingarna till verktygen du redan använder. Och jag finns kvar efter lanseringen.",
-      "Vi kan prata engelska, och jag övar gärna min svenska med dig.",
+      "Jag heter Haisem. Jag läste datavetenskap vid FAST-NUCES i Lahore och jobbade sedan ett år som AI-ingenjör på Metaviz, där jag byggde AI-produkter och röstagenter för riktiga företag. Nu bor jag i Stockholm och läser en master i AI och språk vid Stockholms universitet, och jag är medförfattare till en översiktsartikel i ACM Computing Surveys.", // REVIEW-SV
+      "Jag bygger helheten, från designen till AI:n och verktygen du redan använder, och jag finns kvar efter lanseringen. Vi kan prata engelska. Min svenska är på nybörjarnivå, och jag övar gärna med dig.", // REVIEW-SV
+    ],
+    facts: [
+      { years: "2021–25", what: "Kandidat i datavetenskap", where: "FAST-NUCES, Lahore" }, // REVIEW-SV
+      { years: "2025–26", what: "AI-ingenjör", where: "Metaviz, Lahore" }, // REVIEW-SV
+      { years: "2026–", what: "Master i AI och språk", where: "Stockholms universitet" }, // REVIEW-SV
+      { years: "2026", what: "Medförfattare, översikt", where: "ACM Computing Surveys" }, // REVIEW-SV
+      { years: "Nu", what: "Svenska", where: "Nybörjare, lär mig" }, // REVIEW-SV
     ],
   },
   cta: {

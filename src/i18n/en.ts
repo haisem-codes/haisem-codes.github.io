@@ -58,6 +58,8 @@ export const en = {
     title: "Ways I help your business grow",
     pricing: "Fixed price, agreed after a free call.",
     exampleNote: "You're looking at an example.",
+    teaser: "See a before and after",
+    teaserLabel: "Before / after",
     items: [
       {
         id: "website",
@@ -158,7 +160,7 @@ export const en = {
   },
   jake: {
     index: "01",
-    eyebrow: "Client story",
+    eyebrow: "Client stories",
     title: "AI follow-up for a growing agency",
     intro:
       "Jake Wims started an agency selling AI lead follow-up to real-estate teams and a mortgage lender. At Metaviz AI, I built the whole system for him: the voice agents, the CRM automations and the workflows between them.",
@@ -180,6 +182,22 @@ export const en = {
     transcript:
       "Yo, Haisem, just wanted to say thanks for all the fulfillment work you've helped me with over the past few months. Just starting up my agency, I would not have been able to scale as fast as I have been without the support. Everything from the AI callers to the automation work, I really appreciate the attention to detail and how good the support has been, honing in on the specifics of what needs to be done. My clients have been extremely happy with how good the follow-up process is for them, and I can say the same for my agency as well. So anybody looking for a top-tier GHL developer, I highly recommend Haisem.",
     transcriptNote: "Lightly edited from the auto-generated captions.",
+  },
+  derin: {
+    name: "Derin",
+    role: "Runs Deepsea Media, a marketing agency",
+    builtAt: "Project built at Metaviz AI",
+    quote: "He took the project end\u2011to\u2011end and treated it like his own.",
+    videoLabel: "Video testimonial from Derin",
+    play: "Play Derin's video testimonial, 48 seconds",
+    duration: "0:48",
+    posterLabel: "Client video",
+    watch: "Watch",
+    captionsLabel: "English",
+    transcriptLabel: "Read the transcript",
+    transcript:
+      "Hi, I'm Derin and I run Deepsea Media, a marketing agency. I work with Haisem, and he's one of the rare people who gets both sides, the technology and the business. What stood out to us was his ownership. He took the project end-to-end and treated it like his own. When something wasn't right, he said so early, and he always came up with a solution. The professional, the reliable, the easy-to-work-with people: that's Haisem. He always explains things in plain language, so I always know where I stand, and he is genuinely ahead on AI. He always comes up with the latest technology and implements it in your business. He doesn't chase trends; he thinks about what will actually get a business noticed and growing, then builds it properly. If you want to use AI to grow your business, talk to Haisem.",
+    transcriptNote: "Lightly edited for readability.",
   },
   work: {
     index: "04",
@@ -229,20 +247,32 @@ export const en = {
     compareLabel: "Show the site before or after",
   },
   how: {
+    index: "06",
+    eyebrow: "Process",
     title: "How we work together",
     steps: [
-      { title: "Free 20-minute call", body: "You tell me how the business runs. I look for the biggest time sink." },
-      { title: "Fixed-price proposal", body: "A clear plan, price and timeline in writing, usually within two days." },
-      { title: "Build with check-ins", body: "About two weeks. You see progress every few days and try it yourself." },
-      { title: "Handover and care", body: "Training, documentation and an optional monthly care plan." },
+      { when: "Start", title: "Free 20-minute call", body: "You tell me how the business runs. I look for the biggest time sink." },
+      { when: "Within 2 days", title: "Fixed-price proposal", body: "A clear plan, price and timeline in writing." },
+      { when: "About 2 weeks", title: "Build with check-ins", body: "You see progress every few days and try it yourself." },
+      { when: "After launch", title: "Handover and care", body: "Training, documentation and an optional monthly care plan." },
     ],
   },
   about: {
-    title: "About me",
+    index: "07",
+    eyebrow: "About",
+    title: "From Lahore to Stockholm.",
+    portraitAlt: "Haisem N.",
+    route: { from: "Lahore", to: "Stockholm" },
     paragraphs: [
-      "I'm Haisem. After a year building AI products as an engineer at Metaviz, I moved from Lahore to Stockholm to study for an MSc in AI and Language at Stockholm University.",
-      "I build the whole thing: design, website, backend, the AI and the connections to the tools you already use. And I stay reachable after launch.",
-      "We can talk in English, and I'm happy to practise my Swedish with you.",
+      "I'm Haisem. I studied computer science at FAST-NUCES in Lahore, then spent a year as an AI engineer at Metaviz, shipping AI products and voice agents for real businesses. Now I'm in Stockholm for an MSc in AI and Language at Stockholm University, and I co-authored a survey published in ACM Computing Surveys.",
+      "I build the whole thing, from the design to the AI and the tools you already use, and I stay reachable after launch. We can talk in English; my Swedish is at beginner level, and I'm happy to practise it with you.",
+    ],
+    facts: [
+      { years: "2021–25", what: "BS Computer Science", where: "FAST-NUCES, Lahore" },
+      { years: "2025–26", what: "AI engineer", where: "Metaviz, Lahore" },
+      { years: "2026–", what: "MSc AI and Language", where: "Stockholm University" },
+      { years: "2026", what: "Survey co-author", where: "ACM Computing Surveys" },
+      { years: "Now", what: "Swedish", where: "Beginner, learning" },
     ],
   },
   cta: {

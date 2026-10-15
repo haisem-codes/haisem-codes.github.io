@@ -1,14 +1,14 @@
 import { localHref, type Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n";
-import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { Magnetic } from "@/components/ui/Magnetic";
 
 const EMAIL = "haisem.work@gmail.com";
 
-export function ContactCta({ dict, lang }: { dict: Dictionary["cta"]; lang: Locale }) {
+/** Closing call to action on project pages (home closes with FooterMarquee). */
+export function StartCta({ dict, lang }: { dict: Dictionary["cta"]; lang: Locale }) {
   return (
-    <section id="contact" className="scroll-mt-24 px-6 py-20 sm:py-24">
-      <ScrollReveal className="mx-auto max-w-6xl rounded-[2rem] border border-border bg-bg-card px-6 py-16 sm:px-16 sm:py-24">
+    <section className="scroll-mt-24 px-6 py-20 sm:py-24">
+      <div className="rise mx-auto max-w-6xl rounded-[2rem] border border-border bg-bg-card px-6 py-16 sm:px-16 sm:py-24">
         <h2 className="max-w-4xl font-display text-5xl leading-[1.02] font-semibold tracking-tight text-balance text-text sm:text-7xl">
           {dict.title}
         </h2>
@@ -33,7 +33,7 @@ export function ContactCta({ dict, lang }: { dict: Dictionary["cta"]; lang: Loca
             </a>
           </p>
         </div>
-      </ScrollReveal>
+      </div>
     </section>
   );
 }

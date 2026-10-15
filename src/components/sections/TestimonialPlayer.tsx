@@ -1,15 +1,17 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { JAKE_POSTER as POSTER, JAKE_VIDEO, JAKE_VIDEO_WEBM } from "@/lib/jake";
+import { posterSrcSet, type TestimonialMedia } from "@/lib/testimonials";
+import { cn } from "@/lib/utils";
 
-interface JakePlayerProps {
+export interface TestimonialLabels {
   play: string;
   videoLabel: string;
   posterLabel: string;
   watch: string;
   name: string;
   duration: string;
+  captionsLabel?: string;
 }
 
 function PlayIcon({ className }: { className: string }) {
@@ -20,9 +22,12 @@ function PlayIcon({ className }: { className: string }) {
   );
 }
 
-export function JakePlayer({ play, videoLabel, posterLabel, watch, name, duration }: JakePlayerProps) {
+/** Poster button that swaps in the real video on click; nothing heavy loads until then. */
+export function TestimonialPlayer({ media, labels, sizes, compact = false }: { media: TestimonialMedia; labels: TestimonialLabels; sizes: string; compact?: boolean }) {
   const [playing, setPlaying] = useState(false);
   const video = useRef<HTMLVideoElement>(null);
+  const { poster, posterWidths } = media;
+  const largest = posterWidths[posterWidths.length - 1];
 
   useEffect(() => {
     const v = video.current;
@@ -32,7 +37,14 @@ export function JakePlayer({ play, videoLabel, posterLabel, watch, name, duratio
   }, [playing]);
 
   return (
-    <div className="relative aspect-[9/16] w-full overflow-hidden rounded-[1.75rem] bg-[#0A0A0B] shadow-[0_40px_80px_-32px_rgba(10,10,11,0.45)] ring-1 ring-black/5 dark:shadow-[0_40px_100px_-40px_rgba(56,189,248,0.3)] dark:ring-white/10">
+    <div
+      className={cn(
+        "relative aspect-[9/16] w-full overflow-hidden bg-[#0A0A0B] ring-1 ring-black/5 dark:ring-white/10",
+        compact
+          ? "rounded-[1.25rem] shadow-[0_28px_60px_-30px_rgba(10,10,11,0.45)]"
+          : "rounded-[1.75rem] shadow-[0_40px_80px_-32px_rgba(10,10,11,0.45)] dark:shadow-[0_40px_100px_-40px_rgba(56,189,248,0.3)]",
+      )}
+    >
       {playing ? (
         <video
           ref={video}
@@ -40,32 +52,34 @@ export function JakePlayer({ play, videoLabel, posterLabel, watch, name, duratio
           autoPlay
           playsInline
           preload="auto"
-          poster={`${POSTER}.jpg`}
-          aria-label={videoLabel}
-          className="size-full bg-black object-cover focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent"
+          poster={`${poster}.jpg`}
+          aria-label={labels.videoLabel}
+          className="testimonial-video size-full bg-black object-cover focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent"
         >
-          <source src={JAKE_VIDEO_WEBM} type="video/webm" />
-          <source src={JAKE_VIDEO} type="video/mp4" />
+          <source src={media.webm} type="video/webm" />
+          <source src={media.mp4} type="video/mp4" />
+          {media.captions && <track kind="captions" src={media.captions} srcLang="en" label={labels.captionsLabel} default />}
         </video>
       ) : (
         <button
           type="button"
           onClick={() => setPlaying(true)}
-          aria-label={play}
+          aria-label={labels.play}
           className="group absolute inset-0 block size-full cursor-pointer text-left focus-visible:outline-none"
         >
           <picture>
-            <source type="image/avif" srcSet={`${POSTER}-360.avif 360w, ${POSTER}-720.avif 720w`} sizes="(min-width: 1024px) 360px, 90vw" />
+            <source type="image/avif" srcSet={posterSrcSet(poster, posterWidths, "avif")} sizes={sizes} />
             <img
-              src={`${POSTER}-720.webp`}
-              srcSet={`${POSTER}-360.webp 360w, ${POSTER}-720.webp 720w`}
-              sizes="(min-width: 1024px) 360px, 90vw"
+              src={`${poster}-${largest}.webp`}
+              srcSet={posterSrcSet(poster, posterWidths, "webp")}
+              sizes={sizes}
               alt=""
-              width={720}
-              height={1280}
+              width={media.width}
+              height={media.height}
               loading="lazy"
               decoding="async"
               fetchPriority="low"
+              style={{ height: "100%" }}
               className="absolute inset-0 size-full object-cover motion-safe:transition-transform motion-safe:duration-700 motion-safe:ease-out motion-safe:group-hover:scale-[1.03]"
             />
           </picture>
@@ -76,17 +90,17 @@ export function JakePlayer({ play, videoLabel, posterLabel, watch, name, duratio
             className="absolute top-4 left-4 inline-flex items-center gap-2 rounded-full bg-black/45 px-3 py-1.5 font-mono text-[11px] tracking-[0.14em] text-white uppercase backdrop-blur-md"
           >
             <span className="size-1.5 rounded-full bg-[#7DD3FC]" />
-            {posterLabel}
+            {labels.posterLabel}
           </span>
 
-          <span aria-hidden className="absolute inset-x-0 bottom-0 flex flex-col items-start gap-4 p-5 sm:p-6">
-            <span className="font-display text-lg leading-tight font-semibold tracking-tight text-white">{name}</span>
+          <span aria-hidden className={cn("absolute inset-x-0 bottom-0 flex flex-col items-start", compact ? "gap-3 p-4" : "gap-4 p-5 sm:p-6")}>
+            {!compact && <span className="font-display text-lg leading-tight font-semibold tracking-tight text-white">{labels.name}</span>}
             <span className="inline-flex h-14 items-center gap-3 rounded-full bg-white/95 pr-5 pl-1.5 text-[#0A0A0B] shadow-[0_12px_32px_rgba(0,0,0,0.35)] motion-safe:transition-transform motion-safe:duration-300 motion-safe:ease-out motion-safe:group-hover:-translate-y-0.5 group-focus-visible:outline-3 group-focus-visible:outline-offset-3 group-focus-visible:outline-[#7DD3FC]">
               <span className="grid size-11 place-items-center rounded-full bg-[#0A0A0B] text-white">
                 <PlayIcon className="ml-0.5 size-4" />
               </span>
-              <span className="text-[15px] font-medium">{watch}</span>
-              <span className="font-mono text-xs text-[#0A0A0B]/70 tabular-nums">{duration}</span>
+              <span className="text-[15px] font-medium">{labels.watch}</span>
+              <span className="font-mono text-xs text-[#0A0A0B]/70 tabular-nums">{labels.duration}</span>
             </span>
           </span>
         </button>

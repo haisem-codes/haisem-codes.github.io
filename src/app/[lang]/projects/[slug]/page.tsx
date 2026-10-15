@@ -6,7 +6,7 @@ import { projects, localize } from "@/data/projects";
 import { getDictionary } from "@/i18n";
 import type { Metadata } from "next";
 import { locales, isLocale, localHref } from "@/i18n/config";
-import { ContactCta } from "@/components/sections/ContactCta";
+import { StartCta } from "@/components/sections/StartCta";
 
 interface Props {
   params: Promise<{ lang: string; slug: string }>;
@@ -320,7 +320,7 @@ export default async function ProjectPage({ params }: Props) {
           </div>
         </div>
       </main>
-      <ContactCta dict={cta} lang={lang} />
+      <StartCta dict={cta} lang={lang} />
     </>
   );
 }
