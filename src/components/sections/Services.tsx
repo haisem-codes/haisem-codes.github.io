@@ -8,7 +8,7 @@ import { fadeInUp, staggerContainer } from "@/lib/animations";
 
 export function Services({ dict }: { dict: Dictionary["services"]; lang: Locale }) {
   return (
-    <section id="services" className="scroll-mt-24 px-6 py-24 sm:py-32">
+    <section id="services" className="scroll-mt-24 px-6 py-20 sm:py-24">
       <div className="mx-auto max-w-6xl">
         <ScrollReveal>
           <p className="mb-4 font-mono text-xs tracking-[0.18em] text-text-secondary uppercase">
@@ -26,7 +26,7 @@ export function Services({ dict }: { dict: Dictionary["services"]; lang: Locale 
           viewport={{ once: true, amount: 0.1 }}
           className="mt-14 grid gap-4 sm:mt-20 md:grid-cols-2 md:gap-6"
         >
-          {dict.items.map((item, i) => (
+          {dict.items.map((item) => (
             <m.li
               key={item.id}
               data-reveal
@@ -34,9 +34,6 @@ export function Services({ dict }: { dict: Dictionary["services"]; lang: Locale 
               className="flex flex-col rounded-3xl border border-border bg-bg-card p-8 transition-colors duration-300 hover:border-border-hover sm:p-10"
             >
               <div className="flex items-center justify-between gap-4">
-                <span aria-hidden className="font-mono text-sm text-text-secondary">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
                 {item.id === "website" && (
                   <span className="inline-flex items-center gap-2 rounded-full bg-accent-glow px-3 py-1 text-xs font-medium text-text">
                     <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-accent" />

@@ -8,7 +8,7 @@ import { fadeInUp, staggerContainer } from "@/lib/animations";
 
 export function HowIWork({ dict }: { dict: Dictionary["how"]; lang: Locale }) {
   return (
-    <section id="how" className="scroll-mt-24 px-6 py-24 sm:py-32">
+    <section id="how" className="scroll-mt-24 px-6 py-20 sm:py-24">
       <div className="mx-auto max-w-6xl">
         <ScrollReveal>
           <h2 className="font-display text-4xl font-semibold tracking-tight text-balance text-text sm:text-6xl">

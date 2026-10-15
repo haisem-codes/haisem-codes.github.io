@@ -5,7 +5,7 @@ import { ClientBoundary } from "@/components/ui/ClientBoundary";
 
 export function JakeCase({ dict }: { dict: Dictionary["jake"] }) {
   return (
-    <section id="jake" className="scroll-mt-24 px-6 py-20 sm:py-24 lg:py-28">
+    <section id="jake" className="scroll-mt-24 px-6 py-20 sm:py-24">
       <div className="mx-auto grid max-w-6xl gap-y-10 lg:grid-cols-[360px_1fr] lg:grid-rows-[auto_1fr] lg:gap-x-20 lg:gap-y-0">
         <ScrollReveal className="lg:col-start-2 lg:row-start-1">
           <p className="font-mono text-xs tracking-[0.18em] text-text-secondary uppercase">
