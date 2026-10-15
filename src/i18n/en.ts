@@ -174,11 +174,11 @@ export const en = {
     duration: "0:52",
     posterLabel: "Client video",
     watch: "Watch",
-    quote: "My clients have been extremely happy with how good the follow-up processes are for them.",
+    quote: "My clients have been extremely happy with how good the follow-up process is for them.",
     quoteBy: "Jake Wims, agency founder",
     builtAt: "System built at Metaviz AI",
     transcript:
-      "Yo, Haisem, just wanted to say thanks for all the fulfillment work you've helped me with over the past few months. Just starting up my agency, I would not have been able to scale as fast as I have been without the support. Everything from the AI callers to the automation work, I really appreciate the attention to detail and how good the support has been, honing in on the specifics of what needs to be done. My clients have been extremely happy with how good the follow-up processes are for them, and I can say the same for my agency as well. So anybody looking for a top-tier GHL developer, I highly recommend Haisem.",
+      "Yo, Haisem, just wanted to say thanks for all the fulfillment work you've helped me with over the past few months. Just starting up my agency, I would not have been able to scale as fast as I have been without the support. Everything from the AI callers to the automation work, I really appreciate the attention to detail and how good the support has been, honing in on the specifics of what needs to be done. My clients have been extremely happy with how good the follow-up process is for them, and I can say the same for my agency as well. So anybody looking for a top-tier GHL developer, I highly recommend Haisem.",
     transcriptNote: "Lightly edited from the auto-generated captions.",
   },
   work: {
