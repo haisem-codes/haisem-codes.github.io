@@ -18,6 +18,19 @@ function Player({ media, labels, sizes, compact }: { media: TestimonialMedia; la
   );
 }
 
+/** Keeps one phrase on a single line inside a quote. */
+function NoWrap({ text, phrase }: { text: string; phrase: string }) {
+  const at = text.indexOf(phrase);
+  if (at < 0) return text;
+  return (
+    <>
+      {text.slice(0, at)}
+      <span className="whitespace-nowrap">{phrase}</span>
+      {text.slice(at + phrase.length)}
+    </>
+  );
+}
+
 function Transcript({ label, note, children }: { label: string; note: string; children: ReactNode }) {
   return (
     <details className="group mt-6 max-w-xl rounded-2xl border border-border bg-bg-card px-5 py-1">
@@ -93,8 +106,8 @@ export function ClientStories({ jake, derin }: { jake: Dictionary["jake"]; derin
         </div>
       </div>
 
-      <article className="mx-auto mt-20 grid max-w-6xl gap-y-10 border-t border-border pt-14 sm:mt-28 sm:pt-20 lg:grid-cols-[360px_1fr] lg:grid-rows-[1fr_auto] lg:gap-x-20 lg:gap-y-0">
-        <div className="rise lg:col-start-2 lg:row-start-1 lg:self-end">
+      <article className="mx-auto mt-20 grid max-w-6xl gap-y-10 border-t border-border pt-14 sm:mt-28 sm:pt-20 lg:grid-cols-[360px_1fr] lg:grid-rows-[1fr_auto_auto_1fr] lg:gap-x-20 lg:gap-y-0">
+        <div className="rise lg:col-start-2 lg:row-start-2">
           <h3 className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-xs tracking-[0.12em] text-text-secondary uppercase">
             <span className="text-text">{derin.name}</span>
             <span aria-hidden className="h-px w-6 bg-border-hover" />
@@ -103,13 +116,13 @@ export function ClientStories({ jake, derin }: { jake: Dictionary["jake"]; derin
           <figure className="mt-6">
             <blockquote lang="en" className="font-display text-[1.6rem] leading-[1.2] font-medium tracking-[-0.02em] text-balance text-text sm:text-[2rem]">
               <span aria-hidden className="text-accent">“</span>
-              {derin.quote}
+              <NoWrap text={derin.quote} phrase="end-to-end" />
               <span aria-hidden className="text-accent">”</span>
             </blockquote>
             <figcaption className="mt-5 font-mono text-xs tracking-[0.12em] text-text-secondary uppercase">{derin.builtAt}</figcaption>
           </figure>
         </div>
-        <div className="rise mx-auto w-full max-w-[240px] lg:col-start-1 lg:row-span-2 lg:row-start-1 lg:mr-0 lg:max-w-[260px]">
+        <div className="rise mx-auto w-full max-w-[240px] lg:col-start-1 lg:row-span-4 lg:row-start-1 lg:mr-0 lg:max-w-[260px]">
           <Player
             media={DERIN}
             compact
@@ -125,7 +138,7 @@ export function ClientStories({ jake, derin }: { jake: Dictionary["jake"]; derin
             }}
           />
         </div>
-        <div className="rise lg:col-start-2 lg:row-start-2">
+        <div className="rise lg:col-start-2 lg:row-start-3">
           <Transcript label={derin.transcriptLabel} note={derin.transcriptNote}>
             {derin.transcript}
           </Transcript>

@@ -188,7 +188,7 @@ export const sv = {
     name: "Derin",
     role: "Driver Deepsea Media, en marknadsföringsbyrå", // REVIEW-SV
     builtAt: "Projektet byggdes på Metaviz AI", // REVIEW-SV
-    quote: "He took the project end\u2011to\u2011end and treated it like his own.",
+    quote: "He took the project end-to-end and treated it like his own.",
     videoLabel: "Videorekommendation från Derin", // REVIEW-SV
     play: "Spela upp Derins videorekommendation, 48 sekunder på engelska", // REVIEW-SV
     duration: "0:48",

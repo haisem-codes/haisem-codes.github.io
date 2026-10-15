@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { posterSrcSet, type TestimonialMedia } from "@/lib/testimonials";
+import { pauseOthers, posterSrcSet, type TestimonialMedia } from "@/lib/testimonials";
 import { cn } from "@/lib/utils";
 
 export interface TestimonialLabels {
@@ -32,8 +32,11 @@ export function TestimonialPlayer({ media, labels, sizes, compact = false }: { m
   useEffect(() => {
     const v = video.current;
     if (!playing || !v) return;
+    const onPlay = () => pauseOthers(document.querySelectorAll<HTMLVideoElement>("video.testimonial-video"), v);
+    v.addEventListener("play", onPlay);
     v.focus();
     v.play().catch(() => {});
+    return () => v.removeEventListener("play", onPlay);
   }, [playing]);
 
   return (

@@ -34,3 +34,10 @@ export const DERIN: TestimonialMedia = {
 export function posterSrcSet(stem: string, widths: readonly number[], ext: "avif" | "webp") {
   return widths.map((w) => `${stem}-${w}.${ext} ${w}w`).join(", ");
 }
+
+type Playable = { paused: boolean; pause(): void };
+
+/** One testimonial plays at a time. */
+export function pauseOthers(videos: Iterable<Playable>, current: Playable) {
+  for (const v of videos) if (v !== current && !v.paused) v.pause();
+}

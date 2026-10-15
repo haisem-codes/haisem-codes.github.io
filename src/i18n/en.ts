@@ -187,7 +187,7 @@ export const en = {
     name: "Derin",
     role: "Runs Deepsea Media, a marketing agency",
     builtAt: "Project built at Metaviz AI",
-    quote: "He took the project end\u2011to\u2011end and treated it like his own.",
+    quote: "He took the project end-to-end and treated it like his own.",
     videoLabel: "Video testimonial from Derin",
     play: "Play Derin's video testimonial, 48 seconds",
     duration: "0:48",
