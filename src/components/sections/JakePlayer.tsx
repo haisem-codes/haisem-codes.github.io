@@ -1,9 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-
-export const JAKE_VIDEO = "/testimonials/jake-720.mp4";
-const POSTER = "/testimonials/jake-poster";
+import { JAKE_POSTER as POSTER, JAKE_VIDEO, JAKE_VIDEO_WEBM } from "@/lib/jake";
 
 interface JakePlayerProps {
   play: string;
@@ -46,7 +44,7 @@ export function JakePlayer({ play, videoLabel, posterLabel, watch, name, duratio
           aria-label={videoLabel}
           className="size-full bg-black object-cover focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent"
         >
-          <source src="/testimonials/jake-720.webm" type="video/webm" />
+          <source src={JAKE_VIDEO_WEBM} type="video/webm" />
           <source src={JAKE_VIDEO} type="video/mp4" />
         </video>
       ) : (

@@ -10,7 +10,7 @@ export function ProofStrip({ dict }: { dict: Dictionary["proof"] }) {
           {dict.facts.map((f) => (
             <li
               key={f.value}
-              className="grid grid-cols-[6.5rem_1fr] items-center gap-5 py-7 sm:flex sm:flex-col sm:gap-5 sm:px-8 sm:py-12 sm:first:pl-0 lg:px-12 lg:py-14"
+              className="flex flex-col items-start gap-3 py-7 sm:gap-5 sm:px-8 sm:py-12 sm:first:pl-0 lg:px-12 lg:py-14 lg:first:pl-0"
             >
               <span className="font-mono text-[2.75rem] leading-none font-medium tracking-[-0.04em] text-accent tabular-nums sm:text-6xl lg:text-7xl">
                 {f.value}

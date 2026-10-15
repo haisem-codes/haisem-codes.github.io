@@ -2,6 +2,7 @@ import type { Dictionary } from "@/i18n";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { JakePlayer } from "@/components/sections/JakePlayer";
 import { ClientBoundary } from "@/components/ui/ClientBoundary";
+import { JAKE_VIDEO } from "@/lib/jake";
 
 export function JakeCase({ dict }: { dict: Dictionary["jake"] }) {
   return (
@@ -22,7 +23,7 @@ export function JakeCase({ dict }: { dict: Dictionary["jake"] }) {
         <ScrollReveal className="mx-auto w-full max-w-[300px] sm:max-w-[360px] lg:sticky lg:top-28 lg:col-start-1 lg:row-span-2 lg:row-start-1 lg:mx-0 lg:self-start">
           <ClientBoundary
             fallback={
-              <a href="/testimonials/jake-720.mp4" className="inline-flex min-h-[48px] items-center font-medium text-accent underline underline-offset-4">
+              <a href={JAKE_VIDEO} className="inline-flex min-h-[48px] items-center font-medium text-accent underline underline-offset-4">
                 {dict.play}
               </a>
             }
