@@ -54,7 +54,7 @@ function FeaturedRow({ p, i, dict, lang }: { p: Project; i: number; dict: WorkDi
   );
 
   return (
-    <li className={cn("relative overflow-hidden", BANDS[i % BANDS.length])} style={BLEED}>
+    <li className={cn("relative overflow-hidden", BANDS[i % BANDS.length])} style={BLEED} data-nav-theme={i % BANDS.length === 1 ? "dark" : undefined}>
       <a
         href={localHref(lang, `/projects/${p.slug}/`)}
         aria-labelledby={`${titleId} ${ctaId}`}
