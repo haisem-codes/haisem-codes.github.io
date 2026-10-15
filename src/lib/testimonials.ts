@@ -19,15 +19,16 @@ export const JAKE: TestimonialMedia = {
   posterWidths: [360, 720],
   width: 720,
   height: 1280,
+  captions: asset("/testimonials/jake-en.vtt"),
 };
 
 export const DERIN: TestimonialMedia = {
-  mp4: asset("/testimonials/derin-480.mp4"),
-  webm: asset("/testimonials/derin-480.webm"),
+  mp4: asset("/testimonials/derin-720.mp4"),
+  webm: asset("/testimonials/derin-720.webm"),
   poster: asset("/testimonials/derin-poster"),
-  posterWidths: [360, 480],
-  width: 480,
-  height: 848,
+  posterWidths: [360, 720],
+  width: 720,
+  height: 1280,
   captions: asset("/testimonials/derin-en.vtt"),
 };
 

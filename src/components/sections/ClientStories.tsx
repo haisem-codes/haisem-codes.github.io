@@ -4,6 +4,8 @@ import { TestimonialPlayer, type TestimonialLabels } from "@/components/sections
 import { ClientBoundary } from "@/components/ui/ClientBoundary";
 import { DERIN, JAKE, type TestimonialMedia } from "@/lib/testimonials";
 
+const DEEPSEA_URL = "https://deepseamedia.ca/";
+
 function Player({ media, labels, sizes, compact }: { media: TestimonialMedia; labels: TestimonialLabels; sizes: string; compact?: boolean }) {
   return (
     <ClientBoundary
@@ -70,7 +72,7 @@ export function ClientStories({ jake, derin }: { jake: Dictionary["jake"]; derin
             <Player
               media={JAKE}
               sizes="(min-width: 1024px) 360px, 90vw"
-              labels={{ play: jake.play, videoLabel: jake.videoLabel, posterLabel: jake.posterLabel, watch: jake.watch, name: jake.quoteBy, duration: jake.duration }}
+              labels={{ play: jake.play, videoLabel: jake.videoLabel, posterLabel: jake.posterLabel, watch: jake.watch, name: jake.quoteBy, duration: jake.duration, captionsLabel: jake.captionsLabel }}
             />
           </div>
         </div>
@@ -111,7 +113,18 @@ export function ClientStories({ jake, derin }: { jake: Dictionary["jake"]; derin
           <h3 className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-xs tracking-[0.12em] text-text-secondary uppercase">
             <span className="text-text">{derin.name}</span>
             <span aria-hidden className="h-px w-6 bg-border-hover" />
-            <span>{derin.role}</span>
+            <span>
+              {derin.role},{" "}
+              <a
+                href={DEEPSEA_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-text underline decoration-border-hover underline-offset-4 transition-colors hover:text-accent hover:decoration-accent focus-visible:rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              >
+                {derin.company}
+                <span className="sr-only"> {derin.newTab}</span>
+              </a>
+            </span>
           </h3>
           <figure className="mt-6">
             <blockquote lang="en" className="font-display text-[1.6rem] leading-[1.2] font-medium tracking-[-0.02em] text-balance text-text sm:text-[2rem]">
