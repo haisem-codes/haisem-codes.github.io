@@ -1,27 +1,26 @@
 "use client";
 
-import { useRef, useState, type PointerEvent, type ReactNode } from "react";
-import type { ProjectCategory } from "@/types";
+import { useId, useRef, useState, type PointerEvent, type ReactNode } from "react";
 
-type Filter = "all" | ProjectCategory;
-const order: Filter[] = ["all", "business", "products", "research"];
-
+/** Compact project list: the first `cap` rows, the rest expand in place. Rows are server-rendered. */
 export function WorkList({
-  items,
+  rows,
+  cap,
   title,
-  filterLabel,
-  filterNames,
+  more,
+  fewer,
 }: {
-  items: { slug: string; category: ProjectCategory; row: ReactNode }[];
+  rows: { slug: string; row: ReactNode }[];
+  cap: number;
   title: string;
-  filterLabel: string;
-  filterNames: Record<Filter, string>;
+  more: string;
+  fewer: string;
 }) {
-  const [active, setActive] = useState<Filter>("all");
+  const [open, setOpen] = useState(false);
   const listRef = useRef<HTMLUListElement>(null);
   const raf = useRef(0);
-  const filters = order.filter((f) => f === "all" || items.some((p) => p.category === f));
-  const shown = items.filter((p) => active === "all" || p.category === active);
+  const listId = useId();
+  const shown = open ? rows : rows.slice(0, cap);
 
   const track = (e: PointerEvent<HTMLUListElement>) => {
     if (e.pointerType !== "mouse") return;
@@ -38,30 +37,29 @@ export function WorkList({
   };
 
   return (
-    <div className="mt-24 sm:mt-32">
-      <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-        <h3 className="font-mono text-xs uppercase tracking-[0.18em] text-text-secondary">{title}</h3>
-        <div role="group" aria-label={filterLabel} className="flex flex-wrap gap-2">
-          {filters.map((f) => (
-            <button
-              key={f}
-              type="button"
-              aria-pressed={active === f}
-              onClick={() => setActive(f)}
-              className="min-h-[40px] cursor-pointer rounded-full border border-border px-4 font-mono text-[11px] uppercase tracking-[0.12em] text-text-secondary transition-colors duration-200 hover:border-border-hover hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent aria-pressed:border-text aria-pressed:bg-text aria-pressed:text-bg"
-            >
-              {filterNames[f]}
-            </button>
-          ))}
-        </div>
-      </div>
-      <ul ref={listRef} onPointerMove={track} className="relative mt-8 border-b border-border">
-        {shown.map((p) => (
-          <li key={`${active}-${p.slug}`} className="animate-[work-row-in_.5s_var(--ease-silk)_both] motion-reduce:animate-none">
+    <div>
+      <h3 className="font-mono text-xs tracking-[0.18em] text-text-secondary uppercase">{title}</h3>
+      <ul id={listId} ref={listRef} onPointerMove={track} className="relative mt-6 border-b border-border">
+        {shown.map((p, i) => (
+          <li key={p.slug} className={i >= cap ? "animate-[work-row-in_.5s_var(--ease-silk)_both] motion-reduce:animate-none" : undefined}>
             {p.row}
           </li>
         ))}
       </ul>
+      {rows.length > cap && (
+        <button
+          type="button"
+          aria-expanded={open}
+          aria-controls={listId}
+          onClick={() => setOpen((o) => !o)}
+          className="group mt-8 inline-flex min-h-[48px] cursor-pointer items-center gap-3 rounded-full border border-border-hover px-6 text-sm font-medium text-text transition-colors duration-200 hover:border-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        >
+          {open ? fewer : more}
+          <span aria-hidden className="inline-block transition-transform duration-300 ease-out group-aria-expanded:-rotate-90 group-hover:translate-x-0.5">
+            →
+          </span>
+        </button>
+      )}
     </div>
   );
 }

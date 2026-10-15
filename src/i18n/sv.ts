@@ -187,11 +187,17 @@ export const sv = {
     eyebrow: "Utvalda projekt",
     title: "Riktiga system i produktion.", // REVIEW-SV
     more: "Fler projekt",
-    filters: { all: "Alla", business: "Företagsautomation", products: "AI-produkter", research: "Forskning" },
+    categories: { business: "Företagsautomation", products: "AI-produkter", research: "Forskning" },
     view: "Läs caset",
     employerNote: "Byggt på Metaviz AI",
     back: "Alla projekt",
-    filterLabel: "Filtrera projekt efter typ",
+    highlights: {
+      "ai-compliance-platform": { value: "~80\u00A0%", label: "mindre manuell granskningstid per ritning, på Metaviz" }, // REVIEW-SV
+      "voice-agents-suite": { value: "5+", label: "företag använder röstagenterna, byggda på Metaviz" }, // REVIEW-SV
+      postura: { value: "Offline", label: "hållningsanalysen körs helt i telefonen" }, // REVIEW-SV
+    },
+    allProjects: "Alla projekt ({n})", // REVIEW-SV
+    fewer: "Visa färre", // REVIEW-SV
     problem: "Problemet",
     solution: "Lösningen",
     result: "Resultatet",

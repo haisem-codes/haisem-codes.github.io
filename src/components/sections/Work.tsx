@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import type { Dictionary } from "@/i18n";
 import { localHref, type Locale } from "@/i18n/config";
 import { projects, localize } from "@/data/projects";
@@ -7,13 +8,26 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { TiltCard } from "@/components/ui/TiltCard";
 import { WorkPicture } from "@/components/ui/WorkPicture";
+import { ClientBoundary } from "@/components/ui/ClientBoundary";
 import { WorkList } from "@/components/sections/WorkList";
 
 type WorkDict = Dictionary["work"];
+type Highlight = { value: string; label: string };
 
+const LIST_CAP = 4;
 const sorted = [...projects].sort((a, b) => a.order - b.order);
 const pad = (n: number) => String(n).padStart(2, "0");
 const headline = (title: string) => title.split(":")[0];
+
+/** Band tones: ice tint, a night band that stays dark in both themes, warm paper. */
+const BANDS = [
+  "bg-accent-tint/55 dark:bg-accent-tint/30",
+  "dark border-y border-white/5 bg-[#060E14] text-text [background-image:radial-gradient(60%_80%_at_85%_40%,rgba(56,189,248,0.14),transparent_70%)]",
+  "bg-[#F1F0EB] dark:bg-bg-card",
+];
+
+/** Pushes the mockup from the container edge to the viewport edge (the band clips any scrollbar overshoot). */
+const BLEED = { "--bleed": "calc(-1 * (max(0px, (100vw - 72rem) / 2) + 1.5rem))" } as CSSProperties;
 
 function Arrow() {
   return (
@@ -25,69 +39,84 @@ function Arrow() {
 
 function FeaturedRow({ p, i, dict, lang }: { p: Project; i: number; dict: WorkDict; lang: Locale }) {
   const flip = i % 2 === 1;
+  const h = (dict.highlights as Record<string, Highlight>)[p.slug];
+  const titleId = `work-${p.slug}-title`;
+  const ctaId = `work-${p.slug}-cta`;
+  const picture = (
+    <div
+      className={cn(
+        "overflow-hidden shadow-[0_40px_80px_-40px_rgba(15,23,42,0.4)] ring-1 ring-black/5 dark:shadow-[0_40px_80px_-30px_rgba(0,0,0,0.85)] dark:ring-white/10",
+        flip ? "rounded-l-2xl lg:rounded-l-none lg:rounded-r-2xl" : "rounded-l-2xl",
+      )}
+    >
+      <WorkPicture slug={p.slug} sizes="(min-width: 1024px) 60vw, 100vw" />
+    </div>
+  );
+
   return (
-    <li className="border-t border-border">
-      <ScrollReveal>
-        <a
-          href={localHref(lang, `/projects/${p.slug}/`)}
-          className="group grid items-center gap-10 py-14 focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-accent sm:py-20 lg:grid-cols-12 lg:gap-14"
-        >
-          <div className={cn("lg:col-span-5", flip && "lg:order-2")}>
-            <p className="font-mono text-5xl font-medium leading-none tracking-tight text-accent sm:text-6xl">{pad(i + 1)}</p>
-            <p className="mt-8 font-mono text-[11px] uppercase tracking-[0.18em] text-text-secondary">{dict.filters[p.category]}</p>
+    <li className={cn("relative overflow-hidden", BANDS[i % BANDS.length])} style={BLEED}>
+      <a
+        href={localHref(lang, `/projects/${p.slug}/`)}
+        aria-labelledby={`${titleId} ${ctaId}`}
+        className="group block focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-accent"
+      >
+        <div className="mx-auto grid max-w-6xl items-center gap-10 px-6 py-14 sm:py-16 lg:grid-cols-12 lg:gap-12 lg:py-16">
+          <ScrollReveal className={cn("lg:col-span-5", flip && "lg:order-2 lg:col-start-8")}>
+            <span
+              aria-hidden
+              className="-ml-[0.04em] block font-display text-[7rem] leading-[0.78] font-bold tracking-[-0.06em] text-transparent [-webkit-text-stroke:1.5px_var(--color-accent)] sm:text-[9rem] lg:text-[12.5rem]"
+            >
+              {pad(i + 1)}
+            </span>
+            <p className="mt-7 font-mono text-[11px] tracking-[0.18em] text-text-secondary uppercase">
+              {dict.categories[p.category]}
+              {p.employer === "metaviz" && <span className="before:mx-2 before:content-['·']">{dict.employerNote}</span>}
+            </p>
             <h3
-              className="mt-3 text-balance font-display font-bold leading-[1.04] tracking-[-0.03em] text-text"
-              style={{ fontSize: "clamp(2rem, 3vw, 2.625rem)" }}
+              id={titleId}
+              className="mt-3 font-display leading-[1.02] font-bold tracking-[-0.03em] text-balance text-text"
+              style={{ fontSize: "clamp(2rem, 3.1vw, 2.75rem)" }}
             >
               {headline(p.title)}
             </h3>
-            <p className="mt-5 max-w-md text-lg leading-relaxed text-text-secondary">{p.outcome ?? p.tagline}</p>
-            <ul className="mt-7 flex flex-wrap gap-2">
-              {p.techStack.slice(0, 4).map((t) => (
-                <li key={t} className="rounded-full border border-border px-3 py-1 font-mono text-[11px] text-text-secondary">
-                  {t}
-                </li>
-              ))}
-            </ul>
-            <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-3">
-              <span className="inline-flex items-center gap-2 text-sm font-medium text-accent">
-                {dict.view} <Arrow />
-              </span>
-              {p.employer === "metaviz" && (
-                <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-text-secondary/70">{dict.employerNote}</span>
-              )}
-            </div>
+            {h && (
+              <p className="mt-8 flex max-w-md items-baseline gap-5 border-t border-text/15 pt-6">
+                <span className="shrink-0 font-display text-5xl leading-none font-bold tracking-[-0.04em] text-accent tabular-nums sm:text-6xl">{h.value}</span>
+                <span className="text-sm leading-snug text-text-secondary sm:text-base">{h.label}</span>
+              </p>
+            )}
+            <span id={ctaId} className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-accent">
+              {dict.view} <Arrow />
+            </span>
+          </ScrollReveal>
+          <div className={cn("-mr-6 lg:col-span-7", flip ? "lg:order-1 lg:mr-0 lg:ml-[var(--bleed)]" : "lg:mr-[var(--bleed)]")}>
+            <ClientBoundary fallback={picture}>
+              <TiltCard max={4}>{picture}</TiltCard>
+            </ClientBoundary>
           </div>
-          <div className={cn("lg:col-span-7", flip && "lg:order-1")}>
-            <TiltCard>
-              <div className="overflow-hidden rounded-2xl border border-border bg-bg-card p-1.5 shadow-[0_40px_80px_-40px_rgba(15,23,42,0.35)] transition-[border-color,box-shadow] duration-500 group-hover:border-border-hover group-hover:shadow-[0_50px_100px_-40px_rgba(15,23,42,0.45)] dark:shadow-[0_40px_80px_-40px_rgba(0,0,0,0.8)]">
-                <WorkPicture
-                  slug={p.slug}
-                  sizes="(min-width: 1280px) 680px, (min-width: 1024px) 56vw, 100vw"
-                  className="overflow-hidden rounded-[11px]"
-                />
-              </div>
-            </TiltCard>
-          </div>
-        </a>
-      </ScrollReveal>
+        </div>
+      </a>
     </li>
   );
 }
 
-function ListRow({ p, n, dict, lang }: { p: Project; n: number; dict: WorkDict; lang: Locale }) {
+function ListRow({ p, dict, lang }: { p: Project; dict: WorkDict; lang: Locale }) {
+  const titleId = `work-${p.slug}-title`;
   return (
     <a
       href={localHref(lang, `/projects/${p.slug}/`)}
-      className="group grid grid-cols-[1fr_auto] items-center gap-x-6 gap-y-2 border-t border-border py-6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:grid-cols-[3.5rem_1fr_15rem_2rem] sm:py-7"
+      aria-labelledby={titleId}
+      className="group grid grid-cols-[1fr_auto] items-center gap-x-6 gap-y-1.5 border-t border-border py-5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:grid-cols-[1fr_16rem_2rem] sm:py-6"
     >
-      <span className="hidden font-mono text-xs text-text-secondary sm:block">{pad(n)}</span>
-      <span className="relative z-20 font-display text-xl font-semibold leading-snug tracking-tight text-text transition-transform duration-300 ease-out sm:text-2xl sm:group-hover:translate-x-2">
+      <span
+        id={titleId}
+        className="relative z-20 font-display text-xl leading-snug font-semibold tracking-tight text-text transition-transform duration-300 ease-out sm:text-2xl sm:group-hover:translate-x-2"
+      >
         {headline(p.title)}
       </span>
-      <span className="col-start-1 row-start-2 flex flex-col gap-1 font-mono text-[11px] uppercase tracking-[0.14em] text-text-secondary sm:col-start-auto sm:row-start-auto">
-        <span>{dict.filters[p.category]}</span>
-        {p.employer === "metaviz" && <span className="text-text-secondary/60">{dict.employerNote}</span>}
+      <span className="col-start-1 row-start-2 font-mono text-[11px] tracking-[0.14em] text-text-secondary uppercase sm:col-start-auto sm:row-start-auto">
+        {dict.categories[p.category]}
+        {p.employer === "metaviz" && <span className="block sm:mt-1">{dict.employerNote}</span>}
       </span>
       <span className="col-start-2 row-span-2 row-start-1 justify-self-end text-xl text-text-secondary transition-colors duration-300 group-hover:text-accent sm:col-start-auto sm:row-span-1 sm:row-start-auto">
         <Arrow />
@@ -110,26 +139,36 @@ function ListRow({ p, n, dict, lang }: { p: Project; n: number; dict: WorkDict; 
 export function Work({ dict, lang }: { dict: WorkDict; lang: Locale }) {
   const featured = sorted.filter((p) => p.featured).map((p) => localize(p, lang));
   const rest = sorted.filter((p) => !p.featured).map((p) => localize(p, lang));
+  const rows = rest.map((p) => ({ slug: p.slug, row: <ListRow p={p} dict={dict} lang={lang} /> }));
 
   return (
-    <section id="work" className="scroll-mt-24 px-6 py-24 sm:py-32">
-      <div className="mx-auto max-w-6xl">
+    <section id="work" className="scroll-mt-24 py-20 sm:py-24">
+      <div className="mx-auto max-w-6xl px-6">
         <SectionHeader index={dict.index} eyebrow={dict.eyebrow} title={dict.title} className="mb-12 sm:mb-16" />
-        <ol>
-          {featured.map((p, i) => (
-            <FeaturedRow key={p.slug} p={p} i={i} dict={dict} lang={lang} />
-          ))}
-        </ol>
-        <WorkList
-          title={dict.more}
-          filterLabel={dict.filterLabel}
-          filterNames={dict.filters}
-          items={rest.map((p, i) => ({
-            slug: p.slug,
-            category: p.category,
-            row: <ListRow p={p} n={featured.length + i + 1} dict={dict} lang={lang} />,
-          }))}
-        />
+      </div>
+      <ol>
+        {featured.map((p, i) => (
+          <FeaturedRow key={p.slug} p={p} i={i} dict={dict} lang={lang} />
+        ))}
+      </ol>
+      <div className="mx-auto mt-16 max-w-6xl px-6 sm:mt-20">
+        <ClientBoundary
+          fallback={
+            <ul className="border-b border-border">
+              {rows.map((r) => (
+                <li key={r.slug}>{r.row}</li>
+              ))}
+            </ul>
+          }
+        >
+          <WorkList
+            rows={rows}
+            title={dict.more}
+            cap={LIST_CAP}
+            more={dict.allProjects.replace("{n}", String(sorted.length))}
+            fewer={dict.fewer}
+          />
+        </ClientBoundary>
       </div>
     </section>
   );
