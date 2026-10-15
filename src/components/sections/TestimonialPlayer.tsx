@@ -94,15 +94,15 @@ export function TestimonialPlayer({ media, labels, sizes, compact = false }: { m
           >
             <span className="size-1.5 rounded-full bg-[#7DD3FC]" />
             {labels.posterLabel}
-          </span>
+          </span>{" "}
 
           <span aria-hidden className={cn("absolute inset-x-0 bottom-0 flex flex-col items-start", compact ? "gap-3 p-4" : "gap-4 p-5 sm:p-6")}>
-            {!compact && <span className="font-display text-lg leading-tight font-semibold tracking-tight text-white">{labels.name}</span>}
+            {!compact && <span className="font-display text-lg leading-tight font-semibold tracking-tight text-white">{labels.name}</span>}{" "}
             <span className="inline-flex h-14 items-center gap-3 rounded-full bg-white/95 pr-5 pl-1.5 text-[#0A0A0B] shadow-[0_12px_32px_rgba(0,0,0,0.35)] motion-safe:transition-transform motion-safe:duration-300 motion-safe:ease-out motion-safe:group-hover:-translate-y-0.5 group-focus-visible:outline-3 group-focus-visible:outline-offset-3 group-focus-visible:outline-[#7DD3FC]">
               <span className="grid size-11 place-items-center rounded-full bg-[#0A0A0B] text-white">
                 <PlayIcon className="ml-0.5 size-4" />
               </span>
-              <span className="text-[15px] font-medium">{labels.watch}</span>
+              <span className="text-[15px] font-medium">{labels.watch}</span>{" "}
               <span className="font-mono text-xs text-[#0A0A0B]/70 tabular-nums">{labels.duration}</span>
             </span>
           </span>
