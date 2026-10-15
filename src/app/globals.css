@@ -372,6 +372,35 @@ img {
   opacity: 0;
   animation: live-pulse 1.8s ease-out infinite;
 }
+/* ── Night bands (Control room, Work row 02): hard edges with an ice hairline and a glow that stays inside the band ── */
+.band-edge {
+  --band-edge: rgba(125, 211, 252, 0.25);
+  box-shadow: inset 0 1px 0 var(--band-edge), inset 0 -1px 0 var(--band-edge);
+}
+html.dark .band-edge {
+  --band-edge: rgba(125, 211, 252, 0.18);
+}
+.band-edge::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(125, 211, 252, 0.09), transparent 24px),
+    linear-gradient(to top, rgba(125, 211, 252, 0.06), transparent 24px);
+}
+/* In night mode the page is dark too, so the band goes one layer deeper: darker ground, dot grid, skyline glow */
+.night-band {
+  background-color: #08090b;
+}
+html.dark .night-band {
+  background-color: #050608;
+  background-image:
+    radial-gradient(90% 38% at 50% 100%, rgba(56, 189, 248, 0.07), transparent 70%),
+    radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: auto, 22px 22px;
+}
 @keyframes cr-rise {
   from { opacity: 0; transform: translateY(8px); }
 }

@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import type { Dictionary } from "@/i18n";
 import type { Tier } from "@/lib/capability";
-import { storyClock, storyProgress } from "@/lib/story";
+import { activeStep, storyClock, STORY_CUES } from "@/lib/story";
 import { cn } from "@/lib/utils";
 import { getLenis } from "@/components/providers/LenisProvider";
 
@@ -31,24 +31,25 @@ function buildTimeline(gsap: Gsap, root: HTMLElement, track: HTMLElement, onUpda
     scrollTrigger: { trigger: track, start: "top top", end: "bottom bottom", scrub: 0.6 },
     onUpdate: () => onUpdate(tl.progress()),
   });
+  const c = STORY_CUES;
   const panel = q("[data-panel]");
-  tl.to(typing, { n: 1, duration: 0.55, ease: "none", onUpdate: type }, 0.05);
-  tl.from(q("[data-s=sent]"), { autoAlpha: 0, scale: 0.92 }, 0.62);
+  tl.to(typing, { n: 1, duration: c.typing.dur, ease: "none", onUpdate: type }, c.typing.at);
+  tl.from(q("[data-s=sent]"), { autoAlpha: 0, scale: 0.92, duration: c.sent.dur }, c.sent.at);
   for (let i = 0; i < 3; i++) {
-    tl.to(panel[i], { autoAlpha: 0, y: -28, scale: 0.96, duration: 0.22, ease: "power2.in" }, i + 0.7);
-    tl.fromTo(panel[i + 1], { autoAlpha: 0, y: 36, scale: 0.96 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.25 }, i + 0.78);
+    tl.to(panel[i], { autoAlpha: 0, y: -28, scale: 0.96, duration: 0.2, ease: "power2.in" }, c.swapOut(i));
+    tl.fromTo(panel[i + 1], { autoAlpha: 0, y: 36, scale: 0.96 }, { autoAlpha: 1, y: 0, scale: 1, duration: c.swapDur }, c.swapIn(i));
   }
-  tl.fromTo(q("[data-s=calling]"), { opacity: 1 }, { opacity: 0, duration: 0.1 }, 1.25)
-    .from(q("[data-s=connected]"), { opacity: 0, duration: 0.1 }, 1.3)
-    .from(q("[data-s=bar]"), { scaleY: 0.12, duration: 0.3, stagger: { each: 0.008, from: "center" } }, 1.28)
-    .from(q("[data-s=line]"), { autoAlpha: 0, y: 14 }, 1.4)
-    .from(q("[data-s=booking]"), { autoAlpha: 0, y: -56, scale: 1.08, duration: 0.3, ease: "back.out(1.7)" }, 2.1)
-    .from(q("[data-s=confirmed]"), { autoAlpha: 0, y: 8 }, 2.4)
-    .from(q("[data-s=old]"), { y: -50, duration: 0.3 }, 3.08)
-    .from(q("[data-s=row]"), { autoAlpha: 0, x: 60, duration: 0.3 }, 3.1)
-    .from(q("[data-s=pill]"), { autoAlpha: 0, scale: 0.6, duration: 0.15, ease: "back.out(2)" }, 3.35)
-    .from(q("[data-s=tag]"), { autoAlpha: 0, y: 8, stagger: 0.06 }, 3.45)
-    .from(q("[data-s=summary]"), { autoAlpha: 0, y: 8 }, 3.6)
+  tl.fromTo(q("[data-s=calling]"), { opacity: 1 }, { opacity: 0, duration: c.calling.dur }, c.calling.at)
+    .from(q("[data-s=connected]"), { opacity: 0, duration: c.connected.dur }, c.connected.at)
+    .from(q("[data-s=bar]"), { scaleY: 0.12, duration: c.bars.dur, stagger: { each: 0.008, from: "center" } }, c.bars.at)
+    .from(q("[data-s=line]"), { autoAlpha: 0, y: 14, duration: c.line.dur }, c.line.at)
+    .from(q("[data-s=booking]"), { autoAlpha: 0, y: -56, scale: 1.08, duration: c.booking.dur, ease: "back.out(1.7)" }, c.booking.at)
+    .from(q("[data-s=confirmed]"), { autoAlpha: 0, y: 8, duration: c.confirmed.dur }, c.confirmed.at)
+    .from(q("[data-s=old]"), { y: -50, duration: c.old.dur }, c.old.at)
+    .from(q("[data-s=row]"), { autoAlpha: 0, x: 60, duration: c.row.dur }, c.row.at)
+    .from(q("[data-s=pill]"), { autoAlpha: 0, scale: 0.6, duration: c.pill.dur, ease: "back.out(2)" }, c.pill.at)
+    .from(q("[data-s=tag]"), { autoAlpha: 0, y: 8, duration: c.tags.dur, stagger: c.tagStagger }, c.tags.at)
+    .from(q("[data-s=summary]"), { autoAlpha: 0, y: 8, duration: c.summary.dur }, c.summary.at)
     .to({}, { duration: 0.1 }, 3.9);
   return () => typed.forEach((el, i) => (el.textContent = full[i]));
 }
@@ -120,8 +121,7 @@ export default function StoryPinned({ dict, frames, tier, onProgress, onFail, ba
         // Lenis keeps its own autoRaf loop; the pin is CSS sticky, so syncing ScrollTrigger on each Lenis scroll is enough.
         const unsync = lenis?.on("scroll", () => ScrollTrigger.update());
         const update = (p: number) => {
-          const { progress } = storyProgress(p);
-          setActive(Math.min(3, Math.round(progress) - 1));
+          setActive(activeStep(p));
           if (clock.current) clock.current.textContent = storyClock(p, dict.clocks);
           rail.current.forEach((r, i) => (r.style.transform = `scaleX(${Math.min(1, Math.max(0, p * 4 - i))})`));
           report.current?.(p);
@@ -153,8 +153,8 @@ export default function StoryPinned({ dict, frames, tier, onProgress, onFail, ba
   }, [near, dict.clocks, onFail]);
 
   return (
-    <div ref={track} data-pinned className="relative mt-8" style={{ height: tier === "full" ? "300vh" : "200vh" }}>
-      <div className="sticky top-0 flex h-svh flex-col justify-center pt-28 pb-6 lg:pt-24 lg:pb-10">
+    <div ref={track} data-pinned className="relative mt-2 lg:-mt-4" style={{ height: tier === "full" ? "300vh" : "200vh" }}>
+      <div className="sticky top-0 flex h-svh flex-col justify-center pt-28 pb-6 lg:pt-24 lg:pb-[19svh]">
         <div className="grid min-h-0 flex-1 grid-rows-[auto_minmax(0,1fr)] items-center gap-4 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:grid-rows-[minmax(0,1fr)] lg:gap-14">
           <ol className="max-lg:sr-only">
             {dict.steps.map((s, i) => (
@@ -189,7 +189,7 @@ export default function StoryPinned({ dict, frames, tier, onProgress, onFail, ba
             <p className="mt-1 text-[15px] leading-snug text-text-secondary [@media(max-height:720px)]:hidden">{dict.steps[active].body}</p>
           </div>
 
-          <div ref={stage} aria-hidden className="relative flex h-full max-h-[640px] min-h-0 flex-col self-center overflow-hidden rounded-[32px] border border-border bg-[#0D0E10] lg:bg-[#0D0E10]/70 lg:backdrop-blur-[3px] bg-[radial-gradient(rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:22px_22px]">
+          <div ref={stage} aria-hidden className="relative flex h-full max-h-[600px] min-h-0 flex-col self-center overflow-hidden rounded-[32px] border border-border bg-[#0D0E10] lg:bg-[#0D0E10]/70 lg:backdrop-blur-[3px] bg-[radial-gradient(rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:22px_22px]">
             <div className="flex items-center justify-between px-5 pt-4 font-mono text-[11px] tracking-[0.12em] uppercase sm:px-6 sm:pt-5">
               <span className="flex items-center gap-2 text-text-secondary">
                 {dict.ui.business}
@@ -226,7 +226,7 @@ export default function StoryPinned({ dict, frames, tier, onProgress, onFail, ba
         </div>
         {/* Contrast invariant: on desktop the skyline band glows behind this stage. Text inside the stage must sit on an
             opaque frame surface (the story-ui cards), and the step list must stay above the band's lead route.
-            Below lg the band is a strip under the card instead, so the card never hides it. */}
+            The sticky bottom padding keeps the stage above the roofline. Below lg the band is a strip under the card. */}
         {backdrop && (
           <div
             aria-hidden

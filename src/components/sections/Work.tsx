@@ -22,7 +22,7 @@ const headline = (title: string) => title.split(":")[0];
 /** Band tones: ice tint, a night band that stays dark in both themes, warm paper. */
 const BANDS = [
   "bg-accent-tint/55 dark:bg-accent-tint/30",
-  "dark border-y border-white/5 bg-[#060E14] text-text [background-image:radial-gradient(60%_80%_at_85%_40%,rgba(56,189,248,0.14),transparent_70%)]",
+  "dark band-edge isolate bg-[#060E14] text-text [background-image:radial-gradient(60%_80%_at_85%_40%,rgba(56,189,248,0.14),transparent_70%)]",
   "bg-[#F1F0EB] dark:bg-bg-card",
 ];
 
