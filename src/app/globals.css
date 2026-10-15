@@ -445,8 +445,39 @@ html.dark .night-band {
 @keyframes dot-on {
   from { background-color: var(--color-bg); border-color: var(--color-border-hover); }
 }
+@keyframes travel-y {
+  from { top: 0; }
+}
+@keyframes travel-x {
+  from { left: 0; }
+}
+/* Process day axis: big day labels sized to their column; the ice traveller rests at the line's end when static */
 .how-track {
   view-timeline: --how block;
+}
+.how-day {
+  font-size: 3.5rem;
+}
+.how-traveller {
+  position: absolute;
+  z-index: 1;
+  top: calc(100% - 11px);
+  left: 2px;
+  width: 11px;
+  height: 11px;
+  border-radius: 9999px;
+  background: var(--color-accent);
+  box-shadow: 0 0 0 4px var(--color-accent-glow), 0 0 20px 4px var(--color-accent-glow);
+  pointer-events: none;
+}
+@media (min-width: 1024px) {
+  .how-day {
+    font-size: min(6rem, calc(100cqi / 3.7));
+  }
+  .how-traveller {
+    top: 2px;
+    left: calc(100% - 11px);
+  }
 }
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
@@ -458,29 +489,36 @@ html.dark .night-band {
     html:not(.tier-static) .how-progress {
       animation: draw-y linear both;
       animation-timeline: --how;
-      animation-range: cover 14% cover 80%;
+      animation-range: entry 10% cover 70%;
     }
-    html:not(.tier-static) .how-step {
-      animation: rise-in linear both;
+    html:not(.tier-static) .how-traveller {
+      animation: travel-y linear both;
       animation-timeline: --how;
-      animation-range: cover calc(6% + var(--i) * 17%) cover calc(14% + var(--i) * 17%);
+      animation-range: entry 10% cover 70%;
+    }
+    html:not(.tier-static) .how-step,
+    html:not(.tier-static) .how-dot {
+      animation: rise-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 50%;
     }
     html:not(.tier-static) .how-dot {
-      animation: dot-on linear both;
-      animation-timeline: --how;
-      animation-range: cover calc(12% + var(--i) * 17%) cover calc(15% + var(--i) * 17%);
+      animation-name: dot-on;
     }
   }
   @media (prefers-reduced-motion: no-preference) and (min-width: 1024px) {
     html:not(.tier-static) .how-progress {
       animation-name: draw-x;
-      animation-range: cover 15% cover 52%;
+      animation-range: entry 40% cover 60%;
     }
-    html:not(.tier-static) .how-step {
-      animation-range: cover calc(12% + var(--i) * 10%) cover calc(20% + var(--i) * 10%);
+    html:not(.tier-static) .how-traveller {
+      animation-name: travel-x;
+      animation-range: entry 40% cover 60%;
     }
+    html:not(.tier-static) .how-step,
     html:not(.tier-static) .how-dot {
-      animation-range: cover calc(14% + var(--i) * 10%) cover calc(16% + var(--i) * 10%);
+      animation-timeline: --how;
+      animation-range: entry calc(15% + var(--i) * 12%) entry calc(45% + var(--i) * 12%);
     }
   }
 }
@@ -493,9 +531,13 @@ html.dark .night-band {
   isolation: isolate;
   background: var(--duo-light);
 }
+/* Night: ink shadows, ice highlights capped below full brightness, extra contrast so the face keeps its depth */
 .dark .duotone {
-  --duo-light: #8FD3F5;
-  --duo-dark: #0A0A0B;
+  --duo-light: #6FC2EC;
+  --duo-dark: #04121C;
+}
+.dark .duotone img {
+  filter: grayscale(1) contrast(1.32) brightness(0.86);
 }
 .duotone img {
   filter: grayscale(1) contrast(1.12) brightness(1.04);

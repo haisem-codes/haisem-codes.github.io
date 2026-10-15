@@ -5,32 +5,26 @@ import { WorkPicture } from "@/components/ui/WorkPicture";
 
 type Item = Dictionary["services"]["items"][number];
 
-const folio = (i: number) => String(i + 1).padStart(2, "0");
-const TEASER_SIZES = "(min-width: 1024px) 560px, 100vw";
+const sub = (index: string, i: number) => `${index}.${i + 1}`;
 
-/** Split preview of the before/after concept, linking down to the full slider. */
+/** A cropped close-up of the redesign's booking widget, linking down to the full before/after. */
 function Teaser({ dict }: { dict: Dictionary["services"] }) {
   return (
     <a
       href="#before-after"
-      className="group mt-10 block rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+      className="group mt-10 flex items-center gap-5 rounded-2xl border border-text/10 bg-bg/60 p-3 pr-6 transition-colors hover:border-accent/40 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
     >
-      <span className="relative block aspect-[16/10] overflow-hidden rounded-2xl bg-bg-card shadow-[0_30px_60px_-36px_rgba(15,23,42,0.45)] ring-1 ring-black/5 dark:ring-white/10">
-        <WorkPicture slug="before-site" sizes={TEASER_SIZES} className="absolute inset-0" />
-        <span className="absolute inset-0 [clip-path:inset(0_0_0_50%)] motion-safe:transition-[clip-path] motion-safe:duration-700 motion-safe:ease-[var(--ease-silk)] group-hover:[clip-path:inset(0_0_0_28%)]">
-          <WorkPicture slug="after-site" sizes={TEASER_SIZES} />
-        </span>
-        <span
-          aria-hidden
-          className="absolute inset-y-0 left-1/2 w-px bg-white shadow-[0_0_0_1px_rgba(10,10,11,0.15)] motion-safe:transition-[left] motion-safe:duration-700 motion-safe:ease-[var(--ease-silk)] group-hover:left-[28%]"
-        />
-        <span className="absolute top-3 left-3 rounded-full bg-black/55 px-2.5 py-1 font-mono text-[11px] tracking-[0.14em] text-white uppercase backdrop-blur-md">
-          {dict.teaserLabel}
+      <span aria-hidden className="relative block h-24 w-36 shrink-0 overflow-hidden rounded-xl ring-1 ring-black/5 sm:h-28 sm:w-44 dark:ring-white/10">
+        <span className="absolute top-0 left-0 block w-[340%] origin-top-left -translate-x-[70%] -translate-y-[66%] motion-safe:transition-transform motion-safe:duration-700 motion-safe:ease-[var(--ease-silk)] group-hover:-translate-x-[68%]">
+          <WorkPicture slug="after-site" sizes="600px" />
         </span>
       </span>
-      <span className="mt-4 inline-flex min-h-[44px] items-center gap-2 font-medium text-accent underline decoration-accent/30 underline-offset-[6px] group-hover:decoration-accent">
-        {dict.teaser}
-        <span aria-hidden className="transition-transform duration-300 group-hover:translate-y-0.5">↓</span>
+      <span className="min-w-0">
+        <span className="block font-mono text-[11px] tracking-[0.14em] text-text-secondary uppercase">{dict.teaserLabel}</span>
+        <span className="mt-1.5 inline-flex items-center gap-2 font-medium text-accent underline decoration-accent/30 underline-offset-[6px] group-hover:decoration-accent">
+          {dict.teaser}
+          <span aria-hidden className="transition-transform duration-300 group-hover:translate-y-0.5">↓</span>
+        </span>
       </span>
     </a>
   );
@@ -40,7 +34,10 @@ function Lead({ item, dict }: { item: Item; dict: Dictionary["services"] }) {
   return (
     <article className="rise relative overflow-hidden rounded-[2rem] bg-accent-tint/60 p-7 sm:p-12 lg:sticky lg:top-28 lg:col-span-7 lg:self-start dark:bg-accent-tint/35">
       <div className="flex flex-wrap items-end justify-between gap-4">
-        <span className="numeral-outline font-display text-[5.5rem] leading-[0.8] font-bold tracking-[-0.05em] tabular-nums sm:text-[7.5rem]">{folio(0)}</span>
+        <span>
+          <span className="block font-mono text-sm text-accent tabular-nums">{sub(dict.index, 0)}</span>
+          <span className="numeral-outline mt-2 block font-display text-[5.5rem] leading-[0.8] font-bold tracking-[-0.05em] sm:text-[7.5rem]">{dict.leadWord}</span>
+        </span>
         <span className="inline-flex items-center gap-2 rounded-full bg-bg/70 px-3 py-1 text-xs font-medium text-text">
           <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-accent" />
           {dict.exampleNote}
@@ -63,10 +60,10 @@ function Lead({ item, dict }: { item: Item; dict: Dictionary["services"] }) {
   );
 }
 
-function Row({ item, i }: { item: Item; i: number }) {
+function Row({ item, i, index }: { item: Item; i: number; index: string }) {
   return (
-    <li className="rise grid grid-cols-[2.75rem_1fr] gap-x-3 border-b border-border py-8 first:pt-0 sm:grid-cols-[3.5rem_1fr] lg:first:pt-2">
-      <span className="pt-1.5 font-mono text-sm text-accent tabular-nums">{folio(i)}</span>
+    <li className="rise grid grid-cols-[3rem_1fr] gap-x-3 border-b border-border py-8 first:pt-0 sm:grid-cols-[3.75rem_1fr] lg:first:pt-2">
+      <span className="pt-1.5 font-mono text-sm text-accent tabular-nums">{sub(index, i)}</span>
       <div>
         <h3 className="font-display text-2xl leading-tight font-semibold tracking-[-0.02em] text-balance text-text">{item.title}</h3>
         <p className="mt-3 text-base leading-relaxed text-text-secondary">{item.problem}</p>
@@ -84,7 +81,7 @@ function Row({ item, i }: { item: Item; i: number }) {
   );
 }
 
-/** Editorial spread: the website service leads with a before/after teaser, the rest stack as hairline rows. */
+/** Editorial spread: the website service leads with a booking-widget teaser, the rest stack as hairline rows. */
 export function Services({ dict }: { dict: Dictionary["services"]; lang: Locale }) {
   const [lead, ...rest] = dict.items;
   return (
@@ -100,7 +97,7 @@ export function Services({ dict }: { dict: Dictionary["services"]; lang: Locale 
           <Lead item={lead} dict={dict} />
           <ol className="lg:col-span-5">
             {rest.map((item, i) => (
-              <Row key={item.id} item={item} i={i + 1} />
+              <Row key={item.id} item={item} i={i + 1} index={dict.index} />
             ))}
           </ol>
         </div>

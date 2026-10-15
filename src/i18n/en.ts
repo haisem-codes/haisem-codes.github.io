@@ -57,7 +57,8 @@ export const en = {
     eyebrow: "Services",
     title: "Ways I help your business grow",
     pricing: "Fixed price, agreed after a free call.",
-    exampleNote: "You're looking at an example.",
+    exampleNote: "This site is an example",
+    leadWord: "Web",
     teaser: "See a before and after",
     teaserLabel: "Before / after",
     items: [
@@ -85,7 +86,7 @@ export const en = {
       },
       {
         id: "followup",
-        title: "Lead follow-up on autopilot",
+        title: "Lead follow\u2011up on autopilot",
         problem: "Enquiries from ads, forms and DMs wait for hours, and by then they've asked someone else.",
         get: [
           "Every new lead contacted within minutes by call, SMS or email",
@@ -110,7 +111,7 @@ export const en = {
   controlRoom: {
     index: "03",
     eyebrow: "The control room",
-    title: "21:40. A lead arrives.",
+    title: "21:40. A\u00A0lead arrives.",
     accent: "You're already asleep.",
     tryTitle: "Now try it yourself",
     kicker: "Pick a business and write what a customer would send late at night. The receptionist answers, books a time and logs the lead.",
@@ -161,7 +162,7 @@ export const en = {
   jake: {
     index: "01",
     eyebrow: "Client stories",
-    title: "AI follow-up for a growing agency",
+    title: "AI follow\u2011up for a growing agency",
     intro:
       "Jake Wims started an agency selling AI lead follow-up to real-estate teams and a mortgage lender. At Metaviz AI, I built the whole system for him: the voice agents, the CRM automations and the workflows between them.",
     points: [
@@ -251,10 +252,10 @@ export const en = {
     eyebrow: "Process",
     title: "How we work together",
     steps: [
-      { when: "Start", title: "Free 20-minute call", body: "You tell me how the business runs. I look for the biggest time sink." },
-      { when: "Within 2 days", title: "Fixed-price proposal", body: "A clear plan, price and timeline in writing." },
-      { when: "About 2 weeks", title: "Build with check-ins", body: "You see progress every few days and try it yourself." },
-      { when: "After launch", title: "Handover and care", body: "Training, documentation and an optional monthly care plan." },
+      { day: "Day 0", title: "Free 20-minute call", body: "You tell me how the business runs. I look for the biggest time sink." },
+      { day: "Day 2", title: "Fixed-price proposal", body: "A clear plan, price and timeline in writing." },
+      { day: "Week 2", title: "Build with check-ins", body: "You see progress every few days and try it yourself." },
+      { day: "Launch", title: "Handover and care", body: "Training, documentation and an optional monthly care plan." },
     ],
   },
   about: {

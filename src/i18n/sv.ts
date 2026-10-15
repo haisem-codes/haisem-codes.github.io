@@ -58,7 +58,8 @@ export const sv = {
     eyebrow: "Tjänster",
     title: "Så hjälper jag ditt företag att växa",
     pricing: "Fast pris, som vi kommer överens om efter ett gratis samtal.",
-    exampleNote: "Du tittar på ett exempel.",
+    exampleNote: "Den här sajten är ett exempel", // REVIEW-SV
+    leadWord: "Webb", // REVIEW-SV
     teaser: "Se före och efter", // REVIEW-SV
     teaserLabel: "Före / efter", // REVIEW-SV
     items: [
@@ -143,7 +144,7 @@ export const sv = {
   story: {
     note: "Samma flöde som jag byggde på Metaviz åt en byrås amerikanska kunder, här med en påhittad salong.", // REVIEW-SV
     steps: [
-      { title: "En förfrågan kommer in", body: "Någon fyller i ditt formulär eller din annons kl. 21.40." }, // REVIEW-SV
+      { title: "En förfrågan kommer in", body: "Någon fyller i ditt formulär eller din annons kl.\u00A021.40." }, // REVIEW-SV
       { title: "AI:n ringer", body: "Inom några minuter ringer den upp, vet redan vad de svarat och frågar bara det som saknas." }, // REVIEW-SV
       { title: "En bokning landar", body: "De som är redo väljer en tid direkt i din kalender." },
       { title: "Ditt CRM uppdateras", body: "Anteckningar, taggar och ett sammanfattande mejl, innan du hunnit äta frukost." }, // REVIEW-SV
@@ -252,10 +253,10 @@ export const sv = {
     eyebrow: "Arbetsgång", // REVIEW-SV
     title: "Så jobbar vi tillsammans",
     steps: [
-      { when: "Start", title: "Gratis samtal, 20 minuter", body: "Du berättar hur verksamheten fungerar. Jag letar efter det som tar mest tid." },
-      { when: "Inom 2 dagar", title: "Förslag till fast pris", body: "En tydlig plan, ett pris och en tidsplan i skrift." },
-      { when: "Cirka 2 veckor", title: "Bygge med avstämningar", body: "Du ser framstegen med några dagars mellanrum och testar själv." },
-      { when: "Efter lansering", title: "Överlämning och support", body: "Genomgång, dokumentation och en valfri månatlig supportplan." },
+      { day: "Dag 0", title: "20 min gratis samtal", body: "Du berättar hur verksamheten fungerar. Jag letar efter det som tar mest tid." }, // REVIEW-SV
+      { day: "Dag 2", title: "Förslag till fast pris", body: "En tydlig plan, ett pris och en tidsplan i skrift." }, // REVIEW-SV
+      { day: "Vecka 2", title: "Vi bygger, du testar löpande", body: "Du ser framstegen med några dagars mellanrum och testar själv." }, // REVIEW-SV
+      { day: "Live", title: "Överlämning och support", body: "Genomgång, dokumentation och en valfri månatlig supportplan." }, // REVIEW-SV
     ],
   },
   about: {

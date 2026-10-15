@@ -18,7 +18,7 @@ export function SectionHeader({ index, eyebrow, title, accent, kicker, tone = "d
         {index} — {eyebrow}
       </p>
       <h2
-        className={cn("mt-4 font-display font-bold leading-[1.02] tracking-[-0.03em]", night ? "text-balance text-white" : "text-text")}
+        className={cn("mt-4 font-display font-bold leading-[1.02] tracking-[-0.03em] text-balance", night ? "text-white" : "text-text")}
         style={{ fontSize: "clamp(2.5rem, 5vw, 4.5rem)" }}
       >
         {title}
