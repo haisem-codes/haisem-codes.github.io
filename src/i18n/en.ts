@@ -182,7 +182,7 @@ export const en = {
     quoteBy: "Jake Wims, agency founder",
     builtAt: "System built at Metaviz AI",
     transcript:
-      "Yo Haisem, just wanted to say thanks for all the fulfillment work you've helped me with over the past few months, just starting up my agency. Would not have been able to scale as fast as I have been without the support. Yeah, everything from the AI callers to the automation work. Really appreciate just how attention to detail you've been, and how good support has been as to, like, absolutely just honing in on the specifics of what needs to be done. My clients have been extremely happy with how good the follow-up process is for them. And I can say the same for my agency as well. So yeah, anybody looking for a top-tier, high-level developer, highly recommend Haisem.",
+      "Yo Haisem, just wanted to say thanks for all the fulfillment work you've helped me with over the past few months, just starting up my agency. Would not have been able to scale as fast as I have been without the support. Yeah, everything from the AI callers to the automation work. Really appreciate just how attention to detail you've been, and how good support has been as to, like, absolutely just honing in on the specifics of what needs to be done. My clients have been extremely happy with how good the follow-up process is for them. And I can say the same for my agency as well. So yeah, anybody looking for a top-tier HighLevel developer, highly recommend Haisem.",
     transcriptNote: "Lightly edited from the auto-generated captions.",
   },
   derin: {
