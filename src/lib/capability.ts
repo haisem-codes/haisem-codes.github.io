@@ -14,6 +14,12 @@ export function getTier(e: {
   return "full";
 }
 
+/**
+ * Pre-paint copy of getTier's cheap static conditions (reduced motion, save-data), so CSS can show static
+ * fallbacks on first paint. The WebGL-dependent case is left to LenisProvider, which adds the same class after hydration.
+ */
+export const staticTierBootScript = `try{if(matchMedia("(prefers-reduced-motion: reduce)").matches||(navigator.connection&&navigator.connection.saveData))document.documentElement.classList.add("tier-static")}catch(e){}`;
+
 let tierMemo: Tier | undefined;
 
 export function readTier(): Tier {

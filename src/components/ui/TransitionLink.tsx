@@ -42,8 +42,9 @@ export function TransitionLink({ href, onClick, ...rest }: AnchorHTMLAttributes<
       if (lenis) lenis.scrollTo(0, { immediate: true, force: true });
       else window.scrollTo({ top: 0, behavior: "instant" });
     });
-    vt.finished.finally(() => html.classList.remove(PAGE));
+    vt.finished.finally(() => html.classList.remove(PAGE)).catch(() => {});
   };
 
-  return <a href={href} onClick={go} onPointerEnter={() => router.prefetch(href)} {...rest} />;
+  const prefetch = () => router.prefetch(href);
+  return <a href={href} onClick={go} onPointerEnter={prefetch} onFocus={prefetch} onTouchStart={prefetch} {...rest} />;
 }

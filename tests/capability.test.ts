@@ -18,3 +18,20 @@ test("hardware renderers pass", () => {
   for (const n of ["ANGLE (Apple, ANGLE Metal Renderer: Apple M2, Unspecified Version)", "NVIDIA GeForce RTX 3060"])
     expect(isSoftwareRenderer(n)).toBe(false);
 });
+
+test("static boot script mirrors the cheap static conditions", async () => {
+  const { staticTierBootScript } = await import("@/lib/capability");
+  const run = (reduce: boolean, saveData: boolean) => {
+    const classes = new Set<string>();
+    const env = {
+      matchMedia: () => ({ matches: reduce }),
+      navigator: { connection: { saveData } },
+      document: { documentElement: { classList: { add: (c: string) => classes.add(c) } } },
+    };
+    new Function("matchMedia", "navigator", "document", staticTierBootScript)(env.matchMedia, env.navigator, env.document);
+    return classes.has("tier-static");
+  };
+  expect(run(true, false)).toBe(true);
+  expect(run(false, true)).toBe(true);
+  expect(run(false, false)).toBe(false);
+});

@@ -195,6 +195,7 @@ body::after {
     padding-inline: 1.5rem;
     font-size: clamp(3rem, 7.5vw, 7rem);
     animation: none;
+    translate: none;
   }
   .marquee-item:not(:first-child) {
     display: none;
