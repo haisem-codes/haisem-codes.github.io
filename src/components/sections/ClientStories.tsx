@@ -53,7 +53,7 @@ function Transcript({ label, note, children }: { label: string; note: string; ch
 /** Jake leads with the full story; Derin follows as a compact row. One pull-quote each. */
 export function ClientStories({ jake, derin }: { jake: Dictionary["jake"]; derin: Dictionary["derin"] }) {
   return (
-    <section id="stories" className="scroll-mt-24 px-6 py-20 sm:py-24">
+    <section id="stories" className="scroll-mt-24 px-6 pt-20 pb-10 sm:pt-24 sm:pb-12">
       <div className="mx-auto grid max-w-6xl gap-y-10 lg:grid-cols-[360px_1fr] lg:grid-rows-[auto_1fr] lg:gap-x-20 lg:gap-y-0">
         <header className="rise lg:col-start-2 lg:row-start-1">
           <p className="font-mono text-xs tracking-[0.18em] text-text-secondary uppercase">

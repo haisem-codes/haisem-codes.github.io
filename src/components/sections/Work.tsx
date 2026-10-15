@@ -142,7 +142,7 @@ export function Work({ dict, lang }: { dict: WorkDict; lang: Locale }) {
   const rows = rest.map((p) => ({ slug: p.slug, row: <ListRow p={p} dict={dict} lang={lang} /> }));
 
   return (
-    <section id="work" className="scroll-mt-24 py-20 sm:py-24">
+    <section id="work" className="scroll-mt-24 pt-20 pb-12 sm:pt-24 sm:pb-16">
       <div className="px-6">
         <div className="mx-auto max-w-6xl">
           <SectionHeader index={dict.index} eyebrow={dict.eyebrow} title={dict.title} className="mb-12 sm:mb-16" />
