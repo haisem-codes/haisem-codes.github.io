@@ -1,3 +1,5 @@
+import { pageError } from "./page-error";
+
 export const en = {
   meta: {
     title: "Haisem Naeem | Websites and AI automation, Stockholm",
@@ -311,5 +313,6 @@ export const en = {
       { h: "Cookies and browser storage", p: "This site stores your language and theme choice in your browser. While you fill in the intake form, your answers are kept in this browser tab (session storage) until you send the form or close the tab. Analytics run without cookies and without identifying you." },
     ],
   },
+  pageError: pageError.en,
   footer: { rights: "All rights reserved.", privacy: "Privacy" },
 };

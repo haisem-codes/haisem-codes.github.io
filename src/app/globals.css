@@ -219,8 +219,9 @@ body::after {
   animation: bulb-in 0.6s var(--ease-silk) both;
 }
 
-/* ── Scroll reveals stay visible without JS ── */
-html:not(.js) [data-reveal] {
+/* ── Scroll reveals stay visible without JS, or when the reveal scripts never ran (src/lib/reveal.ts) ── */
+html:not(.js) [data-reveal],
+html.reveal-fallback [data-reveal] {
   opacity: 1 !important;
   transform: none !important;
 }

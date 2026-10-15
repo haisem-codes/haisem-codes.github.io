@@ -10,6 +10,7 @@ import { AnalyticsInit } from "@/components/analytics/AnalyticsInit";
 import { locales, isLocale, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n";
 import { THEME_COLOR } from "@/lib/theme";
+import { revealBootScript } from "@/lib/reveal";
 import "../globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
@@ -48,7 +49,7 @@ export default async function LangLayout({ children, params }: { children: React
   return (
     <html lang={lang} className={`${inter.variable} ${display.variable} ${mono.variable}`} suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: `document.documentElement.classList.add("js");try{if(localStorage.getItem("theme")==="dark"){document.documentElement.classList.add("dark");addEventListener("DOMContentLoaded",function(){var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content","${THEME_COLOR.dark}")})}}catch(e){}` }} />
+        <script dangerouslySetInnerHTML={{ __html: `${revealBootScript}try{if(localStorage.getItem("theme")==="dark"){document.documentElement.classList.add("dark");addEventListener("DOMContentLoaded",function(){var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content","${THEME_COLOR.dark}")})}}catch(e){}` }} />
       </head>
       <body className="bg-bg text-text antialiased">
         <AnalyticsInit />

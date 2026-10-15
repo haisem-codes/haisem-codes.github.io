@@ -1,4 +1,5 @@
 import type { Dictionary } from "./index";
+import { pageError } from "./page-error";
 
 export const sv = {
   meta: {
@@ -313,5 +314,6 @@ export const sv = {
       { h: "Kakor och lagring i webbläsaren", p: "Webbplatsen sparar ditt val av språk och tema i din webbläsare. Medan du fyller i formuläret sparas dina svar i den här webbläsarfliken (sessionStorage) tills du skickar formuläret eller stänger fliken. Statistiken körs utan kakor och utan att identifiera dig." }, // REVIEW-SV
     ],
   },
+  pageError: pageError.sv,
   footer: { rights: "Alla rättigheter förbehållna.", privacy: "Integritet" },
 } satisfies Dictionary;
