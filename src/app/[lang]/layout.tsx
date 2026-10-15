@@ -7,6 +7,7 @@ import { MotionProvider } from "@/components/providers/MotionProvider";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { AnalyticsInit } from "@/components/analytics/AnalyticsInit";
+import { CursorLoader } from "@/components/ui/CursorLoader";
 import { locales, isLocale, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n";
 import { THEME_COLOR } from "@/lib/theme";
@@ -59,6 +60,7 @@ export default async function LangLayout({ children, params }: { children: React
               <Navbar dict={d.nav} lang={lang as Locale} />
               {children}
               <Footer dict={d.footer} lang={lang as Locale} />
+              <CursorLoader dict={d.cursor} />
             </LenisProvider>
           </MotionProvider>
         </ThemeProvider>

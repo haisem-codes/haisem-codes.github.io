@@ -325,4 +325,6 @@ export const en = {
   },
   pageError: pageError.en,
   footer: { rights: "All rights reserved.", privacy: "Privacy" },
+  cursor: { view: "View", try: "Try" },
+  marquee: { lead: "Let's build", em: "yours", label: "Let's build yours" },
 };

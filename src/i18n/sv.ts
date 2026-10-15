@@ -326,4 +326,6 @@ export const sv = {
   },
   pageError: pageError.sv,
   footer: { rights: "Alla rättigheter förbehållna.", privacy: "Integritet" },
+  cursor: { view: "Visa", try: "Testa" }, // REVIEW-SV
+  marquee: { lead: "Låt oss bygga", em: "ditt", label: "Låt oss bygga ditt" }, // REVIEW-SV
 } satisfies Dictionary;

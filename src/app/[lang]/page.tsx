@@ -11,6 +11,7 @@ import { BeforeAfter } from "@/components/sections/BeforeAfter";
 import { HowIWork } from "@/components/sections/HowIWork";
 import { About } from "@/components/sections/About";
 import { ContactCta } from "@/components/sections/ContactCta";
+import { FooterMarquee } from "@/components/sections/FooterMarquee";
 
 export default async function Home({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
@@ -28,6 +29,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
       <HowIWork dict={d.how} lang={lang} />
       <About dict={d.about} lang={lang} />
       <ContactCta dict={d.cta} lang={lang} />
+      <FooterMarquee dict={d.marquee} lang={lang} />
     </main>
   );
 }

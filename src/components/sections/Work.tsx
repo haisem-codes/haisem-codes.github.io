@@ -10,6 +10,7 @@ import { TiltCard } from "@/components/ui/TiltCard";
 import { WorkPicture } from "@/components/ui/WorkPicture";
 import { ClientBoundary } from "@/components/ui/ClientBoundary";
 import { WorkList } from "@/components/sections/WorkList";
+import { TransitionLink } from "@/components/ui/TransitionLink";
 
 type WorkDict = Dictionary["work"];
 type Highlight = { value: string; label: string };
@@ -43,8 +44,9 @@ function FeaturedRow({ p, i, dict, lang }: { p: Project; i: number; dict: WorkDi
   const ctaId = `work-${p.slug}-cta`;
   const picture = (
     <div
+      style={{ "--vt": `project-${p.slug}` } as CSSProperties}
       className={cn(
-        "overflow-hidden shadow-[0_40px_80px_-40px_rgba(15,23,42,0.4)] ring-1 ring-black/5 dark:shadow-[0_40px_80px_-30px_rgba(0,0,0,0.85)] dark:ring-white/10",
+        "vt-shared overflow-hidden shadow-[0_40px_80px_-40px_rgba(15,23,42,0.4)] ring-1 ring-black/5 dark:shadow-[0_40px_80px_-30px_rgba(0,0,0,0.85)] dark:ring-white/10",
         flip ? "rounded-l-2xl lg:rounded-l-none lg:rounded-r-2xl" : "rounded-l-2xl",
       )}
     >
@@ -54,9 +56,10 @@ function FeaturedRow({ p, i, dict, lang }: { p: Project; i: number; dict: WorkDi
 
   return (
     <li className={cn("relative overflow-hidden", BANDS[i % BANDS.length])} style={BLEED} data-nav-theme={i % BANDS.length === 1 ? "dark" : undefined}>
-      <a
+      <TransitionLink
         href={localHref(lang, `/projects/${p.slug}/`)}
         aria-labelledby={`${titleId} ${ctaId}`}
+        data-cursor="view"
         className="group block focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-accent"
       >
         <div className="px-6 py-12 sm:py-16">
@@ -99,7 +102,7 @@ function FeaturedRow({ p, i, dict, lang }: { p: Project; i: number; dict: WorkDi
             </div>
           </div>
         </div>
-      </a>
+      </TransitionLink>
     </li>
   );
 }
@@ -107,9 +110,10 @@ function FeaturedRow({ p, i, dict, lang }: { p: Project; i: number; dict: WorkDi
 function ListRow({ p, dict, lang }: { p: Project; dict: WorkDict; lang: Locale }) {
   const titleId = `work-${p.slug}-title`;
   return (
-    <a
+    <TransitionLink
       href={localHref(lang, `/projects/${p.slug}/`)}
       aria-labelledby={titleId}
+      data-cursor="view"
       className="group grid grid-cols-[1fr_auto] items-center gap-x-6 gap-y-1.5 border-t border-border py-5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:grid-cols-[1fr_16rem_2rem] sm:py-6"
     >
       <span
@@ -136,7 +140,7 @@ function ListRow({ p, dict, lang }: { p: Project; dict: WorkDict; lang: Locale }
           className="animate-[work-preview-in_.35s_var(--ease-silk)_both] overflow-hidden rounded-xl border border-border shadow-[0_30px_60px_-20px_rgba(15,23,42,0.45)] motion-reduce:animate-none"
         />
       </span>
-    </a>
+    </TransitionLink>
   );
 }
 

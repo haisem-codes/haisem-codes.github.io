@@ -31,7 +31,7 @@ export function ControlRoom({ dict, story, lang }: { dict: Dictionary["controlRo
           <div id="try" className="mt-20 scroll-mt-24 sm:mt-28">
             <h3 className="font-display text-3xl font-semibold tracking-tight text-balance text-text sm:text-4xl">{dict.tryTitle}</h3>
             <p className="mt-3 max-w-2xl text-lg leading-relaxed text-text-secondary">{dict.kicker}</p>
-            <div className="mt-8">
+            <div className="mt-8" data-cursor="try">
               <DemoLoader lang={lang} dict={dict}>
                 <DemoLayout toolbar={<Toolbar dict={dict} active="salon" />}>
                   <ChatCard dict={dict} business={script.business}>

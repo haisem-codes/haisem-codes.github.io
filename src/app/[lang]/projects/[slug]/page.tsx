@@ -109,12 +109,13 @@ export default async function ProjectPage({ params }: Props) {
 
             {/* Current project (centred, sharp, large) */}
             <div
-              className="relative w-[68%] sm:w-[68%] md:w-[68%] aspect-[16/9] rounded-2xl overflow-hidden border border-border z-10"
+              className="vt-shared relative w-[68%] sm:w-[68%] md:w-[68%] aspect-[16/9] rounded-2xl overflow-hidden border border-border z-10"
               style={{
+                "--vt": `project-${project.slug}`,
                 transform: "translateZ(0)",
                 boxShadow:
                   "0 20px 60px -20px rgba(0,0,0,0.5), 0 0 0 1px var(--color-border)",
-              }}
+              } as React.CSSProperties}
             >
               <Image
                 src={asset(project.image)}
