@@ -11,6 +11,9 @@ export function Services({ dict }: { dict: Dictionary["services"]; lang: Locale 
     <section id="services" className="scroll-mt-24 px-6 py-24 sm:py-32">
       <div className="mx-auto max-w-6xl">
         <ScrollReveal>
+          <p className="mb-4 font-mono text-xs tracking-[0.18em] text-text-secondary uppercase">
+            {dict.index} — {dict.eyebrow}
+          </p>
           <h2 className="max-w-3xl font-display text-4xl font-semibold tracking-tight text-balance text-text sm:text-6xl">
             {dict.title}
           </h2>

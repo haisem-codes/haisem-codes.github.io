@@ -19,7 +19,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
   return (
     <main>
       <Hero dict={d.hero} phone={d.demoPhone} lang={lang} />
-      <ProofStrip dict={d.proof} lang={lang} />
+      <ProofStrip dict={d.proof} />
       <JakeCase dict={d.jake} />
       <Services dict={d.services} lang={lang} />
       <ControlRoom dict={d.controlRoom} story={d.story} lang={lang} />

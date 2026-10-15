@@ -45,15 +45,16 @@ export const en = {
     },
   },
   proof: {
-    quote: "…would not have been able to scale as fast as I have been without the support.",
-    quoteBy: "Jake Wims, agency founder",
-    items: [
-      "Voice agents I built for 5+ businesses",
-      "MSc AI and Language, Stockholm University",
-      "Published in ACM Computing Surveys",
+    label: "At a glance",
+    facts: [
+      { value: "5+", label: "businesses run voice agents I built at Metaviz" },
+      { value: "MSc", label: "AI and Language at Stockholm University" },
+      { value: "ACM", label: "Peer-reviewed survey in ACM Computing Surveys" },
     ],
   },
   services: {
+    index: "02",
+    eyebrow: "Services",
     title: "Ways I help your business grow",
     pricing: "Fixed price, agreed after a free call.",
     exampleNote: "You're looking at an example.",
@@ -105,7 +106,7 @@ export const en = {
     ],
   },
   controlRoom: {
-    index: "02",
+    index: "03",
     eyebrow: "The control room",
     title: "21:40. A lead arrives.",
     accent: "You're already asleep.",
@@ -156,6 +157,7 @@ export const en = {
     },
   },
   jake: {
+    index: "01",
     eyebrow: "Client story",
     title: "AI follow-up for a growing agency",
     intro:
@@ -170,8 +172,9 @@ export const en = {
     videoLabel: "Video testimonial from Jake Wims",
     play: "Play Jake's video testimonial, 52 seconds",
     duration: "0:52",
-    pullQuote: "My clients have been extremely happy with how good the follow-up processes are for them.",
-    quote: "I really appreciate the attention to detail and how good the support has been.",
+    posterLabel: "Client video",
+    watch: "Watch",
+    quote: "My clients have been extremely happy with how good the follow-up processes are for them.",
     quoteBy: "Jake Wims, agency founder",
     builtAt: "System built at Metaviz AI",
     transcript:
@@ -179,7 +182,7 @@ export const en = {
     transcriptNote: "Lightly edited from the auto-generated captions.",
   },
   work: {
-    index: "03",
+    index: "04",
     eyebrow: "Selected work",
     title: "Real systems, in production.",
     more: "More projects",
@@ -199,7 +202,7 @@ export const en = {
     englishOnly: "This case study is in English.",
   },
   beforeAfter: {
-    index: "04",
+    index: "05",
     eyebrow: "Before and after",
     title: "Same salon. A site that books.",
     kicker: "Drag the handle to compare a typical local business site with a redesign that takes bookings and answers questions.",

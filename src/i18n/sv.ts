@@ -46,15 +46,16 @@ export const sv = {
     },
   },
   proof: {
-    quote: "…would not have been able to scale as fast as I have been without the support.",
-    quoteBy: "Jake Wims, byråns grundare",
-    items: [
-      "Röstagenter jag byggt för fler än 5 företag", // REVIEW-SV
-      "Master i AI och språk, Stockholms universitet",
-      "Publicerad i ACM Computing Surveys",
+    label: "I korthet", // REVIEW-SV
+    facts: [
+      { value: "5+", label: "företag använder röstagenter som jag byggde på Metaviz" }, // REVIEW-SV
+      { value: "MSc", label: "AI och språk vid Stockholms universitet" }, // REVIEW-SV
+      { value: "ACM", label: "Referentgranskad översikt i ACM Computing Surveys" }, // REVIEW-SV
     ],
   },
   services: {
+    index: "02",
+    eyebrow: "Tjänster",
     title: "Så hjälper jag ditt företag att växa",
     pricing: "Fast pris, som vi kommer överens om efter ett gratis samtal.",
     exampleNote: "Du tittar på ett exempel.",
@@ -106,7 +107,7 @@ export const sv = {
     ],
   },
   controlRoom: {
-    index: "02",
+    index: "03",
     eyebrow: "Kontrollrummet", // REVIEW-SV
     title: "21.40. En förfrågan kommer in.", // REVIEW-SV
     accent: "Du sover redan.", // REVIEW-SV
@@ -157,6 +158,7 @@ export const sv = {
     },
   },
   jake: {
+    index: "01",
     eyebrow: "Kundcase",
     title: "AI-uppföljning för en växande byrå",
     intro:
@@ -171,8 +173,9 @@ export const sv = {
     videoLabel: "Videorekommendation från Jake Wims",
     play: "Spela upp Jakes videorekommendation, 52 sekunder på engelska", // REVIEW-SV
     duration: "0:52",
-    pullQuote: "My clients have been extremely happy with how good the follow-up processes are for them.",
-    quote: "I really appreciate the attention to detail and how good the support has been.",
+    posterLabel: "Kundvideo · på engelska", // REVIEW-SV
+    watch: "Spela", // REVIEW-SV
+    quote: "My clients have been extremely happy with how good the follow-up processes are for them.",
     quoteBy: "Jake Wims, byråns grundare",
     builtAt: "Systemet byggdes på Metaviz AI", // REVIEW-SV
     transcript:
@@ -180,7 +183,7 @@ export const sv = {
     transcriptNote: "Lätt redigerad från automatiska undertexter. Videon är på engelska.",
   },
   work: {
-    index: "03",
+    index: "04",
     eyebrow: "Utvalda projekt",
     title: "Riktiga system i produktion.", // REVIEW-SV
     more: "Fler projekt",
@@ -200,7 +203,7 @@ export const sv = {
     englishOnly: "Det här caset finns bara på engelska.", // REVIEW-SV
   },
   beforeAfter: {
-    index: "04",
+    index: "05",
     eyebrow: "Före och efter", // REVIEW-SV
     title: "Samma salong. En webbplats som tar emot bokningar.", // REVIEW-SV
     kicker: "Dra i reglaget och jämför en typisk webbplats för ett lokalt företag med en ny design som tar emot bokningar och svarar på frågor.", // REVIEW-SV
