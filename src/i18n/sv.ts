@@ -290,7 +290,7 @@ export const sv = {
     meta: ["Haisem N., AI-ingenjör", "Stockholm · master i AI och språk"], // REVIEW-SV
     title: "Jag bygger hela AI-system och testar dem före lansering.", // REVIEW-SV
     intro:
-      "AI/ML-ingenjör i Stockholm. Jag bygger LLM-produkter från början till slut: RAG, multiagentsystem, röst-AI och fullstack-appar. Deltid vid sidan av mastern nu, heltid efter två terminer (från sommaren 2027).", // REVIEW-SV
+      "AI/ML-ingenjör i Stockholm. Jag bygger LLM-produkter från början till slut: RAG, multiagentsystem, röst-AI och fullstack-appar. Deltid nu (upp till 15 h/vecka), heltid kan diskuteras.", // REVIEW-SV
     cv: "Ladda ner CV (PDF)",
     readCase: "Läs fallstudien", // REVIEW-SV
     toc: { label: "På den här sidan", nav: "Avsnitt på sidan" }, // REVIEW-SV
@@ -305,7 +305,7 @@ export const sv = {
       facts: [
         { k: "Senaste roll", v: "AI-ingenjör, Metaviz (jul 2025 – aug 2026)" }, // REVIEW-SV
         { k: "Nu", v: "Master i AI och språk, Stockholms universitet" }, // REVIEW-SV
-        { k: "Tillgänglighet", v: "15 h/vecka nu, heltid från sommaren 2027" }, // REVIEW-SV
+        { k: "Tillgänglighet", v: "Deltid nu (upp till 15 h/vecka), heltid kan diskuteras" }, // REVIEW-SV
         { k: "Arbetstillstånd", v: "Får arbeta i Sverige (uppehållstillstånd för studier)" }, // REVIEW-SV
         { k: "Språk", v: "Engelska (flytande), urdu (modersmål), svenska (nybörjare)" }, // REVIEW-SV
       ],
@@ -331,7 +331,7 @@ export const sv = {
       caption:
         "Ett lead från Facebook hamnar i GoHighLevel. Röstagenten i Retell ringer från ett lokalt nummer, sammanfattar formuläret och kvalificerar leadet som Hot, Warm eller Cold efter regler som kunden godkänt. Den bokar via n8n-verktyg i GoHighLevel-kalendern, varje samtal sparas i CRM:et, och den som inte svarar får sms och nurture-sekvenser.", // REVIEW-SV
       notes: [
-        { k: "Mall", v: "Byggd som en mall att klona, med varianter för fastighet och bolån, och använd för fler än fem kunders konton." }, // REVIEW-SV
+        { k: "Mall", v: "Byggd som en mall att klona, med varianter för fastighet och bolån, och använd för fem eller fler kunders konton." }, // REVIEW-SV
         { k: "Hälsning", v: "Ett gemensamt inkommande uppslag i n8n väljer företagets hälsning för varje telefonnummer." }, // REVIEW-SV
         { k: "Verifierat", v: "Arkitekturgranskningen kontrollerades mot Retells, n8n:s och GoHighLevels live-API:er, med en testplan på 10 fall." }, // REVIEW-SV
       ],
@@ -366,7 +366,7 @@ export const sv = {
         {
           decision: "Kontrollera designen mot live-API:erna", // REVIEW-SV
           why: "Arkitekturgranskningen verifierades mot Retells, n8n:s och GoHighLevels API:er, inte bara dokumentationen.", // REVIEW-SV
-          tradeoff: "En långsammare första release än att bara bygga för det vanliga fallet.", // REVIEW-SV
+          tradeoff: "Mer verifieringsarbete i början.", // REVIEW-SV
         },
       ],
     },
@@ -436,7 +436,7 @@ export const sv = {
     },
     credentials: {
       index: "06",
-      eyebrow: "Bakgrund", // REVIEW-SV
+      eyebrow: "Utbildning", // REVIEW-SV
       title: "Utbildning",
       items: [
         { period: "2026 – 2028", title: "Master i artificiell intelligens och språk", where: "Stockholms universitet", detail: "Pågår" }, // REVIEW-SV

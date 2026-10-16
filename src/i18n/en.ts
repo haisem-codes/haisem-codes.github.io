@@ -289,7 +289,7 @@ export const en = {
     meta: ["Haisem N., AI engineer", "Stockholm · MSc AI and Language"],
     title: "I build AI systems end to end, and check them before they go live.",
     intro:
-      "AI/ML engineer in Stockholm. I ship LLM products end to end: RAG, multi-agent systems, voice AI and full-stack apps. Part-time alongside my MSc now, full-time after two semesters (from summer 2027).",
+      "AI/ML engineer in Stockholm. I ship LLM products end to end: RAG, multi-agent systems, voice AI and full-stack apps. Part-time now (up to 15 h/week); full-time availability to discuss.",
     cv: "Download CV (PDF)",
     readCase: "Read the case study",
     toc: { label: "On this page", nav: "Sections of this page" },
@@ -304,7 +304,7 @@ export const en = {
       facts: [
         { k: "Last role", v: "AI engineer, Metaviz (Jul 2025 – Aug 2026)" },
         { k: "Now", v: "MSc AI and Language, Stockholm University" },
-        { k: "Availability", v: "15 h/week now, full-time from summer 2027" },
+        { k: "Availability", v: "Part-time now (up to 15 h/week); full-time availability to discuss" },
         { k: "Work permit", v: "Eligible to work in Sweden (residence permit for studies)" },
         { k: "Languages", v: "English (fluent), Urdu (native), Swedish (beginner)" },
       ],
@@ -330,7 +330,7 @@ export const en = {
       caption:
         "A Facebook lead lands in GoHighLevel. The Retell voice agent calls from a local number, recaps the form and qualifies the lead Hot, Warm or Cold on rules the client approved. It books through n8n tools into the GoHighLevel calendar, every call is written back to the CRM, and leads who don't answer get SMS and nurture sequences.",
       notes: [
-        { k: "Template", v: "Built as a cloneable template with real-estate and mortgage variants, and used for more than five client sub-accounts." },
+        { k: "Template", v: "Built as a cloneable template with real-estate and mortgage variants, and used for five or more client sub-accounts." },
         { k: "Greeting", v: "One shared n8n inbound lookup picks the business greeting for each phone number." },
         { k: "Verified", v: "The architecture review was checked against the live Retell, n8n and GoHighLevel APIs, with a 10-case test plan." },
       ],
@@ -365,7 +365,7 @@ export const en = {
         {
           decision: "Check the design against the live APIs",
           why: "The architecture review was verified against the Retell, n8n and GoHighLevel APIs, not only the docs.",
-          tradeoff: "A slower first release than building on the happy path.",
+          tradeoff: "More verification work up front.",
         },
       ],
     },
@@ -435,7 +435,7 @@ export const en = {
     },
     credentials: {
       index: "06",
-      eyebrow: "Background",
+      eyebrow: "Education",
       title: "Education",
       items: [
         { period: "2026 – 2028", title: "MSc Artificial Intelligence and Language", where: "Stockholm University", detail: "In progress" },
