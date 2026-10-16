@@ -9,7 +9,7 @@ function srcSet(base: string, ext: "avif" | "webp") {
   return `${asset(`${base}-800.${ext}`)} 800w, ${asset(`${base}-1600.${ext}`)} 1600w`;
 }
 
-function Variant({ base, sizes, w, h, alt, className }: { base: string; sizes: string; w: number; h: number; alt: string; className: string }) {
+function Variant({ base, sizes, w, h, alt, className, priority = false }: { base: string; sizes: string; w: number; h: number; alt: string; className: string; priority?: boolean }) {
   return (
     <picture>
       <source type="image/avif" srcSet={srcSet(base, "avif")} sizes={sizes} />
@@ -20,7 +20,8 @@ function Variant({ base, sizes, w, h, alt, className }: { base: string; sizes: s
         width={w}
         height={h}
         alt={alt}
-        loading="lazy"
+        loading={priority ? "eager" : "lazy"}
+        fetchPriority={priority ? "high" : undefined}
         decoding="async"
         className={cn("h-auto w-full", className)}
       />
@@ -28,8 +29,11 @@ function Variant({ base, sizes, w, h, alt, className }: { base: string; sizes: s
   );
 }
 
-/** Light + night renders; the class-based theme hides one, and lazy + display:none keeps it from downloading. */
-export function WorkPicture({ slug, sizes, alt = "", className }: { slug: string; sizes: string; alt?: string; className?: string }) {
+/**
+ * Light + night renders; the class-based theme hides one, and lazy + display:none keeps it from downloading.
+ * `priority` makes the light render eager for an above-the-fold hero (the night one stays lazy).
+ */
+export function WorkPicture({ slug, sizes, alt = "", className, priority }: { slug: string; sizes: string; alt?: string; className?: string; priority?: boolean }) {
   const meta = images[slug];
   if (!meta) return null;
   return (
@@ -40,7 +44,7 @@ export function WorkPicture({ slug, sizes, alt = "", className }: { slug: string
       )}
       style={{ "--blur": `url(${meta.blur})`, "--blur-night": `url(${meta.nightBlur})` } as CSSProperties}
     >
-      <Variant base={`/work/${slug}`} sizes={sizes} w={meta.w} h={meta.h} alt={alt} className="dark:hidden" />
+      <Variant base={`/work/${slug}`} sizes={sizes} w={meta.w} h={meta.h} alt={alt} className="dark:hidden" priority={priority} />
       <Variant base={`/work/${slug}-night`} sizes={sizes} w={meta.w} h={meta.h} alt={alt} className="hidden dark:block" />
     </div>
   );

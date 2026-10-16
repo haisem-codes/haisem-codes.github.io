@@ -72,12 +72,12 @@ function FeaturedRow({ p, i, dict, lang }: { p: Project; i: number; dict: WorkDi
               )}
               <p className="mt-7 font-mono text-[11px] tracking-[0.18em] text-text-secondary uppercase">
                 {dict.categories[p.category]}
-                {p.employer === "metaviz" && (
+                {p.context && (
                   <>
                     <span aria-hidden className="ml-2">
                       ·
                     </span>{" "}
-                    <span className="whitespace-nowrap">{dict.employerNote}</span>
+                    <span className="whitespace-nowrap">{dict.context[p.context]}</span>
                   </>
                 )}
               </p>
@@ -116,7 +116,7 @@ function ListRow({ p, dict, lang }: { p: Project; dict: WorkDict; lang: Locale }
       </span>
       <span className="col-start-1 row-start-2 font-mono text-[11px] tracking-[0.14em] text-text-secondary uppercase sm:col-start-auto sm:row-start-auto">
         {dict.categories[p.category]}
-        {p.employer === "metaviz" && <span className="block sm:mt-1">{dict.employerNote}</span>}
+        {p.context && <span className="block sm:mt-1">{dict.context[p.context]}</span>}
       </span>
       <span className="col-start-2 row-span-2 row-start-1 justify-self-end text-xl text-text-secondary transition-colors duration-300 group-hover:text-accent sm:col-start-auto sm:row-span-1 sm:row-start-auto">
         <Arrow />

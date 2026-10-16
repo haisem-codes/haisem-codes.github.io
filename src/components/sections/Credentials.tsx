@@ -1,54 +1,19 @@
-"use client";
+import type { Dictionary } from "@/i18n";
 
-import { m } from "motion/react";
-import { credentials } from "@/data/credentials";
-import { SectionHeader } from "@/components/ui/SectionHeader";
-import { staggerContainer, fadeInUp } from "@/lib/animations";
-
-export function Credentials({ index, eyebrow, title }: { index: string; eyebrow: string; title: string }) {
+/** Education as hairline rows: period, what and where, then the detail. */
+export function Credentials({ dict }: { dict: Dictionary["hire"]["credentials"] }) {
   return (
-    <section className="py-32 px-6">
-      <div className="max-w-5xl mx-auto">
-        <SectionHeader index={index} eyebrow={eyebrow} title={title} className="mb-16" />
-
-        <m.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          className="grid grid-cols-1 sm:grid-cols-2 gap-6"
-        >
-          {credentials.map((item) => (
-            <m.div
-              key={item.id}
-              data-reveal
-              variants={fadeInUp}
-              className="p-6 rounded-2xl bg-bg-card border border-border hover:border-border-hover transition-colors duration-200"
-            >
-              <div className="flex items-baseline justify-between gap-4">
-                <span className="font-mono text-xs uppercase tracking-wider text-accent">
-                  {item.label}
-                </span>
-                <span className="font-mono text-xs text-text-secondary whitespace-nowrap">
-                  {item.period}
-                </span>
-              </div>
-
-              <h3 className="mt-3 text-base font-semibold text-text leading-snug">
-                {item.title}
-              </h3>
-              <p className="mt-1 text-sm text-text-secondary">
-                {item.institution}
-              </p>
-              {item.detail && (
-                <p className="mt-3 pt-3 border-t border-border text-xs text-text-secondary">
-                  {item.detail}
-                </p>
-              )}
-            </m.div>
-          ))}
-        </m.div>
-      </div>
-    </section>
+    <ul className="border-t border-border">
+      {dict.items.map((c) => (
+        <li key={c.title} className="rise grid grid-cols-[6.5rem_1fr] gap-x-4 gap-y-1 border-b border-border py-5 sm:grid-cols-[8rem_1fr_auto]">
+          <span className="font-mono text-xs leading-6 text-accent tabular-nums">{c.period}</span>
+          <span>
+            <span className="block text-base leading-6 font-medium text-text">{c.title}</span>
+            <span className="block text-sm leading-6 text-text-secondary">{c.where}</span>
+          </span>
+          <span className="col-start-2 text-sm leading-6 text-text-secondary sm:col-start-3 sm:text-right">{c.detail}</span>
+        </li>
+      ))}
+    </ul>
   );
 }

@@ -10,10 +10,12 @@ test("localize overlays sv", () => {
   expect(localize(p, "sv").tagline).toBe(p.sv!.tagline);
   expect(localize(p, "en").tagline).toBe(p.tagline);
 });
-test("Metaviz work is attributed", () => {
-  for (const s of ["ai-compliance-platform", "voice-agents-suite", "postura", "coach", "ai-real-estate-marketplace", "b2b-travel-saas", "ai-craftsmen-marketplace", "ai-tools-suite", "ai-video-pipeline"])
-    expect(projects.find((p) => p.slug === s)?.employer).toBe("metaviz");
+test("team and client work is labelled", () => {
+  for (const s of ["ai-compliance-platform", "postura", "ai-real-estate-marketplace", "b2b-travel-saas", "ai-craftsmen-marketplace", "ai-tools-suite", "ai-video-pipeline"])
+    expect(projects.find((p) => p.slug === s)?.context).toBe("team");
+  for (const s of ["voice-agents-suite", "coach"]) expect(projects.find((p) => p.slug === s)?.context).toBe("client");
 });
+test("no former-employer branding in project copy", () => expect(JSON.stringify(projects)).not.toMatch(/metaviz/i));
 test("icore-careerhub removed", () => expect(projects.some((p) => p.slug === "icore-careerhub")).toBe(false));
 test("exactly three featured projects with rendered mockups", () => {
   const f = projects.filter((p) => p.featured);

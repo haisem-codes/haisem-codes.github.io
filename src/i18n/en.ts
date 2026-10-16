@@ -1,4 +1,5 @@
 import { pageError } from "./page-error";
+import { qualifyExcerpt } from "./hire-code";
 
 export const en = {
   meta: {
@@ -47,7 +48,7 @@ export const en = {
   proof: {
     label: "At a glance",
     facts: [
-      { value: "5+", label: "businesses I built voice agents for at Metaviz" },
+      { value: "5+", label: "businesses I built voice agents for" },
       { value: "MSc", label: "AI and Language at Stockholm University" },
       { value: "ACM", label: "Peer-reviewed survey in ACM Computing Surveys" },
     ],
@@ -141,7 +142,7 @@ export const en = {
     ctaNote: "Answer a few questions and I'll show you how it would work for you.",
   },
   story: {
-    note: "The same flow I built at Metaviz for an agency's US clients, shown here with a fictional salon.",
+    note: "The same flow I built for an agency's US clients, shown here with a fictional salon.",
     steps: [
       { title: "A lead arrives", body: "Someone fills in your form or ad at 21:40." },
       { title: "The AI calls", body: "Within minutes it calls, already knows their answers, and asks only what's missing." },
@@ -163,7 +164,7 @@ export const en = {
     eyebrow: "Client stories",
     title: "AI follow\u2011up for a growing agency",
     intro:
-      "Jake Wims started an agency selling AI lead follow-up to real-estate teams and a mortgage lender. At Metaviz AI, I built the whole system for him: the voice agents, the CRM automations and the workflows between them.",
+      "Jake Wims started an agency selling AI lead follow-up to real-estate teams and a mortgage lender. I built the whole system for him: the voice agents, the CRM automations and the workflows between them.",
     points: [
       "An AI caller that phones new Facebook-ad leads, qualifies them on rules Jake approved and books consultations",
       "A cloneable template, built for his clients",
@@ -178,8 +179,8 @@ export const en = {
     watch: "Watch",
     captionsLabel: "English",
     quote: "My clients have been extremely happy with how good the follow-up process is for them.",
-    quoteBy: "Jake Wims, agency founder",
-    builtAt: "System built at Metaviz AI",
+    quoteBy: "Jake Wims, Founder,\u00A0Acquire\u00A0Growth\u00A0AI",
+    builtAt: "Voice agents, CRM automations and workflows",
     transcript:
       "Yo Haisem, just wanted to say thanks for all the fulfillment work you've helped me with over the past few months, just starting up my agency. Would not have been able to scale as fast as I have been without the support. Yeah, everything from the AI callers to the automation work. Really appreciate just how attention to detail you've been, and how good support has been as to, like, absolutely just honing in on the specifics of what needs to be done. My clients have been extremely happy with how good the follow-up process is for them. And I can say the same for my agency as well. So yeah, anybody looking for a top-tier HighLevel developer, highly recommend Haisem.",
     transcriptNote: "Transcript, as spoken.",
@@ -189,7 +190,7 @@ export const en = {
     role: "Co-founder",
     company: "Deepsea Media",
     newTab: "(opens in a new tab)",
-    builtAt: "Project built at Metaviz AI",
+    builtAt: "Client project",
     quote: "He took the project end-to-end and treated it like his own.",
     videoLabel: "Video testimonial from Derin",
     play: "Play Derin's video testimonial, 48 seconds",
@@ -209,11 +210,11 @@ export const en = {
     more: "More projects",
     categories: { business: "Business automation", products: "AI products", research: "Research" },
     view: "View case study",
-    employerNote: "Built at Metaviz\u00A0AI",
+    context: { team: "Team project", client: "Client project" },
     back: "All work",
     highlights: {
-      "ai-compliance-platform": { value: "~80%", label: "less manual reviewer time per drawing, at Metaviz" },
-      "voice-agents-suite": { value: "5+", label: "businesses these voice agents were built for, at Metaviz" },
+      "ai-compliance-platform": { value: "Sign-off", label: "AI checks drawings across five building-code disciplines; a reviewer corrects and signs off" },
+      "voice-agents-suite": { value: "5+", label: "businesses I built these voice agents for" },
       postura: { value: "Offline", label: "posture scoring runs entirely on the phone" },
     },
     showMore: "Show {n} more projects",
@@ -221,6 +222,8 @@ export const en = {
     problem: "The problem",
     solution: "The solution",
     result: "The result",
+    caseEyebrow: { problem: "Context", solution: "Approach", result: "Outcome" },
+    stack: "Stack",
     live: "Live demo",
     github: "GitHub",
     prev: "Previous project",
@@ -267,12 +270,12 @@ export const en = {
     portraitAlt: "Haisem N.",
     route: { from: "Lahore", to: "Stockholm" },
     paragraphs: [
-      "I'm Haisem. I studied computer science at FAST-NUCES in Lahore, then spent a year as an AI engineer at Metaviz, shipping AI products and voice agents for real businesses. Now I'm in Stockholm for an MSc in AI and Language at Stockholm University, and I co-authored a survey published in ACM Computing Surveys.",
+      "I'm Haisem. I studied computer science at FAST-NUCES in Lahore, then spent a year as an AI engineer on a product team in Lahore, working on AI products and building voice agents for real businesses. Now I'm in Stockholm for an MSc in AI and Language at Stockholm University, and I co-authored a survey published in ACM Computing Surveys.",
       "I build the whole thing, from the design to the AI and the tools you already use, and I stay reachable after launch. We can talk in English; my Swedish is at beginner level, and I'm happy to practise it with you.",
     ],
     facts: [
       { years: "2021–25", what: "BS Computer Science", where: "FAST-NUCES, Lahore" },
-      { years: "2025–26", what: "AI engineer", where: "Metaviz, Lahore" },
+      { years: "2025–26", what: "AI engineer", where: "Product team, Lahore" },
       { years: "2026–", what: "MSc AI and Language", where: "Stockholm University" },
       { years: "2026", what: "Survey co-author", where: "ACM Computing Surveys" },
       { years: "Now", what: "Swedish", where: "Beginner, learning" },
@@ -285,18 +288,182 @@ export const en = {
     orEmail: "Or email",
   },
   hire: {
-    title: "For teams hiring an AI engineer",
+    meta: ["Haisem N., AI engineer", "Stockholm · MSc AI and Language"],
+    title: "I build AI systems end to end, and check them before they go live.",
     intro:
-      "AI/ML engineer in Stockholm. I ship LLM products end to end: RAG, multi-agent systems, voice AI and full-stack apps. Part-time alongside my MSc now, full-time after two semesters (from summer 2027).",
+      "AI/ML engineer in Stockholm. I ship LLM products end to end: RAG, multi-agent systems, voice AI and full-stack apps.",
     cv: "Download CV (PDF)",
-    workTitle: "What I've built",
-    skillsTitle: "Skills",
-    skillsEyebrow: "Skills",
-    credentialsTitle: "Education and research",
-    credentialsEyebrow: "Background",
-    stats: { years: "Years building AI", systems: "AI systems shipped", publications: "Peer-reviewed publication" },
+    readCase: "Read the case study",
+    toc: { label: "On this page", nav: "Sections of this page" },
+    summary: {
+      index: "01",
+      eyebrow: "Summary",
+      title: "The short version.",
+      paragraphs: [
+        "For a year I was an AI engineer on a product team in Lahore. I worked on three AI products, from the FastAPI backend to Next.js and Flutter front ends, and built voice agents for real businesses.",
+        "This page walks through one of those systems, the voice-agent setup I built for Jake Wims's agency, with the decisions behind it and a simplified piece of the code.",
+      ],
+      facts: [
+        { k: "Last role", v: "AI engineer, product team in Lahore (Jul 2025 – Aug 2026)" },
+        { k: "Now", v: "MSc AI and Language, Stockholm University" },
+        { k: "Work permit", v: "Eligible to work in Sweden (residence permit for studies)" },
+        { k: "Languages", v: "English (fluent), Urdu (native), Swedish (beginner)" },
+      ],
+      workTitle: "More case studies",
+      view: "Read",
+    },
+    system: {
+      index: "02",
+      eyebrow: "Case study",
+      title: "How I built Jake's voice-agent system",
+      intro:
+        "Jake Wims (Founder, Acquire Growth AI) sells AI lead follow-up to US real-estate teams and a mortgage lender. I built the system end to end: the voice agents, the GoHighLevel automations and the n8n workflows between them.",
+      diagramLabel: "Architecture: from a new lead to a booked call",
+      nodes: [
+        { title: "Facebook lead form", sub: "A new lead" },
+        { title: "GoHighLevel", sub: "Contact and pipeline" },
+        { title: "Voice agent", sub: "Calls and qualifies" },
+        { title: "n8n tools", sub: "Lookup and booking" },
+        { title: "GHL calendar", sub: "Booked, written back" },
+        { title: "Follow-up", sub: "Email, SMS, nurture" },
+      ],
+      liveLabel: "AI",
+      caption:
+        "A Facebook lead lands in GoHighLevel. The Retell voice agent calls from a local number, recaps the form and qualifies the lead Hot, Warm or Cold on rules the client approved. It books through n8n tools into the GoHighLevel calendar, every call is written back to the CRM, and leads who don't answer get SMS and nurture sequences.",
+      notes: [
+        { k: "Template", v: "Built as a cloneable template with real-estate and mortgage variants, and used for five or more client sub-accounts." },
+        { k: "Greeting", v: "One shared n8n inbound lookup picks the business greeting for each phone number." },
+        { k: "Verified", v: "The architecture review was checked against the live Retell, n8n and GoHighLevel APIs, with a 10-case test plan." },
+      ],
+      confidential: "Results stay confidential to Jake's clients, so this page shows the design, not the numbers.",
+    },
+    decisions: {
+      index: "03",
+      eyebrow: "Decisions",
+      title: "Decisions and trade-offs",
+      columns: { decision: "Decision", why: "Why", tradeoff: "Trade-off" },
+      rows: [
+        {
+          decision: "Qualify on written rules the client approved",
+          why: "Hot, Warm and Cold mean what the client says they mean, and any call can be checked against the rules.",
+          tradeoff: "The rules need updating when the client's offer changes.",
+        },
+        {
+          decision: "Hard gates in code for known edge cases",
+          why: "A lead planning a move six or more months out was being misclassified. A hard gate now marks it Cold.",
+          tradeoff: "Less nuance: an unusual lead takes the strict path.",
+        },
+        {
+          decision: "Book through n8n tools, not from the agent directly",
+          why: "Calendar access and CRM writes sit in workflows that can be tested on their own.",
+          tradeoff: "One more hop between the call and the calendar.",
+        },
+        {
+          decision: "One template, cloned per client",
+          why: "Each new client sub-account starts from a setup that has already been tested.",
+          tradeoff: "Shared parts fail together: a greeting leaking between clients was root-caused once and fixed across all agents.",
+        },
+        {
+          decision: "Check the design against the live APIs",
+          why: "The architecture review was verified against the live Retell, n8n and GoHighLevel APIs.",
+          tradeoff: "More verification work up front.",
+        },
+      ],
+    },
+    code: {
+      index: "04",
+      eyebrow: "Code",
+      title: "The qualification gate, simplified",
+      intro: "Hard rules run before the softer signals, so a known edge case can't end up in the wrong pipeline stage.",
+      file: "qualify.ts",
+      note: "Simplified illustration written for this page. Not client code.",
+      source: qualifyExcerpt,
+    },
+    skills: {
+      index: "05",
+      eyebrow: "Skills",
+      title: "Skills, and the systems behind them",
+      cap: "Cap",
+      tiles: [
+        {
+          id: "rag",
+          title: "LLM systems and RAG",
+          body: "Hybrid retrieval with confidence-gated orchestration that skips model calls on rule-deterministic passes.",
+          steps: ["Hybrid search", "BM25 rerank", "Confidence gate", "LLM only when needed"],
+          items: ["RAG", "ChromaDB", "pgvector", "BM25", "LangGraph", "LLM evaluation"],
+        },
+        {
+          id: "api",
+          title: "Backend and APIs",
+          body: "A multi-tenant platform with an async job pipeline and row-level security.",
+          steps: ["API request", "Job queue", "Worker", "Tenant-scoped data"],
+          items: ["FastAPI", "Celery", "Redis", "PostgreSQL", "Supabase", "pytest"],
+        },
+        {
+          id: "docai",
+          title: "Document AI",
+          body: "OCR and structured extraction that check construction drawings across five disciplines.",
+          steps: ["Drawing PDF", "OCR", "Structured extraction", "Code checks", "Reviewer sign-off"],
+          items: ["AWS Textract", "Structured outputs", "Next.js review UI"],
+        },
+        {
+          id: "cost",
+          title: "Cost control",
+          body: "Per-document model spend is capped in the orchestration layer.",
+          items: ["Cost-aware orchestration", "Prompt caching"],
+        },
+        {
+          id: "voice",
+          title: "Voice AI",
+          body: "Voice agents that call, qualify and book, wired into the CRM.",
+          items: ["Retell AI", "ElevenLabs", "LiveKit", "Deepgram", "Twilio", "n8n", "GoHighLevel"],
+        },
+        {
+          id: "apps",
+          title: "Full-stack and apps",
+          body: "From the API to web and mobile front ends, shipped to production.",
+          layers: ["Mobile · Flutter", "Web · Next.js, React", "API · FastAPI, Python"],
+          items: ["Python", "TypeScript", "Next.js", "React", "Flutter", "Docker", "GitHub Actions"],
+        },
+      ],
+    },
+    credentials: {
+      index: "06",
+      eyebrow: "Education",
+      title: "Education",
+      items: [
+        { period: "2026 – 2028", title: "MSc Artificial Intelligence and Language", where: "Stockholm University", detail: "In progress" },
+        { period: "2021 – 2025", title: "BS Computer Science", where: "FAST-NUCES, Lahore", detail: "CGPA 3.19 / 4.0" },
+        { period: "2023 – 2025", title: "Dean's List of Honours, three times", where: "FAST-NUCES", detail: "Fall 2023, Spring 2024, Spring 2025" },
+        { period: "2025", title: "3rd place, Final-Year Project Competition", where: "FAST Job Fair 2025", detail: "Out of 250 teams" },
+      ],
+    },
+    research: {
+      index: "07",
+      eyebrow: "Research",
+      title: "Research",
+      paperLabel: "Publication",
+      paper: {
+        title: "MultiObjective Optimization in Wireless Mesh Networks: A Survey",
+        authors: "R. Amir, Haisem N., A. Ali, M. Gulzar",
+        venue: "ACM Computing Surveys, vol. 58, no. 11, article 294, 2026",
+        doi: "doi.org/10.1145/3800685",
+      },
+      projectsLabel: "Research projects",
+      projects: [
+        { title: "Tuberculosis detection from cough sounds", detail: "Final-year project: a multi-view ensemble of CNNs, XGBoost and Wav2Vec, with a mobile app for low-resource clinics." },
+        { title: "Smart Summarizer", detail: "LoRA fine-tuning for academic paper summaries, evaluated with ROUGE, BLEU, BERTScore and LLM-as-judge." },
+        { title: "Multi-agent research assistant", detail: "LangGraph agents for literature search, summarisation and cross-paper comparison." },
+      ],
+    },
+    close: {
+      title: "Hiring an AI engineer in Sweden?",
+      sub: "The CV has the details; the case studies show the work.",
+      orEmail: "Or email",
+    },
   },
   intake: {
+    eyebrow: "Project intake",
     title: "Get your automation plan",
     sub: "Six short steps, about two minutes. I'll read every answer before we talk.",
     step: "Step {n} of {total}",

@@ -1,87 +1,81 @@
-"use client";
+import type { CSSProperties } from "react";
+import type { Dictionary } from "@/i18n";
+import { cn } from "@/lib/utils";
 
-import dynamic from "next/dynamic";
-import { m } from "motion/react";
-import { skills } from "@/data/skills";
-import { SectionHeader } from "@/components/ui/SectionHeader";
-import { bentoStagger, bentoTile } from "@/lib/animations";
-import { SoundWave } from "@/components/bento/SoundWave";
-import { TypingCode } from "@/components/bento/TypingCode";
-import { FillingChart } from "@/components/bento/FillingChart";
-import { RotatingGear } from "@/components/bento/RotatingGear";
-import { PulseRing } from "@/components/bento/PulseRing";
+type SkillsDict = Dictionary["hire"]["skills"];
+type Tile = SkillsDict["tiles"][number];
 
-const NeuralDotsCanvas = dynamic(
-  () =>
-    import("@/components/bento/NeuralDotsCanvas").then(
-      (m) => m.NeuralDotsCanvas
-    ),
-  { ssr: false }
-);
-
-const animationMap: Record<string, React.ComponentType> = {
-  neural: NeuralDotsCanvas,
-  wave: SoundWave,
-  typing: TypingCode,
-  chart: FillingChart,
-  gear: RotatingGear,
-  pulse: PulseRing,
-};
-
-export function SkillsBento({ index, eyebrow, title }: { index: string; eyebrow: string; title: string }) {
+/** Spend rises per step, then flattens under the cap. Shape only; no data. */
+function Cap({ dict }: { dict: SkillsDict }) {
   return (
-    <section id="skills" className="py-32 px-6">
-      <div className="max-w-5xl mx-auto">
-        <SectionHeader index={index} eyebrow={eyebrow} title={title} className="mb-16" />
+    <svg aria-hidden viewBox="0 0 240 72" className="h-[72px] w-full max-w-[264px] overflow-visible">
+      <path d="M0 14H240" className="stroke-text-secondary" strokeDasharray="4 4" strokeWidth={1.25} fill="none" />
+      <text x={240} y={8} textAnchor="end" className="fill-text-secondary font-mono text-[10px] tracking-[0.12em] uppercase">
+        {dict.cap}
+      </text>
+      <path d="M0 70L40 58L80 40L120 22L150 15H240" pathLength={1} className="dash-line stroke-accent" strokeWidth={2} fill="none" />
+    </svg>
+  );
+}
 
-        <m.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 auto-rows-[160px] md:auto-rows-[180px]"
-          variants={bentoStagger}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-        >
-          {skills.map((skill) => {
-            const Animation = animationMap[skill.animationType];
-            return (
-              <m.div
-                key={skill.id}
-                data-reveal
-                variants={bentoTile}
-                className={`${skill.colSpan === 2 ? "md:col-span-2" : ""} ${
-                  skill.rowSpan === 2 ? "md:row-span-2" : ""
-                }`}
-              >
-                <div className="h-full rounded-2xl bg-bg-card border border-border p-3 sm:p-5 overflow-hidden flex flex-col justify-between">
-                  <div>
-                    <h3 className="font-display text-lg font-semibold text-text">
-                      {skill.title}
-                    </h3>
-                    <p className="text-xs text-text-secondary mt-1">
-                      {skill.description}
-                    </p>
-                  </div>
+function Wave() {
+  return (
+    <div aria-hidden className="flex h-[72px] items-center gap-1.5">
+      {[0.35, 0.6, 1, 0.75, 0.45, 0.85, 0.55, 0.3, 0.7, 0.5].map((h, i) => (
+        <span key={i} className="dash-wave block w-1.5 rounded-full bg-live" style={{ height: `${h * 100}%`, "--i": i } as CSSProperties} />
+      ))}
+    </div>
+  );
+}
 
-                  <div className="flex-1 flex items-center justify-center my-3">
-                    <Animation />
-                  </div>
+/** The app stack as layers or a pipeline as steps, top to bottom. Layers repeat the tile's copy, so they stay hidden from screen readers. */
+function Layers({ layers, hidden = true, className }: { layers: string[]; hidden?: boolean; className?: string }) {
+  return (
+    <ol aria-hidden={hidden || undefined} className={cn("border-t border-border font-mono text-[11px] tracking-[0.08em] text-text-secondary", className)}>
+      {layers.map((l, i) => (
+        <li key={l} className="flex items-center gap-3 border-b border-border py-2">
+          <span className={cn("h-2 w-2 shrink-0", i === layers.length - 1 ? "bg-accent" : "bg-border-hover")} />
+          {l}
+        </li>
+      ))}
+    </ol>
+  );
+}
 
-                  <div className="flex flex-wrap gap-1.5">
-                    {skill.items.map((item) => (
-                      <span
-                        key={item}
-                        className="text-[9px] sm:text-[10px] px-1.5 sm:px-2 py-0.5 rounded-full border border-border text-text-secondary"
-                      >
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </m.div>
-            );
-          })}
-        </m.div>
+function Viz({ id, dict }: { id: string; dict: SkillsDict }) {
+  if (id === "cost") return <Cap dict={dict} />;
+  if (id === "voice") return <Wave />;
+  return null;
+}
+
+function SkillTile({ tile, dict }: { tile: Tile; dict: SkillsDict }) {
+  return (
+    <li className="flex flex-col gap-6 bg-bg-card p-6 sm:p-7">
+      <div>
+        <h3 className="font-display text-xl leading-tight font-semibold tracking-[-0.01em] text-text">{tile.title}</h3>
+        <p className="mt-2 text-[15px] leading-relaxed text-text-secondary">{tile.body}</p>
       </div>
-    </section>
+      {"steps" in tile && tile.steps && <Layers layers={tile.steps} hidden={false} className="mt-auto" />}
+      <Viz id={tile.id} dict={dict} />
+      {"layers" in tile && tile.layers && <Layers layers={tile.layers} />}
+      <ul className={cn("flex flex-wrap gap-1.5", !("steps" in tile) && "mt-auto")}>
+        {tile.items.map((item) => (
+          <li key={item} className="border border-border-hover px-2 py-1 font-mono text-[11px] leading-none text-text-secondary">
+            {item}
+          </li>
+        ))}
+      </ul>
+    </li>
+  );
+}
+
+/** Skills as small dashboards: each tile shows the shape of a system it was used in, not a number. */
+export function SkillsBento({ dict }: { dict: SkillsDict }) {
+  return (
+    <ul className="grid gap-px border border-border bg-border md:grid-cols-2 lg:grid-cols-3">
+      {dict.tiles.map((tile) => (
+        <SkillTile key={tile.id} tile={tile} dict={dict} />
+      ))}
+    </ul>
   );
 }

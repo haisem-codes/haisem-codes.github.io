@@ -1,12 +1,15 @@
+import type { CSSProperties } from "react";
 import { notFound } from "next/navigation";
-import Image from "next/image";
-import { asset } from "@/lib/utils";
 import Link from "next/link";
 import { projects, localize } from "@/data/projects";
-import { getDictionary } from "@/i18n";
+import { getDictionary, type Dictionary } from "@/i18n";
 import type { Metadata } from "next";
-import { locales, isLocale, localHref } from "@/i18n/config";
+import type { Project } from "@/types";
+import { locales, isLocale, localHref, type Locale } from "@/i18n/config";
 import { StartCta } from "@/components/sections/StartCta";
+import { SectionHeader } from "@/components/ui/SectionHeader";
+import { WorkPicture } from "@/components/ui/WorkPicture";
+import { TransitionLink } from "@/components/ui/TransitionLink";
 
 interface Props {
   params: Promise<{ lang: string; slug: string }>;
@@ -39,6 +42,67 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+type WorkDict = Dictionary["work"];
+type Highlight = { value: string; label: string };
+
+/**
+ * Below 640px the mockup is shown at 1.6x so its UI text stays legible; this is the transform-origin
+ * that keeps each screenshot's most telling region (issue card, live call, terminal...) in frame.
+ */
+const MOBILE_FOCUS: Record<string, string> = {
+  "ai-compliance-platform": "100% 0%",
+  "voice-agents-suite": "60% 15%",
+  postura: "0% 50%",
+  coach: "50% 50%",
+  "ai-real-estate-marketplace": "100% 0%",
+  "claude-code-mastery": "63% 37%",
+  "b2b-travel-saas": "10% 10%",
+  "ai-craftsmen-marketplace": "50% 37%",
+  "ai-tools-suite": "63% 10%",
+  "ai-video-pipeline": "0% 10%",
+  dietapp: "50% 50%",
+};
+
+const SECTIONS = ["problem", "solution", "result"] as const;
+const headline = (title: string) => title.split(":")[0];
+const pad = (n: number) => String(n).padStart(2, "0");
+
+function Pager({ p, dir, dict, lang }: { p: Project; dir: "prev" | "next"; dict: WorkDict; lang: Locale }) {
+  const next = dir === "next";
+  return (
+    <TransitionLink
+      href={localHref(lang, `/projects/${p.slug}/`)}
+      data-cursor="view"
+      className={`group grid grid-cols-[6.5rem_1fr] items-center gap-5 py-7 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent sm:grid-cols-[9rem_1fr] sm:gap-7 sm:py-9 ${
+        next ? "sm:border-l sm:border-border sm:pl-8" : "sm:pr-8"
+      }`}
+    >
+      <div
+        style={{ "--vt": `project-${p.slug}` } as CSSProperties}
+        className="vt-shared overflow-hidden ring-1 ring-black/5 transition-transform duration-500 ease-[var(--ease-silk)] group-hover:-translate-y-0.5 dark:ring-white/10"
+      >
+        <WorkPicture slug={p.slug} sizes="144px" />
+      </div>
+      <span className="min-w-0">
+        <span className="block font-mono text-[11px] tracking-[0.18em] text-text-secondary uppercase">
+          {next ? (
+            <>
+              {dict.next} <span aria-hidden>→</span>
+            </>
+          ) : (
+            <>
+              <span aria-hidden>←</span> {dict.prev}
+            </>
+          )}
+        </span>
+        <span className="mt-2 block font-display text-lg leading-snug font-semibold tracking-tight text-balance text-text transition-colors group-hover:text-accent sm:text-xl">
+          {headline(p.title)}
+        </span>
+      </span>
+    </TransitionLink>
+  );
+}
+
 export default async function ProjectPage({ params }: Props) {
   const { lang, slug } = await params;
   if (!isLocale(lang)) notFound();
@@ -47,280 +111,141 @@ export default async function ProjectPage({ params }: Props) {
   const { work, cta } = getDictionary(lang);
   const project = localize(projects[currentIndex], lang);
   const prevProject = currentIndex > 0 ? localize(projects[currentIndex - 1], lang) : null;
-  const nextProject =
-    currentIndex < projects.length - 1 ? localize(projects[currentIndex + 1], lang) : null;
+  const nextProject = currentIndex < projects.length - 1 ? localize(projects[currentIndex + 1], lang) : null;
   const englishOnly = lang === "sv" && !project.sv?.problem;
+  const highlight = (work.highlights as Record<string, Highlight>)[project.slug];
+  const focus = MOBILE_FOCUS[project.slug];
+  const copyLang = englishOnly ? "en" : undefined;
 
   return (
-    <>
-      <main className="overflow-x-clip pt-24 pb-8 px-4 sm:px-6">
-        {/* Back link */}
-        <div className="max-w-3xl mx-auto">
+    <main className="pt-28 sm:pt-32">
+      <div className="px-6">
+        <div className="mx-auto max-w-6xl">
           <Link
             href={localHref(lang, "/#work")}
-            className="inline-flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors mb-8"
+            className="-ml-1 inline-flex min-h-[44px] items-center gap-2 px-1 text-sm text-text-secondary transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
           >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="m15 18-6-6 6-6" />
-            </svg>
+            <span aria-hidden>←</span>
             {work.back}
           </Link>
-        </div>
 
-        {/* 3D coverflow carousel nav */}
-        <div className="max-w-5xl mx-auto mb-10">
+          <header className="mt-8 grid gap-8 sm:mt-10 lg:grid-cols-12 lg:items-end lg:gap-12">
+            <div className="lg:col-span-8">
+              <p className="font-mono text-xs tracking-[0.18em] text-text-secondary uppercase">
+                <span className="tabular-nums">
+                  {pad(currentIndex + 1)} / {pad(projects.length)}
+                </span>{" "}
+                — {work.categories[project.category]}
+                {project.context && (
+                  <>
+                    <span aria-hidden> · </span>
+                    <span className="whitespace-nowrap">{work.context[project.context]}</span>
+                  </>
+                )}
+              </p>
+              <h1
+                className="mt-4 font-display leading-[1.02] font-bold tracking-[-0.03em] text-balance text-text"
+                style={{ fontSize: "clamp(2.4rem, 5.2vw, 4.75rem)" }}
+              >
+                {project.title}
+              </h1>
+            </div>
+            <div className="lg:col-span-4">
+              {highlight && (
+                <p className="mb-6">
+                  <span className="-ml-[0.04em] block font-display text-[3.5rem] leading-[0.85] font-bold tracking-[-0.05em] whitespace-nowrap text-transparent tabular-nums [-webkit-text-stroke:1.5px_var(--color-accent)] sm:text-[4.5rem]">
+                    {highlight.value}
+                  </span>
+                  <span className="mt-2 block text-sm leading-snug text-balance text-text-secondary">{highlight.label}</span>
+                </p>
+              )}
+              <p lang={copyLang} className="text-lg leading-relaxed text-text-secondary">
+                {project.tagline}
+              </p>
+              {(project.liveUrl || project.githubUrl) && (
+                <p className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium">
+                  {project.liveUrl && (
+                    <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="text-accent underline decoration-accent/40 underline-offset-4 hover:decoration-accent">
+                      {work.live} <span aria-hidden>↗</span>
+                    </a>
+                  )}
+                  {project.githubUrl && (
+                    <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="text-accent underline decoration-accent/40 underline-offset-4 hover:decoration-accent">
+                      {work.github} <span aria-hidden>↗</span>
+                    </a>
+                  )}
+                </p>
+              )}
+            </div>
+          </header>
+        </div>
+      </div>
+
+      <div className="mt-12 bg-accent-tint/55 px-6 py-8 sm:mt-16 sm:py-14 dark:bg-accent-tint/30">
+        <div className="mx-auto max-w-6xl">
           <div
-            className="relative w-full h-[220px] sm:h-[320px] md:h-[420px] lg:h-[480px] flex items-center justify-center"
-            style={{ perspective: "1600px" }}
+            style={{ "--vt": `project-${project.slug}`, "--focus": focus } as CSSProperties}
+            className="vt-shared overflow-hidden shadow-[0_40px_80px_-40px_rgba(15,23,42,0.4)] ring-1 ring-black/5 dark:shadow-[0_40px_80px_-30px_rgba(0,0,0,0.85)] dark:ring-white/10"
           >
-            {/* Previous peek (left, blurred + tilted) */}
-            {prevProject && (
-              <Link
-                href={localHref(lang, `/projects/${prevProject.slug}/`)}
-                aria-label={`${work.prev}: ${prevProject.title}`}
-                className="absolute left-0 sm:left-4 md:left-8 top-1/2 w-[28%] sm:w-[24%] md:w-[22%] aspect-[16/9] rounded-xl overflow-hidden border border-border opacity-50 hover:opacity-90 transition-opacity duration-500 group"
-                style={{
-                  transform:
-                    "translateY(-50%) rotateY(22deg) translateZ(-90px) scale(0.92)",
-                  transformOrigin: "right center",
-                  transformStyle: "preserve-3d",
-                }}
-              >
-                <Image
-                  src={asset(prevProject.image)}
-                  alt=""
-                  fill
-                  sizes="(max-width: 640px) 28vw, 22vw"
-                  className="object-cover"
-                  style={{ filter: "blur(3px)" }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-bg/40 to-bg/70 group-hover:from-bg/20 group-hover:to-bg/50 transition-colors duration-500" />
-              </Link>
-            )}
+            <WorkPicture
+              slug={project.slug}
+              alt={project.title}
+              priority
+              sizes="(min-width: 1200px) 1152px, (min-width: 640px) calc(100vw - 48px), 160vw"
+              className={focus ? "max-sm:origin-[var(--focus)] max-sm:scale-[1.6]" : undefined}
+            />
+          </div>
+        </div>
+      </div>
 
-            {/* Current project (centred, sharp, large) */}
-            <div
-              className="vt-shared relative w-[68%] sm:w-[68%] md:w-[68%] aspect-[16/9] rounded-2xl overflow-hidden border border-border z-10"
-              style={{
-                "--vt": `project-${project.slug}`,
-                transform: "translateZ(0)",
-                boxShadow:
-                  "0 20px 60px -20px rgba(0,0,0,0.5), 0 0 0 1px var(--color-border)",
-              } as React.CSSProperties}
+      <div className="px-6 pt-16 pb-4 sm:pt-24">
+        <div className="mx-auto max-w-6xl">
+          {englishOnly && (
+            <p lang="sv" className="mb-12 border-l-2 border-accent py-1 pl-4 text-sm text-text-secondary">
+              {work.englishOnly}
+            </p>
+          )}
+          {SECTIONS.map((k, i) => (
+            <section
+              key={k}
+              aria-labelledby={`case-${k}`}
+              className="grid gap-6 border-t border-border py-12 first-of-type:border-t-0 first-of-type:pt-0 sm:py-16 lg:grid-cols-12 lg:gap-12"
             >
-              <Image
-                src={asset(project.image)}
-                alt={project.title}
-                fill
-                sizes="(max-width: 768px) 68vw, 60vw"
-                className="object-cover"
-                priority
-                quality={88}
-              />
-            </div>
+              <SectionHeader index={pad(i + 1)} eyebrow={work.caseEyebrow[k]} title={work[k]} titleId={`case-${k}`} size="compact" className="lg:col-span-5" />
+              <div className="lg:col-span-7 lg:pt-9">
+                <p lang={copyLang} className="max-w-2xl text-lg leading-relaxed text-text-secondary">
+                  {project[k]}
+                </p>
+                {k === "solution" && (
+                  <div className="mt-10">
+                    <p className="font-mono text-[11px] tracking-[0.18em] text-text-secondary uppercase">{work.stack}</p>
+                    <ul className="mt-4 flex flex-wrap gap-2">
+                      {project.techStack.map((tech) => (
+                        <li key={tech} className="border border-border-hover px-2.5 py-1 font-mono text-xs text-text">
+                          {tech}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </section>
+          ))}
 
-            {/* Next peek (right, blurred + tilted) */}
-            {nextProject && (
-              <Link
-                href={localHref(lang, `/projects/${nextProject.slug}/`)}
-                aria-label={`${work.next}: ${nextProject.title}`}
-                className="absolute right-0 sm:right-4 md:right-8 top-1/2 w-[28%] sm:w-[24%] md:w-[22%] aspect-[16/9] rounded-xl overflow-hidden border border-border opacity-50 hover:opacity-90 transition-opacity duration-500 group"
-                style={{
-                  transform:
-                    "translateY(-50%) rotateY(-22deg) translateZ(-90px) scale(0.92)",
-                  transformOrigin: "left center",
-                  transformStyle: "preserve-3d",
-                }}
-              >
-                <Image
-                  src={asset(nextProject.image)}
-                  alt=""
-                  fill
-                  sizes="(max-width: 640px) 28vw, 22vw"
-                  className="object-cover"
-                  style={{ filter: "blur(3px)" }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-l from-bg/40 to-bg/70 group-hover:from-bg/20 group-hover:to-bg/50 transition-colors duration-500" />
-              </Link>
-            )}
-
-            {/* Left arrow (overlay) */}
-            {prevProject && (
-              <Link
-                href={localHref(lang, `/projects/${prevProject.slug}/`)}
-                aria-label={`${work.prev}: ${prevProject.title}`}
-                className="absolute left-1 sm:left-6 md:left-12 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full backdrop-blur-md border border-border hover:border-accent/50 flex items-center justify-center text-text-secondary hover:text-accent transition-all duration-200"
-                style={{ background: "var(--color-bg-glass)" }}
-              >
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="m15 18-6-6 6-6" />
-                </svg>
-              </Link>
-            )}
-
-            {/* Right arrow (overlay) */}
-            {nextProject && (
-              <Link
-                href={localHref(lang, `/projects/${nextProject.slug}/`)}
-                aria-label={`${work.next}: ${nextProject.title}`}
-                className="absolute right-1 sm:right-6 md:right-12 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full backdrop-blur-md border border-border hover:border-accent/50 flex items-center justify-center text-text-secondary hover:text-accent transition-all duration-200"
-                style={{ background: "var(--color-bg-glass)" }}
-              >
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="m9 18 6-6-6-6" />
-                </svg>
-              </Link>
-            )}
-          </div>
-
-          {/* Caption row: prev title · counter · next title */}
-          <div className="mt-5 flex items-center justify-between gap-4 px-2 sm:px-6 text-xs text-text-secondary">
-            {prevProject ? (
-              <Link
-                href={localHref(lang, `/projects/${prevProject.slug}/`)}
-                className="flex items-center gap-2 hover:text-accent transition-colors max-w-[35%] truncate"
-              >
-                <span aria-hidden>←</span>
-                <span className="truncate">{prevProject.title}</span>
-              </Link>
-            ) : (
-              <span />
-            )}
-
-            <span className="text-text-secondary tabular-nums whitespace-nowrap text-[11px]">
-              {currentIndex + 1} / {projects.length}
-            </span>
-
-            {nextProject ? (
-              <Link
-                href={localHref(lang, `/projects/${nextProject.slug}/`)}
-                className="flex items-center gap-2 hover:text-accent transition-colors max-w-[35%] justify-end truncate"
-              >
-                <span className="truncate">{nextProject.title}</span>
-                <span aria-hidden>→</span>
-              </Link>
-            ) : (
-              <span />
-            )}
-          </div>
+          {(prevProject || nextProject) && (
+            <nav aria-label={work.more} className="mt-4 grid border-y border-border sm:grid-cols-2">
+              {prevProject ? <Pager p={prevProject} dir="prev" dict={work} lang={lang} /> : <span aria-hidden className="hidden sm:block" />}
+              {nextProject && (
+                <div className={prevProject ? "border-t border-border sm:border-t-0" : undefined}>
+                  <Pager p={nextProject} dir="next" dict={work} lang={lang} />
+                </div>
+              )}
+            </nav>
+          )}
         </div>
+      </div>
 
-        {/* Title + content block */}
-        <div className="max-w-3xl mx-auto">
-          <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-text">
-            {project.title}
-          </h1>
-          <p className="mt-4 text-base sm:text-lg text-text-secondary">
-            {project.tagline}
-          </p>
-
-          {/* Tech stack */}
-          <div className="mt-6 flex flex-wrap gap-2">
-            {project.techStack.map((tech) => (
-              <span
-                key={tech}
-                className="text-xs px-3 py-1.5 rounded-full border border-border text-text-secondary"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
-
-          {/* Links */}
-          <div className="mt-6 flex gap-4">
-            {project.liveUrl && (
-              <a
-                href={project.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm text-accent hover:underline"
-              >
-                {work.live} &rarr;
-              </a>
-            )}
-            {project.githubUrl && (
-              <a
-                href={project.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm text-accent hover:underline"
-              >
-                {work.github} &rarr;
-              </a>
-            )}
-          </div>
-
-          {/* Case study sections */}
-          <div className="mt-14 space-y-10">
-            {englishOnly && (
-              <p lang="sv" className="rounded-2xl border border-border px-5 py-4 text-sm text-text-secondary">
-                {work.englishOnly}
-              </p>
-            )}
-            <div>
-              <h2 className="font-display text-xl sm:text-2xl font-semibold text-text mb-3">
-                {work.problem}
-              </h2>
-              <p
-                lang={englishOnly ? "en" : undefined}
-                className="text-text-secondary leading-relaxed text-sm sm:text-base"
-              >
-                {project.problem}
-              </p>
-            </div>
-            <div>
-              <h2 className="font-display text-xl sm:text-2xl font-semibold text-text mb-3">
-                {work.solution}
-              </h2>
-              <p
-                lang={englishOnly ? "en" : undefined}
-                className="text-text-secondary leading-relaxed text-sm sm:text-base"
-              >
-                {project.solution}
-              </p>
-            </div>
-            <div>
-              <h2 className="font-display text-xl sm:text-2xl font-semibold text-text mb-3">
-                {work.result}
-              </h2>
-              <p
-                lang={englishOnly ? "en" : undefined}
-                className="text-text-secondary leading-relaxed text-sm sm:text-base"
-              >
-                {project.result}
-              </p>
-            </div>
-          </div>
-        </div>
-      </main>
       <StartCta dict={cta} lang={lang} />
-    </>
+    </main>
   );
 }
