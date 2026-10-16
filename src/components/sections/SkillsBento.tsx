@@ -39,7 +39,7 @@ function Dots() {
 function Cap({ dict }: { dict: SkillsDict }) {
   return (
     <svg aria-hidden viewBox="0 0 240 72" className="h-[72px] w-full max-w-[264px] overflow-visible">
-      <path d="M0 14H240" className="stroke-live" strokeDasharray="4 4" strokeWidth={1.25} fill="none" />
+      <path d="M0 14H240" className="stroke-text-secondary" strokeDasharray="4 4" strokeWidth={1.25} fill="none" />
       <text x={240} y={8} textAnchor="end" className="fill-text-secondary font-mono text-[10px] tracking-[0.12em] uppercase">
         {dict.cap}
       </text>

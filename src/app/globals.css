@@ -656,7 +656,11 @@ html.dark .night-band {
 /* ── /hire: TOC rail fills to the active entry; the mobile disclosure turns its + into × when open ── */
 .toc-fill {
   scale: 1 var(--p, 0);
-  transition: scale var(--dur-editorial) var(--ease-silk);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .toc-fill {
+    transition: scale var(--dur-editorial) var(--ease-silk);
+  }
 }
 .toc-mobile summary {
   list-style: none;

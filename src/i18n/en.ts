@@ -350,7 +350,7 @@ export const en = {
         },
         {
           decision: "Hard gates in code for known edge cases",
-          why: "A lead planning a move six or more months out was being misclassified. A hard gate now marks it Cold before anything else runs.",
+          why: "A lead planning a move six or more months out was being misclassified. A hard gate now marks it Cold.",
           tradeoff: "Less nuance: an unusual lead takes the strict path.",
         },
         {
@@ -365,7 +365,7 @@ export const en = {
         },
         {
           decision: "Check the design against the live APIs",
-          why: "The architecture review was verified against the Retell, n8n and GoHighLevel APIs, not only the docs.",
+          why: "The architecture review was verified against the live Retell, n8n and GoHighLevel APIs.",
           tradeoff: "More verification work up front.",
         },
       ],

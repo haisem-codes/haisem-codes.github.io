@@ -351,7 +351,7 @@ export const sv = {
         },
         {
           decision: "Hårda spärrar i koden för kända specialfall", // REVIEW-SV
-          why: "Ett lead som planerade att flytta om sex månader eller mer klassades fel. En hård spärr markerar det nu som Cold innan något annat körs.", // REVIEW-SV
+          why: "Ett lead som planerade att flytta om sex månader eller mer klassades fel. En hård spärr markerar det nu som Cold.", // REVIEW-SV
           tradeoff: "Mindre nyans: ett ovanligt lead går den strikta vägen.", // REVIEW-SV
         },
         {
@@ -366,7 +366,7 @@ export const sv = {
         },
         {
           decision: "Kontrollera designen mot live-API:erna", // REVIEW-SV
-          why: "Arkitekturgranskningen verifierades mot Retells, n8n:s och GoHighLevels API:er, inte bara dokumentationen.", // REVIEW-SV
+          why: "Arkitekturgranskningen verifierades mot de skarpa API:erna hos Retell, n8n och GoHighLevel.", // REVIEW-SV
           tradeoff: "Mer verifieringsarbete i början.", // REVIEW-SV
         },
       ],
@@ -386,7 +386,7 @@ export const sv = {
       title: "Kompetenser, med siffrorna bakom", // REVIEW-SV
       before: "Före",
       after: "Efter",
-      cap: "Tak",
+      cap: "Tak", // REVIEW-SV
       tiles: [
         {
           id: "rag",
@@ -438,7 +438,7 @@ export const sv = {
     credentials: {
       index: "06",
       eyebrow: "Utbildning", // REVIEW-SV
-      title: "Utbildning",
+      title: "Utbildning", // REVIEW-SV
       items: [
         { period: "2026 – 2028", title: "Master i artificiell intelligens och språk", where: "Stockholms universitet", detail: "Pågår" }, // REVIEW-SV
         { period: "2021 – 2025", title: "Kandidat i datavetenskap", where: "FAST-NUCES, Lahore", detail: "Snittbetyg 3,19 av 4,0" }, // REVIEW-SV
