@@ -24,31 +24,6 @@ export type ProjectCopy = Partial<
   Pick<Project, "title" | "tagline" | "outcome" | "description" | "problem" | "solution" | "result">
 >;
 
-export interface Skill {
-  id: string;
-  title: string;
-  description: string;
-  animationType: "neural" | "wave" | "typing" | "chart" | "gear" | "pulse";
-  colSpan: 1 | 2;
-  rowSpan: 1 | 2;
-  items: string[];
-}
-
-export interface Credential {
-  id: string;
-  label: string;
-  title: string;
-  institution: string;
-  period: string;
-  detail?: string;
-}
-
-export interface TechItem {
-  name: string;
-  icon: string;
-  category: "ai" | "backend" | "frontend" | "devops" | "data";
-}
-
 export interface PersonalInfo {
   email: string;
   phone: string;

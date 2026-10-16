@@ -33,14 +33,6 @@ export const fadeInLeft: Variants = {
   },
 };
 
-// Stagger children
-export const staggerContainer: Variants = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.08 },
-  },
-};
-
 // Letter-by-letter reveal
 export const letterReveal: Variants = {
   hidden: { opacity: 0, y: 40 },
@@ -62,23 +54,5 @@ export const scaleIn: Variants = {
     opacity: 1,
     scale: 1,
     transition: { duration: 0.6, ease: silkEase },
-  },
-};
-
-// Bento tile stagger
-export const bentoStagger: Variants = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.08, delayChildren: 0.1 },
-  },
-};
-
-export const bentoTile: Variants = {
-  hidden: { opacity: 0, y: 30, scale: 0.98 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.5, ease: silkEase },
   },
 };
