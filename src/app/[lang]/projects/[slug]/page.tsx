@@ -190,6 +190,7 @@ export default async function ProjectPage({ params }: Props) {
             <WorkPicture
               slug={project.slug}
               alt={project.title}
+              priority
               sizes="(min-width: 1200px) 1152px, (min-width: 640px) calc(100vw - 48px), 160vw"
               className={focus ? "max-sm:origin-[var(--focus)] max-sm:scale-[1.6]" : undefined}
             />
