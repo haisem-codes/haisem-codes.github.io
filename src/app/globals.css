@@ -131,18 +131,6 @@ body::after {
   box-shadow: 0 6px 24px -12px rgba(0, 0, 0, 0.25);
 }
 
-/* ── Marquee keyframes ── */
-@keyframes marquee {
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-@keyframes marquee-reverse {
-  to {
-    transform: translateX(50%);
-  }
-}
 /* ── Footer marquee: CSS loop plus a scroll-velocity offset (--scroll-phase, from LenisProvider) ── */
 .marquee-track {
   font-size: clamp(4.25rem, 14vw, 13.75rem);
@@ -564,4 +552,124 @@ html.dark .night-band {
 .numeral-outline {
   color: transparent;
   -webkit-text-stroke: 1.5px var(--color-accent);
+}
+
+/* ── /hire: architecture diagram. Connectors draw in on view, then a dash flows along them; static = drawn, still ── */
+.arch {
+  view-timeline: --arch block;
+}
+.arch-node {
+  fill: var(--color-bg-card);
+  stroke: var(--color-border-hover);
+  stroke-width: 1;
+}
+.arch-agent {
+  stroke: var(--color-live);
+  stroke-width: 1.5;
+}
+.arch-line {
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 1.5;
+}
+.arch-flow {
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 0.5 14;
+  opacity: 0;
+}
+@keyframes arch-draw {
+  from { stroke-dashoffset: 1; }
+}
+@keyframes arch-flow {
+  to { stroke-dashoffset: -29; }
+}
+@keyframes arch-pulse {
+  from { opacity: 0.55; transform: scale(1); }
+  to { opacity: 0; transform: scale(2.8); }
+}
+.arch-pulse {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html:not(.tier-static) .arch-flow {
+    opacity: 0.9;
+    animation: arch-flow 1.6s linear infinite;
+  }
+  html:not(.tier-static) .arch-pulse {
+    animation: arch-pulse 1.8s ease-out infinite;
+  }
+  html:not(.tier-static) .dash-wave {
+    animation: dash-wave 1.4s ease-in-out infinite alternate;
+    animation-delay: calc(var(--i) * -0.13s);
+  }
+}
+@keyframes dash-wave {
+  from { scale: 1 0.35; }
+}
+@keyframes clip-in {
+  from { clip-path: inset(0 100% 0 0); }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    html:not(.tier-static) .arch-line {
+      stroke-dasharray: 1;
+      animation: arch-draw linear both;
+      animation-timeline: --arch;
+      animation-range: cover calc(8% + var(--i) * 4%) cover calc(24% + var(--i) * 4%);
+    }
+    html:not(.tier-static) .dash-fill {
+      animation: draw-x linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 30%;
+    }
+    html:not(.tier-static) .dash-reveal {
+      animation: clip-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 30%;
+    }
+    html:not(.tier-static) .dash-line {
+      stroke-dasharray: 1;
+      animation: arch-draw linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 30%;
+    }
+  }
+}
+
+/* ── /hire: TOC rail fills to the active entry; the mobile disclosure swaps + for – ── */
+.toc-fill {
+  scale: 1 var(--p, 0);
+  transition: scale var(--dur-editorial) var(--ease-silk);
+}
+.toc-mobile summary {
+  list-style: none;
+}
+.toc-mobile summary::-webkit-details-marker {
+  display: none;
+}
+.toc-mobile[open] .toc-mobile-icon {
+  rotate: 45deg;
+}
+
+/* ── /hire: decisions table stacks into labelled cards on phones ── */
+@media (max-width: 767px) {
+  .decisions,
+  .decisions tbody {
+    display: block;
+  }
+  .decisions td::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 0.25rem;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+  }
 }

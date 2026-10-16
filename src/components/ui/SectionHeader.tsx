@@ -7,10 +7,12 @@ interface SectionHeaderProps {
   accent?: string;
   kicker?: string;
   tone?: "default" | "night";
+  size?: "default" | "compact";
+  titleId?: string;
   className?: string;
 }
 
-export function SectionHeader({ index, eyebrow, title, accent, kicker, tone = "default", className }: SectionHeaderProps) {
+export function SectionHeader({ index, eyebrow, title, accent, kicker, tone = "default", size = "default", titleId, className }: SectionHeaderProps) {
   const night = tone === "night";
   return (
     <header className={cn("max-w-3xl", className)}>
@@ -18,8 +20,9 @@ export function SectionHeader({ index, eyebrow, title, accent, kicker, tone = "d
         {index} — {eyebrow}
       </p>
       <h2
+        id={titleId}
         className={cn("mt-4 font-display font-bold leading-[1.02] tracking-[-0.03em] text-balance", night ? "text-white" : "text-text")}
-        style={{ fontSize: "clamp(2.5rem, 5vw, 4.5rem)" }}
+        style={{ fontSize: size === "compact" ? "clamp(2.1rem, 3.8vw, 3.4rem)" : "clamp(2.5rem, 5vw, 4.5rem)" }}
       >
         {title}
         {accent && (

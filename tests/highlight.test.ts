@@ -1,5 +1,5 @@
 import { test, expect } from "vitest";
-import { tokenize, type Token } from "@/lib/highlight";
+import { tokenize, toLines, type Token } from "@/lib/highlight";
 
 const kinds = (src: string) => tokenize(src).filter((t) => t.kind !== "plain").map((t) => [t.kind, t.text]);
 
@@ -46,4 +46,10 @@ test("identifiers that only contain a keyword stay plain", () => {
 
 test("adjacent plain text merges into one token", () => {
   expect(tokenize("a b")).toEqual([{ kind: "plain", text: "a b" }]);
+});
+
+test("splits tokens into lines without losing text, dropping the trailing newline", () => {
+  const lines = toLines(tokenize('const a = "x";\n\n// c\n'));
+  expect(lines.map((l) => l.map((t) => t.text).join(""))).toEqual(['const a = "x";', "", "// c"]);
+  expect(lines[2]).toEqual([{ kind: "comment", text: "// c" }]);
 });

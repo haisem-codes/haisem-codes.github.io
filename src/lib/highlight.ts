@@ -43,3 +43,16 @@ export function tokenize(src: string): Token[] {
   }
   return out;
 }
+
+/** Splits tokens at newlines into one array per source line; a trailing newline adds no empty line. */
+export function toLines(tokens: Token[]): Token[][] {
+  const lines: Token[][] = [[]];
+  for (const t of tokens) {
+    t.text.split("\n").forEach((part, i) => {
+      if (i > 0) lines.push([]);
+      if (part) lines[lines.length - 1].push({ kind: t.kind, text: part });
+    });
+  }
+  if (lines.length > 1 && lines[lines.length - 1].length === 0) lines.pop();
+  return lines;
+}

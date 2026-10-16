@@ -1,5 +1,6 @@
 import type { Dictionary } from "./index";
 import { pageError } from "./page-error";
+import { qualifyExcerpt } from "./hire-code";
 
 export const sv = {
   meta: {
@@ -286,16 +287,186 @@ export const sv = {
     orEmail: "Eller mejla",
   },
   hire: {
-    title: "För team som söker en AI-ingenjör",
+    meta: ["Haisem N., AI-ingenjör", "Stockholm · master i AI och språk"], // REVIEW-SV
+    title: "Jag bygger hela AI-system och testar dem före lansering.", // REVIEW-SV
     intro:
       "AI/ML-ingenjör i Stockholm. Jag bygger LLM-produkter från början till slut: RAG, multiagentsystem, röst-AI och fullstack-appar. Deltid vid sidan av mastern nu, heltid efter två terminer (från sommaren 2027).", // REVIEW-SV
     cv: "Ladda ner CV (PDF)",
-    workTitle: "Det här har jag byggt",
-    skillsTitle: "Kompetenser",
-    skillsEyebrow: "Kompetenser", // REVIEW-SV
-    credentialsTitle: "Utbildning och forskning",
-    credentialsEyebrow: "Bakgrund", // REVIEW-SV
-    stats: { years: "År med AI-utveckling", systems: "Levererade AI-system", publications: "Referentgranskad publikation" }, // REVIEW-SV
+    readCase: "Läs fallstudien", // REVIEW-SV
+    toc: { label: "På den här sidan", nav: "Avsnitt på sidan" }, // REVIEW-SV
+    summary: {
+      index: "01",
+      eyebrow: "Sammanfattning", // REVIEW-SV
+      title: "Den korta versionen.", // REVIEW-SV
+      paragraphs: [
+        "I ett år var jag AI-ingenjör på Metaviz. Där byggde jag tre AI-produkter hela vägen från FastAPI-backend till gränssnitt i Next.js och Flutter, och röstagenter för riktiga företag.", // REVIEW-SV
+        "Den här sidan går igenom ett av systemen, röstagenterna jag byggde åt Jake Wims byrå, med besluten bakom och en förenklad bit av koden.", // REVIEW-SV
+      ],
+      facts: [
+        { k: "Senaste roll", v: "AI-ingenjör, Metaviz (jul 2025 – aug 2026)" }, // REVIEW-SV
+        { k: "Nu", v: "Master i AI och språk, Stockholms universitet" }, // REVIEW-SV
+        { k: "Tillgänglighet", v: "15 h/vecka nu, heltid från sommaren 2027" }, // REVIEW-SV
+        { k: "Arbetstillstånd", v: "Får arbeta i Sverige (uppehållstillstånd för studier)" }, // REVIEW-SV
+        { k: "Språk", v: "Engelska (flytande), urdu (modersmål), svenska (nybörjare)" }, // REVIEW-SV
+      ],
+      workTitle: "Fler fallstudier", // REVIEW-SV
+      view: "Läs", // REVIEW-SV
+    },
+    system: {
+      index: "02",
+      eyebrow: "Fallstudie", // REVIEW-SV
+      title: "Så byggde jag Jakes system med röstagenter", // REVIEW-SV
+      intro:
+        "Jake Wims driver en byrå som säljer AI-uppföljning av leads till amerikanska fastighetsmäklarteam och en bolångivare. På Metaviz AI byggde jag hela systemet: röstagenterna, automationerna i GoHighLevel och n8n-flödena mellan dem.", // REVIEW-SV
+      diagramLabel: "Arkitektur: från nytt lead till bokat samtal", // REVIEW-SV
+      nodes: [
+        { title: "Facebook-formulär", sub: "Ett nytt lead" }, // REVIEW-SV
+        { title: "GoHighLevel", sub: "Kontakt och pipeline" }, // REVIEW-SV
+        { title: "Röstagent", sub: "Ringer och kvalificerar" }, // REVIEW-SV
+        { title: "n8n-verktyg", sub: "Uppslag och bokning" }, // REVIEW-SV
+        { title: "GHL-kalender", sub: "Bokat, sparat i CRM" }, // REVIEW-SV
+        { title: "Uppföljning", sub: "Mejl, sms, nurture" }, // REVIEW-SV
+      ],
+      liveLabel: "AI",
+      caption:
+        "Ett lead från Facebook hamnar i GoHighLevel. Röstagenten i Retell ringer från ett lokalt nummer, sammanfattar formuläret och kvalificerar leadet som Hot, Warm eller Cold efter regler som kunden godkänt. Den bokar via n8n-verktyg i GoHighLevel-kalendern, varje samtal sparas i CRM:et, och den som inte svarar får sms och nurture-sekvenser.", // REVIEW-SV
+      notes: [
+        { k: "Mall", v: "Byggd som en mall att klona, med varianter för fastighet och bolån, och använd för fler än fem kunders konton." }, // REVIEW-SV
+        { k: "Hälsning", v: "Ett gemensamt inkommande uppslag i n8n väljer företagets hälsning för varje telefonnummer." }, // REVIEW-SV
+        { k: "Verifierat", v: "Arkitekturgranskningen kontrollerades mot Retells, n8n:s och GoHighLevels live-API:er, med en testplan på 10 fall." }, // REVIEW-SV
+      ],
+      confidential: "Resultaten är konfidentiella för Jakes kunder, så sidan visar designen, inte siffrorna.", // REVIEW-SV
+    },
+    decisions: {
+      index: "03",
+      eyebrow: "Beslut", // REVIEW-SV
+      title: "Beslut och avvägningar", // REVIEW-SV
+      columns: { decision: "Beslut", why: "Varför", tradeoff: "Avvägning" }, // REVIEW-SV
+      rows: [
+        {
+          decision: "Kvalificera efter skrivna regler som kunden godkänt", // REVIEW-SV
+          why: "Hot, Warm och Cold betyder det kunden säger, och varje samtal kan kontrolleras mot reglerna.", // REVIEW-SV
+          tradeoff: "Reglerna måste uppdateras när kundens erbjudande ändras.", // REVIEW-SV
+        },
+        {
+          decision: "Hårda spärrar i koden för kända specialfall", // REVIEW-SV
+          why: "Ett lead som planerade att flytta om sex månader eller mer klassades fel. En hård spärr markerar det nu som Cold innan något annat körs.", // REVIEW-SV
+          tradeoff: "Mindre nyans: ett ovanligt lead går den strikta vägen.", // REVIEW-SV
+        },
+        {
+          decision: "Boka via n8n-verktyg, inte direkt från agenten", // REVIEW-SV
+          why: "Kalenderåtkomst och skrivningar till CRM ligger i flöden som kan testas för sig.", // REVIEW-SV
+          tradeoff: "Ett steg till mellan samtalet och kalendern.", // REVIEW-SV
+        },
+        {
+          decision: "En mall, klonad per kund", // REVIEW-SV
+          why: "Varje ny kunds konto utgår från en uppsättning som redan är testad.", // REVIEW-SV
+          tradeoff: "Delade delar går sönder samtidigt: en hälsning som läckte mellan kunder spårades till grundorsaken och rättades i alla agenter.", // REVIEW-SV
+        },
+        {
+          decision: "Kontrollera designen mot live-API:erna", // REVIEW-SV
+          why: "Arkitekturgranskningen verifierades mot Retells, n8n:s och GoHighLevels API:er, inte bara dokumentationen.", // REVIEW-SV
+          tradeoff: "En långsammare första release än att bara bygga för det vanliga fallet.", // REVIEW-SV
+        },
+      ],
+    },
+    code: {
+      index: "04",
+      eyebrow: "Kod", // REVIEW-SV
+      title: "Kvalificeringsspärren, förenklad", // REVIEW-SV
+      intro: "Hårda regler körs före de mjukare signalerna, så att ett känt specialfall inte hamnar i fel steg i pipelinen.", // REVIEW-SV
+      file: "qualify.ts",
+      note: "Förenklad illustration skriven för den här sidan. Inte kundkod.", // REVIEW-SV
+      source: qualifyExcerpt,
+    },
+    skills: {
+      index: "05",
+      eyebrow: "Kompetenser", // REVIEW-SV
+      title: "Kompetenser, med siffrorna bakom", // REVIEW-SV
+      before: "Före",
+      after: "Efter",
+      cap: "Tak",
+      tiles: [
+        {
+          id: "rag",
+          title: "LLM-system och RAG", // REVIEW-SV
+          body: "Hybridsökning med konfidensstyrd orkestrering som hoppar över modellanrop när reglerna redan avgör svaret.", // REVIEW-SV
+          value: "~40 %",
+          label: "lägre genomsnittlig inferenskostnad per dokument, på Metaviz", // REVIEW-SV
+          items: ["RAG", "ChromaDB", "pgvector", "BM25", "LangGraph", "LLM-utvärdering"], // REVIEW-SV
+        },
+        {
+          id: "api",
+          title: "Backend och API:er", // REVIEW-SV
+          body: "En multi-tenant-plattform med asynkron jobbkö och säkerhet på radnivå.", // REVIEW-SV
+          value: "132",
+          label: "endpoints i REST-API:et i FastAPI som jag byggde, på Metaviz", // REVIEW-SV
+          items: ["FastAPI", "Celery", "Redis", "PostgreSQL", "Supabase", "pytest"],
+        },
+        {
+          id: "docai",
+          title: "Dokument-AI", // REVIEW-SV
+          body: "OCR och strukturerad extraktion som granskar bygghandlingar inom fem discipliner.", // REVIEW-SV
+          value: "~80 %",
+          label: "mindre manuell granskningstid per ritning, på Metaviz", // REVIEW-SV
+          items: ["AWS Textract", "Strukturerade svar", "Granskningsgränssnitt i Next.js"], // REVIEW-SV
+        },
+        {
+          id: "cost",
+          title: "Kostnadskontroll", // REVIEW-SV
+          body: "Modellkostnaden per dokument har ett tak i orkestreringslagret.", // REVIEW-SV
+          value: "15 $",
+          label: "tak för LLM-kostnad per dokument, på Metaviz", // REVIEW-SV
+          items: ["Kostnadsstyrd orkestrering", "Prompt-cachning"], // REVIEW-SV
+        },
+        {
+          id: "voice",
+          title: "Röst-AI", // REVIEW-SV
+          body: "Röstagenter som ringer, kvalificerar och bokar, kopplade till CRM:et.", // REVIEW-SV
+          items: ["Retell AI", "ElevenLabs", "LiveKit", "Deepgram", "Twilio", "n8n", "GoHighLevel"],
+        },
+        {
+          id: "apps",
+          title: "Fullstack och appar", // REVIEW-SV
+          body: "Från API:et till webb- och mobilgränssnitt, i produktion.", // REVIEW-SV
+          items: ["Python", "TypeScript", "Next.js", "React", "Flutter", "Docker", "GitHub Actions"],
+        },
+      ],
+    },
+    credentials: {
+      index: "06",
+      eyebrow: "Bakgrund", // REVIEW-SV
+      title: "Utbildning",
+      items: [
+        { period: "2026 – 2028", title: "Master i artificiell intelligens och språk", where: "Stockholms universitet", detail: "Pågår" }, // REVIEW-SV
+        { period: "2021 – 2025", title: "Kandidat i datavetenskap", where: "FAST-NUCES, Lahore", detail: "Snittbetyg 3,19 av 4,0" }, // REVIEW-SV
+        { period: "2023 – 2025", title: "Dean's List of Honours tre gånger", where: "FAST-NUCES", detail: "Hösten 2023, våren 2024, våren 2025" }, // REVIEW-SV
+        { period: "2025", title: "Tredje plats i tävlingen för examensprojekt", where: "FAST Job Fair 2025", detail: "Av 250 lag" }, // REVIEW-SV
+      ],
+    },
+    research: {
+      index: "07",
+      eyebrow: "Forskning", // REVIEW-SV
+      title: "Forskning", // REVIEW-SV
+      paperLabel: "Publikation", // REVIEW-SV
+      paper: {
+        title: "MultiObjective Optimization in Wireless Mesh Networks: A Survey",
+        authors: "R. Amir, Haisem N., A. Ali, M. Gulzar",
+        venue: "ACM Computing Surveys, vol. 58, nr 11, artikel 294, 2026", // REVIEW-SV
+        doi: "doi.org/10.1145/3800685",
+      },
+      projectsLabel: "Forskningsprojekt", // REVIEW-SV
+      projects: [
+        { title: "Att upptäcka tuberkulos i hostljud", detail: "Examensprojekt: en ensemble av CNN, XGBoost och Wav2Vec, med en mobilapp för kliniker med små resurser." }, // REVIEW-SV
+        { title: "Smart Summarizer", detail: "LoRA-finjustering för sammanfattningar av forskningsartiklar, utvärderad med ROUGE, BLEU, BERTScore och LLM-as-judge." }, // REVIEW-SV
+        { title: "Forskningsassistent med flera agenter", detail: "LangGraph-agenter för litteratursökning, sammanfattning och jämförelse mellan artiklar." }, // REVIEW-SV
+      ],
+    },
+    close: {
+      title: "Söker ni en AI-ingenjör i Sverige?", // REVIEW-SV
+      sub: "CV:t har detaljerna, fallstudierna visar arbetet.", // REVIEW-SV
+      orEmail: "Eller mejla",
+    },
   },
   intake: {
     title: "Få din automationsplan",
