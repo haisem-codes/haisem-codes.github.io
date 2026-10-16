@@ -18,13 +18,15 @@ export function Toc({ items, label, nav }: { items: Item[]; label: string; nav: 
       setActive(pickActive(sections.map((s) => s.getBoundingClientRect().top), innerHeight * 0.35, atBottom));
     };
     const line = new IntersectionObserver(update, { rootMargin: "-35% 0px -64% 0px" });
-    const bottom = new IntersectionObserver(update);
+    const bottom = new IntersectionObserver(update, { threshold: [0, 1] });
     sections.forEach((s) => line.observe(s));
     if (end) bottom.observe(end);
     update();
+    addEventListener("resize", update, { passive: true });
     return () => {
       line.disconnect();
       bottom.disconnect();
+      removeEventListener("resize", update);
     };
   }, [items]);
 

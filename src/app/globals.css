@@ -586,6 +586,13 @@ html.dark .night-band {
 @keyframes arch-flow {
   to { stroke-dashoffset: -29; }
 }
+@keyframes arch-head-in {
+  from { opacity: 0; scale: 0.3; }
+}
+.arch-head {
+  transform-box: fill-box;
+  transform-origin: center;
+}
 @keyframes arch-pulse {
   from { opacity: 0.55; transform: scale(1); }
   to { opacity: 0; transform: scale(2.8); }
@@ -622,6 +629,11 @@ html.dark .night-band {
       animation-timeline: --arch;
       animation-range: cover calc(8% + var(--i) * 4%) cover calc(24% + var(--i) * 4%);
     }
+    html:not(.tier-static) .arch-head {
+      animation: arch-head-in linear both;
+      animation-timeline: --arch;
+      animation-range: cover calc(22% + var(--i) * 4%) cover calc(26% + var(--i) * 4%);
+    }
     html:not(.tier-static) .dash-fill {
       animation: draw-x linear both;
       animation-timeline: view();
@@ -641,7 +653,7 @@ html.dark .night-band {
   }
 }
 
-/* ── /hire: TOC rail fills to the active entry; the mobile disclosure swaps + for – ── */
+/* ── /hire: TOC rail fills to the active entry; the mobile disclosure turns its + into × when open ── */
 .toc-fill {
   scale: 1 var(--p, 0);
   transition: scale var(--dur-editorial) var(--ease-silk);

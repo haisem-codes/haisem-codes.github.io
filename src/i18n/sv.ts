@@ -429,6 +429,7 @@ export const sv = {
           id: "apps",
           title: "Fullstack och appar", // REVIEW-SV
           body: "Från API:et till webb- och mobilgränssnitt, i produktion.", // REVIEW-SV
+          layers: ["Mobil · Flutter", "Webb · Next.js, React", "API · FastAPI, Python"], // REVIEW-SV
           items: ["Python", "TypeScript", "Next.js", "React", "Flutter", "Docker", "GitHub Actions"],
         },
       ],

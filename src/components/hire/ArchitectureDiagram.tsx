@@ -3,7 +3,21 @@ import type { Dictionary } from "@/i18n";
 
 type SystemDict = Dictionary["hire"]["system"];
 type Box = { x: number; y: number };
-type Layout = { w: number; h: number; node: { w: number; h: number }; at: Box[]; edges: string[]; sub: string };
+type Edge = { x1: number; y1: number; x2: number; y2: number };
+type Layout = { w: number; h: number; node: { w: number; h: number }; at: Box[]; edges: Edge[]; sub: string };
+
+const CAPTION_ID = "arch-caption";
+
+/** The line stops short of the tip so the arrowhead, drawn per edge, can appear once its line has drawn in. */
+function edgePaths({ x1, y1, x2, y2 }: Edge) {
+  const dx = Math.sign(x2 - x1);
+  const dy = Math.sign(y2 - y1);
+  const line = `M${x1} ${y1}L${x2 - dx * 7} ${y2 - dy * 7}`;
+  const bx = x2 - dx * 8;
+  const by = y2 - dy * 8;
+  const head = `M${x2} ${y2}L${bx - dy * 4} ${by + dx * 4}L${bx + dy * 4} ${by - dx * 4}z`;
+  return { line, head };
+}
 
 const AGENT = 2;
 
@@ -21,11 +35,11 @@ const WIDE: Layout = (() => {
   ];
   const mid = (b: Box) => b.y + node.h / 2;
   const edges = [
-    `M${at[0].x + node.w} ${mid(at[0])}H${at[1].x - 6}`,
-    `M${at[1].x + node.w} ${mid(at[1])}H${at[2].x - 6}`,
-    `M${at[2].x + node.w / 2} ${at[2].y + node.h}V${at[3].y - 6}`,
-    `M${at[3].x} ${mid(at[3])}H${at[4].x + node.w + 6}`,
-    `M${at[4].x} ${mid(at[4])}H${at[5].x + node.w + 6}`,
+    { x1: at[0].x + node.w, y1: mid(at[0]), x2: at[1].x - 5, y2: mid(at[0]) },
+    { x1: at[1].x + node.w, y1: mid(at[1]), x2: at[2].x - 5, y2: mid(at[1]) },
+    { x1: at[2].x + node.w / 2, y1: at[2].y + node.h, x2: at[2].x + node.w / 2, y2: at[3].y - 5 },
+    { x1: at[3].x, y1: mid(at[3]), x2: at[4].x + node.w + 5, y2: mid(at[3]) },
+    { x1: at[4].x, y1: mid(at[4]), x2: at[5].x + node.w + 5, y2: mid(at[4]) },
   ];
   return { w: 840, h: 232, node, at, edges, sub: "text-[10.5px]" };
 })();
@@ -34,26 +48,25 @@ const WIDE: Layout = (() => {
 const TALL: Layout = (() => {
   const node = { w: 300, h: 64 };
   const at = Array.from({ length: 6 }, (_, i) => ({ x: 20, y: 6 + i * 98 }));
-  const edges = at.slice(0, -1).map((b, i) => `M${b.x + node.w / 2} ${b.y + node.h}V${at[i + 1].y - 6}`);
+  const cx = at[0].x + node.w / 2;
+  const edges = at.slice(0, -1).map((b, i) => ({ x1: cx, y1: b.y + node.h, x2: cx, y2: at[i + 1].y - 5 }));
   return { w: 340, h: at[5].y + node.h + 6, node, at, edges, sub: "text-[11.5px]" };
 })();
 
 function Graph({ layout, dict, className }: { layout: Layout; dict: SystemDict; className: string }) {
   const { node } = layout;
-  const id = layout === WIDE ? "w" : "t";
   return (
-    <svg viewBox={`0 0 ${layout.w} ${layout.h}`} className={className} role="img" aria-label={dict.diagramLabel}>
-      <defs>
-        <marker id={`arch-head-${id}`} viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-          <path d="M0 0L8 4L0 8z" className="fill-accent" />
-        </marker>
-      </defs>
-      {layout.edges.map((d, i) => (
-        <g key={d} style={{ "--i": i } as CSSProperties}>
-          <path d={d} pathLength={1} className="arch-line" markerEnd={`url(#arch-head-${id})`} />
-          <path d={d} className="arch-flow" />
-        </g>
-      ))}
+    <svg viewBox={`0 0 ${layout.w} ${layout.h}`} className={className} role="img" aria-label={dict.diagramLabel} aria-describedby={CAPTION_ID}>
+      {layout.edges.map((e, i) => {
+        const { line, head } = edgePaths(e);
+        return (
+          <g key={line} style={{ "--i": i } as CSSProperties}>
+            <path d={line} pathLength={1} className="arch-line" />
+            <path d={line} className="arch-flow" />
+            <path d={head} className="arch-head fill-accent" />
+          </g>
+        );
+      })}
       {dict.nodes.map((n, i) => {
         const b = layout.at[i];
         const agent = i === AGENT;
@@ -93,7 +106,7 @@ export function ArchitectureDiagram({ dict }: { dict: SystemDict }) {
         <Graph layout={WIDE} dict={dict} className="hidden h-auto w-full md:block" />
         <Graph layout={TALL} dict={dict} className="mx-auto block h-auto w-full max-w-[22rem] md:hidden" />
       </div>
-      <figcaption className="border-t border-border px-4 py-5 text-base leading-relaxed text-text-secondary sm:px-8">
+      <figcaption id={CAPTION_ID} className="border-t border-border px-4 py-5 text-base leading-relaxed text-text-secondary sm:px-8">
         <span className="mr-2 font-mono text-xs tracking-[0.14em] text-text uppercase">{dict.diagramLabel}.</span>
         {dict.caption}
       </figcaption>

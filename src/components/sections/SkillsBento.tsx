@@ -58,6 +58,20 @@ function Wave() {
   );
 }
 
+/** The app stack as layers, top to bottom; names only, taken from the tile's own copy. */
+function Layers({ layers }: { layers: string[] }) {
+  return (
+    <ol aria-hidden className="border-t border-border font-mono text-[11px] tracking-[0.08em] text-text-secondary">
+      {layers.map((l, i) => (
+        <li key={l} className="flex items-center gap-3 border-b border-border py-2">
+          <span className={cn("h-2 w-2 shrink-0", i === layers.length - 1 ? "bg-accent" : "bg-border-hover")} />
+          {l}
+        </li>
+      ))}
+    </ol>
+  );
+}
+
 function Viz({ id, dict }: { id: string; dict: SkillsDict }) {
   if (id === "rag") return <Drop after={0.6} dict={dict} />;
   if (id === "docai") return <Drop after={0.2} dict={dict} />;
@@ -81,6 +95,7 @@ function SkillTile({ tile, dict }: { tile: Tile; dict: SkillsDict }) {
         </div>
       )}
       <Viz id={tile.id} dict={dict} />
+      {"layers" in tile && tile.layers && <Layers layers={tile.layers} />}
       <ul className={cn("flex flex-wrap gap-1.5", !("value" in tile) && "mt-auto")}>
         {tile.items.map((item) => (
           <li key={item} className="border border-border-hover px-2 py-1 font-mono text-[11px] leading-none text-text-secondary">

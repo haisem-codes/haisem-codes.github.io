@@ -428,6 +428,7 @@ export const en = {
           id: "apps",
           title: "Full-stack and apps",
           body: "From the API to web and mobile front ends, shipped to production.",
+          layers: ["Mobile · Flutter", "Web · Next.js, React", "API · FastAPI, Python"],
           items: ["Python", "TypeScript", "Next.js", "React", "Flutter", "Docker", "GitHub Actions"],
         },
       ],
