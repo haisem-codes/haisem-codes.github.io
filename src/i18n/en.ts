@@ -48,7 +48,7 @@ export const en = {
   proof: {
     label: "At a glance",
     facts: [
-      { value: "5+", label: "businesses I built voice agents for at Metaviz" },
+      { value: "5+", label: "businesses I built voice agents for" },
       { value: "MSc", label: "AI and Language at Stockholm University" },
       { value: "ACM", label: "Peer-reviewed survey in ACM Computing Surveys" },
     ],
@@ -142,7 +142,7 @@ export const en = {
     ctaNote: "Answer a few questions and I'll show you how it would work for you.",
   },
   story: {
-    note: "The same flow I built at Metaviz for an agency's US clients, shown here with a fictional salon.",
+    note: "The same flow I built for an agency's US clients, shown here with a fictional salon.",
     steps: [
       { title: "A lead arrives", body: "Someone fills in your form or ad at 21:40." },
       { title: "The AI calls", body: "Within minutes it calls, already knows their answers, and asks only what's missing." },
@@ -164,7 +164,7 @@ export const en = {
     eyebrow: "Client stories",
     title: "AI follow\u2011up for a growing agency",
     intro:
-      "Jake Wims started an agency selling AI lead follow-up to real-estate teams and a mortgage lender. At Metaviz AI, I built the whole system for him: the voice agents, the CRM automations and the workflows between them.",
+      "Jake Wims started an agency selling AI lead follow-up to real-estate teams and a mortgage lender. I built the whole system for him: the voice agents, the CRM automations and the workflows between them.",
     points: [
       "An AI caller that phones new Facebook-ad leads, qualifies them on rules Jake approved and books consultations",
       "A cloneable template, built for his clients",
@@ -179,8 +179,8 @@ export const en = {
     watch: "Watch",
     captionsLabel: "English",
     quote: "My clients have been extremely happy with how good the follow-up process is for them.",
-    quoteBy: "Jake Wims, agency founder",
-    builtAt: "System built at Metaviz AI",
+    quoteBy: "Jake Wims, Founder,\u00A0Acquire\u00A0Growth\u00A0AI",
+    builtAt: "Voice agents, CRM automations and workflows",
     transcript:
       "Yo Haisem, just wanted to say thanks for all the fulfillment work you've helped me with over the past few months, just starting up my agency. Would not have been able to scale as fast as I have been without the support. Yeah, everything from the AI callers to the automation work. Really appreciate just how attention to detail you've been, and how good support has been as to, like, absolutely just honing in on the specifics of what needs to be done. My clients have been extremely happy with how good the follow-up process is for them. And I can say the same for my agency as well. So yeah, anybody looking for a top-tier HighLevel developer, highly recommend Haisem.",
     transcriptNote: "Transcript, as spoken.",
@@ -190,7 +190,7 @@ export const en = {
     role: "Co-founder",
     company: "Deepsea Media",
     newTab: "(opens in a new tab)",
-    builtAt: "Project built at Metaviz AI",
+    builtAt: "Client project",
     quote: "He took the project end-to-end and treated it like his own.",
     videoLabel: "Video testimonial from Derin",
     play: "Play Derin's video testimonial, 48 seconds",
@@ -210,11 +210,11 @@ export const en = {
     more: "More projects",
     categories: { business: "Business automation", products: "AI products", research: "Research" },
     view: "View case study",
-    employerNote: "Built at Metaviz\u00A0AI",
+    context: { team: "Team project", client: "Client project" },
     back: "All work",
     highlights: {
-      "ai-compliance-platform": { value: "~80%", label: "less manual reviewer time per drawing, at Metaviz" },
-      "voice-agents-suite": { value: "5+", label: "businesses these voice agents were built for, at Metaviz" },
+      "ai-compliance-platform": { value: "Sign-off", label: "AI checks drawings across five building-code disciplines; a reviewer corrects and signs off" },
+      "voice-agents-suite": { value: "5+", label: "businesses I built these voice agents for" },
       postura: { value: "Offline", label: "posture scoring runs entirely on the phone" },
     },
     showMore: "Show {n} more projects",
@@ -270,12 +270,12 @@ export const en = {
     portraitAlt: "Haisem N.",
     route: { from: "Lahore", to: "Stockholm" },
     paragraphs: [
-      "I'm Haisem. I studied computer science at FAST-NUCES in Lahore, then spent a year as an AI engineer at Metaviz, shipping AI products and voice agents for real businesses. Now I'm in Stockholm for an MSc in AI and Language at Stockholm University, and I co-authored a survey published in ACM Computing Surveys.",
+      "I'm Haisem. I studied computer science at FAST-NUCES in Lahore, then spent a year as an AI engineer on a product team in Lahore, working on AI products and building voice agents for real businesses. Now I'm in Stockholm for an MSc in AI and Language at Stockholm University, and I co-authored a survey published in ACM Computing Surveys.",
       "I build the whole thing, from the design to the AI and the tools you already use, and I stay reachable after launch. We can talk in English; my Swedish is at beginner level, and I'm happy to practise it with you.",
     ],
     facts: [
       { years: "2021–25", what: "BS Computer Science", where: "FAST-NUCES, Lahore" },
-      { years: "2025–26", what: "AI engineer", where: "Metaviz, Lahore" },
+      { years: "2025–26", what: "AI engineer", where: "Product team, Lahore" },
       { years: "2026–", what: "MSc AI and Language", where: "Stockholm University" },
       { years: "2026", what: "Survey co-author", where: "ACM Computing Surveys" },
       { years: "Now", what: "Swedish", where: "Beginner, learning" },
@@ -300,11 +300,11 @@ export const en = {
       eyebrow: "Summary",
       title: "The short version.",
       paragraphs: [
-        "For a year I was an AI engineer at Metaviz, where I shipped three AI products from the FastAPI backend to Next.js and Flutter front ends, and built voice agents for real businesses.",
+        "For a year I was an AI engineer on a product team in Lahore. I worked on three AI products, from the FastAPI backend to Next.js and Flutter front ends, and built voice agents for real businesses.",
         "This page walks through one of those systems, the voice-agent setup I built for Jake Wims's agency, with the decisions behind it and a simplified piece of the code.",
       ],
       facts: [
-        { k: "Last role", v: "AI engineer, Metaviz (Jul 2025 – Aug 2026)" },
+        { k: "Last role", v: "AI engineer, product team in Lahore (Jul 2025 – Aug 2026)" },
         { k: "Now", v: "MSc AI and Language, Stockholm University" },
         { k: "Work permit", v: "Eligible to work in Sweden (residence permit for studies)" },
         { k: "Languages", v: "English (fluent), Urdu (native), Swedish (beginner)" },
@@ -317,7 +317,7 @@ export const en = {
       eyebrow: "Case study",
       title: "How I built Jake's voice-agent system",
       intro:
-        "Jake Wims runs an agency selling AI lead follow-up to US real-estate teams and a mortgage lender. At Metaviz AI I built the system end to end: the voice agents, the GoHighLevel automations and the n8n workflows between them.",
+        "Jake Wims (Founder, Acquire Growth AI) sells AI lead follow-up to US real-estate teams and a mortgage lender. I built the system end to end: the voice agents, the GoHighLevel automations and the n8n workflows between them.",
       diagramLabel: "Architecture: from a new lead to a booked call",
       nodes: [
         { title: "Facebook lead form", sub: "A new lead" },
@@ -382,41 +382,34 @@ export const en = {
     skills: {
       index: "05",
       eyebrow: "Skills",
-      title: "Skills, with the numbers behind them",
-      before: "Before",
-      after: "After",
+      title: "Skills, and the systems behind them",
       cap: "Cap",
       tiles: [
         {
           id: "rag",
           title: "LLM systems and RAG",
           body: "Hybrid retrieval with confidence-gated orchestration that skips model calls on rule-deterministic passes.",
-          value: "~40%",
-          label: "lower average inference spend per document, at Metaviz",
+          steps: ["Hybrid search", "BM25 rerank", "Confidence gate", "LLM only when needed"],
           items: ["RAG", "ChromaDB", "pgvector", "BM25", "LangGraph", "LLM evaluation"],
         },
         {
           id: "api",
           title: "Backend and APIs",
           body: "A multi-tenant platform with an async job pipeline and row-level security.",
-          value: "132",
-          label: "endpoints in the FastAPI REST API I built, at Metaviz",
+          steps: ["API request", "Job queue", "Worker", "Tenant-scoped data"],
           items: ["FastAPI", "Celery", "Redis", "PostgreSQL", "Supabase", "pytest"],
         },
         {
           id: "docai",
           title: "Document AI",
           body: "OCR and structured extraction that check construction drawings across five disciplines.",
-          value: "~80%",
-          label: "less manual reviewer time per drawing, at Metaviz",
+          steps: ["Drawing PDF", "OCR", "Structured extraction", "Code checks", "Reviewer sign-off"],
           items: ["AWS Textract", "Structured outputs", "Next.js review UI"],
         },
         {
           id: "cost",
           title: "Cost control",
           body: "Per-document model spend is capped in the orchestration layer.",
-          value: "$15",
-          label: "LLM cost cap per document, at Metaviz",
           items: ["Cost-aware orchestration", "Prompt caching"],
         },
         {

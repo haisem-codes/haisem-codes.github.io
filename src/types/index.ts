@@ -14,7 +14,7 @@ export interface Project {
   featured: boolean;
   order: number;
   category: ProjectCategory;
-  employer?: "metaviz";
+  context?: "team" | "client";
   sv?: ProjectCopy;
 }
 

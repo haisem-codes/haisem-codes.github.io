@@ -5,36 +5,6 @@ import { cn } from "@/lib/utils";
 type SkillsDict = Dictionary["hire"]["skills"];
 type Tile = SkillsDict["tiles"][number];
 
-/** Before/after bars for a reduction; "after" is the share that remains. */
-function Drop({ after, dict }: { after: number; dict: SkillsDict }) {
-  return (
-    <div aria-hidden className="space-y-2 font-mono text-[11px] tracking-[0.12em] text-text-secondary uppercase">
-      {[
-        { k: dict.before, w: 1, cls: "bg-border-hover" },
-        { k: dict.after, w: after, cls: "bg-accent" },
-      ].map((b) => (
-        <div key={b.k} className="grid grid-cols-[3.5rem_1fr] items-center gap-3">
-          <span>{b.k}</span>
-          <span className="h-2 bg-border">
-            <span className={cn("dash-fill block h-full origin-left", b.cls)} style={{ width: `${b.w * 100}%` }} />
-          </span>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-/** One dot per endpoint: 22 × 6 = 132, drawn by a repeating gradient. */
-function Dots() {
-  return (
-    <div
-      aria-hidden
-      className="dash-reveal h-[72px] w-[264px] max-w-full"
-      style={{ background: "radial-gradient(circle, var(--color-accent) 2px, transparent 2.5px) 0 0 / 12px 12px" }}
-    />
-  );
-}
-
 /** Spend rises per step, then flattens under the cap. Shape only; no data. */
 function Cap({ dict }: { dict: SkillsDict }) {
   return (
@@ -58,10 +28,10 @@ function Wave() {
   );
 }
 
-/** The app stack as layers, top to bottom; names only, taken from the tile's own copy. */
-function Layers({ layers }: { layers: string[] }) {
+/** The app stack as layers or a pipeline as steps, top to bottom. Layers repeat the tile's copy, so they stay hidden from screen readers. */
+function Layers({ layers, hidden = true, className }: { layers: string[]; hidden?: boolean; className?: string }) {
   return (
-    <ol aria-hidden className="border-t border-border font-mono text-[11px] tracking-[0.08em] text-text-secondary">
+    <ol aria-hidden={hidden || undefined} className={cn("border-t border-border font-mono text-[11px] tracking-[0.08em] text-text-secondary", className)}>
       {layers.map((l, i) => (
         <li key={l} className="flex items-center gap-3 border-b border-border py-2">
           <span className={cn("h-2 w-2 shrink-0", i === layers.length - 1 ? "bg-accent" : "bg-border-hover")} />
@@ -73,9 +43,6 @@ function Layers({ layers }: { layers: string[] }) {
 }
 
 function Viz({ id, dict }: { id: string; dict: SkillsDict }) {
-  if (id === "rag") return <Drop after={0.6} dict={dict} />;
-  if (id === "docai") return <Drop after={0.2} dict={dict} />;
-  if (id === "api") return <Dots />;
   if (id === "cost") return <Cap dict={dict} />;
   if (id === "voice") return <Wave />;
   return null;
@@ -88,15 +55,10 @@ function SkillTile({ tile, dict }: { tile: Tile; dict: SkillsDict }) {
         <h3 className="font-display text-xl leading-tight font-semibold tracking-[-0.01em] text-text">{tile.title}</h3>
         <p className="mt-2 text-[15px] leading-relaxed text-text-secondary">{tile.body}</p>
       </div>
-      {"value" in tile && (
-        <div className="mt-auto">
-          <p className="font-display text-5xl leading-none font-bold tracking-[-0.04em] text-text tabular-nums">{tile.value}</p>
-          <p className="mt-2 text-sm leading-snug text-text-secondary">{tile.label}</p>
-        </div>
-      )}
+      {"steps" in tile && tile.steps && <Layers layers={tile.steps} hidden={false} className="mt-auto" />}
       <Viz id={tile.id} dict={dict} />
       {"layers" in tile && tile.layers && <Layers layers={tile.layers} />}
-      <ul className={cn("flex flex-wrap gap-1.5", !("value" in tile) && "mt-auto")}>
+      <ul className={cn("flex flex-wrap gap-1.5", !("steps" in tile) && "mt-auto")}>
         {tile.items.map((item) => (
           <li key={item} className="border border-border-hover px-2 py-1 font-mono text-[11px] leading-none text-text-secondary">
             {item}
@@ -107,7 +69,7 @@ function SkillTile({ tile, dict }: { tile: Tile; dict: SkillsDict }) {
   );
 }
 
-/** Skills as small dashboards: each figure is a CV metric (at Metaviz), drawn as a CSS or SVG chart. */
+/** Skills as small dashboards: each tile shows the shape of a system it was used in, not a number. */
 export function SkillsBento({ dict }: { dict: SkillsDict }) {
   return (
     <ul className="grid gap-px border border-border bg-border md:grid-cols-2 lg:grid-cols-3">

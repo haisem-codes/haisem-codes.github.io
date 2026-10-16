@@ -136,10 +136,10 @@ export default async function ProjectPage({ params }: Props) {
                   {pad(currentIndex + 1)} / {pad(projects.length)}
                 </span>{" "}
                 — {work.categories[project.category]}
-                {project.employer === "metaviz" && (
+                {project.context && (
                   <>
                     <span aria-hidden> · </span>
-                    <span className="whitespace-nowrap">{work.employerNote}</span>
+                    <span className="whitespace-nowrap">{work.context[project.context]}</span>
                   </>
                 )}
               </p>

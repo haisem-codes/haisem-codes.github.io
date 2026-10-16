@@ -87,7 +87,7 @@ function Summary({ dict, work, lang }: { dict: HireDict["summary"]; work: Dictio
                 </span>
                 <span className="col-span-2 font-mono text-[11px] tracking-[0.14em] text-text-secondary uppercase">
                   {work.categories[p.category]}
-                  {p.employer === "metaviz" && ` · ${work.employerNote}`}
+                  {p.context && ` · ${work.context[p.context]}`}
                 </span>
               </a>
             </li>

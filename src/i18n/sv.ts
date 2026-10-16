@@ -49,7 +49,7 @@ export const sv = {
   proof: {
     label: "I korthet", // REVIEW-SV
     facts: [
-      { value: "5+", label: "företag som jag byggt röstagenter för på Metaviz" }, // REVIEW-SV
+      { value: "5+", label: "företag som jag byggt röstagenter för" }, // REVIEW-SV
       { value: "MSc", label: "AI och språk vid Stockholms universitet" }, // REVIEW-SV
       { value: "ACM", label: "Referentgranskad översikt i ACM Computing Surveys" }, // REVIEW-SV
     ],
@@ -143,7 +143,7 @@ export const sv = {
     ctaNote: "Svara på några frågor så visar jag hur det skulle fungera för dig.", // REVIEW-SV
   },
   story: {
-    note: "Samma flöde som jag byggde på Metaviz åt en byrås amerikanska kunder, här med en påhittad salong.", // REVIEW-SV
+    note: "Samma flöde som jag byggde åt en byrås amerikanska kunder, här med en påhittad salong.", // REVIEW-SV
     steps: [
       { title: "En förfrågan kommer in", body: "Någon fyller i ditt formulär eller din annons kl.\u00A021.40." }, // REVIEW-SV
       { title: "AI:n ringer", body: "Inom några minuter ringer den upp, vet redan vad de svarat och frågar bara det som saknas." }, // REVIEW-SV
@@ -165,7 +165,7 @@ export const sv = {
     eyebrow: "Kundberättelser", // REVIEW-SV
     title: "AI-uppföljning för en växande byrå",
     intro:
-      "Jake Wims startade en byrå som säljer AI-uppföljning av förfrågningar till mäklarteam och en bolåneförmedlare. På Metaviz AI byggde jag hela systemet åt honom: röstagenterna, CRM-automationerna och flödena mellan dem.", // REVIEW-SV
+      "Jake Wims startade en byrå som säljer AI-uppföljning av förfrågningar till mäklarteam och en bolåneförmedlare. Jag byggde hela systemet åt honom: röstagenterna, CRM-automationerna och flödena mellan dem.", // REVIEW-SV
     points: [
       "En AI som ringer upp nya förfrågningar från Facebook-annonser, kvalificerar dem enligt regler Jake godkänt och bokar möten", // REVIEW-SV
       "En mall som kan klonas, byggd för hans kunder", // REVIEW-SV
@@ -180,8 +180,8 @@ export const sv = {
     watch: "Spela", // REVIEW-SV
     captionsLabel: "Engelska", // REVIEW-SV
     quote: "My clients have been extremely happy with how good the follow-up process is for them.",
-    quoteBy: "Jake Wims, byråns grundare",
-    builtAt: "Systemet byggdes på Metaviz AI", // REVIEW-SV
+    quoteBy: "Jake Wims, Grundare,\u00A0Acquire\u00A0Growth\u00A0AI", // REVIEW-SV
+    builtAt: "Röstagenter, CRM-automationer och flöden", // REVIEW-SV
     transcript:
       "Yo Haisem, just wanted to say thanks for all the fulfillment work you've helped me with over the past few months, just starting up my agency. Would not have been able to scale as fast as I have been without the support. Yeah, everything from the AI callers to the automation work. Really appreciate just how attention to detail you've been, and how good support has been as to, like, absolutely just honing in on the specifics of what needs to be done. My clients have been extremely happy with how good the follow-up process is for them. And I can say the same for my agency as well. So yeah, anybody looking for a top-tier HighLevel developer, highly recommend Haisem.",
     transcriptNote: "Transkription, ordagrant. Videon är på engelska.", // REVIEW-SV
@@ -191,7 +191,7 @@ export const sv = {
     role: "Medgrundare", // REVIEW-SV
     company: "Deepsea Media",
     newTab: "(öppnas i en ny flik)", // REVIEW-SV
-    builtAt: "Projektet byggdes på Metaviz AI", // REVIEW-SV
+    builtAt: "Kundprojekt", // REVIEW-SV
     quote: "He took the project end-to-end and treated it like his own.",
     videoLabel: "Videorekommendation från Derin", // REVIEW-SV
     play: "Spela upp Derins videorekommendation, 48 sekunder på engelska", // REVIEW-SV
@@ -211,11 +211,11 @@ export const sv = {
     more: "Fler projekt",
     categories: { business: "Företagsautomation", products: "AI-produkter", research: "Forskning" },
     view: "Läs caset",
-    employerNote: "Byggt på Metaviz\u00A0AI",
+    context: { team: "Teamprojekt", client: "Kundprojekt" }, // REVIEW-SV
     back: "Alla projekt",
     highlights: {
-      "ai-compliance-platform": { value: "~80\u00A0%", label: "mindre manuell granskningstid per ritning, på Metaviz" }, // REVIEW-SV
-      "voice-agents-suite": { value: "5+", label: "företag som röstagenterna byggts för, på Metaviz" }, // REVIEW-SV
+      "ai-compliance-platform": { value: "Godkänt", label: "AI granskar ritningar inom fem discipliner, och granskaren rättar och godkänner" }, // REVIEW-SV
+      "voice-agents-suite": { value: "5+", label: "företag som jag byggt röstagenterna för" }, // REVIEW-SV
       postura: { value: "Offline", label: "hållningsanalysen körs helt i telefonen" }, // REVIEW-SV
     },
     showMore: "Visa {n} projekt till", // REVIEW-SV
@@ -271,12 +271,12 @@ export const sv = {
     portraitAlt: "Haisem N.",
     route: { from: "Lahore", to: "Stockholm" },
     paragraphs: [
-      "Jag heter Haisem. Jag läste datavetenskap vid FAST-NUCES i Lahore och jobbade sedan ett år som AI-ingenjör på Metaviz, där jag byggde AI-produkter och röstagenter för riktiga företag. Nu bor jag i Stockholm och läser en master i AI och språk vid Stockholms universitet, och jag är medförfattare till en översiktsartikel i ACM Computing Surveys.", // REVIEW-SV
+      "Jag heter Haisem. Jag läste datavetenskap vid FAST-NUCES i Lahore och jobbade sedan ett år som AI-ingenjör i ett produktteam i Lahore, med AI-produkter och röstagenter för riktiga företag. Nu bor jag i Stockholm och läser en master i AI och språk vid Stockholms universitet, och jag är medförfattare till en översiktsartikel i ACM Computing Surveys.", // REVIEW-SV
       "Jag bygger helheten, från designen till AI:n och verktygen du redan använder, och jag finns kvar efter lanseringen. Vi kan prata engelska. Min svenska är på nybörjarnivå, och jag övar gärna med dig.", // REVIEW-SV
     ],
     facts: [
       { years: "2021–25", what: "Kandidat i datavetenskap", where: "FAST-NUCES, Lahore" }, // REVIEW-SV
-      { years: "2025–26", what: "AI-ingenjör", where: "Metaviz, Lahore" }, // REVIEW-SV
+      { years: "2025–26", what: "AI-ingenjör", where: "Produktteam, Lahore" }, // REVIEW-SV
       { years: "2026–", what: "Master i AI och språk", where: "Stockholms universitet" }, // REVIEW-SV
       { years: "2026", what: "Medförfattare, översikt", where: "ACM Computing Surveys" }, // REVIEW-SV
       { years: "Nu", what: "Svenska", where: "Nybörjare, lär mig" }, // REVIEW-SV
@@ -301,11 +301,11 @@ export const sv = {
       eyebrow: "Sammanfattning", // REVIEW-SV
       title: "Den korta versionen.", // REVIEW-SV
       paragraphs: [
-        "I ett år var jag AI-ingenjör på Metaviz. Där byggde jag tre AI-produkter hela vägen från FastAPI-backend till gränssnitt i Next.js och Flutter, och röstagenter för riktiga företag.", // REVIEW-SV
+        "I ett år var jag AI-ingenjör i ett produktteam i Lahore. Jag arbetade med tre AI-produkter, från FastAPI-backend till gränssnitt i Next.js och Flutter, och byggde röstagenter för riktiga företag.", // REVIEW-SV
         "Den här sidan går igenom ett av systemen, röstagenterna jag byggde åt Jake Wims byrå, med besluten bakom och en förenklad bit av koden.", // REVIEW-SV
       ],
       facts: [
-        { k: "Senaste roll", v: "AI-ingenjör, Metaviz (jul 2025 – aug 2026)" }, // REVIEW-SV
+        { k: "Senaste roll", v: "AI-ingenjör, produktteam i Lahore (jul 2025 – aug 2026)" }, // REVIEW-SV
         { k: "Nu", v: "Master i AI och språk, Stockholms universitet" }, // REVIEW-SV
         { k: "Arbetstillstånd", v: "Får arbeta i Sverige (uppehållstillstånd för studier)" }, // REVIEW-SV
         { k: "Språk", v: "Engelska (flytande), urdu (modersmål), svenska (nybörjare)" }, // REVIEW-SV
@@ -318,7 +318,7 @@ export const sv = {
       eyebrow: "Fallstudie", // REVIEW-SV
       title: "Så byggde jag Jakes system med röstagenter", // REVIEW-SV
       intro:
-        "Jake Wims driver en byrå som säljer AI-uppföljning av leads till amerikanska fastighetsmäklarteam och en bolångivare. På Metaviz AI byggde jag hela systemet: röstagenterna, automationerna i GoHighLevel och n8n-flödena mellan dem.", // REVIEW-SV
+        "Jake Wims (Grundare, Acquire Growth AI) säljer AI-uppföljning av leads till amerikanska fastighetsmäklarteam och en bolångivare. Jag byggde hela systemet: röstagenterna, automationerna i GoHighLevel och n8n-flödena mellan dem.", // REVIEW-SV
       diagramLabel: "Arkitektur: från nytt lead till bokat samtal", // REVIEW-SV
       nodes: [
         { title: "Facebook-formulär", sub: "Ett nytt lead" }, // REVIEW-SV
@@ -383,41 +383,34 @@ export const sv = {
     skills: {
       index: "05",
       eyebrow: "Kompetenser", // REVIEW-SV
-      title: "Kompetenser, med siffrorna bakom", // REVIEW-SV
-      before: "Före",
-      after: "Efter",
+      title: "Kompetenser, och systemen bakom", // REVIEW-SV
       cap: "Tak", // REVIEW-SV
       tiles: [
         {
           id: "rag",
           title: "LLM-system och RAG", // REVIEW-SV
           body: "Hybridsökning med konfidensstyrd orkestrering som hoppar över modellanrop när reglerna redan avgör svaret.", // REVIEW-SV
-          value: "~40 %",
-          label: "lägre genomsnittlig inferenskostnad per dokument, på Metaviz", // REVIEW-SV
+          steps: ["Hybridsökning", "BM25-omrankning", "Konfidensspärr", "LLM bara vid behov"], // REVIEW-SV
           items: ["RAG", "ChromaDB", "pgvector", "BM25", "LangGraph", "LLM-utvärdering"], // REVIEW-SV
         },
         {
           id: "api",
           title: "Backend och API:er", // REVIEW-SV
           body: "En multi-tenant-plattform med asynkron jobbkö och säkerhet på radnivå.", // REVIEW-SV
-          value: "132",
-          label: "endpoints i REST-API:et i FastAPI som jag byggde, på Metaviz", // REVIEW-SV
+          steps: ["API-anrop", "Jobbkö", "Worker", "Data per kund"], // REVIEW-SV
           items: ["FastAPI", "Celery", "Redis", "PostgreSQL", "Supabase", "pytest"],
         },
         {
           id: "docai",
           title: "Dokument-AI", // REVIEW-SV
           body: "OCR och strukturerad extraktion som granskar bygghandlingar inom fem discipliner.", // REVIEW-SV
-          value: "~80 %",
-          label: "mindre manuell granskningstid per ritning, på Metaviz", // REVIEW-SV
+          steps: ["Ritning som PDF", "OCR", "Strukturerad extraktion", "Regelkontroll", "Granskaren godkänner"], // REVIEW-SV
           items: ["AWS Textract", "Strukturerade svar", "Granskningsgränssnitt i Next.js"], // REVIEW-SV
         },
         {
           id: "cost",
           title: "Kostnadskontroll", // REVIEW-SV
           body: "Modellkostnaden per dokument har ett tak i orkestreringslagret.", // REVIEW-SV
-          value: "15 $",
-          label: "tak för LLM-kostnad per dokument, på Metaviz", // REVIEW-SV
           items: ["Kostnadsstyrd orkestrering", "Prompt-cachning"], // REVIEW-SV
         },
         {
