@@ -291,7 +291,7 @@ export const en = {
     meta: ["Haisem N., AI engineer", "Stockholm · MSc AI and Language"],
     title: "I build AI systems end to end, and check them before they go live.",
     intro:
-      "AI/ML engineer in Stockholm. I ship LLM products end to end: RAG, multi-agent systems, voice AI and full-stack apps. Part-time now (up to 15 h/week); full-time availability to discuss.",
+      "AI/ML engineer in Stockholm. I ship LLM products end to end: RAG, multi-agent systems, voice AI and full-stack apps.",
     cv: "Download CV (PDF)",
     readCase: "Read the case study",
     toc: { label: "On this page", nav: "Sections of this page" },
@@ -306,7 +306,6 @@ export const en = {
       facts: [
         { k: "Last role", v: "AI engineer, Metaviz (Jul 2025 – Aug 2026)" },
         { k: "Now", v: "MSc AI and Language, Stockholm University" },
-        { k: "Availability", v: "Part-time now (up to 15 h/week); full-time availability to discuss" },
         { k: "Work permit", v: "Eligible to work in Sweden (residence permit for studies)" },
         { k: "Languages", v: "English (fluent), Urdu (native), Swedish (beginner)" },
       ],

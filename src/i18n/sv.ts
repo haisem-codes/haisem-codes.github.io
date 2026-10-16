@@ -292,7 +292,7 @@ export const sv = {
     meta: ["Haisem N., AI-ingenjör", "Stockholm · master i AI och språk"], // REVIEW-SV
     title: "Jag bygger hela AI-system och testar dem före lansering.", // REVIEW-SV
     intro:
-      "AI/ML-ingenjör i Stockholm. Jag bygger LLM-produkter från början till slut: RAG, multiagentsystem, röst-AI och fullstack-appar. Deltid nu (upp till 15 h/vecka), heltid kan diskuteras.", // REVIEW-SV
+      "AI/ML-ingenjör i Stockholm. Jag bygger LLM-produkter från början till slut: RAG, multiagentsystem, röst-AI och fullstack-appar.", // REVIEW-SV
     cv: "Ladda ner CV (PDF)",
     readCase: "Läs fallstudien", // REVIEW-SV
     toc: { label: "På den här sidan", nav: "Avsnitt på sidan" }, // REVIEW-SV
@@ -307,7 +307,6 @@ export const sv = {
       facts: [
         { k: "Senaste roll", v: "AI-ingenjör, Metaviz (jul 2025 – aug 2026)" }, // REVIEW-SV
         { k: "Nu", v: "Master i AI och språk, Stockholms universitet" }, // REVIEW-SV
-        { k: "Tillgänglighet", v: "Deltid nu (upp till 15 h/vecka), heltid kan diskuteras" }, // REVIEW-SV
         { k: "Arbetstillstånd", v: "Får arbeta i Sverige (uppehållstillstånd för studier)" }, // REVIEW-SV
         { k: "Språk", v: "Engelska (flytande), urdu (modersmål), svenska (nybörjare)" }, // REVIEW-SV
       ],
