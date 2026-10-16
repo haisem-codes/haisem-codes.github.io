@@ -12,7 +12,7 @@ export function About({ dict }: { dict: Dictionary["about"]; lang: Locale }) {
     <section id="about" className="scroll-mt-24 px-6 pt-16 pb-20 sm:pt-20 sm:pb-28">
       <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-12 lg:gap-x-16">
         <figure className="rise relative mx-auto w-full max-w-md lg:sticky lg:top-28 lg:col-span-5 lg:mx-0 lg:max-w-none lg:self-start">
-          <div className="duotone relative aspect-[4/5] overflow-hidden rounded-[2rem]">
+          <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] bg-bg-card">
             <picture>
               <source type="image/avif" srcSet={srcSet("avif")} sizes={SIZES} />
               <img

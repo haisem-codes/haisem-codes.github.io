@@ -511,35 +511,6 @@ html.dark .night-band {
   }
 }
 
-/* ── Duotone portrait: greyscale photo multiplied onto the light tone, shadows lifted to the dark tone ── */
-.duotone {
-  --duo-light: #E0F2FE;
-  --duo-dark: #0B4A6F;
-  position: relative;
-  isolation: isolate;
-  background: var(--duo-light);
-}
-/* Night: ink shadows, ice highlights capped below full brightness, extra contrast so the face keeps its depth */
-.dark .duotone {
-  --duo-light: #6FC2EC;
-  --duo-dark: #04121C;
-}
-.dark .duotone img {
-  filter: grayscale(1) contrast(1.32) brightness(0.86);
-}
-.duotone img {
-  filter: grayscale(1) contrast(1.12) brightness(1.04);
-  mix-blend-mode: multiply;
-}
-.duotone::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--duo-dark);
-  mix-blend-mode: lighten;
-  pointer-events: none;
-}
-
 /* ── Testimonial captions in the site type ── */
 /* Compact so a two-line cue stays in the bottom band, below the speaker's face (cues carry line:-1) */
 .testimonial-video::cue {
