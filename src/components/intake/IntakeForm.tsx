@@ -3,12 +3,13 @@ import { useCallback, useEffect, useRef, useState, type FormEvent } from "react"
 import { m } from "motion/react";
 import { getLenis } from "@/components/providers/LenisProvider";
 import { OPTIONS, STEPS, type IntakeAnswers } from "@/lib/intake/schema";
-import { validateIntake, validateStep } from "@/lib/intake/validate";
+import { validateIntake } from "@/lib/intake/validate";
 import { buildMailtoSummary } from "@/lib/intake/mailto";
 import { track } from "@/lib/analytics";
 import { localHref, type Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n";
-import { StepFields, fieldId, visibleFields, type FieldErrors } from "./StepFields";
+import { stepIssues, type FieldErrors } from "@/lib/intake/step";
+import { StepFields, fieldId } from "./StepFields";
 
 type Answers = Partial<IntakeAnswers>;
 type Status = "idle" | "sending" | "error" | "offline" | "done";
@@ -270,11 +271,7 @@ export function IntakeForm({ dict, lang }: { dict: Dictionary["intake"]; lang: L
   function onSubmit(e: FormEvent) {
     e.preventDefault();
     if (status === "sending") return;
-    const found = validateStep(current.id, answers);
-    const stepErrors = Object.fromEntries(
-      visibleFields(current.fields, answers).filter((f) => found[f]).map((f) => [f, found[f]]),
-    ) as FieldErrors;
-    const first = visibleFields(current.fields, answers).find((f) => stepErrors[f]);
+    const { errors: stepErrors, first } = stepIssues(current.id, current.fields, answers);
     if (first) {
       pendingFocus.current = first;
       setErrors(stepErrors);
@@ -284,29 +281,33 @@ export function IntakeForm({ dict, lang }: { dict: Dictionary["intake"]; lang: L
     else goTo(step + 1);
   }
 
-  const progress = status === "done" ? 100 : 10 + (90 * step) / total;
+  const ready = stepIssues(current.id, current.fields, answers).first === null;
   const stepLabel = dict.step.replace("{n}", String(step + 1)).replace("{total}", String(total));
 
   if (status === "done") {
     return (
-      <div ref={rootRef} className="rounded-[2rem] border border-border bg-bg-card px-6 py-12 sm:px-12 sm:py-16" aria-live="polite">
-        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-button text-xl text-button-text" aria-hidden>✓</div>
-        <h2 ref={headingRef} tabIndex={-1} className="mt-6 font-display text-3xl font-semibold tracking-tight text-text outline-none sm:text-4xl">
+      <div ref={rootRef} className="border border-border-hover border-t-2 border-t-accent bg-bg-card px-6 py-12 sm:px-12 sm:py-16" aria-live="polite">
+        <div className="flex size-12 items-center justify-center bg-button text-button-text" aria-hidden>
+          <svg viewBox="0 0 16 16" className="size-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square">
+            <path d="M3 8.5l3.2 3L13 4.5" />
+          </svg>
+        </div>
+        <h2 ref={headingRef} tabIndex={-1} className="mt-8 font-display text-4xl leading-[1.02] font-bold tracking-[-0.03em] text-balance text-text outline-none sm:text-5xl">
           {dict.successTitle}
         </h2>
-        <p className="mt-4 max-w-md text-lg leading-relaxed text-text-secondary">{dict.successBody}</p>
+        <p className="mt-5 max-w-md text-lg leading-relaxed text-text-secondary">{dict.successBody}</p>
       </div>
     );
   }
 
   return (
-    <div ref={rootRef} className="rounded-[2rem] border border-border bg-bg-card px-5 py-8 sm:px-12 sm:py-12">
-      <div className="flex items-center justify-between gap-4 text-sm text-text-secondary">
-        <span aria-live="polite">{stepLabel}</span>
-      </div>
-      <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-border" aria-hidden>
-        <div className="h-full rounded-full bg-accent transition-[width] duration-500 ease-out motion-reduce:transition-none" style={{ width: `${progress}%` }} />
-      </div>
+    <div ref={rootRef} className="border border-border-hover bg-bg-card px-5 py-7 sm:px-10 sm:py-10">
+      <p className="font-mono text-xs tracking-[0.18em] text-text-secondary uppercase" aria-live="polite">{stepLabel}</p>
+      <ol className="mt-3 grid gap-1" style={{ gridTemplateColumns: `repeat(${total}, minmax(0, 1fr))` }} aria-hidden>
+        {STEPS.map((s, i) => (
+          <li key={s.id} className={`h-[3px] transition-colors duration-300 motion-reduce:transition-none ${i <= step ? "bg-accent" : "bg-border-hover"}`} />
+        ))}
+      </ol>
 
       <form noValidate onSubmit={onSubmit} aria-labelledby={headingId} className="mt-8">
         <m.div
@@ -320,7 +321,7 @@ export function IntakeForm({ dict, lang }: { dict: Dictionary["intake"]; lang: L
             id={headingId}
             ref={headingRef}
             tabIndex={-1}
-            className="mb-8 font-display text-2xl leading-tight font-semibold tracking-tight text-balance text-text outline-none sm:text-3xl"
+            className="mb-9 font-display text-[1.75rem] leading-[1.08] font-bold tracking-[-0.025em] text-balance text-text outline-none sm:text-[2.25rem]"
           >
             {dict.steps[current.id].q}
           </h2>
@@ -347,19 +348,19 @@ export function IntakeForm({ dict, lang }: { dict: Dictionary["intake"]; lang: L
         </m.div>
 
         {status === "error" && (
-          <p role="alert" className="mt-6 rounded-2xl border border-danger/40 px-4 py-3 text-base text-text">
+          <p role="alert" className="mt-6 border border-danger/50 border-l-2 border-l-danger px-4 py-3 text-base text-text">
             {dict.error}{" "}
             <a href={`mailto:${EMAIL}`} className="font-medium text-accent underline underline-offset-4">{EMAIL}</a>
           </p>
         )}
 
         {status === "offline" && (
-          <div role="status" className="mt-6 rounded-2xl border border-border px-5 py-5">
+          <div role="status" className="mt-6 border border-border-hover border-l-2 border-l-accent px-5 py-5">
             <p className="font-display text-lg font-semibold text-text">{dict.offlineTitle}</p>
             <p className="mt-2 text-base leading-relaxed text-text-secondary">{dict.offlineBody}</p>
             <a
               href={mailto}
-              className="mt-4 inline-flex min-h-[48px] items-center gap-2 rounded-full border border-accent px-6 text-base font-medium text-accent transition-colors hover:bg-button hover:text-button-text focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+              className="mt-4 inline-flex min-h-[48px] items-center gap-2 border border-accent px-6 text-base font-medium text-accent transition-colors hover:bg-button hover:text-button-text focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
             >
               {dict.offlineButton}
               <span aria-hidden>→</span>
@@ -367,11 +368,12 @@ export function IntakeForm({ dict, lang }: { dict: Dictionary["intake"]; lang: L
           </div>
         )}
 
-        <div className="mt-10 flex flex-row-reverse items-center justify-between gap-4">
+        <div className="mt-10 flex flex-row-reverse items-center justify-between gap-4 border-t border-border pt-6">
           <button
             type="submit"
             disabled={status === "sending"}
-            className="inline-flex min-h-[52px] items-center gap-2 rounded-full bg-button px-8 text-base font-medium text-button-text transition-[filter] hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent disabled:opacity-70"
+            aria-disabled={!ready || undefined}
+            className="inline-flex min-h-[52px] items-center gap-2 border border-button bg-button px-8 text-base font-medium text-button-text transition-[filter,background-color,color,border-color] hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent disabled:opacity-70 aria-disabled:cursor-not-allowed aria-disabled:border-text-secondary/70 aria-disabled:bg-transparent aria-disabled:text-text-secondary aria-disabled:hover:brightness-100"
           >
             {status === "sending" ? dict.sending : isLast ? dict.submit : dict.next}
             {status !== "sending" && <span aria-hidden>→</span>}
@@ -380,7 +382,7 @@ export function IntakeForm({ dict, lang }: { dict: Dictionary["intake"]; lang: L
             <button
               type="button"
               onClick={() => goTo(step - 1)}
-              className="inline-flex min-h-[44px] items-center gap-2 rounded-full px-4 text-base font-medium text-text-secondary transition-colors hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              className="-ml-2 inline-flex min-h-[44px] items-center gap-2 px-2 text-base font-medium text-text-secondary transition-colors hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
             >
               <span aria-hidden>←</span>
               {dict.back}

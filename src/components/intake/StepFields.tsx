@@ -2,11 +2,11 @@
 import type { ReactNode } from "react";
 import { OPTIONS, type IntakeAnswers, type StepId } from "@/lib/intake/schema";
 import type { Dictionary } from "@/i18n";
+import { visibleFields, type FieldErrors } from "@/lib/intake/step";
 import { Chips } from "./Chips";
 
 type Field = keyof IntakeAnswers;
 type Answers = Partial<IntakeAnswers>;
-export type FieldErrors = Partial<Record<Field, "required" | "invalid">>;
 type Dict = Dictionary["intake"];
 type OptionField = keyof Dict["options"];
 
@@ -25,10 +25,6 @@ export const fieldId = (f: Field) => `intake-${f}`;
 const labelId = (f: Field) => `intake-${f}-label`;
 const errorId = (f: Field) => `intake-${f}-error`;
 const hintId = (f: Field) => `intake-${f}-hint`;
-
-export function visibleFields(fields: readonly Field[], a: Answers): Field[] {
-  return fields.filter((f) => a.goal === "website" || (f !== "websiteState" && f !== "websiteNeeds"));
-}
 
 type Props = {
   step: StepId;
@@ -70,8 +66,8 @@ export function StepFields({ step, fields, answers, errors, dict, headingId, set
       "aria-describedby": describedBy,
       "aria-invalid": invalid || undefined,
       className:
-        "mt-3 block w-full rounded-2xl border bg-bg-card px-4 py-3 text-base text-text placeholder:text-text-secondary/60 transition-colors focus-visible:border-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent " +
-        (invalid ? "border-danger" : "border-border-hover"),
+        "mt-3 block w-full border bg-bg px-4 py-3 text-base text-text placeholder:text-text-secondary/60 transition-colors hover:border-text focus-visible:border-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent " +
+        (invalid ? "border-danger" : "border-text-secondary/70"),
     };
     if (f === "notes") {
       return <textarea {...base} rows={4} maxLength={2000} onChange={(e) => set(f, e.target.value)} />;
@@ -92,7 +88,7 @@ export function StepFields({ step, fields, answers, errors, dict, headingId, set
   }
 
   return (
-    <div className="space-y-9">
+    <div className="space-y-10">
       {shown.map((f) => {
         const isGoal = f === "goal";
         const lblId = isGoal ? headingId : labelId(f);
@@ -114,7 +110,8 @@ export function StepFields({ step, fields, answers, errors, dict, headingId, set
             )}
             {control(f, describedBy, invalid, lblId)}
             {invalid && (
-              <p id={errorId(f)} className="mt-2 text-sm font-medium text-danger">
+              <p id={errorId(f)} className="mt-2.5 flex items-center gap-2 text-sm font-medium text-danger">
+                <span aria-hidden className="inline-block size-1.5 shrink-0 bg-danger" />
                 {message(f)}
               </p>
             )}

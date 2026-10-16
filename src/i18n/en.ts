@@ -469,6 +469,7 @@ export const en = {
     },
   },
   intake: {
+    eyebrow: "Project intake",
     title: "Get your automation plan",
     sub: "Six short steps, about two minutes. I'll read every answer before we talk.",
     step: "Step {n} of {total}",

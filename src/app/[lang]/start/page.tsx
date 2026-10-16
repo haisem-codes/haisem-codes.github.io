@@ -27,13 +27,19 @@ export default async function StartPage({ params }: Props) {
   if (!isLocale(lang)) notFound();
   const { intake } = getDictionary(lang);
   return (
-    <main className="px-4 pt-32 pb-24 sm:px-6 sm:pt-40 sm:pb-32">
-      <div className="mx-auto max-w-2xl">
-        <h1 className="px-1 font-display text-4xl leading-[1.05] font-semibold tracking-tight text-balance text-text sm:text-6xl">
-          {intake.title}
-        </h1>
-        <p className="mt-5 px-1 text-lg leading-relaxed text-text-secondary">{intake.sub}</p>
-        <div className="mt-10 sm:mt-14">
+    <main className="px-6 pt-32 pb-24 sm:pt-40 sm:pb-32">
+      <div className="mx-auto grid max-w-6xl gap-10 sm:gap-14 lg:grid-cols-12 lg:gap-12">
+        <header className="lg:sticky lg:top-36 lg:col-span-5 lg:self-start">
+          <p className="font-mono text-xs tracking-[0.18em] text-text-secondary uppercase">{intake.eyebrow}</p>
+          <h1
+            className="mt-4 font-display leading-[1.02] font-bold tracking-[-0.03em] text-balance text-text"
+            style={{ fontSize: "clamp(2.5rem, 5vw, 4.25rem)" }}
+          >
+            {intake.title}
+          </h1>
+          <p className="mt-6 max-w-md text-lg leading-relaxed text-text-secondary">{intake.sub}</p>
+        </header>
+        <div className="lg:col-span-7">
           <IntakeForm dict={intake} lang={lang} />
         </div>
       </div>

@@ -17,6 +17,23 @@ type Props = {
 const NEXT_KEYS = new Set(["ArrowRight", "ArrowDown"]);
 const PREV_KEYS = new Set(["ArrowLeft", "ArrowUp"]);
 
+/** Fixed 16px slot so selecting never shifts the label: check when on, box (multi) or ring (single) when off. */
+function Mark({ on, multiple }: { on: boolean; multiple: boolean }) {
+  if (on) {
+    return (
+      <svg aria-hidden viewBox="0 0 16 16" className="size-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="square">
+        <path d="M3 8.5l3.2 3L13 4.5" />
+      </svg>
+    );
+  }
+  return (
+    <span
+      aria-hidden
+      className={`size-4 shrink-0 border border-text-secondary/70 transition-colors group-hover:border-accent ${multiple ? "" : "rounded-full"}`}
+    />
+  );
+}
+
 export function Chips(props: Props) {
   const { id, labelId, options, describedBy, invalid } = props;
   const refs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -62,15 +79,13 @@ export function Chips(props: Props) {
             tabIndex={i === tabStop ? 0 : -1}
             onClick={() => toggle(o.value)}
             onKeyDown={(e) => onKeyDown(e, i)}
-            className={`inline-flex min-h-[44px] items-center gap-2 rounded-full border px-4 py-2 text-left text-[15px] leading-snug transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${
+            className={`group inline-flex min-h-[44px] items-center gap-2.5 border py-2 pr-4 pl-3 text-left text-[15px] leading-snug transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${
               on
                 ? "border-button bg-button text-button-text"
-                : "border-border-hover bg-bg-card text-text hover:border-accent/60"
+                : "border-text-secondary/70 bg-bg-card text-text hover:border-accent hover:bg-accent-tint/40"
             }`}
           >
-            {props.multiple && (
-              <span aria-hidden className={`text-xs ${on ? "" : "text-text-secondary"}`}>{on ? "✓" : "+"}</span>
-            )}
+            <Mark on={on} multiple={Boolean(props.multiple)} />
             {o.label}
           </button>
         );

@@ -470,6 +470,7 @@ export const sv = {
     },
   },
   intake: {
+    eyebrow: "Projektförfrågan", // REVIEW-SV
     title: "Få din automationsplan",
     sub: "Sex korta steg, ungefär två minuter. Jag läser alla svar innan vi pratar.",
     step: "Steg {n} av {total}",
