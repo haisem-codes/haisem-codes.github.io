@@ -222,6 +222,8 @@ export const en = {
     problem: "The problem",
     solution: "The solution",
     result: "The result",
+    caseEyebrow: { problem: "Context", solution: "Approach", result: "Outcome" },
+    stack: "Stack",
     live: "Live demo",
     github: "GitHub",
     prev: "Previous project",

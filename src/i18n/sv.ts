@@ -223,6 +223,8 @@ export const sv = {
     problem: "Problemet",
     solution: "Lösningen",
     result: "Resultatet",
+    caseEyebrow: { problem: "Bakgrund", solution: "Angreppssätt", result: "Utfall" }, // REVIEW-SV
+    stack: "Teknik", // REVIEW-SV
     live: "Se livedemo", // REVIEW-SV
     github: "GitHub",
     prev: "Föregående projekt",
