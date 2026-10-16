@@ -463,11 +463,11 @@ export const projects: Project[] = [
     description:
       "A comprehensive nutrition-first mobile app, calorie counter, meal planner, and health tracker that helps users hit their fitness goals through AI-powered personalisation.",
     problem:
-      "People trying to lose weight or build muscle struggle with nutrition tracking. Existing apps required manual food entry, had generic meal plans, and didn't integrate with wearable devices. Users abandoned within 2 weeks.",
+      "People trying to lose weight or build muscle struggle with nutrition tracking. Existing apps required manual food entry, had generic meal plans, and didn't integrate with wearable devices.",
     solution:
       "Flutter mobile with AI-powered meal-plan generation that adapts to dietary preferences and goals. Barcode scanning for instant food logging, HealthKit / Google Fit / Fitbit sync for automatic activity tracking, custom macro calculations, recipe suggestions, and a social feed for community accountability. Subscription billing via Stripe + App Store.",
     result:
-      "Meal logging in under 30 seconds via barcode scanning (vs 2+ minutes manual entry). AI-generated meal plans achieve ~85% adherence vs ~40% for generic plans. Full wearable integration eliminates manual activity logging.",
+      "Barcode scanning replaces manual food entry, meal plans adapt to each user's preferences and goals, and wearable sync removes manual activity logging.",
     image: "/work/dietapp-1600.webp",
     techStack: [
       "Flutter",
