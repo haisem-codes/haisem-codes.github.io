@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!isLocale(lang)) return {};
   const d = getDictionary(lang);
   return {
-    title: d.meta.hireTitle,
+    title: d.meta.hireTab,
     description: d.meta.hireDescription,
     alternates: {
       canonical: localHref(lang, "/hire/"),

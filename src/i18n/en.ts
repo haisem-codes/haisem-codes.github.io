@@ -3,9 +3,11 @@ import { qualifyExcerpt } from "./hire-code";
 
 export const en = {
   meta: {
-    title: "Haisem N. | Applied AI Engineer, Stockholm",
+    title: "Haisem N. · AI Engineer",
+    shareTitle: "Haisem N. | Applied AI Engineer, Stockholm",
     description:
       "I started over to go deeper: from an AI engineering job in Lahore to an MSc in AI and Language in Stockholm. My story, my work, and where I'm headed.",
+    hireTab: "Case study · Haisem N.",
     hireTitle: "Haisem N. | Case study: a voice-agent system, end to end",
     hireDescription: "How I built a production voice-agent system: architecture, decisions and trade-offs, a simplified code excerpt, skills and research.",
   },
