@@ -65,7 +65,7 @@ export const projects: Project[] = [
     tagline:
       "Qualification, appointment-booking and CRM-update workflows for more than five business owners",
     outcome:
-      "AI callers that qualify new leads, book appointments and update the CRM, for more than five business owners.",
+      "AI callers that qualify new leads, schedule appointments and update the CRM, for more than five business owners.",
     description:
       "Built at Metaviz as a client project: voice-agent qualification, appointment-booking and CRM-update workflows using Retell, GoHighLevel, n8n, APIs and webhooks, for more than five business owners. Jake Wims (Founder, Acquire Growth AI) sold the service to US real-estate teams and a mortgage lender, and I rolled the template out as one agent for each business owner he signed.",
     problem:
@@ -85,13 +85,13 @@ export const projects: Project[] = [
       tagline:
         "Kvalificering, bokning och CRM-uppdateringar för fler än fem företagare", // REVIEW-SV
       outcome:
-        "AI som kvalificerar nya leads, bokar möten och uppdaterar CRM:et, för fler än fem företagare.", // REVIEW-SV
+        "AI som kvalificerar nya leads, lägger in möten och uppdaterar CRM:et, för fler än fem företagare.", // REVIEW-SV
       description:
         "Byggt på Metaviz som kundprojekt: röstagenter för kvalificering, mötesbokning och CRM-uppdateringar med Retell, GoHighLevel, n8n, API:er och webhooks, för fler än fem företagare. Jake Wims (grundare, Acquire Growth AI) sålde tjänsten till amerikanska mäklarteam och en bolångivare, och jag satte upp mallen som en agent för varje företagare han skrev avtal med.", // REVIEW-SV
       problem:
         "Nya leads från annonsformulär behöver ett snabbt återsamtal, och ett litet team hinner inte ringa alla. Generiska röstbotar tappar detaljerna i överlämningen till CRM:et.", // REVIEW-SV
       solution:
-        "En röstagent i Retell ringer varje ny lead från ett lokalt nummer, sammanfattar vad personen fyllde i, bedömer leadet som Hot, Warm eller Cold enligt regler kunden har godkänt och bokar direkt i GoHighLevel-kalendern via n8n. Efter samtalet skrivs anteckningar tillbaka till CRM:et, mejl går till leadet och teamet, och SMS eller uppföljningssekvenser startar om ingen svarar. Jag paketerade allt som en mall som går att klona, med varianter för mäklare och bolån, och en gemensam n8n-uppslagning som hälsar med rätt företagsnamn.", // REVIEW-SV
+        "En röstagent i Retell ringer varje ny lead från ett lokalt nummer, sammanfattar vad personen fyllde i, bedömer leadet som Hot, Warm eller Cold enligt regler kunden har godkänt och lägger in mötet direkt i GoHighLevel-kalendern via n8n. Efter samtalet skrivs anteckningar tillbaka till CRM:et, mejl går till leadet och teamet, och SMS eller uppföljningssekvenser startar om ingen svarar. Jag paketerade allt som en mall som går att klona, med varianter för mäklare och bolån, och en gemensam n8n-uppslagning som hälsar med rätt företagsnamn.", // REVIEW-SV
       result:
         "Fler än fem företagare betjänade från samma mall. Arkitekturen verifierades mot de riktiga API:erna i Retell, n8n och GoHighLevel, med en testplan på tio fall, en åtgärd av felklassade leads och en läcka av hälsningsfraser mellan kunder som spårades och åtgärdades i alla agenter.", // REVIEW-SV
     },

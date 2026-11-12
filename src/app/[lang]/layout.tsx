@@ -40,6 +40,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     icons: { icon: [{ url: "/favicon.svg", type: "image/svg+xml" }, { url: "/favicon.png", sizes: "32x32" }], apple: "/apple-touch-icon.png" },
     manifest: "/site.webmanifest",
     openGraph: { title: d.meta.title, description: d.meta.description, type: "website", locale: lang === "sv" ? "sv_SE" : "en_GB" },
+    twitter: { card: "summary", title: d.meta.title, description: d.meta.description },
   };
 }
 

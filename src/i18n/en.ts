@@ -3,14 +3,14 @@ import { qualifyExcerpt } from "./hire-code";
 
 export const en = {
   meta: {
-    title: "Haisem N. | Websites and AI automation, Stockholm",
+    title: "Haisem N. | Applied AI Engineer, Stockholm",
     description:
-      "I design and build websites, AI receptionists and automations that win Stockholm businesses more customers and save hours every week.",
-    hireTitle: "Haisem N. | AI engineer, Stockholm",
-    hireDescription: "AI/ML engineer in Stockholm: LLM products, RAG, voice AI and full-stack delivery.",
+      "I started over to go deeper: from an AI engineering job in Lahore to an MSc in AI and Language in Stockholm. My story, my work, and where I'm headed.",
+    hireTitle: "Haisem N. | Case study: a voice-agent system, end to end",
+    hireDescription: "How I built a production voice-agent system: architecture, decisions and trade-offs, a simplified code excerpt, skills and research.",
   },
   nav: {
-    work: "Work", about: "About", hire: "For employers", contact: "Get in touch", switchTo: "Svenska", menu: "Menu",
+    story: "Story", work: "Work", clients: "Clients", now: "Now", hire: "Case study", contact: "Get in touch", switchTo: "Svenska", menu: "Menu",
     nightMode: "Night mode",
     pullHint: "pull me",
   },
@@ -23,17 +23,9 @@ export const en = {
     ctaSecondary: "Get in touch",
     portraitAlt: "Portrait of Haisem N.",
   },
-  proof: {
-    label: "At a glance",
-    facts: [
-      { value: "5+", label: "businesses I built voice agents for" },
-      { value: "MSc", label: "AI and Language at Stockholm University" },
-      { value: "ACM", label: "Peer-reviewed survey in ACM Computing Surveys" },
-    ],
-  },
   jake: {
-    index: "01",
-    eyebrow: "Client stories",
+    index: "03",
+    eyebrow: "In their words",
     title: "AI follow\u2011up for a growing agency",
     intro:
       "Jake Wims started an agency selling AI lead follow-up to real-estate teams and a mortgage lender. I built the whole system for him: the voice agents, the CRM automations and the workflows between them.",
@@ -76,8 +68,8 @@ export const en = {
     transcriptNote: "Transcript, as spoken.",
   },
   work: {
-    index: "04",
-    eyebrow: "Selected work",
+    index: "02",
+    eyebrow: "What I've built",
     title: "Real systems, in production.",
     more: "More projects",
     categories: { business: "Business automation", products: "AI products", research: "Research" },
@@ -146,6 +138,35 @@ export const en = {
       { years: "2025–26", what: "AI engineer", where: "Metaviz, Lahore" },
       { years: "2026–", what: "MSc AI and Language", where: "Stockholm University" },
       { years: "2026", what: "Co-author", where: "ACM Computing Surveys" },
+    ],
+  },
+  now: {
+    index: "04",
+    eyebrow: "Now",
+    title: "Studying, researching, exploring.",
+    columns: [
+      { label: "Studying", body: "MSc AI and Language, Stockholm University, 2026–28." },
+      { label: "Researching", body: "Co-author, ACM Computing Surveys. Contributing to the growing body of AI research." },
+      { label: "Exploring", body: "Looking for AI engineering roles in Sweden, to keep learning from the field and stay current with how the best teams build." },
+    ],
+  },
+  goals: {
+    index: "05",
+    eyebrow: "Where I'm headed",
+    title: "Goals and interests.",
+    goalsLabel: "Goals",
+    goals: [
+      "Understand the systems I build from first principles.",
+      "Contribute to AI research.",
+      "Build AI that genuinely helps people.",
+      "One day, build something of my own.",
+    ],
+    interestsLabel: "Interests",
+    interests: [
+      "Voice AI and conversational agents",
+      "Language and large language models",
+      "Retrieval and multi-agent systems",
+      "Learning Swedish, one conversation at a time",
     ],
   },
   hire: {
@@ -326,19 +347,19 @@ export const en = {
   pageError: pageError.en,
   footer: {
     rights: "All rights reserved.",
-    tagline: "Websites and AI for Stockholm businesses.",
+    tagline: "Applied AI engineer. Studying in Stockholm.",
     navLabel: "Footer",
     place: "Stockholm · 59.33°N 18.07°E",
     localTime: "Local time",
   },
   cursor: { view: "View" },
   marquee: {
-    lead: "Let's build",
-    em: "yours",
-    label: "Let's build yours",
-    note: "Next step · 20 min · free",
-    sub: "One free 20-minute call. Within two days you have a plan and a fixed price.",
-    button: "Get in touch",
-    orEmail: "Or email",
+    lead: "Let's",
+    em: "talk.",
+    label: "Let's talk.",
+    sub: "If any of this resonates, whether you're building something, hiring or researching, I'd love to hear from you.",
+    button: "Email me",
+    linkedin: "LinkedIn",
+    cv: "Download CV",
   },
 };

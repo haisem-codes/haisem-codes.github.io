@@ -4,14 +4,14 @@ import { qualifyExcerpt } from "./hire-code";
 
 export const sv = {
   meta: {
-    title: "Haisem N. | Webbplatser och AI-automation, Stockholm",
+    title: "Haisem N. | Tillämpad AI-ingenjör, Stockholm",
     description:
-      "Jag designar och bygger webbplatser, AI-receptionister och automationer som ger Stockholmsföretag fler kunder och sparar timmar varje vecka.",
-    hireTitle: "Haisem N. | AI-ingenjör, Stockholm",
-    hireDescription: "AI/ML-ingenjör i Stockholm: LLM-produkter, RAG, röst-AI och fullstack-leverans.",
+      "Jag började om för att gå djupare: från ett jobb som AI-ingenjör i Lahore till en MSc i AI och språk i Stockholm. Min historia, mitt arbete och vart jag är på väg.",
+    hireTitle: "Haisem N. | Fallstudie: ett röstagentsystem, från början till slut",
+    hireDescription: "Så byggde jag ett röstagentsystem i produktion: arkitektur, beslut och avvägningar, ett förenklat kodutdrag, kompetenser och forskning.",
   },
   nav: {
-    work: "Projekt", about: "Om mig", hire: "För arbetsgivare", contact: "Hör av dig", switchTo: "English", menu: "Meny", // REVIEW-SV
+    story: "Berättelse", work: "Projekt", clients: "Kunder", now: "Nu", hire: "Fallstudie", contact: "Hör av dig", switchTo: "English", menu: "Meny", // REVIEW-SV
     nightMode: "Mörkt läge", // REVIEW-SV
     pullHint: "dra i mig", // REVIEW-SV
   },
@@ -24,22 +24,14 @@ export const sv = {
     ctaSecondary: "Hör av dig", // REVIEW-SV
     portraitAlt: "Porträtt av Haisem N.", // REVIEW-SV
   },
-  proof: {
-    label: "I korthet", // REVIEW-SV
-    facts: [
-      { value: "5+", label: "företag som jag byggt röstagenter för" }, // REVIEW-SV
-      { value: "MSc", label: "AI och språk vid Stockholms universitet" }, // REVIEW-SV
-      { value: "ACM", label: "Referentgranskad översikt i ACM Computing Surveys" }, // REVIEW-SV
-    ],
-  },
   jake: {
-    index: "01",
-    eyebrow: "Kundberättelser", // REVIEW-SV
+    index: "03",
+    eyebrow: "Med deras ord", // REVIEW-SV
     title: "AI-uppföljning för en växande byrå",
     intro:
       "Jake Wims startade en byrå som säljer AI-uppföljning av förfrågningar till mäklarteam och en bolåneförmedlare. Jag byggde hela systemet åt honom: röstagenterna, CRM-automationerna och flödena mellan dem.", // REVIEW-SV
     points: [
-      "En AI som ringer upp nya förfrågningar från Facebook-annonser, kvalificerar dem enligt regler Jake godkänt och bokar möten", // REVIEW-SV
+      "En AI som ringer upp nya förfrågningar från Facebook-annonser, kvalificerar dem enligt regler Jake godkänt och lägger in möten", // REVIEW-SV
       "En mall som kan klonas, byggd för hans kunder", // REVIEW-SV
       "Varje samtal sparas i GoHighLevel, med sammanfattningar till både den som hört av sig och teamet", // REVIEW-SV
     ],
@@ -149,6 +141,35 @@ export const sv = {
       { years: "2026", what: "Medförfattare", where: "ACM Computing Surveys" }, // REVIEW-SV
     ],
   },
+  now: {
+    index: "04",
+    eyebrow: "Nu", // REVIEW-SV
+    title: "Studerar, forskar, utforskar.", // REVIEW-SV
+    columns: [
+      { label: "Studerar", body: "MSc i AI och språk vid Stockholms universitet, 2026–28." }, // REVIEW-SV
+      { label: "Forskar", body: "Medförfattare i ACM Computing Surveys. Bidrar till det växande forskningsfältet inom AI." }, // REVIEW-SV
+      { label: "Utforskar", body: "Söker roller inom AI-utveckling i Sverige, för att fortsätta lära mig av branschen och hålla mig à jour med hur de bästa teamen bygger." }, // REVIEW-SV
+    ],
+  },
+  goals: {
+    index: "05",
+    eyebrow: "Vart jag är på väg", // REVIEW-SV
+    title: "Mål och intressen.", // REVIEW-SV
+    goalsLabel: "Mål", // REVIEW-SV
+    goals: [
+      "Förstå systemen jag bygger från grundprinciperna.", // REVIEW-SV
+      "Bidra till AI-forskningen.", // REVIEW-SV
+      "Bygga AI som på riktigt hjälper människor.", // REVIEW-SV
+      "En dag bygga något eget.", // REVIEW-SV
+    ],
+    interestsLabel: "Intressen", // REVIEW-SV
+    interests: [
+      "Röst-AI och konversationsagenter", // REVIEW-SV
+      "Språk och stora språkmodeller", // REVIEW-SV
+      "Retrieval och multiagentsystem", // REVIEW-SV
+      "Lära mig svenska, ett samtal i taget", // REVIEW-SV
+    ],
+  },
   hire: {
     meta: ["Haisem N., AI-ingenjör", "Stockholm · master i AI och språk"], // REVIEW-SV
     title: "Jag bygger hela AI-system och testar dem före lansering.", // REVIEW-SV
@@ -180,18 +201,18 @@ export const sv = {
       title: "Så byggde jag Jakes system med röstagenter", // REVIEW-SV
       intro:
         "Jake Wims (Grundare, Acquire Growth AI) säljer AI-uppföljning av leads till amerikanska fastighetsmäklarteam och en bolångivare. Jag byggde hela systemet på Metaviz: röstagenterna, automationerna i GoHighLevel och n8n-flödena mellan dem.", // REVIEW-SV
-      diagramLabel: "Arkitektur: från nytt lead till bokat samtal", // REVIEW-SV
+      diagramLabel: "Arkitektur: från nytt lead till schemalagt samtal", // REVIEW-SV
       nodes: [
         { title: "Facebook-formulär", sub: "Ett nytt lead" }, // REVIEW-SV
         { title: "GoHighLevel", sub: "Kontakt och pipeline" }, // REVIEW-SV
         { title: "Röstagent", sub: "Ringer och kvalificerar" }, // REVIEW-SV
         { title: "n8n-verktyg", sub: "Uppslag och bokning" }, // REVIEW-SV
-        { title: "GHL-kalender", sub: "Bokat, sparat i CRM" }, // REVIEW-SV
+        { title: "GHL-kalender", sub: "Schemalagt, sparat i CRM" }, // REVIEW-SV
         { title: "Uppföljning", sub: "Mejl, sms, nurture" }, // REVIEW-SV
       ],
       liveLabel: "AI",
       caption:
-        "Ett lead från Facebook hamnar i GoHighLevel. Röstagenten i Retell ringer från ett lokalt nummer, sammanfattar formuläret och kvalificerar leadet som Hot, Warm eller Cold efter regler som kunden godkänt. Den bokar via n8n-verktyg i GoHighLevel-kalendern, varje samtal sparas i CRM:et, och den som inte svarar får sms och nurture-sekvenser.", // REVIEW-SV
+        "Ett lead från Facebook hamnar i GoHighLevel. Röstagenten i Retell ringer från ett lokalt nummer, sammanfattar formuläret och kvalificerar leadet som Hot, Warm eller Cold efter regler som kunden godkänt. Den schemalägger via n8n-verktyg i GoHighLevel-kalendern, varje samtal sparas i CRM:et, och den som inte svarar får sms och nurture-sekvenser.", // REVIEW-SV
       notes: [
         { k: "Mall", v: "Byggd som en mall att klona, med varianter för fastighet och bolån, och använd för fem eller fler kunders konton." }, // REVIEW-SV
         { k: "Hälsning", v: "Ett gemensamt inkommande uppslag i n8n väljer företagets hälsning för varje telefonnummer." }, // REVIEW-SV
@@ -216,7 +237,7 @@ export const sv = {
           tradeoff: "Mindre nyans: ett ovanligt lead går den strikta vägen.", // REVIEW-SV
         },
         {
-          decision: "Boka via n8n-verktyg, inte direkt från agenten", // REVIEW-SV
+          decision: "Schemalägg via n8n-verktyg, inte direkt från agenten", // REVIEW-SV
           why: "Kalenderåtkomst och skrivningar till CRM ligger i flöden som kan testas för sig.", // REVIEW-SV
           tradeoff: "Ett steg till mellan samtalet och kalendern.", // REVIEW-SV
         },
@@ -277,7 +298,7 @@ export const sv = {
         {
           id: "voice",
           title: "Röst-AI", // REVIEW-SV
-          body: "Röstagenter som ringer, kvalificerar och bokar, kopplade till CRM:et.", // REVIEW-SV
+          body: "Röstagenter som ringer, kvalificerar och schemalägger, kopplade till CRM:et.", // REVIEW-SV
           items: ["Retell AI", "ElevenLabs", "LiveKit", "Deepgram", "Twilio", "n8n", "GoHighLevel"],
         },
         {
@@ -327,19 +348,19 @@ export const sv = {
   pageError: pageError.sv,
   footer: {
     rights: "Alla rättigheter förbehållna.",
-    tagline: "Webbplatser och AI för företag i Stockholm.", // REVIEW-SV
+    tagline: "Tillämpad AI-ingenjör. Pluggar i Stockholm.", // REVIEW-SV
     navLabel: "Sidfot", // REVIEW-SV
     place: "Stockholm · 59,33°N 18,07°E", // REVIEW-SV
     localTime: "Lokal tid", // REVIEW-SV
   },
   cursor: { view: "Visa" }, // REVIEW-SV
   marquee: {
-    lead: "Nu bygger vi", // REVIEW-SV
-    em: "ditt nästa steg", // REVIEW-SV
-    label: "Nu bygger vi ditt nästa steg", // REVIEW-SV
-    note: "Steg ett · 20 min · gratis", // REVIEW-SV
-    sub: "Ett gratis samtal på 20 minuter. Inom två dagar har du en plan och ett fast pris.", // REVIEW-SV
-    button: "Hör av dig", // REVIEW-SV
-    orEmail: "Eller mejla",
+    lead: "Hör",
+    em: "av dig.", // REVIEW-SV
+    label: "Hör av dig.", // REVIEW-SV
+    sub: "Om något av det här känns igen, oavsett om du bygger något, rekryterar eller forskar, hör jag gärna från dig.", // REVIEW-SV
+    button: "Mejla mig", // REVIEW-SV
+    linkedin: "LinkedIn",
+    cv: "Ladda ner CV", // REVIEW-SV
   },
 } satisfies Dictionary;

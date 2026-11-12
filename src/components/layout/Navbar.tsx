@@ -117,7 +117,7 @@ export function Navbar({ dict, lang }: { dict: Dictionary["nav"]; lang: Locale }
       setActiveId(null);
       return;
     }
-    const els = ["work", "story"].map((id) => document.getElementById(id)).filter((el): el is HTMLElement => !!el);
+    const els = ["story", "work", "clients", "now"].map((id) => document.getElementById(id)).filter((el): el is HTMLElement => !!el);
     if (!els.length) return;
     const visible = new Set<string>();
     const io = new IntersectionObserver(
@@ -135,8 +135,10 @@ export function Navbar({ dict, lang }: { dict: Dictionary["nav"]; lang: Locale }
   }, [isHome]);
 
   const links = [
+    { id: "story", label: dict.story },
     { id: "work", label: dict.work },
-    { id: "story", label: dict.about },
+    { id: "clients", label: dict.clients },
+    { id: "now", label: dict.now },
   ];
 
   const handleAnchor = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {

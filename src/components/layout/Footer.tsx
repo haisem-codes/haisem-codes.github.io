@@ -36,8 +36,10 @@ const MONO = "font-mono text-[11px] tracking-[0.16em] uppercase";
 
 export function Footer({ dict, nav, lang }: { dict: Dictionary["footer"]; nav: Dictionary["nav"]; lang: Locale }) {
   const links = [
+    { href: localHref(lang, "/#story"), label: nav.story },
     { href: localHref(lang, "/#work"), label: nav.work },
-    { href: localHref(lang, "/#story"), label: nav.about },
+    { href: localHref(lang, "/#clients"), label: nav.clients },
+    { href: localHref(lang, "/#now"), label: nav.now },
     { href: localHref(lang, "/hire/"), label: nav.hire },
   ];
   return (
