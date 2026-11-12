@@ -31,7 +31,6 @@ export function FooterMarquee({ dict, lang }: { dict: Dictionary["marquee"]; lan
         href={start}
         tabIndex={-1}
         aria-hidden
-        data-cursor="book"
         className="group block py-2 font-display leading-[1] font-bold tracking-[-0.04em]"
       >
         <span className="velocity marquee-track flex w-max">

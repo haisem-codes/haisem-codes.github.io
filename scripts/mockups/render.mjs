@@ -25,13 +25,7 @@ const SCENES = {
   aitools: "ai-tools-suite",
   video: "ai-video-pipeline",
   dietapp: "dietapp",
-  "before-site": "before-site",
-  "after-site": "after-site",
-  "before-phone": "before-phone",
-  "after-phone": "after-phone",
 };
-/** Scenes that are not 1600×1000 (the phone scenes are 4:5). */
-const SIZES = { "before-phone": { width: 800, height: 1000 }, "after-phone": { width: 800, height: 1000 } };
 const THEMES = { light: "", night: "-night" };
 const WIDTHS = [800, 1600];
 const VIEWPORT = { width: 1600, height: 1000 };
@@ -73,7 +67,7 @@ try {
 
   for (const name of names) {
     const slug = SCENES[name];
-    const size = SIZES[name] ?? VIEWPORT;
+    const size = VIEWPORT;
     await page.setViewport({ ...size, deviceScaleFactor: DPR });
     const entry = { w: size.width, h: size.height };
     for (const [theme, suffix] of Object.entries(THEMES)) {

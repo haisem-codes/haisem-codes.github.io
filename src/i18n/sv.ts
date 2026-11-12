@@ -11,7 +11,7 @@ export const sv = {
     hireDescription: "AI/ML-ingenjör i Stockholm: LLM-produkter, RAG, röst-AI och fullstack-leverans.",
   },
   nav: {
-    services: "Tjänster", work: "Projekt", about: "Om mig", hire: "För arbetsgivare", contact: "Hör av dig", switchTo: "English", menu: "Meny", // REVIEW-SV
+    work: "Projekt", about: "Om mig", hire: "För arbetsgivare", contact: "Hör av dig", switchTo: "English", menu: "Meny", // REVIEW-SV
     nightMode: "Mörkt läge", // REVIEW-SV
     pullHint: "dra i mig", // REVIEW-SV
   },
@@ -22,29 +22,7 @@ export const sv = {
     titleAccent: "när du inte gör det.", // REVIEW-SV
     sub: "Jag designar och bygger webbplatser, AI-receptionister och automationer för företag i Stockholm, och tar hand om dem när de är i drift.", // REVIEW-SV
     ctaPrimary: "Hör av dig",
-    ctaSecondary: "Testa AI-receptionisten ↓", // REVIEW-SV
-  },
-  demoPhone: {
-    business: "Salong Åsa",
-    demoLabel: "demo",
-    liveLabel: "Live",
-    ariaLabel: "Demokonversation: en AI-receptionist bokar en klippning åt en påhittad salong.", // REVIEW-SV
-    messages: {
-      ask: "Hej! Kan jag boka en klippning på lördag?", // REVIEW-SV
-      offer: "Absolut. På lördag finns de här tiderna:", // REVIEW-SV
-      pick: "13:00 tack", // REVIEW-SV
-      booked: "Bokat ✓ Du får en sms-påminnelse på fredag.", // REVIEW-SV
-    },
-    slots: ["10:30", "13:00", "15:45"],
-    crm: {
-      title: "CRM · ny förfrågan", // REVIEW-SV
-      status: "Status",
-      statusValue: "Bokad · lör 13:00", // REVIEW-SV
-      reply: "Svarstid", // REVIEW-SV
-      replyValue: "4 sekunder",
-      summary: "Sammanfattning",
-      summaryValue: "Mejlad till Åsa", // REVIEW-SV
-    },
+    ctaSecondary: "Se mina projekt ↓", // REVIEW-SV
   },
   proof: {
     label: "I korthet", // REVIEW-SV
@@ -53,110 +31,6 @@ export const sv = {
       { value: "MSc", label: "AI och språk vid Stockholms universitet" }, // REVIEW-SV
       { value: "ACM", label: "Referentgranskad översikt i ACM Computing Surveys" }, // REVIEW-SV
     ],
-  },
-  services: {
-    index: "02",
-    eyebrow: "Tjänster",
-    title: "Så hjälper jag ditt företag att växa",
-    pricing: "Fast pris, som vi kommer överens om efter ett gratis samtal.",
-    exampleNote: "Den här sajten är ett exempel", // REVIEW-SV
-    leadWord: "Webb", // REVIEW-SV
-    teaser: "Se före och efter", // REVIEW-SV
-    teaserLabel: "Före / efter", // REVIEW-SV
-    items: [
-      {
-        id: "website",
-        title: "En webbplats som ger kunder",
-        problem: "Sidan ser gammal ut, är krånglig i mobilen eller så bokar ingen via den.",
-        get: [
-          "Snabb, modern design på svenska och engelska",
-          "Onlinebokning och kontaktformulär som hamnar i din inkorg eller ditt CRM",
-          "Byggd för att synas på Google",
-        ],
-        time: "Oftast 2–3 veckor",
-      },
-      {
-        id: "receptionist",
-        title: "En AI-receptionist som aldrig missar ett samtal",
-        problem: "Samtal blir obesvarade när du är upptagen med en kund, och ett missat samtal är ofta en missad bokning.",
-        get: [
-          "Svarar på samtal och vanliga frågor dygnet runt",
-          "Bokar, flyttar och bekräftar tider i din kalender",
-          "Skickar en kort sammanfattning av varje samtal",
-        ],
-        time: "Oftast 2 veckor",
-      },
-      {
-        id: "followup",
-        title: "Uppföljning av förfrågningar på autopilot", // REVIEW-SV
-        problem: "Förfrågningar från annonser, formulär och DM blir liggande i timmar, och då har de redan frågat någon annan.",
-        get: [
-          "Varje ny förfrågan besvaras inom några minuter via samtal, sms eller mejl", // REVIEW-SV
-          "Förfrågningar sorteras efter hur redo de är; de som är redo bokas in direkt", // REVIEW-SV
-          "Allt loggas i ditt CRM",
-        ],
-        time: "Oftast 2–3 veckor",
-      },
-      {
-        id: "admin",
-        title: "Mindre administration, mindre klipp och klistra",
-        problem: "Varje vecka går timmar till offerter, fakturor, inmatning och samma frågor om och om igen.",
-        get: [
-          "Mejl och dokument läses och sorteras automatiskt",
-          "Data flyttas mellan dina verktyg, till exempel Fortnox, Google och Excel, utan att skrivas om",
-          "En AI-assistent som svarar utifrån dina egna dokument",
-        ],
-        time: "Avgränsas i ett gratis samtal",
-      },
-    ],
-  },
-  controlRoom: {
-    index: "03",
-    eyebrow: "Kontrollrummet", // REVIEW-SV
-    title: "21.40. En förfrågan kommer in.", // REVIEW-SV
-    accent: "Du sover redan.", // REVIEW-SV
-    tryTitle: "Testa själv nu", // REVIEW-SV
-    kicker: "Välj ett företag och skriv det en kund skulle skicka sent på kvällen. Receptionisten svarar, bokar en tid och loggar förfrågan.", // REVIEW-SV
-    verticalsLabel: "Demoföretag", // REVIEW-SV
-    verticals: { salon: "Salong", clinic: "Klinik", trades: "Hantverkare", restaurant: "Restaurang" }, // REVIEW-SV
-    demoBadge: "Skriptad demo", // REVIEW-SV
-    tonight: "I kväll · 21.40", // REVIEW-SV
-    chatLabel: "Demochatt med en AI-receptionist", // REVIEW-SV
-    you: "Du",
-    bot: "Receptionisten", // REVIEW-SV
-    suggestionsLabel: "Förslag på meddelanden", // REVIEW-SV
-    placeholder: "Skriv som en kund …", // REVIEW-SV
-    inputLabel: "Ditt meddelande", // REVIEW-SV
-    send: "Skicka",
-    restart: "Börja om",
-    panelTitle: "Bakom kulisserna", // REVIEW-SV
-    waiting: "Väntar på en bokning", // REVIEW-SV
-    waitingHint: "Boka en tid i chatten och se vad som händer medan du sover.", // REVIEW-SV
-    panelJump: "Se vad som hände bakom kulisserna ↓", // REVIEW-SV
-    crm: { title: "CRM · ny förfrågan", status: "Status", service: "Tjänst", reply: "Svarstid i chatten", replyValue: "{n} s", source: "Källa", sourceValue: "Chatt på webbplatsen" }, // REVIEW-SV
-    timeline: { sms: "Sms skickat", calendar: "Kalendern uppdaterad", summary: "Sammanfattning mejlad" }, // REVIEW-SV
-    timelineAt: { sms: "0:04", calendar: "0:06", summary: "0:09" },
-    pendingTime: "–:––",
-    pendingValue: "–",
-    clock: "21.40", // REVIEW-SV
-  },
-  story: {
-    note: "Samma flöde som jag byggde åt en byrås amerikanska kunder, här med en påhittad salong.", // REVIEW-SV
-    steps: [
-      { title: "En förfrågan kommer in", body: "Någon fyller i ditt formulär eller din annons kl.\u00A021.40." }, // REVIEW-SV
-      { title: "AI:n ringer", body: "Inom några minuter ringer den upp, vet redan vad de svarat och frågar bara det som saknas." }, // REVIEW-SV
-      { title: "En bokning landar", body: "De som är redo väljer en tid direkt i din kalender." },
-      { title: "Ditt CRM uppdateras", body: "Anteckningar, taggar och ett sammanfattande mejl, innan du hunnit äta frukost." }, // REVIEW-SV
-    ],
-    clocks: ["21.40.00", "21.41.30", "21.43.20", "21.44.00"], // REVIEW-SV
-    ui: {
-      business: "Salong Åsa",
-      demo: "Demo",
-      form: { url: "salong-asa.example/boka", title: "Boka en tid", name: "Namn", phone: "Telefon", message: "Meddelande", nameValue: "Sara Lind", phoneValue: "070-123 45 67", messageValue: "Hej! Har ni en tid för färgning den här veckan?", send: "Skicka", sent: "Skickat" }, // REVIEW-SV
-      call: { calling: "Ringer…", connected: "Ansluten", caller: "AI-receptionist", line: "Hej Sara, det är Salong Åsa. Färgning den här veckan, var det? Torsdag kl. 10 är ledig." }, // REVIEW-SV
-      calendar: { title: "Den här veckan", days: ["Mån", "Tis", "Ons", "Tor", "Fre"], busy: "Bokad", service: "Färgning", client: "Sara L.", slot: "Tor 10.00", confirmed: "Bekräftelse skickad via sms" }, // REVIEW-SV
-      crm: { title: "CRM · förfrågningar", name: "Sara Lind", status: "Bokad", source: "Webbformulär", others: [["Jonas B.", "Kontaktad"], ["Mira K.", "Uppföljning"]], tags: ["färgning", "ny förfrågan"], summary: "Sammanfattning mejlad" }, // REVIEW-SV
-    },
   },
   jake: {
     index: "01",
@@ -229,38 +103,6 @@ export const sv = {
     next: "Nästa projekt",
     notFound: "Projektet hittades inte",
     englishOnly: "Det här caset finns bara på engelska.", // REVIEW-SV
-  },
-  beforeAfter: {
-    index: "05",
-    eyebrow: "Före och efter", // REVIEW-SV
-    title: "Samma salong. En webbplats som tar emot bokningar.", // REVIEW-SV
-    kicker: "En typisk webbplats för ett lokalt företag bredvid en ny design som tar emot bokningar och svarar på frågor.", // REVIEW-SV
-    concept: "Koncept", // REVIEW-SV
-    conceptNote: "Konceptdesign av en typisk lokal webbplats", // REVIEW-SV
-    before: "Före",
-    after: "Efter",
-    beforeAlt: "Föråldrad salongswebbplats med liten text, röriga spalter, en popup och ingen bokning på nätet", // REVIEW-SV
-    afterAlt: "Ny salongswebbplats med tydlig rubrik, bokning på nätet och en chattassistent", // REVIEW-SV
-    sliderLabel: "Jämför före och efter", // REVIEW-SV
-    valueText: "{before}\u00A0% före, {after}\u00A0% efter", // REVIEW-SV
-    hint: "Dra, eller använd piltangenterna", // REVIEW-SV
-    hintTouch: "Dra i reglaget", // REVIEW-SV
-    scoresLabel: "Exempelpoäng för fart och kvalitet", // REVIEW-SV
-    scoresNote: "Illustrativa siffror för en konceptdesign, inte en mätning. Mätarna följer jämförelsen.", // REVIEW-SV
-    from: "från",
-    dials: { performance: "Prestanda", accessibility: "Tillgänglighet", seo: "SEO" },
-    compareLabel: "Visa webbplatsen före eller efter", // REVIEW-SV
-  },
-  how: {
-    index: "06",
-    eyebrow: "Arbetsgång", // REVIEW-SV
-    title: "Så jobbar vi tillsammans",
-    steps: [
-      { day: "Dag 0", title: "20 min gratis samtal", body: "Du berättar hur verksamheten fungerar. Jag letar efter det som tar mest tid." }, // REVIEW-SV
-      { day: "Dag 2", title: "Förslag till fast pris", body: "En tydlig plan, ett pris och en tidsplan i skrift." }, // REVIEW-SV
-      { day: "Vecka 2", title: "Vi bygger, du testar löpande", body: "Du ser framstegen med några dagars mellanrum och testar själv." }, // REVIEW-SV
-      { day: "Live", title: "Överlämning och support", body: "Genomgång, dokumentation och en valfri månatlig supportplan." }, // REVIEW-SV
-    ],
   },
   about: {
     index: "07",
@@ -463,7 +305,7 @@ export const sv = {
     place: "Stockholm · 59,33°N 18,07°E", // REVIEW-SV
     localTime: "Lokal tid", // REVIEW-SV
   },
-  cursor: { view: "Visa", try: "Testa", book: "Boka" }, // REVIEW-SV
+  cursor: { view: "Visa" }, // REVIEW-SV
   marquee: {
     lead: "Nu bygger vi", // REVIEW-SV
     em: "ditt nästa steg", // REVIEW-SV

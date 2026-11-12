@@ -4,7 +4,6 @@ import { type Locale } from "@/i18n/config";
 import { personal } from "@/data/personal";
 import type { Dictionary } from "@/i18n";
 import { Magnetic } from "@/components/ui/Magnetic";
-import { DemoPhone } from "@/components/sections/DemoPhone";
 import { BulbCone } from "@/components/layout/BulbCone";
 
 const delay = (s: number) => ({ "--d": `${Number(s.toFixed(2))}s` }) as CSSProperties;
@@ -22,7 +21,7 @@ function Words({ text, accent, from }: { text: string; accent?: boolean; from: n
   ));
 }
 
-export function Hero({ dict, phone, lang }: { dict: Dictionary["hero"]; phone: Dictionary["demoPhone"]; lang: Locale }) {
+export function Hero({ dict }: { dict: Dictionary["hero"]; lang: Locale }) {
   return (
     <section className="relative isolate overflow-hidden px-6 pt-32 pb-20 sm:pt-40 lg:flex lg:min-h-[100svh] lg:items-center lg:pt-56 lg:pb-16">
       <BulbCone />
@@ -64,7 +63,7 @@ export function Hero({ dict, phone, lang }: { dict: Dictionary["hero"]; phone: D
               </a>
             </Magnetic>
             <a
-              href="#control-room"
+              href="#work"
               className="inline-flex min-h-[44px] items-center text-base font-medium text-text underline decoration-text-secondary decoration-1 underline-offset-[6px] transition-colors duration-[var(--dur-micro)] hover:decoration-accent focus-visible:rounded focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
             >
               {dict.ctaSecondary}
@@ -78,7 +77,7 @@ export function Hero({ dict, phone, lang }: { dict: Dictionary["hero"]; phone: D
             className="pointer-events-none absolute top-1/2 left-1/2 -z-10 h-[620px] w-[620px] -translate-x-1/2 -translate-y-1/2 rounded-full"
             style={{ background: "radial-gradient(closest-side, var(--color-glow), transparent)" }}
           />
-          <DemoPhone dict={phone} autoplay />
+          <div aria-hidden className="h-[560px] w-full max-w-[340px]" />
         </div>
       </div>
     </section>
