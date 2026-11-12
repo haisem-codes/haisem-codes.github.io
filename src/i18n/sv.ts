@@ -4,9 +4,11 @@ import { qualifyExcerpt } from "./hire-code";
 
 export const sv = {
   meta: {
-    title: "Haisem N. | Tillämpad AI-ingenjör, Stockholm",
+    title: "Haisem N. · AI-ingenjör",
+    shareTitle: "Haisem N. | Tillämpad AI-ingenjör, Stockholm",
     description:
       "Jag började om för att gå djupare: från ett jobb som AI-ingenjör i Lahore till en MSc i AI och språk i Stockholm. Min historia, mitt arbete och vart jag är på väg.",
+    hireTab: "Fallstudie · Haisem N.",
     hireTitle: "Haisem N. | Fallstudie: ett röstagentsystem, från början till slut",
     hireDescription: "Så byggde jag ett röstagentsystem i produktion: arkitektur, beslut och avvägningar, ett förenklat kodutdrag, kompetenser och forskning.",
   },
