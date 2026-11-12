@@ -151,7 +151,7 @@ function Conversation({ lang, dict, vertical, fresh }: { lang: Locale; dict: Dic
         )}
       </ChatCard>
       <PanelCard dict={dict} id={PANEL_ID}>
-        <PanelBody dict={dict} lang={lang} crm={crm} instant={instant} />
+        <PanelBody dict={dict} crm={crm} instant={instant} />
       </PanelCard>
     </>
   );

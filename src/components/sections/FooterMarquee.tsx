@@ -21,7 +21,7 @@ function Line({ dict }: { dict: Dictionary["marquee"] }) {
 
 /** Closing call to action: a kinetic outlined headline, then the one button the whole page leads to. */
 export function FooterMarquee({ dict, lang }: { dict: Dictionary["marquee"]; lang: Locale }) {
-  const start = localHref(lang, "/start/");
+  const start = `mailto:${personal.email}`;
   return (
     <section aria-labelledby="close-title" className="marquee-band overflow-x-clip border-t border-border pt-20 pb-24 sm:pt-28 sm:pb-32">
       <h2 id="close-title" className="sr-only">

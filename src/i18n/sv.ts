@@ -11,7 +11,7 @@ export const sv = {
     hireDescription: "AI/ML-ingenjör i Stockholm: LLM-produkter, RAG, röst-AI och fullstack-leverans.",
   },
   nav: {
-    services: "Tjänster", work: "Projekt", about: "Om mig", hire: "För arbetsgivare", start: "Boka samtal", switchTo: "English", menu: "Meny", // REVIEW-SV
+    services: "Tjänster", work: "Projekt", about: "Om mig", hire: "För arbetsgivare", contact: "Hör av dig", switchTo: "English", menu: "Meny", // REVIEW-SV
     nightMode: "Mörkt läge", // REVIEW-SV
     pullHint: "dra i mig", // REVIEW-SV
   },
@@ -21,7 +21,7 @@ export const sv = {
     titleLead: "AI som jobbar", // REVIEW-SV
     titleAccent: "när du inte gör det.", // REVIEW-SV
     sub: "Jag designar och bygger webbplatser, AI-receptionister och automationer för företag i Stockholm, och tar hand om dem när de är i drift.", // REVIEW-SV
-    ctaPrimary: "Boka ett gratis samtal",
+    ctaPrimary: "Hör av dig",
     ctaSecondary: "Testa AI-receptionisten ↓", // REVIEW-SV
   },
   demoPhone: {
@@ -139,8 +139,6 @@ export const sv = {
     pendingTime: "–:––",
     pendingValue: "–",
     clock: "21.40", // REVIEW-SV
-    cta: "Vill du ha det här i ditt företag?", // REVIEW-SV
-    ctaNote: "Svara på några frågor så visar jag hur det skulle fungera för dig.", // REVIEW-SV
   },
   story: {
     note: "Samma flöde som jag byggde åt en byrås amerikanska kunder, här med en påhittad salong.", // REVIEW-SV
@@ -281,12 +279,6 @@ export const sv = {
       { years: "2026", what: "Medförfattare, översikt", where: "ACM Computing Surveys" }, // REVIEW-SV
       { years: "Nu", what: "Svenska", where: "Nybörjare, lär mig" }, // REVIEW-SV
     ],
-  },
-  cta: {
-    title: "Berätta om ditt företag",
-    sub: "Sex korta frågor, ungefär två minuter. Jag svarar inom 24 timmar.",
-    button: "Börja",
-    orEmail: "Eller mejla",
   },
   hire: {
     meta: ["Haisem N., AI-ingenjör", "Stockholm · master i AI och språk"], // REVIEW-SV
@@ -463,71 +455,9 @@ export const sv = {
       orEmail: "Eller mejla",
     },
   },
-  intake: {
-    eyebrow: "Projektförfrågan", // REVIEW-SV
-    title: "Få din automationsplan",
-    sub: "Sex korta steg, ungefär två minuter. Jag läser alla svar innan vi pratar.",
-    step: "Steg {n} av {total}",
-    next: "Nästa",
-    back: "Tillbaka",
-    submit: "Skicka",
-    sending: "Skickar…",
-    required: "Svara gärna på den här.",
-    invalidEmail: "Mejladressen ser inte riktigt rätt ut.",
-    invalidWebsite: "Webbadressen ser inte riktigt rätt ut.",
-    whyBudget: "Varför jag frågar: så att mitt förslag passar. Lämna tomt om du är osäker.",
-    whyPhone: "Bara om du hellre vill att jag ringer.",
-    privacy: "Används bara för att förbereda vårt samtal. Raderas efter 12 månader om vi inte jobbar ihop.",
-    privacyLink: "Integritetspolicy",
-    successTitle: "Tack, jag har fått det.",
-    successBody: "Jag svarar inom 24 timmar med några förslag på tider för ett samtal.",
-    error: "Något gick fel. Mejla mig gärna i stället:",
-    offlineTitle: "Det går inte att skicka direkt härifrån än", // REVIEW-SV
-    offlineBody: "Tryck på knappen för att skicka dina svar via mejl. Din egen mejlapp öppnas med allt ifyllt.", // REVIEW-SV
-    offlineButton: "Skicka via mejl", // REVIEW-SV
-    steps: {
-      goal: { q: "Vad vill du helst uppnå just nu?" },
-      business: { q: "Om ditt företag", businessName: "Företagets namn", website: "Webbplats (valfritt)", industry: "Bransch", teamSize: "Antal anställda" },
-      time: { q: "Vart tar tiden vägen?", tasks: "Vilka uppgifter tar mest tid?", hours: "Ungefär hur många timmar i veckan, totalt?", enquiries: "Nya förfrågningar per vecka (valfritt)", websiteState: "Din webbplats i dag", websiteNeeds: "Vad saknas?" },
-      tools: { q: "Verktyg och kanaler", tools: "Vad använder ni i dag?", channels: "Hur når kunderna er?" },
-      plan: { q: "Tid och budget", budget: "Budget (valfritt)", timeline: "När vill du komma igång?", decision: "Vem bestämmer?", sensitive: "Gäller det hälso-, ekonomi- eller id-uppgifter?" },
-      contact: { q: "Hur når jag dig?", name: "Ditt namn", email: "Mejl", phone: "Telefon (valfritt)", callLang: "Språk för vårt samtal", notes: "Något mer? (valfritt)" },
-    },
-    options: {
-      goal: { more_customers: "Fler kunder", missed_calls: "Färre missade samtal och förfrågningar", admin_time: "Mindre tid på administration", website: "En ny eller bättre webbplats", unsure: "Vet inte än" },
-      industry: { clinic_health: "Klinik eller vård", beauty_wellness: "Skönhet eller friskvård", restaurant_cafe: "Restaurang eller kafé", real_estate: "Fastigheter", trades_construction: "Hantverk eller bygg", retail_ecommerce: "Handel eller e-handel", professional_services: "Konsult- eller tjänsteföretag", education: "Utbildning", fitness: "Träning", other: "Annat" },
-      teamSize: { solo: "Bara jag", "2to5": "2–5", "6to20": "6–20", "21to50": "21–50", gt50: "50+" },
-      tasks: { calls: "Svara i telefon", booking: "Bokning och ombokning", enquiries: "Svara på förfrågningar", lead_followup: "Följa upp förfrågningar", quotes_invoices: "Offerter och fakturor", data_entry: "Flytta data mellan system", reports: "Rapporter", reviews_social: "Recensioner och sociala medier", other: "Något annat" }, // REVIEW-SV
-      hours: { lt2: "Under 2", "2to5": "2–5", "5to10": "5–10", "10to20": "10–20", gt20: "20+" },
-      enquiries: { lt10: "Under 10", "10to50": "10–50", "50to200": "50–200", gt200: "200+" },
-      websiteState: { none: "Har ingen", outdated: "Gammal", not_converting: "Ser bra ut men ger få bokningar", ok: "Den fungerar" },
-      websiteNeeds: { booking: "Onlinebokning", bilingual: "Svenska och engelska", seo: "Synas på Google", shop: "Webbshop", forms: "Kontaktformulär", refresh: "Ny design" },
-      tools: { google: "Google Workspace", microsoft: "Microsoft 365", fortnox: "Fortnox", visma: "Visma", bokadirekt: "Bokadirekt", crm: "Ett CRM", spreadsheets: "Excel eller Sheets", whatsapp: "WhatsApp", wix_wordpress: "Wix, WordPress eller liknande", paper: "Mest papper", other: "Annat" },
-      channels: { phone: "Telefon", web_form: "Formulär på webben", email: "Mejl", social_dm: "Instagram eller Facebook", walk_in: "De kommer förbi", booking_platform: "Bokningsplattform" },
-      budget: { lt10k: "Under 10 000 kr", "10to25k": "10 000–25 000 kr", "25to50k": "25 000–50 000 kr", gt50k: "50 000 kr+", unsure: "Vet inte" },
-      timeline: { asap: "Så snart som möjligt", "1m": "Inom en månad", "1to3m": "Om 1–3 månader", exploring: "Kollar bara" },
-      decision: { me: "Jag", shared: "Jag och en kollega", other: "Någon annan" },
-      sensitive: { yes: "Ja", no: "Nej", unsure: "Vet inte" },
-      callLang: { en: "English", sv: "Svenska" },
-    },
-  },
-  privacy: {
-    title: "Integritetspolicy",
-    updated: "Uppdaterad 8 oktober 2026",
-    description: "Hur Haisem N. hanterar svaren du skickar via formuläret: syfte, personuppgiftsbiträden, lagringstid och dina rättigheter enligt GDPR.", // REVIEW-SV
-    sections: [
-      { h: "Vem som ansvarar", p: "Haisem N., Stockholm. Kontakt: haisem.work@gmail.com." },
-      { h: "Vad jag samlar in och varför", p: "Svaren du lämnar i formuläret, så att jag kan förbereda ett samtal och skicka ett förslag. Rättslig grund: åtgärder på din begäran innan ett eventuellt avtal (GDPR art. 6.1 b)." }, // REVIEW-SV
-      { h: "Vem som behandlar uppgifterna", p: "Cloudflare (formulär och skräppostskydd), Supabase (databas, region Stockholm), Resend (aviseringsmejlet till mig) och PostHog EU (anonym statistik över sidvisningar och formulärsteg, utan kakor och utan formulärinnehåll). Alla har personuppgiftsbiträdesavtal. Supabase och PostHog lagrar uppgifterna inom EU; Cloudflare och Resend kan behandla dem utanför EU, med stöd av sina personuppgiftsbiträdesavtal och EU:s standardavtalsklausuler." }, // REVIEW-SV
-      { h: "Hur länge jag sparar dem", p: "12 månader om vi inte jobbar ihop; under avtalet plus bokföringskrav om vi gör det." },
-      { h: "Dina rättigheter", p: "Du kan när som helst begära en kopia, rättelse eller radering genom att mejla mig. Du kan också klaga hos Integritetsskyddsmyndigheten (IMY), imy.se." },
-      { h: "Kakor och lagring i webbläsaren", p: "Webbplatsen sparar ditt val av språk och tema i din webbläsare. Medan du fyller i formuläret sparas dina svar i den här webbläsarfliken (sessionStorage) tills du skickar formuläret eller stänger fliken. Statistiken körs utan kakor och utan att identifiera dig." }, // REVIEW-SV
-    ],
-  },
   pageError: pageError.sv,
   footer: {
     rights: "Alla rättigheter förbehållna.",
-    privacy: "Integritet",
     tagline: "Webbplatser och AI för företag i Stockholm.", // REVIEW-SV
     navLabel: "Sidfot", // REVIEW-SV
     place: "Stockholm · 59,33°N 18,07°E", // REVIEW-SV
@@ -540,7 +470,7 @@ export const sv = {
     label: "Nu bygger vi ditt nästa steg", // REVIEW-SV
     note: "Steg ett · 20 min · gratis", // REVIEW-SV
     sub: "Ett gratis samtal på 20 minuter. Inom två dagar har du en plan och ett fast pris.", // REVIEW-SV
-    button: "Boka ett gratis samtal", // REVIEW-SV
+    button: "Hör av dig", // REVIEW-SV
     orEmail: "Eller mejla",
   },
 } satisfies Dictionary;

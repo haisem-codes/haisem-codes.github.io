@@ -1,6 +1,7 @@
 import { Fragment, type CSSProperties } from "react";
 import { cn } from "@/lib/utils";
-import { localHref, type Locale } from "@/i18n/config";
+import { type Locale } from "@/i18n/config";
+import { personal } from "@/data/personal";
 import type { Dictionary } from "@/i18n";
 import { Magnetic } from "@/components/ui/Magnetic";
 import { DemoPhone } from "@/components/sections/DemoPhone";
@@ -55,7 +56,7 @@ export function Hero({ dict, phone, lang }: { dict: Dictionary["hero"]; phone: D
           <div className="hero-fade mt-9 flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:gap-8" style={delay(0.7)}>
             <Magnetic>
               <a
-                href={localHref(lang, "/start/")}
+                href={`mailto:${personal.email}`}
                 className="inline-flex min-h-[52px] items-center gap-2 rounded-full bg-button px-7 text-base font-semibold text-button-text shadow-[0_10px_30px_-12px_var(--color-button)] transition-[filter] duration-[var(--dur-micro)] hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
               >
                 {dict.ctaPrimary}

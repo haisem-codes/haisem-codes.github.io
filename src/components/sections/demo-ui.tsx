@@ -1,7 +1,6 @@
 import type { FormEventHandler, ReactNode, Ref } from "react";
 import { cn } from "@/lib/utils";
 import type { CrmCard, Vertical } from "@/lib/demo/types";
-import { localHref, type Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n";
 
 const VERTICALS: Vertical[] = ["salon", "clinic", "trades", "restaurant"];
@@ -218,7 +217,7 @@ export function PanelCard({ dict, id, children }: { dict: Dict; id?: string; chi
 const STEPS = ["sms", "calendar", "summary"] as const;
 
 /** One structure for waiting and booked, so the booking lights the panel up in place (CSS transitions only). */
-export function PanelBody({ dict, lang, crm, instant }: { dict: Dict; lang: Locale; crm?: CrmCard; instant?: boolean }) {
+export function PanelBody({ dict, crm, instant }: { dict: Dict; crm?: CrmCard; instant?: boolean }) {
   const on = Boolean(crm);
   const move = !instant;
   const delay = (ms: number) => (on && move ? { transitionDelay: `${ms}ms` } : undefined);
@@ -288,31 +287,11 @@ export function PanelBody({ dict, lang, crm, instant }: { dict: Dict; lang: Loca
         ))}
       </ol>
 
-      <div className="mt-auto border-t border-border pt-4">
-        {on ? (
-          <div className={cn(move && "cr-rise")} style={rise(1500)}>
-            <p className="text-sm leading-relaxed text-text-secondary">{dict.ctaNote}</p>
-            <a
-              href={localHref(lang, "/start/?goal=missed_calls")}
-              className="mt-3 inline-flex min-h-[48px] items-center gap-2 rounded-full bg-button px-6 text-sm font-semibold text-button-text shadow-[0_10px_30px_-12px_var(--color-button)] transition-[filter] duration-[var(--dur-micro)] hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
-            >
-              {dict.cta}
-              <span aria-hidden>→</span>
-            </a>
-          </div>
-        ) : (
-          <>
-            <p className="text-sm leading-relaxed text-text-secondary">{dict.waitingHint}</p>
-            <a
-              href={localHref(lang, "/start/?goal=missed_calls")}
-              className="mt-3 inline-flex min-h-[44px] items-center gap-2 text-sm font-medium text-accent underline decoration-accent/40 underline-offset-4 transition-colors hover:decoration-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-            >
-              {dict.cta}
-              <span aria-hidden>→</span>
-            </a>
-          </>
-        )}
-      </div>
+      {!on && (
+        <div className="mt-auto border-t border-border pt-4">
+          <p className="text-sm leading-relaxed text-text-secondary">{dict.waitingHint}</p>
+        </div>
+      )}
     </div>
   );
 }

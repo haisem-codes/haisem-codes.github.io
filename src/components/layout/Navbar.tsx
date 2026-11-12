@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type ComponentType } from "react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { localHref, type Locale } from "@/i18n/config";
+import { personal } from "@/data/personal";
 import type { Dictionary } from "@/i18n";
 import { BulbCord } from "@/components/layout/BulbCord";
 import { LanguageSwitch } from "@/components/i18n/LanguageSwitch";
@@ -90,8 +91,8 @@ export function Navbar({ dict, lang }: { dict: Dictionary["nav"]; lang: Locale }
   const pathname = usePathname() ?? "";
   const isHome = pathname.replace(/\/+$/, "") === `/${lang}`;
   const isHire = pathname.replace(/\/+$/, "") === `/${lang}/hire`;
-  /** Case studies open on a mockup hero and /start on the form, so the bulb stays docked in the nav there. */
-  const docked = pathname.includes("/projects/") || pathname.replace(/\/+$/, "") === `/${lang}/start`;
+  /** Case studies open on a mockup hero, so the bulb stays docked in the nav there. */
+  const docked = pathname.includes("/projects/");
   const scroll = useScrollState();
   const { scrolled } = scroll;
   const retracted = scroll.retracted || docked;
@@ -184,10 +185,10 @@ export function Navbar({ dict, lang }: { dict: Dictionary["nav"]; lang: Locale }
           <BulbCord dict={dict} retracted={retracted || HangingBulb === false} />
           <LanguageSwitch lang={lang} label={dict.switchTo} />
           <a
-            href={localHref(lang, "/start/")}
+            href={`mailto:${personal.email}`}
             className="hidden whitespace-nowrap rounded-full bg-button px-4 py-2 text-sm font-medium text-button-text transition-opacity hover:opacity-90 sm:inline-flex"
           >
-            {dict.start}
+            {dict.contact}
           </a>
           <button
             ref={toggleRef}
@@ -239,8 +240,8 @@ export function Navbar({ dict, lang }: { dict: Dictionary["nav"]; lang: Locale }
               </a>
             </li>
             <li>
-              <a href={localHref(lang, "/start/")} className="inline-flex rounded-full bg-button px-4 py-2 text-sm font-medium text-button-text">
-                {dict.start}
+              <a href={`mailto:${personal.email}`} className="inline-flex rounded-full bg-button px-4 py-2 text-sm font-medium text-button-text">
+                {dict.contact}
               </a>
             </li>
           </ul>

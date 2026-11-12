@@ -49,7 +49,7 @@ export function ControlRoom({ dict, story, lang }: { dict: Dictionary["controlRo
                   <Composer dict={dict} disabled />
                 </ChatCard>
                 <PanelCard dict={dict}>
-                  <PanelBody dict={dict} lang={lang} />
+                  <PanelBody dict={dict} />
                 </PanelCard>
               </DemoLayout>
             </DemoLoader>

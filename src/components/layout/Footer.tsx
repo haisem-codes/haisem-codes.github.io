@@ -92,9 +92,6 @@ export function Footer({ dict, nav, lang }: { dict: Dictionary["footer"]; nav: D
         <p className="py-2">
           &copy; {new Date().getFullYear()} Haisem N. {dict.rights}
         </p>
-        <a href={localHref(lang, "/privacy/")} className="inline-flex min-h-[32px] items-center transition-colors hover:text-accent">
-          {dict.privacy}
-        </a>
       </div>
     </footer>
   );
