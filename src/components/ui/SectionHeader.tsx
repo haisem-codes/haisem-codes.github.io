@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 
 interface SectionHeaderProps {
-  index: string;
+  index?: string;
   eyebrow: string;
   title: string;
   accent?: string;
@@ -17,7 +17,7 @@ export function SectionHeader({ index, eyebrow, title, accent, kicker, tone = "d
   return (
     <header className={cn("max-w-3xl", className)}>
       <p className={cn("font-mono text-xs uppercase tracking-[0.18em]", night ? "text-white/60" : "text-text-secondary")}>
-        {index} — {eyebrow}
+        {index ? `${index} — ${eyebrow}` : eyebrow}
       </p>
       <h2
         id={titleId}

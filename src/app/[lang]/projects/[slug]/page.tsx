@@ -6,7 +6,6 @@ import { getDictionary, type Dictionary } from "@/i18n";
 import type { Metadata } from "next";
 import type { Project } from "@/types";
 import { locales, isLocale, localHref, type Locale } from "@/i18n/config";
-import { StartCta } from "@/components/sections/StartCta";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { WorkPicture } from "@/components/ui/WorkPicture";
 import { TransitionLink } from "@/components/ui/TransitionLink";
@@ -59,7 +58,6 @@ const MOBILE_FOCUS: Record<string, string> = {
   "b2b-travel-saas": "10% 10%",
   "ai-craftsmen-marketplace": "50% 37%",
   "ai-tools-suite": "63% 10%",
-  "ai-video-pipeline": "0% 10%",
   dietapp: "50% 50%",
 };
 
@@ -108,7 +106,7 @@ export default async function ProjectPage({ params }: Props) {
   if (!isLocale(lang)) notFound();
   const currentIndex = projects.findIndex((p) => p.slug === slug);
   if (currentIndex === -1) notFound();
-  const { work, cta } = getDictionary(lang);
+  const { work } = getDictionary(lang);
   const project = localize(projects[currentIndex], lang);
   const prevProject = currentIndex > 0 ? localize(projects[currentIndex - 1], lang) : null;
   const nextProject = currentIndex < projects.length - 1 ? localize(projects[currentIndex + 1], lang) : null;
@@ -245,7 +243,6 @@ export default async function ProjectPage({ params }: Props) {
         </div>
       </div>
 
-      <StartCta dict={cta} lang={lang} />
     </main>
   );
 }

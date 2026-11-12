@@ -33,6 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       languages: { en: "/en/hire/", sv: "/sv/hire/", "x-default": "/en/hire/" },
     },
     openGraph: { title: d.meta.hireTitle, description: d.meta.hireDescription, url: localHref(lang, "/hire/"), type: "website" },
+    twitter: { card: "summary", title: d.meta.hireTitle, description: d.meta.hireDescription },
   };
 }
 

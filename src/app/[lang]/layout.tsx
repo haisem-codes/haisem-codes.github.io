@@ -6,7 +6,6 @@ import { LenisProvider } from "@/components/providers/LenisProvider";
 import { MotionProvider } from "@/components/providers/MotionProvider";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { AnalyticsInit } from "@/components/analytics/AnalyticsInit";
 import { CursorLoader } from "@/components/ui/CursorLoader";
 import { locales, isLocale, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n";
@@ -41,6 +40,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     icons: { icon: [{ url: "/favicon.svg", type: "image/svg+xml" }, { url: "/favicon.png", sizes: "32x32" }], apple: "/apple-touch-icon.png" },
     manifest: "/site.webmanifest",
     openGraph: { title: d.meta.title, description: d.meta.description, type: "website", locale: lang === "sv" ? "sv_SE" : "en_GB" },
+    twitter: { card: "summary", title: d.meta.title, description: d.meta.description },
   };
 }
 
@@ -54,7 +54,6 @@ export default async function LangLayout({ children, params }: { children: React
         <script dangerouslySetInnerHTML={{ __html: `${revealBootScript}${staticTierBootScript}try{if(localStorage.getItem("theme")==="dark"){document.documentElement.classList.add("dark");addEventListener("DOMContentLoaded",function(){var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content","${THEME_COLOR.dark}")})}}catch(e){}` }} />
       </head>
       <body className="bg-bg text-text antialiased">
-        <AnalyticsInit />
         <ThemeProvider>
           <MotionProvider>
             <LenisProvider>

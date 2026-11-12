@@ -36,9 +36,10 @@ const MONO = "font-mono text-[11px] tracking-[0.16em] uppercase";
 
 export function Footer({ dict, nav, lang }: { dict: Dictionary["footer"]; nav: Dictionary["nav"]; lang: Locale }) {
   const links = [
-    { href: localHref(lang, "/#services"), label: nav.services },
+    { href: localHref(lang, "/#story"), label: nav.story },
     { href: localHref(lang, "/#work"), label: nav.work },
-    { href: localHref(lang, "/#about"), label: nav.about },
+    { href: localHref(lang, "/#clients"), label: nav.clients },
+    { href: localHref(lang, "/#now"), label: nav.now },
     { href: localHref(lang, "/hire/"), label: nav.hire },
   ];
   return (
@@ -92,9 +93,6 @@ export function Footer({ dict, nav, lang }: { dict: Dictionary["footer"]; nav: D
         <p className="py-2">
           &copy; {new Date().getFullYear()} Haisem N. {dict.rights}
         </p>
-        <a href={localHref(lang, "/privacy/")} className="inline-flex min-h-[32px] items-center transition-colors hover:text-accent">
-          {dict.privacy}
-        </a>
       </div>
     </footer>
   );

@@ -1,8 +1,8 @@
 import type { CSSProperties } from "react";
 import type { Dictionary } from "@/i18n";
 import { localHref, type Locale } from "@/i18n/config";
-import { projects, localize } from "@/data/projects";
-import type { Project } from "@/types";
+import { projects, textProjects, localize, localizeText } from "@/data/projects";
+import type { Project, TextProject } from "@/types";
 import { cn } from "@/lib/utils";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
@@ -136,10 +136,27 @@ function ListRow({ p, dict, lang }: { p: Project; dict: WorkDict; lang: Locale }
   );
 }
 
+function TextRow({ p, dict }: { p: TextProject; dict: WorkDict }) {
+  return (
+    <div className="grid grid-cols-1 gap-x-6 gap-y-1.5 border-t border-border py-5 sm:grid-cols-[1fr_16rem_2rem] sm:py-6">
+      <div>
+        <h4 className="font-display text-xl leading-snug font-semibold tracking-tight text-text sm:text-2xl">{p.title}</h4>
+        <p className="mt-2 max-w-2xl text-[15px] leading-relaxed text-text-secondary">{p.description}</p>
+      </div>
+      <span className="order-first font-mono text-[11px] tracking-[0.14em] text-text-secondary uppercase sm:order-none sm:pt-2">
+        {dict.categories[p.category]}
+        {p.context && <span className="block sm:mt-1">{dict.context[p.context]}</span>}
+      </span>
+    </div>
+  );
+}
+
 export function Work({ dict, lang }: { dict: WorkDict; lang: Locale }) {
   const featured = sorted.filter((p) => p.featured).map((p) => localize(p, lang));
-  const rest = sorted.filter((p) => !p.featured).map((p) => localize(p, lang));
-  const rows = rest.map((p) => ({ slug: p.slug, row: <ListRow p={p} dict={dict} lang={lang} /> }));
+  const rows = [
+    ...sorted.filter((p) => !p.featured).map((p) => ({ slug: p.slug, order: p.order, row: <ListRow p={localize(p, lang)} dict={dict} lang={lang} /> })),
+    ...textProjects.map((p) => ({ slug: p.slug, order: p.order, row: <TextRow p={localizeText(p, lang)} dict={dict} /> })),
+  ].sort((a, b) => a.order - b.order);
 
   return (
     <section id="work" className="scroll-mt-24 pt-20 pb-12 sm:pt-24 sm:pb-16">
