@@ -5,7 +5,7 @@ import { Hero } from "@/components/sections/Hero";
 import { ProofStrip } from "@/components/sections/ProofStrip";
 import { ClientStories } from "@/components/sections/ClientStories";
 import { Work } from "@/components/sections/Work";
-import { About } from "@/components/sections/About";
+import { Story } from "@/components/sections/Story";
 import { FooterMarquee } from "@/components/sections/FooterMarquee";
 
 export default async function Home({ params }: { params: Promise<{ lang: string }> }) {
@@ -15,10 +15,10 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
   return (
     <main>
       <Hero dict={d.hero} lang={lang} />
+      <Story dict={d.story} />
       <ProofStrip dict={d.proof} />
       <ClientStories jake={d.jake} derin={d.derin} />
       <Work dict={d.work} lang={lang} />
-      <About dict={d.about} lang={lang} />
       <FooterMarquee dict={d.marquee} lang={lang} />
     </main>
   );

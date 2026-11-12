@@ -16,13 +16,13 @@ export const sv = {
     pullHint: "dra i mig", // REVIEW-SV
   },
   hero: {
-    eyebrow: "Stockholm",
-    meta: ["Haisem N., AI-ingenjör", "Webbplatser · Röst-AI · Automation"], // REVIEW-SV
-    titleLead: "AI som jobbar", // REVIEW-SV
-    titleAccent: "när du inte gör det.", // REVIEW-SV
-    sub: "Jag designar och bygger webbplatser, AI-receptionister och automationer för företag i Stockholm, och tar hand om dem när de är i drift.", // REVIEW-SV
-    ctaPrimary: "Hör av dig",
-    ctaSecondary: "Se mina projekt ↓", // REVIEW-SV
+    eyebrow: "Haisem N. · Stockholm",
+    titleLead: "Tillämpad AI-ingenjör som försöker komma", // REVIEW-SV
+    titleAccent: "före AI-racet.", // REVIEW-SV
+    sub: "Jag bygger AI-system som folk faktiskt använder: agenter, retrieval och röst. Nu är jag i Stockholm och pluggar igen, för att jag vill förstå det jag bygger hela vägen ner.", // REVIEW-SV
+    ctaPrimary: "Läs min historia", // REVIEW-SV
+    ctaSecondary: "Hör av dig", // REVIEW-SV
+    portraitAlt: "Porträtt av Haisem N.", // REVIEW-SV
   },
   proof: {
     label: "I korthet", // REVIEW-SV
@@ -104,22 +104,26 @@ export const sv = {
     notFound: "Projektet hittades inte",
     englishOnly: "Det här caset finns bara på engelska.", // REVIEW-SV
   },
-  about: {
-    index: "07",
-    eyebrow: "Om mig",
-    title: "Från Lahore till Stockholm.", // REVIEW-SV
-    portraitAlt: "Haisem N.",
-    route: { from: "Lahore", to: "Stockholm" },
+  story: {
+    index: "01",
+    eyebrow: "Varför jag började om", // REVIEW-SV
+    title: "Jag började om för att gå djupare.", // REVIEW-SV
     paragraphs: [
-      "Jag heter Haisem. Jag läste datavetenskap vid FAST-NUCES i Lahore och jobbade sedan ett år som AI-ingenjör i ett produktteam i Lahore, med AI-produkter och röstagenter för riktiga företag. Nu bor jag i Stockholm och läser en master i AI och språk vid Stockholms universitet, och jag är medförfattare till en översiktsartikel i ACM Computing Surveys.", // REVIEW-SV
-      "Jag bygger helheten, från designen till AI:n och verktygen du redan använder, och jag finns kvar efter lanseringen. Vi kan prata engelska. Min svenska är på nybörjarnivå, och jag övar gärna med dig.", // REVIEW-SV
+      "För ett år sedan hade jag det de flesta skulle kalla det trygga livet: ett fast jobb som AI-ingenjör i Lahore, produkter i produktion och kunder som litade på mig.", // REVIEW-SV
+      "Och jag kunde bygga nästan vad som helst. Med AI-verktyg vid min sida kunde en idé bli en fungerande app på en helg. Men ärligt talat var mycket av det jag kunde bara ytligt. Jag fick saker att fungera. Jag kunde inte alltid säga varför de fungerade, vad som egentligen hände under ytan, eller när de i tysthet skulle sluta fungera.", // REVIEW-SV
+      "Jag ville inte fortsätta bygga ovanpå saker jag inte förstod. Jag ville veta hur systemen bakom mitt arbete faktiskt går, så att det jag bygger inte bara är möjligt, utan meningsfullt.", // REVIEW-SV
+      "Så jag lämnade. Jag gick ifrån det trygga jobbet, flyttade till Stockholm och blev student igen, den här gången på en master i AI och språk vid Stockholms universitet. En ny stad, ett nytt språk, inget nätverk. Jag började från noll.", // REVIEW-SV
+      "Det har inte varit lätt, och det ska det inte vara. Jag ville nå den sortens förståelse man bara får genom att gå tillbaka till grunderna, och jag ville ge något tillbaka till den forskning som gjorde mitt arbete möjligt. Mitt första bidrag är redan publicerat: en översiktsartikel som jag är medförfattare till i ACM Computing Surveys.", // REVIEW-SV
+      "Jag är fortfarande en byggare i grunden. Därför söker jag, vid sidan av studierna, en roll i branschen: för att vara nära riktiga användare, riktiga begränsningar och det sätt som de bästa teamen jobbar på idag.", // REVIEW-SV
     ],
-    facts: [
+    pull: "Labbet lär mig varför. Verkligheten håller mig ärlig.", // REVIEW-SV
+    timelineLabel: "Lahore → Stockholm",
+    timeline: [
       { years: "2021–25", what: "Kandidat i datavetenskap", where: "FAST-NUCES, Lahore" }, // REVIEW-SV
-      { years: "2025–26", what: "AI-ingenjör", where: "Produktteam, Lahore" }, // REVIEW-SV
+      { years: "2024–25", what: "Praktikant, Python-utvecklare", where: "WebBuggs" }, // REVIEW-SV
+      { years: "2025–26", what: "AI-ingenjör", where: "Metaviz, Lahore" }, // REVIEW-SV
       { years: "2026–", what: "Master i AI och språk", where: "Stockholms universitet" }, // REVIEW-SV
-      { years: "2026", what: "Medförfattare, översikt", where: "ACM Computing Surveys" }, // REVIEW-SV
-      { years: "Nu", what: "Svenska", where: "Nybörjare, lär mig" }, // REVIEW-SV
+      { years: "2026", what: "Medförfattare", where: "ACM Computing Surveys" }, // REVIEW-SV
     ],
   },
   hire: {
