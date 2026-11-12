@@ -270,8 +270,8 @@ export const en = {
         {
           id: "rag",
           title: "LLM systems and RAG",
-          body: "Hybrid retrieval with confidence-gated orchestration that skips model calls on rule-deterministic passes.",
-          steps: ["Hybrid search", "BM25 rerank", "Confidence gate", "LLM only when needed"],
+          body: "Hybrid retrieval with citation validation, orchestrated with LangGraph.",
+          steps: ["Embeddings + BM25", "Rank fusion", "LLM step", "Citation check"],
           items: ["RAG", "ChromaDB", "pgvector", "BM25", "LangGraph", "LLM evaluation"],
         },
         {
@@ -286,12 +286,12 @@ export const en = {
           title: "Document AI",
           body: "OCR and structured extraction that check construction drawings across five disciplines.",
           steps: ["Drawing PDF", "OCR", "Structured extraction", "Code checks", "Reviewer sign-off"],
-          items: ["AWS Textract", "Structured outputs", "Next.js review UI"],
+          items: ["AWS Textract", "OCR", "Structured outputs"],
         },
         {
           id: "cost",
           title: "Cost control",
-          body: "Per-document model spend is capped in the orchestration layer.",
+          body: "About 40% lower average inference spend per document, at Metaviz.",
           items: ["Cost-aware orchestration", "Prompt caching"],
         },
         {

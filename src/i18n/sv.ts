@@ -271,8 +271,8 @@ export const sv = {
         {
           id: "rag",
           title: "LLM-system och RAG", // REVIEW-SV
-          body: "Hybridsökning med konfidensstyrd orkestrering som hoppar över modellanrop när reglerna redan avgör svaret.", // REVIEW-SV
-          steps: ["Hybridsökning", "BM25-omrankning", "Konfidensspärr", "LLM bara vid behov"], // REVIEW-SV
+          body: "Hybridsökning med källvalidering, orkestrerad med LangGraph.", // REVIEW-SV
+          steps: ["Embeddings + BM25", "Rangfusion", "LLM-steg", "Källkontroll"], // REVIEW-SV
           items: ["RAG", "ChromaDB", "pgvector", "BM25", "LangGraph", "LLM-utvärdering"], // REVIEW-SV
         },
         {
@@ -287,12 +287,12 @@ export const sv = {
           title: "Dokument-AI", // REVIEW-SV
           body: "OCR och strukturerad extraktion som granskar bygghandlingar inom fem discipliner.", // REVIEW-SV
           steps: ["Ritning som PDF", "OCR", "Strukturerad extraktion", "Regelkontroll", "Granskaren godkänner"], // REVIEW-SV
-          items: ["AWS Textract", "Strukturerade svar", "Granskningsgränssnitt i Next.js"], // REVIEW-SV
+          items: ["AWS Textract", "OCR", "Strukturerade svar"], // REVIEW-SV
         },
         {
           id: "cost",
           title: "Kostnadskontroll", // REVIEW-SV
-          body: "Modellkostnaden per dokument har ett tak i orkestreringslagret.", // REVIEW-SV
+          body: "Cirka 40 % lägre genomsnittlig inferenskostnad per dokument, på Metaviz.", // REVIEW-SV
           items: ["Kostnadsstyrd orkestrering", "Prompt-cachning"], // REVIEW-SV
         },
         {
