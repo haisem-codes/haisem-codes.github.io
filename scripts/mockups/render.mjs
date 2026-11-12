@@ -23,7 +23,6 @@ const SCENES = {
   travel: "b2b-travel-saas",
   craftsmen: "ai-craftsmen-marketplace",
   aitools: "ai-tools-suite",
-  video: "ai-video-pipeline",
   dietapp: "dietapp",
 };
 const THEMES = { light: "", night: "-night" };

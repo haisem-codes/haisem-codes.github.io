@@ -82,11 +82,11 @@ export const en = {
     more: "More projects",
     categories: { business: "Business automation", products: "AI products", research: "Research" },
     view: "View case study",
-    context: { team: "Team project", client: "Client project" },
+    context: { metaviz: "Built at Metaviz", client: "Metaviz · client project" },
     back: "All work",
     highlights: {
-      "ai-compliance-platform": { value: "Sign-off", label: "AI checks drawings across five building-code disciplines; a reviewer corrects and signs off" },
-      "voice-agents-suite": { value: "5+", label: "businesses I built these voice agents for" },
+      "ai-compliance-platform": { value: "~80%", label: "less manual review time per drawing, across five building-code disciplines" },
+      "voice-agents-suite": { value: "5+", label: "business owners I built voice agents for" },
       postura: { value: "Offline", label: "posture scoring runs entirely on the phone" },
     },
     showMore: "Show {n} more projects",
@@ -102,6 +102,29 @@ export const en = {
     next: "Next project",
     notFound: "Project not found",
     englishOnly: "This case study is in English.",
+  },
+  afterHours: {
+    eyebrow: "Personal projects",
+    title: "After hours",
+    sub: "Things I build because I can't stop asking how they work.",
+    tag: "early MVP",
+    items: [
+      {
+        title: "Aegis",
+        kind: "AI Assisted Code Security Analysis",
+        body: "Built a typed Python prototype combining Joern code graphs, static data-flow candidates and LLM-assisted reasoning. Added adversarial evidence checks, model-call budgets, provider-failure handling and SARIF reporting.",
+      },
+      {
+        title: "Notetaker",
+        kind: "Lecture Transcription and Study Notes",
+        body: "Built a React/FastAPI application using local MLX Whisper transcription and Claude/OpenAI note generation. Added Pydantic validation, targeted repair, partial-result recovery, background jobs and PDF export.",
+      },
+      {
+        title: "Virtual Tour",
+        kind: "AI Itinerary Video Generator",
+        body: "Developed a seven-stage BullMQ pipeline combining structured LLM extraction, scene planning, narration and rendering. Added deterministic plan checks, repair and post-render validation of streams, resolution and duration.",
+      },
+    ],
   },
   story: {
     index: "01",
@@ -138,11 +161,11 @@ export const en = {
       eyebrow: "Summary",
       title: "The short version.",
       paragraphs: [
-        "For a year I was an AI engineer on a product team in Lahore. I worked on three AI products, from the FastAPI backend to Next.js and Flutter front ends, and built voice agents for real businesses.",
+        "For a year I was an AI engineer at Metaviz in Lahore. I led the AI integration across three SaaS platforms (Wanyumba, AfricaTravelHub and Handman/Getapro), and built voice agents for more than five business owners.",
         "This page walks through one of those systems, the voice-agent setup I built for Jake Wims's agency, with the decisions behind it and a simplified piece of the code.",
       ],
       facts: [
-        { k: "Last role", v: "AI engineer, product team in Lahore (Jul 2025 – Aug 2026)" },
+        { k: "Last role", v: "AI engineer, Metaviz, Lahore (Jul 2025 – Aug 2026)" },
         { k: "Now", v: "MSc AI and Language, Stockholm University" },
         { k: "Work permit", v: "Eligible to work in Sweden (residence permit for studies)" },
         { k: "Languages", v: "English (fluent), Urdu (native), Swedish (beginner)" },
@@ -155,7 +178,7 @@ export const en = {
       eyebrow: "Case study",
       title: "How I built Jake's voice-agent system",
       intro:
-        "Jake Wims (Founder, Acquire Growth AI) sells AI lead follow-up to US real-estate teams and a mortgage lender. I built the system end to end: the voice agents, the GoHighLevel automations and the n8n workflows between them.",
+        "Jake Wims (Founder, Acquire Growth AI) sells AI lead follow-up to US real-estate teams and a mortgage lender. I built the system at Metaviz, end to end: the voice agents, the GoHighLevel automations and the n8n workflows between them.",
       diagramLabel: "Architecture: from a new lead to a booked call",
       nodes: [
         { title: "Facebook lead form", sub: "A new lead" },

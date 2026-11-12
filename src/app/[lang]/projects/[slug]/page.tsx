@@ -58,7 +58,6 @@ const MOBILE_FOCUS: Record<string, string> = {
   "b2b-travel-saas": "10% 10%",
   "ai-craftsmen-marketplace": "50% 37%",
   "ai-tools-suite": "63% 10%",
-  "ai-video-pipeline": "0% 10%",
   dietapp: "50% 50%",
 };
 

@@ -1,5 +1,5 @@
 import { test, expect } from "vitest";
-import { projects, localize } from "@/data/projects";
+import { projects, textProjects, localize } from "@/data/projects";
 test("slugs unchanged", () => {
   for (const s of ["ai-compliance-platform", "voice-agents-suite", "postura", "coach"]) expect(projects.some((p) => p.slug === s)).toBe(true);
 });
@@ -10,13 +10,26 @@ test("localize overlays sv", () => {
   expect(localize(p, "sv").tagline).toBe(p.sv!.tagline);
   expect(localize(p, "en").tagline).toBe(p.tagline);
 });
-test("team and client work is labelled", () => {
-  for (const s of ["ai-compliance-platform", "postura", "ai-real-estate-marketplace", "b2b-travel-saas", "ai-craftsmen-marketplace", "ai-tools-suite", "ai-video-pipeline"])
-    expect(projects.find((p) => p.slug === s)?.context).toBe("team");
+test("Metaviz attribution", () => {
+  for (const s of ["ai-compliance-platform", "postura", "ai-real-estate-marketplace", "b2b-travel-saas", "ai-craftsmen-marketplace", "ai-tools-suite", "dietapp"])
+    expect(projects.find((p) => p.slug === s)?.context).toBe("metaviz");
   for (const s of ["voice-agents-suite", "coach"]) expect(projects.find((p) => p.slug === s)?.context).toBe("client");
+  for (const p of projects.filter((x) => x.context)) expect(p.description).toMatch(/^Built at Metaviz/);
 });
-test("no former-employer branding in project copy", () => expect(JSON.stringify(projects)).not.toMatch(/metaviz/i));
-test("icore-careerhub removed", () => expect(projects.some((p) => p.slug === "icore-careerhub")).toBe(false));
+test("CV metrics are in the copy", () => {
+  const all = (s: string) => JSON.stringify(projects.find((p) => p.slug === s));
+  expect(all("ai-compliance-platform")).toMatch(/80%.*40%|40%.*80%/);
+  expect(all("ai-compliance-platform")).toContain("132 FastAPI endpoints");
+  expect(all("coach")).toMatch(/50%/);
+  expect(all("coach")).toContain("21 Firestore collections");
+  expect(all("voice-agents-suite")).toContain("more than five business owners");
+  expect(all("postura")).toContain("71-photo");
+});
+test("ICore is a text-only list entry", () => {
+  expect(projects.some((p) => p.slug === "icore-career-hub")).toBe(false);
+  expect(textProjects.map((p) => p.slug)).toEqual(["icore-career-hub"]);
+});
+test("no LLM named for Jake's agents", () => expect(JSON.stringify(projects.find((p) => p.slug === "voice-agents-suite"))).not.toMatch(/gpt|claude|openai|gemini/i));
 test("exactly three featured projects with rendered mockups", () => {
   const f = projects.filter((p) => p.featured);
   expect(f.map((p) => p.slug).sort()).toEqual(["ai-compliance-platform", "postura", "voice-agents-suite"]);

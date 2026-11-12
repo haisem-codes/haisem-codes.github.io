@@ -53,12 +53,6 @@
     "blur": "data:image/webp;base64,UklGRiwAAABXRUJQVlA4ICAAAABQAQCdASoKAAYAA4BaJZwABDOAAP7yTRhaaWQ/GuyAAA==",
     "nightBlur": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAABwAQCdASoKAAYAA4BaJZwC7AF1AAD+8fRRLxtL6Es3fRhAAAA="
   },
-  "ai-video-pipeline": {
-    "w": 1600,
-    "h": 1000,
-    "blur": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAAAwAQCdASoKAAYAA4BaJZwAA3AA/vJMf1Z+P+uH00isrPWtoaq2sKUVonZ3AAAA",
-    "nightBlur": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAADQAQCdASoKAAYAA4BaJZwC7AEQ/aURAAD+9o5mUGkcmJdrewcY3rtfgAA="
-  },
   "dietapp": {
     "w": 1600,
     "h": 1000,

@@ -5,6 +5,7 @@ import { Hero } from "@/components/sections/Hero";
 import { ProofStrip } from "@/components/sections/ProofStrip";
 import { ClientStories } from "@/components/sections/ClientStories";
 import { Work } from "@/components/sections/Work";
+import { AfterHours } from "@/components/sections/AfterHours";
 import { Story } from "@/components/sections/Story";
 import { FooterMarquee } from "@/components/sections/FooterMarquee";
 
@@ -19,6 +20,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
       <ProofStrip dict={d.proof} />
       <ClientStories jake={d.jake} derin={d.derin} />
       <Work dict={d.work} lang={lang} />
+      <AfterHours dict={d.afterHours} />
       <FooterMarquee dict={d.marquee} lang={lang} />
     </main>
   );

@@ -83,11 +83,11 @@ export const sv = {
     more: "Fler projekt",
     categories: { business: "Företagsautomation", products: "AI-produkter", research: "Forskning" },
     view: "Läs caset",
-    context: { team: "Teamprojekt", client: "Kundprojekt" }, // REVIEW-SV
+    context: { metaviz: "Byggt på Metaviz", client: "Metaviz · kundprojekt" }, // REVIEW-SV
     back: "Alla projekt",
     highlights: {
-      "ai-compliance-platform": { value: "Godkänt", label: "AI granskar ritningar inom fem discipliner, och granskaren rättar och godkänner" }, // REVIEW-SV
-      "voice-agents-suite": { value: "5+", label: "företag som jag byggt röstagenterna för" }, // REVIEW-SV
+      "ai-compliance-platform": { value: "~80 %", label: "mindre manuell granskningstid per ritning, inom fem byggregeldiscipliner" }, // REVIEW-SV
+      "voice-agents-suite": { value: "5+", label: "företagare som jag byggt röstagenter för" }, // REVIEW-SV
       postura: { value: "Offline", label: "hållningsanalysen körs helt i telefonen" }, // REVIEW-SV
     },
     showMore: "Visa {n} projekt till", // REVIEW-SV
@@ -103,6 +103,29 @@ export const sv = {
     next: "Nästa projekt",
     notFound: "Projektet hittades inte",
     englishOnly: "Det här caset finns bara på engelska.", // REVIEW-SV
+  },
+  afterHours: {
+    eyebrow: "Egna projekt", // REVIEW-SV
+    title: "På fritiden", // REVIEW-SV
+    sub: "Saker jag bygger för att jag inte kan sluta undra hur de fungerar.", // REVIEW-SV
+    tag: "tidig MVP", // REVIEW-SV
+    items: [
+      {
+        title: "Aegis",
+        kind: "AI-stödd säkerhetsanalys av kod", // REVIEW-SV
+        body: "Byggde en typad Python-prototyp som kombinerar Joern-kodgrafer, kandidater från statisk dataflödesanalys och LLM-stödda resonemang. Lade till kontroller av motbevis, budgetar för modellanrop, hantering av leverantörsfel och SARIF-rapportering.", // REVIEW-SV
+      },
+      {
+        title: "Notetaker",
+        kind: "Transkribering av föreläsningar och studieanteckningar", // REVIEW-SV
+        body: "Byggde en React/FastAPI-applikation med lokal MLX Whisper-transkribering och anteckningar genererade av Claude/OpenAI. Lade till Pydantic-validering, riktad reparation, återhämtning av delresultat, bakgrundsjobb och PDF-export.", // REVIEW-SV
+      },
+      {
+        title: "Virtual Tour",
+        kind: "AI-generator för resvideor", // REVIEW-SV
+        body: "Utvecklade en BullMQ-pipeline i sju steg som kombinerar strukturerad LLM-extraktion, scenplanering, berättarröst och rendering. Lade till deterministiska plankontroller, reparation och validering efter rendering av strömmar, upplösning och längd.", // REVIEW-SV
+      },
+    ],
   },
   story: {
     index: "01",
@@ -139,11 +162,11 @@ export const sv = {
       eyebrow: "Sammanfattning", // REVIEW-SV
       title: "Den korta versionen.", // REVIEW-SV
       paragraphs: [
-        "I ett år var jag AI-ingenjör i ett produktteam i Lahore. Jag arbetade med tre AI-produkter, från FastAPI-backend till gränssnitt i Next.js och Flutter, och byggde röstagenter för riktiga företag.", // REVIEW-SV
+        "I ett år var jag AI-ingenjör på Metaviz i Lahore. Jag ledde AI-integrationen i tre SaaS-plattformar (Wanyumba, AfricaTravelHub och Handman/Getapro) och byggde röstagenter för fler än fem företagare.", // REVIEW-SV
         "Den här sidan går igenom ett av systemen, röstagenterna jag byggde åt Jake Wims byrå, med besluten bakom och en förenklad bit av koden.", // REVIEW-SV
       ],
       facts: [
-        { k: "Senaste roll", v: "AI-ingenjör, produktteam i Lahore (jul 2025 – aug 2026)" }, // REVIEW-SV
+        { k: "Senaste roll", v: "AI-ingenjör, Metaviz, Lahore (jul 2025 – aug 2026)" }, // REVIEW-SV
         { k: "Nu", v: "Master i AI och språk, Stockholms universitet" }, // REVIEW-SV
         { k: "Arbetstillstånd", v: "Får arbeta i Sverige (uppehållstillstånd för studier)" }, // REVIEW-SV
         { k: "Språk", v: "Engelska (flytande), urdu (modersmål), svenska (nybörjare)" }, // REVIEW-SV
@@ -156,7 +179,7 @@ export const sv = {
       eyebrow: "Fallstudie", // REVIEW-SV
       title: "Så byggde jag Jakes system med röstagenter", // REVIEW-SV
       intro:
-        "Jake Wims (Grundare, Acquire Growth AI) säljer AI-uppföljning av leads till amerikanska fastighetsmäklarteam och en bolångivare. Jag byggde hela systemet: röstagenterna, automationerna i GoHighLevel och n8n-flödena mellan dem.", // REVIEW-SV
+        "Jake Wims (Grundare, Acquire Growth AI) säljer AI-uppföljning av leads till amerikanska fastighetsmäklarteam och en bolångivare. Jag byggde hela systemet på Metaviz: röstagenterna, automationerna i GoHighLevel och n8n-flödena mellan dem.", // REVIEW-SV
       diagramLabel: "Arkitektur: från nytt lead till bokat samtal", // REVIEW-SV
       nodes: [
         { title: "Facebook-formulär", sub: "Ett nytt lead" }, // REVIEW-SV
