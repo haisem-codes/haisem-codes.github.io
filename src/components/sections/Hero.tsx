@@ -7,7 +7,7 @@ import { Magnetic } from "@/components/ui/Magnetic";
 import { BulbCone } from "@/components/layout/BulbCone";
 
 const PORTRAIT = asset("/haisem");
-const SIZES = "(min-width: 1024px) 340px, (min-width: 640px) 340px, 80vw";
+const SIZES = "(min-width: 1024px) 340px, 220px";
 const srcSet = (ext: "avif" | "webp") => `${PORTRAIT}-600.${ext} 600w, ${PORTRAIT}-1200.${ext} 1200w`;
 
 const delay = (s: number) => ({ "--d": `${Number(s.toFixed(2))}s` }) as CSSProperties;
@@ -29,7 +29,7 @@ export function Hero({ dict }: { dict: Dictionary["hero"]; lang: Locale }) {
   return (
     <section className="relative isolate overflow-hidden px-6 pt-32 pb-20 sm:pt-40 lg:flex lg:min-h-[100svh] lg:items-center lg:pt-56 lg:pb-16">
       <BulbCone />
-      <div className="mx-auto grid w-full max-w-6xl items-center gap-16 lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-10">
+      <div className="mx-auto grid w-full max-w-6xl items-center gap-10 lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-10">
         <div>
           <p className="hero-fade flex flex-wrap gap-x-5 gap-y-2 font-mono text-xs tracking-[0.08em] text-text-secondary uppercase" style={delay(0)}>
             <span className="inline-flex items-center gap-2 text-accent">
@@ -68,13 +68,13 @@ export function Hero({ dict }: { dict: Dictionary["hero"]; lang: Locale }) {
           </div>
         </div>
 
-        <div className="hero-fade relative" style={delay(0.45)}>
+        <div className="hero-fade relative order-first lg:order-none" style={delay(0.45)}>
           <div
             aria-hidden
             className="pointer-events-none absolute top-1/2 left-1/2 -z-10 h-[620px] w-[620px] -translate-x-1/2 -translate-y-1/2 rounded-full"
             style={{ background: "radial-gradient(closest-side, var(--color-glow), transparent)" }}
           />
-          <div className="relative mx-auto aspect-[4/5] w-full max-w-[340px] overflow-hidden rounded-[2rem] bg-bg-card lg:mx-0">
+          <div className="relative aspect-[4/5] w-full max-w-[200px] overflow-hidden rounded-[1.5rem] bg-bg-card sm:max-w-[220px] lg:max-w-[340px] lg:rounded-[2rem]">
             <picture>
               <source type="image/avif" srcSet={srcSet("avif")} sizes={SIZES} />
               <img

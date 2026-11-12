@@ -3,10 +3,10 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 
 export function Story({ dict }: { dict: Dictionary["story"] }) {
   return (
-    <section id="story" className="scroll-mt-24 px-6 pt-16 pb-20 sm:pt-24 sm:pb-28">
+    <section id="story" aria-labelledby="story-title" className="scroll-mt-24 px-6 pt-16 pb-20 sm:pt-24 sm:pb-28">
       <div className="mx-auto grid max-w-6xl gap-14 lg:grid-cols-12 lg:gap-x-16">
         <div className="lg:col-span-7">
-          <SectionHeader index={dict.index} eyebrow={dict.eyebrow} title={dict.title} className="rise" />
+          <SectionHeader index={dict.index} eyebrow={dict.eyebrow} title={dict.title} titleId="story-title" className="rise" />
           <div className="mt-10 max-w-[65ch] space-y-7">
             {dict.paragraphs.map((p) => (
               <p key={p} className="rise text-lg leading-[1.75] text-text/85 sm:text-xl sm:leading-[1.7]">

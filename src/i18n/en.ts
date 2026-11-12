@@ -15,10 +15,10 @@ export const en = {
     pullHint: "pull me",
   },
   hero: {
-    eyebrow: "Haisem N. · Stockholm",
+    eyebrow: "Haisem N. · AI engineer · Stockholm",
     titleLead: "Applied AI Engineer trying to get",
     titleAccent: "ahead of the AI race.",
-    sub: "I build AI systems people actually use: agents, retrieval and voice. Now I'm in Stockholm, studying again, so I understand what I build all the way down.",
+    sub: "I build AI systems people actually use: voice agents, retrieval and full-stack products. Now I'm in Stockholm, studying again, so I understand what I build all the way down.",
     ctaPrimary: "Read my story",
     ctaSecondary: "Get in touch",
     portraitAlt: "Portrait of Haisem N.",
@@ -28,7 +28,7 @@ export const en = {
     eyebrow: "In their words",
     title: "AI follow\u2011up for a growing agency",
     intro:
-      "Jake Wims started an agency selling AI lead follow-up to real-estate teams and a mortgage lender. I built the whole system for him: the voice agents, the CRM automations and the workflows between them.",
+      "Jake Wims started an agency selling AI lead follow-up to real-estate teams and a mortgage lender. At Metaviz, I built the system end to end: the voice agents, the CRM automations and the workflows between them.",
     points: [
       "An AI caller that phones new Facebook-ad leads, qualifies them on rules Jake approved and books consultations",
       "A cloneable template, built for his clients",
@@ -70,14 +70,14 @@ export const en = {
   work: {
     index: "02",
     eyebrow: "What I've built",
-    title: "Real systems, in production.",
+    title: "Real systems, built with real teams.",
     more: "More projects",
     categories: { business: "Business automation", products: "AI products", research: "Research" },
     view: "View case study",
     context: { metaviz: "Built at Metaviz", client: "Metaviz · client project" },
     back: "All work",
     highlights: {
-      "ai-compliance-platform": { value: "~80%", label: "less manual review time per drawing, across five building-code disciplines" },
+      "ai-compliance-platform": { value: "~80%", label: "less manual review time, across five building-code disciplines" },
       "voice-agents-suite": { value: "5+", label: "business owners I built voice agents for" },
       postura: { value: "Offline", label: "posture scoring runs entirely on the phone" },
     },
@@ -146,7 +146,7 @@ export const en = {
     title: "Studying, researching, exploring.",
     columns: [
       { label: "Studying", body: "MSc AI and Language, Stockholm University, 2026–28." },
-      { label: "Researching", body: "Co-author, ACM Computing Surveys. Contributing to the growing body of AI research." },
+      { label: "Researching", body: "Co-author of a survey on multi-objective optimisation in wireless mesh networks (ACM Computing Surveys, 2026). Keen to contribute to AI research during my MSc." },
       { label: "Exploring", body: "Looking for AI engineering roles in Sweden, to keep learning from the field and stay current with how the best teams build." },
     ],
   },
@@ -277,9 +277,9 @@ export const en = {
         {
           id: "api",
           title: "Backend and APIs",
-          body: "A multi-tenant platform with an async job pipeline and row-level security.",
-          steps: ["API request", "Job queue", "Worker", "Tenant-scoped data"],
-          items: ["FastAPI", "Celery", "Redis", "PostgreSQL", "Supabase", "pytest"],
+          body: "An async job pipeline behind FastAPI APIs.",
+          steps: ["API request", "Job queue", "Worker"],
+          items: ["FastAPI", "Celery", "Redis", "PostgreSQL", "pytest"],
         },
         {
           id: "docai",
@@ -298,7 +298,7 @@ export const en = {
           id: "voice",
           title: "Voice AI",
           body: "Voice agents that call, qualify and book, wired into the CRM.",
-          items: ["Retell AI", "ElevenLabs", "LiveKit", "Deepgram", "Twilio", "n8n", "GoHighLevel"],
+          items: ["Retell AI", "LiveKit", "n8n", "GoHighLevel"],
         },
         {
           id: "apps",
@@ -316,7 +316,7 @@ export const en = {
       items: [
         { period: "2026 – 2028", title: "MSc Artificial Intelligence and Language", where: "Stockholm University", detail: "In progress" },
         { period: "2021 – 2025", title: "BS Computer Science", where: "FAST-NUCES, Lahore", detail: "CGPA 3.19 / 4.0" },
-        { period: "2023 – 2025", title: "Dean's List of Honours, three times", where: "FAST-NUCES", detail: "Fall 2023, Spring 2024, Spring 2025" },
+        { period: "2023 – 2025", title: "Dean's List in three semesters", where: "FAST-NUCES", detail: "BS Computer Science" },
         { period: "2025", title: "3rd place, Final-Year Project Competition", where: "FAST Job Fair 2025", detail: "Out of 250 teams" },
       ],
     },
@@ -333,9 +333,8 @@ export const en = {
       },
       projectsLabel: "Research projects",
       projects: [
-        { title: "Tuberculosis detection from cough sounds", detail: "Final-year project: a multi-view ensemble of CNNs, XGBoost and Wav2Vec, with a mobile app for low-resource clinics." },
+        { title: "Tuberculosis detection from cough sounds", detail: "Final-year project: XGBoost, a spectrogram model and Wav2Vec2 combined by weighted voting. 98.33% accuracy in the project evaluation; third among 250 teams at FAST Job Fair 2025." },
         { title: "Smart Summarizer", detail: "LoRA fine-tuning for academic paper summaries, evaluated with ROUGE, BLEU, BERTScore and LLM-as-judge." },
-        { title: "Multi-agent research assistant", detail: "LangGraph agents for literature search, summarisation and cross-paper comparison." },
       ],
     },
     close: {

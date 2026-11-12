@@ -18,25 +18,22 @@ export const projects: Project[] = [
     tagline:
       "Building-plan compliance across five code disciplines: LangGraph, OCR, hybrid retrieval and citation validation",
     outcome:
-      "Cut manual review time by approximately 80% per drawing and average inference spend by approximately 40% per document.",
+      "Cut manual review time by approximately 80% and average inference spend by approximately 40% per document.",
     description:
       "Built at Metaviz: a compliance review platform that checks building plans against five code disciplines. I engineered the compliance workflow with LangGraph orchestration, OCR, hybrid retrieval and citation validation, supported by 132 FastAPI endpoints.",
     problem:
       "Checking a building plan against the codes of five disciplines was manual work, and reviewer time was the cost to cut.",
     solution:
-      "LangGraph orchestration routes each drawing through OCR and hybrid retrieval over the code corpus, and validates every citation before a finding is reported. Async jobs run on Celery and Redis behind 132 FastAPI endpoints, and the orchestration keeps average inference spend per document down.",
+      "LangGraph orchestration routes each drawing through OCR and hybrid retrieval over the code corpus, and validates every citation before a finding is reported. The workflow runs behind 132 FastAPI endpoints.",
     result:
-      "Reduced manual review time by approximately 80% per drawing and average inference spend by approximately 40% per document.",
+      "Reduced manual review time by approximately 80% and average inference spend by approximately 40% per document.",
     image: "/work/ai-compliance-platform-1600.webp",
     techStack: [
       "LangGraph",
       "FastAPI",
-      "AWS Textract",
-      "ChromaDB",
-      "BM25",
-      "Celery",
-      "Redis",
-      "PostgreSQL",
+      "OCR",
+      "Hybrid retrieval",
+      "Citation validation",
     ],
     featured: true,
     order: 1,
@@ -47,15 +44,15 @@ export const projects: Project[] = [
       tagline:
         "Granskning av bygghandlingar inom fem regeldiscipliner: LangGraph, OCR, hybrid sökning och kontroll av citat", // REVIEW-SV
       outcome:
-        "Minskade den manuella granskningstiden med cirka 80 % per ritning och den genomsnittliga inferenskostnaden med cirka 40 % per dokument.", // REVIEW-SV
+        "Minskade den manuella granskningstiden med cirka 80 % och den genomsnittliga inferenskostnaden med cirka 40 % per dokument.", // REVIEW-SV
       description:
         "Byggt på Metaviz: en plattform som granskar bygghandlingar mot byggreglerna inom fem discipliner. Jag byggde granskningsflödet med LangGraph, OCR, hybrid sökning och kontroll av citat, med stöd av 132 FastAPI-endpoints.", // REVIEW-SV
       problem:
         "Att granska en bygghandling mot reglerna inom fem discipliner var manuellt arbete, och granskarnas tid var det som skulle minskas.", // REVIEW-SV
       solution:
-        "LangGraph styr varje ritning genom OCR och hybrid sökning i regelverket, och varje citat kontrolleras innan ett fynd rapporteras. Asynkrona jobb körs på Celery och Redis bakom 132 FastAPI-endpoints, och styrningen håller den genomsnittliga inferenskostnaden per dokument nere.", // REVIEW-SV
+        "LangGraph styr varje ritning genom OCR och hybrid sökning i regelverket, och varje citat kontrolleras innan ett fynd rapporteras. Flödet körs bakom 132 FastAPI-endpoints.", // REVIEW-SV
       result:
-        "Minskade den manuella granskningstiden med cirka 80 % per ritning och den genomsnittliga inferenskostnaden med cirka 40 % per dokument.", // REVIEW-SV
+        "Minskade den manuella granskningstiden med cirka 80 % och den genomsnittliga inferenskostnaden med cirka 40 % per dokument.", // REVIEW-SV
     },
   },
 
@@ -65,7 +62,7 @@ export const projects: Project[] = [
     tagline:
       "Qualification, appointment-booking and CRM-update workflows for more than five business owners",
     outcome:
-      "AI callers that qualify new leads, schedule appointments and update the CRM, for more than five business owners.",
+      "AI callers that qualify new leads, book appointments and update the CRM, for more than five business owners.",
     description:
       "Built at Metaviz as a client project: voice-agent qualification, appointment-booking and CRM-update workflows using Retell, GoHighLevel, n8n, APIs and webhooks, for more than five business owners. Jake Wims (Founder, Acquire Growth AI) sold the service to US real-estate teams and a mortgage lender, and I rolled the template out as one agent for each business owner he signed.",
     problem:
@@ -85,13 +82,13 @@ export const projects: Project[] = [
       tagline:
         "Kvalificering, bokning och CRM-uppdateringar för fler än fem företagare", // REVIEW-SV
       outcome:
-        "AI som kvalificerar nya leads, lägger in möten och uppdaterar CRM:et, för fler än fem företagare.", // REVIEW-SV
+        "AI som kvalificerar nya leads, bokar möten och uppdaterar CRM:et, för fler än fem företagare.", // REVIEW-SV
       description:
         "Byggt på Metaviz som kundprojekt: röstagenter för kvalificering, mötesbokning och CRM-uppdateringar med Retell, GoHighLevel, n8n, API:er och webhooks, för fler än fem företagare. Jake Wims (grundare, Acquire Growth AI) sålde tjänsten till amerikanska mäklarteam och en bolångivare, och jag satte upp mallen som en agent för varje företagare han skrev avtal med.", // REVIEW-SV
       problem:
         "Nya leads från annonsformulär behöver ett snabbt återsamtal, och ett litet team hinner inte ringa alla. Generiska röstbotar tappar detaljerna i överlämningen till CRM:et.", // REVIEW-SV
       solution:
-        "En röstagent i Retell ringer varje ny lead från ett lokalt nummer, sammanfattar vad personen fyllde i, bedömer leadet som Hot, Warm eller Cold enligt regler kunden har godkänt och lägger in mötet direkt i GoHighLevel-kalendern via n8n. Efter samtalet skrivs anteckningar tillbaka till CRM:et, mejl går till leadet och teamet, och SMS eller uppföljningssekvenser startar om ingen svarar. Jag paketerade allt som en mall som går att klona, med varianter för mäklare och bolån, och en gemensam n8n-uppslagning som hälsar med rätt företagsnamn.", // REVIEW-SV
+        "En röstagent i Retell ringer varje ny lead från ett lokalt nummer, sammanfattar vad personen fyllde i, bedömer leadet som Hot, Warm eller Cold enligt regler kunden har godkänt och bokar mötet direkt i GoHighLevel-kalendern via n8n. Efter samtalet skrivs anteckningar tillbaka till CRM:et, mejl går till leadet och teamet, och SMS eller uppföljningssekvenser startar om ingen svarar. Jag paketerade allt som en mall som går att klona, med varianter för mäklare och bolån, och en gemensam n8n-uppslagning som hälsar med rätt företagsnamn.", // REVIEW-SV
       result:
         "Fler än fem företagare betjänade från samma mall. Arkitekturen verifierades mot de riktiga API:erna i Retell, n8n och GoHighLevel, med en testplan på tio fall, en åtgärd av felklassade leads och en läcka av hälsningsfraser mellan kunder som spårades och åtgärdades i alla agenter.", // REVIEW-SV
     },
@@ -107,7 +104,7 @@ export const projects: Project[] = [
     description:
       "Built at Metaviz: an on-device ergonomic assessment using YOLOv8n and TensorFlow Lite, pose estimation and ROSA (Rapid Office Strain Assessment) scoring. I ported the Python scoring to Dart and created comparisons against a 71-photo reference set.",
     problem:
-      "Ergonomic assessment usually means a consultant on site or photos sent to a cloud service. This one had to run on the device.",
+      "On-device ergonomic assessment using pose estimation and ROSA scoring.",
     solution:
       "YOLOv8n running in TensorFlow Lite finds the person, pose estimation locates the body landmarks and ROSA scoring turns them into a risk score, all on the device. The scoring began in Python; I ported it to Dart and built comparisons against a 71-photo reference set to check the two agree.",
     result:
@@ -135,7 +132,7 @@ export const projects: Project[] = [
       description:
         "Byggt på Metaviz: en ergonomisk bedömning direkt i enheten med YOLOv8n och TensorFlow Lite, hållningsskattning och ROSA-poäng (Rapid Office Strain Assessment). Jag portade poängsättningen från Python till Dart och byggde jämförelser mot ett referensset på 71 foton.", // REVIEW-SV
       problem:
-        "Ergonomisk bedömning har ofta krävt en konsult på plats eller att bilder skickas till en molntjänst. Den här skulle köras i enheten.", // REVIEW-SV
+        "Ergonomisk bedömning i enheten med hållningsskattning och ROSA-poäng.", // REVIEW-SV
       solution:
         "YOLOv8n i TensorFlow Lite hittar personen, hållningsskattningen lokaliserar kroppspunkterna och ROSA-poängen gör om dem till en riskpoäng, allt i enheten. Poängsättningen började i Python; jag portade den till Dart och byggde jämförelser mot ett referensset på 71 foton för att se att de stämmer överens.", // REVIEW-SV
       result:
@@ -151,7 +148,7 @@ export const projects: Project[] = [
     description:
       "Built at Metaviz as a client project: multimodal habit coaching with OpenAI Realtime, LiveKit and photo verification, integrating conversational context with 21 Firestore collections.",
     problem:
-      "Habit apps struggle with generic feedback and honour-based completion. This one needed photo proof and voice coaching without a human coach in the loop.",
+      "Multimodal habit coaching with realtime voice and photo verification of completed habits.",
     solution:
       "Realtime voice coaching through OpenAI Realtime and LiveKit, photo verification of completed habits, and conversational context drawn from 21 Firestore collections. Prompt caching keeps the cost of each session down.",
     result:
@@ -175,7 +172,7 @@ export const projects: Project[] = [
       description:
         "Byggt på Metaviz som kundprojekt: multimodal vanecoachning med OpenAI Realtime, LiveKit och bildverifiering, där samtalskontexten hämtas från 21 Firestore-samlingar.", // REVIEW-SV
       problem:
-        "Vaneappar kämpar med generisk återkoppling och vanor som användaren själv intygar. Den här behövde bildbevis och röstcoachning utan en mänsklig coach.", // REVIEW-SV
+        "Multimodal vanecoachning med röst i realtid och bildverifiering av avklarade vanor.", // REVIEW-SV
       solution:
         "Röstcoachning i realtid via OpenAI Realtime och LiveKit, bildverifiering av avklarade vanor och samtalskontext från 21 Firestore-samlingar. Promptcachning håller kostnaden per session nere.", // REVIEW-SV
       result:
@@ -221,15 +218,15 @@ export const projects: Project[] = [
     slug: "b2b-travel-saas",
     title: "AfricaTravelHub, Conversational Travel Discovery",
     tagline:
-      "PydanticAI assistant with hybrid retrieval, topic guardrails and human-approved actions",
+      "PydanticAI assistant with hybrid retrieval and topic guardrails",
     description:
-      "Built at Metaviz: I led the agentic AI integration and backend development for AfricaTravelHub (travel). Conversational discovery over ranked inventory with pgvector and PostgreSQL full-text retrieval fused by reciprocal rank fusion, topic guardrails, RBAC and capability gates.",
+      "Built at Metaviz: I led the agentic AI integration and backend development for AfricaTravelHub (travel). Conversational discovery over ranked inventory with pgvector and PostgreSQL full-text retrieval fused by reciprocal rank fusion, topic guardrails.",
     problem:
       "Travel discovery over a large inventory needs answers grounded in what is actually on offer, and an assistant that stays on topic.",
     solution:
-      "pgvector and PostgreSQL full-text retrieval, combined with reciprocal rank fusion, ground the conversation in ranked inventory. Topic guardrails keep the assistant on travel, and RBAC, capability gates and human-approved actions limit what it can do.",
+      "pgvector and PostgreSQL full-text retrieval, combined with reciprocal rank fusion, ground the conversation in ranked inventory. Topic guardrails keep the assistant on travel.",
     result:
-      "Conversational discovery grounded in ranked inventory, with topic guardrails, RBAC and human-approved actions.",
+      "Conversational discovery grounded in ranked inventory, with topic guardrails.",
     image: "/work/b2b-travel-saas-1600.webp",
     techStack: [
       "PydanticAI",
@@ -237,7 +234,6 @@ export const projects: Project[] = [
       "PostgreSQL full-text search",
       "Reciprocal rank fusion",
       "Topic guardrails",
-      "RBAC",
     ],
     featured: false,
     order: 6,
@@ -246,7 +242,7 @@ export const projects: Project[] = [
     sv: {
       title: "AfricaTravelHub, konverserande reseupptäckt", // REVIEW-SV
       tagline:
-        "PydanticAI-assistent med hybrid sökning, ämnesgränser och åtgärder som godkänns av människa", // REVIEW-SV
+        "PydanticAI-assistent med hybrid sökning och ämnesgränser", // REVIEW-SV
     },
   },
 
@@ -347,11 +343,11 @@ export const projects: Project[] = [
     tagline:
       "A configuration system for Claude Code and the Agent SDK: installable skills, subagents, hooks and setup templates",
     description:
-      "Open-source curated repository providing configuration templates, extensible skills, agents, hooks, and learning guides for maximising Claude Code + Claude Agent SDK productivity. A one-prompt setup system that auto-generates production-grade configurations.",
+      "An open-source repository of configuration templates, skills, subagents, hooks and learning guides for Claude Code and the Claude Agent SDK. Includes a setup prompt that generates a CLAUDE.md and settings.json for a codebase.",
     problem:
-      "Engineers adopting Claude Code spend hours wiring up settings, hooks, permissions, and curating skill libraries. No standard scaffolding exists.",
+      "Setting up Claude Code means configuring settings, hooks and permissions and collecting skills by hand.",
     solution:
-      "Curated installable skills across domains (engineering, C-level advisory, marketing, compliance, product, finance), specialised subagents (development, infrastructure, quality, data/AI, security), production hooks (safety gates, quality auto-checks, intelligent skill matching), configuration templates for several stacks, and a setup prompt that analyses a codebase and auto-generates personalised CLAUDE.md + settings.json. A real installer ships presets with dry-run, backup and undo.",
+      "Curated installable skills across domains (engineering, C-level advisory, marketing, compliance, product, finance), specialised subagents (development, infrastructure, quality, data/AI, security), hooks (safety gates, quality auto-checks, intelligent skill matching), configuration templates for several stacks, and a setup prompt that analyses a codebase and auto-generates personalised CLAUDE.md + settings.json. A real installer ships presets with dry-run, backup and undo.",
     result:
       "A progressive, chapter-by-chapter learning guide. GitHub Actions workflows for PR review, docs sync, quality audits, and dependency audits. Counts are generated into catalog.json and verified in CI, so the documentation cannot drift from the repo. MIT-licensed, reusable across any codebase.",
     image: "/work/claude-code-mastery-1600.webp",

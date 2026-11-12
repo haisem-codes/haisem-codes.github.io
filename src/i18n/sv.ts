@@ -16,10 +16,10 @@ export const sv = {
     pullHint: "dra i mig", // REVIEW-SV
   },
   hero: {
-    eyebrow: "Haisem N. · Stockholm",
-    titleLead: "Tillämpad AI-ingenjör som försöker komma", // REVIEW-SV
-    titleAccent: "före AI-racet.", // REVIEW-SV
-    sub: "Jag bygger AI-system som folk faktiskt använder: agenter, retrieval och röst. Nu är jag i Stockholm och pluggar igen, för att jag vill förstå det jag bygger hela vägen ner.", // REVIEW-SV
+    eyebrow: "Haisem N. · AI-ingenjör · Stockholm",
+    titleLead: "Tillämpad AI-ingenjör som vill ligga steget före i", // REVIEW-SV
+    titleAccent: "AI-kapplöpningen.", // REVIEW-SV
+    sub: "Jag bygger AI-system som folk faktiskt använder: röstagenter, retrieval och fullstack-produkter. Nu är jag i Stockholm och pluggar igen, så att jag förstår det jag bygger på djupet.", // REVIEW-SV
     ctaPrimary: "Läs min historia", // REVIEW-SV
     ctaSecondary: "Hör av dig", // REVIEW-SV
     portraitAlt: "Porträtt av Haisem N.", // REVIEW-SV
@@ -29,9 +29,9 @@ export const sv = {
     eyebrow: "Med deras ord", // REVIEW-SV
     title: "AI-uppföljning för en växande byrå",
     intro:
-      "Jake Wims startade en byrå som säljer AI-uppföljning av förfrågningar till mäklarteam och en bolåneförmedlare. Jag byggde hela systemet åt honom: röstagenterna, CRM-automationerna och flödena mellan dem.", // REVIEW-SV
+      "Jake Wims startade en byrå som säljer AI-uppföljning av förfrågningar till mäklarteam och en bolåneförmedlare. På Metaviz byggde jag systemet från början till slut: röstagenterna, CRM-automationerna och flödena mellan dem.", // REVIEW-SV
     points: [
-      "En AI som ringer upp nya förfrågningar från Facebook-annonser, kvalificerar dem enligt regler Jake godkänt och lägger in möten", // REVIEW-SV
+      "En AI som ringer upp nya förfrågningar från Facebook-annonser, kvalificerar dem enligt regler Jake godkänt och bokar möten", // REVIEW-SV
       "En mall som kan klonas, byggd för hans kunder", // REVIEW-SV
       "Varje samtal sparas i GoHighLevel, med sammanfattningar till både den som hört av sig och teamet", // REVIEW-SV
     ],
@@ -69,16 +69,16 @@ export const sv = {
     transcriptNote: "Transkription, ordagrant. Videon är på engelska.", // REVIEW-SV
   },
   work: {
-    index: "04",
-    eyebrow: "Utvalda projekt",
-    title: "Riktiga system i produktion.", // REVIEW-SV
+    index: "02",
+    eyebrow: "Vad jag har byggt",
+    title: "Riktiga system, byggda med riktiga team.", // REVIEW-SV
     more: "Fler projekt",
     categories: { business: "Företagsautomation", products: "AI-produkter", research: "Forskning" },
     view: "Läs caset",
     context: { metaviz: "Byggt på Metaviz", client: "Metaviz · kundprojekt" }, // REVIEW-SV
     back: "Alla projekt",
     highlights: {
-      "ai-compliance-platform": { value: "~80 %", label: "mindre manuell granskningstid per ritning, inom fem byggregeldiscipliner" }, // REVIEW-SV
+      "ai-compliance-platform": { value: "~80 %", label: "mindre manuell granskningstid, inom fem byggregeldiscipliner" }, // REVIEW-SV
       "voice-agents-suite": { value: "5+", label: "företagare som jag byggt röstagenter för" }, // REVIEW-SV
       postura: { value: "Offline", label: "hållningsanalysen körs helt i telefonen" }, // REVIEW-SV
     },
@@ -126,12 +126,12 @@ export const sv = {
     paragraphs: [
       "För ett år sedan hade jag det de flesta skulle kalla det trygga livet: ett fast jobb som AI-ingenjör i Lahore, produkter i produktion och kunder som litade på mig.", // REVIEW-SV
       "Och jag kunde bygga nästan vad som helst. Med AI-verktyg vid min sida kunde en idé bli en fungerande app på en helg. Men ärligt talat var mycket av det jag kunde bara ytligt. Jag fick saker att fungera. Jag kunde inte alltid säga varför de fungerade, vad som egentligen hände under ytan, eller när de i tysthet skulle sluta fungera.", // REVIEW-SV
-      "Jag ville inte fortsätta bygga ovanpå saker jag inte förstod. Jag ville veta hur systemen bakom mitt arbete faktiskt går, så att det jag bygger inte bara är möjligt, utan meningsfullt.", // REVIEW-SV
+      "Jag ville inte fortsätta bygga ovanpå saker jag inte förstod. Jag ville veta hur systemen bakom mitt arbete faktiskt fungerar, så att det jag bygger inte bara är möjligt, utan meningsfullt.", // REVIEW-SV
       "Så jag lämnade. Jag gick ifrån det trygga jobbet, flyttade till Stockholm och blev student igen, den här gången på en master i AI och språk vid Stockholms universitet. En ny stad, ett nytt språk, inget nätverk. Jag började från noll.", // REVIEW-SV
-      "Det har inte varit lätt, och det ska det inte vara. Jag ville nå den sortens förståelse man bara får genom att gå tillbaka till grunderna, och jag ville ge något tillbaka till den forskning som gjorde mitt arbete möjligt. Mitt första bidrag är redan publicerat: en översiktsartikel som jag är medförfattare till i ACM Computing Surveys.", // REVIEW-SV
-      "Jag är fortfarande en byggare i grunden. Därför söker jag, vid sidan av studierna, en roll i branschen: för att vara nära riktiga användare, riktiga begränsningar och det sätt som de bästa teamen jobbar på idag.", // REVIEW-SV
+      "Det har inte varit lätt, och det är inte meningen att det ska vara det. Jag ville nå den sortens förståelse man bara får genom att gå tillbaka till grunderna, och jag ville ge något tillbaka till den forskning som gjorde mitt arbete möjligt. Mitt första bidrag är redan publicerat: en översiktsartikel som jag är medförfattare till i ACM Computing Surveys.", // REVIEW-SV
+      "Jag är fortfarande en byggare i grunden. Därför söker jag, vid sidan av studierna, en roll i branschen: för att vara nära riktiga användare, riktiga begränsningar och hur de bästa teamen jobbar i dag.", // REVIEW-SV
     ],
-    pull: "Labbet lär mig varför. Verkligheten håller mig ärlig.", // REVIEW-SV
+    pull: "Labbet lär mig varför. Praktiken håller mig ärlig.", // REVIEW-SV
     timelineLabel: "Lahore → Stockholm",
     timeline: [
       { years: "2021–25", what: "Kandidat i datavetenskap", where: "FAST-NUCES, Lahore" }, // REVIEW-SV
@@ -147,7 +147,7 @@ export const sv = {
     title: "Studerar, forskar, utforskar.", // REVIEW-SV
     columns: [
       { label: "Studerar", body: "MSc i AI och språk vid Stockholms universitet, 2026–28." }, // REVIEW-SV
-      { label: "Forskar", body: "Medförfattare i ACM Computing Surveys. Bidrar till det växande forskningsfältet inom AI." }, // REVIEW-SV
+      { label: "Forskar", body: "Medförfattare till en översiktsartikel om multiobjektsoptimering i trådlösa mesh-nätverk (ACM Computing Surveys, 2026). Vill bidra till AI-forskning under min master." }, // REVIEW-SV
       { label: "Utforskar", body: "Söker roller inom AI-utveckling i Sverige, för att fortsätta lära mig av branschen och hålla mig à jour med hur de bästa teamen bygger." }, // REVIEW-SV
     ],
   },
@@ -212,7 +212,7 @@ export const sv = {
       ],
       liveLabel: "AI",
       caption:
-        "Ett lead från Facebook hamnar i GoHighLevel. Röstagenten i Retell ringer från ett lokalt nummer, sammanfattar formuläret och kvalificerar leadet som Hot, Warm eller Cold efter regler som kunden godkänt. Den schemalägger via n8n-verktyg i GoHighLevel-kalendern, varje samtal sparas i CRM:et, och den som inte svarar får sms och nurture-sekvenser.", // REVIEW-SV
+        "Ett lead från Facebook hamnar i GoHighLevel. Röstagenten i Retell ringer från ett lokalt nummer, sammanfattar formuläret och kvalificerar leadet som Hot, Warm eller Cold efter regler som kunden godkänt. Den bokar möten via n8n-verktyg i GoHighLevel-kalendern, varje samtal sparas i CRM:et, och den som inte svarar får sms och nurture-sekvenser.", // REVIEW-SV
       notes: [
         { k: "Mall", v: "Byggd som en mall att klona, med varianter för fastighet och bolån, och använd för fem eller fler kunders konton." }, // REVIEW-SV
         { k: "Hälsning", v: "Ett gemensamt inkommande uppslag i n8n väljer företagets hälsning för varje telefonnummer." }, // REVIEW-SV
@@ -278,9 +278,9 @@ export const sv = {
         {
           id: "api",
           title: "Backend och API:er", // REVIEW-SV
-          body: "En multi-tenant-plattform med asynkron jobbkö och säkerhet på radnivå.", // REVIEW-SV
-          steps: ["API-anrop", "Jobbkö", "Worker", "Data per kund"], // REVIEW-SV
-          items: ["FastAPI", "Celery", "Redis", "PostgreSQL", "Supabase", "pytest"],
+          body: "En asynkron jobbpipeline bakom FastAPI-API:er.", // REVIEW-SV
+          steps: ["API-anrop", "Jobbkö", "Worker"], // REVIEW-SV
+          items: ["FastAPI", "Celery", "Redis", "PostgreSQL", "pytest"],
         },
         {
           id: "docai",
@@ -298,8 +298,8 @@ export const sv = {
         {
           id: "voice",
           title: "Röst-AI", // REVIEW-SV
-          body: "Röstagenter som ringer, kvalificerar och schemalägger, kopplade till CRM:et.", // REVIEW-SV
-          items: ["Retell AI", "ElevenLabs", "LiveKit", "Deepgram", "Twilio", "n8n", "GoHighLevel"],
+          body: "Röstagenter som ringer, kvalificerar och bokar möten, kopplade till CRM:et.", // REVIEW-SV
+          items: ["Retell AI", "LiveKit", "n8n", "GoHighLevel"],
         },
         {
           id: "apps",
@@ -317,7 +317,7 @@ export const sv = {
       items: [
         { period: "2026 – 2028", title: "Master i artificiell intelligens och språk", where: "Stockholms universitet", detail: "Pågår" }, // REVIEW-SV
         { period: "2021 – 2025", title: "Kandidat i datavetenskap", where: "FAST-NUCES, Lahore", detail: "Snittbetyg 3,19 av 4,0" }, // REVIEW-SV
-        { period: "2023 – 2025", title: "Dean's List of Honours tre gånger", where: "FAST-NUCES", detail: "Hösten 2023, våren 2024, våren 2025" }, // REVIEW-SV
+        { period: "2023 – 2025", title: "Dean's List i tre terminer", where: "FAST-NUCES", detail: "Kandidat i datavetenskap" }, // REVIEW-SV
         { period: "2025", title: "Tredje plats i tävlingen för examensprojekt", where: "FAST Job Fair 2025", detail: "Av 250 lag" }, // REVIEW-SV
       ],
     },
@@ -334,9 +334,8 @@ export const sv = {
       },
       projectsLabel: "Forskningsprojekt", // REVIEW-SV
       projects: [
-        { title: "Att upptäcka tuberkulos i hostljud", detail: "Examensprojekt: en ensemble av CNN, XGBoost och Wav2Vec, med en mobilapp för kliniker med små resurser." }, // REVIEW-SV
+        { title: "Att upptäcka tuberkulos i hostljud", detail: "Examensprojekt: XGBoost, en spektrogrammodell och Wav2Vec2 kombinerade med viktad röstning. 98,33 % träffsäkerhet i projektets utvärdering; tredje plats bland 250 team på FAST Job Fair 2025." }, // REVIEW-SV
         { title: "Smart Summarizer", detail: "LoRA-finjustering för sammanfattningar av forskningsartiklar, utvärderad med ROUGE, BLEU, BERTScore och LLM-as-judge." }, // REVIEW-SV
-        { title: "Forskningsassistent med flera agenter", detail: "LangGraph-agenter för litteratursökning, sammanfattning och jämförelse mellan artiklar." }, // REVIEW-SV
       ],
     },
     close: {
@@ -358,7 +357,7 @@ export const sv = {
     lead: "Hör",
     em: "av dig.", // REVIEW-SV
     label: "Hör av dig.", // REVIEW-SV
-    sub: "Om något av det här känns igen, oavsett om du bygger något, rekryterar eller forskar, hör jag gärna från dig.", // REVIEW-SV
+    sub: "Om något av det här väcker något hos dig, oavsett om du bygger något, rekryterar eller forskar, hör jag gärna från dig.", // REVIEW-SV
     button: "Mejla mig", // REVIEW-SV
     linkedin: "LinkedIn",
     cv: "Ladda ner CV", // REVIEW-SV
