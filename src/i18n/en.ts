@@ -18,9 +18,9 @@ export const en = {
   },
   hero: {
     eyebrow: "Haisem N. · AI engineer · Stockholm",
-    titleLead: "Applied AI Engineer trying to get",
-    titleAccent: "ahead of the AI race.",
-    sub: "I build AI systems people actually use: voice agents, retrieval and full-stack products. Now I'm in Stockholm, studying again, so I understand what I build all the way down.",
+    titleLead: "Applied",
+    titleAccent: "AI Engineer",
+    sub: "I design and deliver production LLM systems, from real-time conversational agents to grounded retrieval and generative pipelines, built to be reliable and cost-efficient. Based in Stockholm, pursuing an MSc in AI and Language.",
     ctaPrimary: "About me",
     ctaSecondary: "Get in touch",
     portraitAlt: "Portrait of Haisem N.",

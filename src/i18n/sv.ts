@@ -19,9 +19,9 @@ export const sv = {
   },
   hero: {
     eyebrow: "Haisem N. · AI-ingenjör · Stockholm",
-    titleLead: "Tillämpad AI-ingenjör som vill ligga steget före i", // REVIEW-SV
-    titleAccent: "AI-kapplöpningen.", // REVIEW-SV
-    sub: "Jag bygger AI-system som folk faktiskt använder: röstagenter, retrieval och fullstack-produkter. Nu är jag i Stockholm och pluggar igen, så att jag förstår det jag bygger på djupet.", // REVIEW-SV
+    titleLead: "Tillämpad", // REVIEW-SV
+    titleAccent: "AI-ingenjör", // REVIEW-SV
+    sub: "Jag designar och levererar LLM-system i produktion, från konversationella agenter i realtid till verifierad retrieval och generativa pipelines, byggda för att vara pålitliga och kostnadseffektiva. Baserad i Stockholm, studerar en master i AI och språk.", // REVIEW-SV
     ctaPrimary: "Om mig", // REVIEW-SV
     ctaSecondary: "Hör av dig", // REVIEW-SV
     portraitAlt: "Porträtt av Haisem N.", // REVIEW-SV
