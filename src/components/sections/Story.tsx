@@ -14,9 +14,15 @@ export function Story({ dict }: { dict: Dictionary["story"] }) {
               </p>
             ))}
           </div>
-          <p className="rise mt-14 max-w-[22ch] font-display text-3xl leading-[1.12] font-bold tracking-[-0.025em] text-balance text-text sm:text-4xl lg:text-[2.75rem]">
-            {dict.pull}
-          </p>
+          <dl className="rise mt-12 max-w-[65ch] border-t border-border">
+            <dt className="sr-only">{dict.skillsLabel}</dt>
+            {dict.skills.map((g) => (
+              <div key={g.label} className="grid gap-x-6 gap-y-1 border-b border-border py-4 sm:grid-cols-[9rem_1fr]">
+                <dt className="font-mono text-xs leading-6 tracking-[0.14em] text-accent uppercase">{g.label}</dt>
+                <dd className="text-base leading-6 text-text/85">{g.items}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
 
         <aside className="rise lg:sticky lg:top-28 lg:col-span-5 lg:self-start lg:pt-6" aria-label={dict.timelineLabel}>

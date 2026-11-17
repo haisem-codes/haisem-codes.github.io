@@ -13,7 +13,7 @@ export const sv = {
     hireDescription: "Så byggde jag ett röstagentsystem i produktion: arkitektur, beslut och avvägningar, ett förenklat kodutdrag, kompetenser och forskning.",
   },
   nav: {
-    story: "Berättelse", work: "Projekt", clients: "Kunder", now: "Nu", hire: "Fallstudie", contact: "Hör av dig", switchTo: "English", menu: "Meny", // REVIEW-SV
+    story: "Om mig", work: "Projekt", clients: "Kunder", now: "Nu", hire: "Fallstudie", contact: "Hör av dig", switchTo: "English", menu: "Meny", // REVIEW-SV
     nightMode: "Mörkt läge", // REVIEW-SV
     pullHint: "dra i mig", // REVIEW-SV
   },
@@ -22,7 +22,7 @@ export const sv = {
     titleLead: "Tillämpad AI-ingenjör som vill ligga steget före i", // REVIEW-SV
     titleAccent: "AI-kapplöpningen.", // REVIEW-SV
     sub: "Jag bygger AI-system som folk faktiskt använder: röstagenter, retrieval och fullstack-produkter. Nu är jag i Stockholm och pluggar igen, så att jag förstår det jag bygger på djupet.", // REVIEW-SV
-    ctaPrimary: "Läs min historia", // REVIEW-SV
+    ctaPrimary: "Om mig", // REVIEW-SV
     ctaSecondary: "Hör av dig", // REVIEW-SV
     portraitAlt: "Porträtt av Haisem N.", // REVIEW-SV
   },
@@ -123,17 +123,20 @@ export const sv = {
   },
   story: {
     index: "01",
-    eyebrow: "Varför jag började om", // REVIEW-SV
-    title: "Jag började om för att gå djupare.", // REVIEW-SV
+    eyebrow: "Om mig", // REVIEW-SV
+    title: "Tillämpad AI-ingenjör som bygger produktionssystem.", // REVIEW-SV
     paragraphs: [
-      "För ett år sedan hade jag det de flesta skulle kalla det trygga livet: ett fast jobb som AI-ingenjör i Lahore, produkter i produktion och kunder som litade på mig.", // REVIEW-SV
-      "Och jag kunde bygga nästan vad som helst. Med AI-verktyg vid min sida kunde en idé bli en fungerande app på en helg. Men ärligt talat var mycket av det jag kunde bara ytligt. Jag fick saker att fungera. Jag kunde inte alltid säga varför de fungerade, vad som egentligen hände under ytan, eller när de i tysthet skulle sluta fungera.", // REVIEW-SV
-      "Jag ville inte fortsätta bygga ovanpå saker jag inte förstod. Jag ville veta hur systemen bakom mitt arbete faktiskt fungerar, så att det jag bygger inte bara är möjligt, utan meningsfullt.", // REVIEW-SV
-      "Så jag lämnade. Jag gick ifrån det trygga jobbet, flyttade till Stockholm och blev student igen, den här gången på en master i AI och språk vid Stockholms universitet. En ny stad, ett nytt språk, inget nätverk. Jag började från noll.", // REVIEW-SV
-      "Det har inte varit lätt, och det är inte meningen att det ska vara det. Jag ville nå den sortens förståelse man bara får genom att gå tillbaka till grunderna, och jag ville ge något tillbaka till den forskning som gjorde mitt arbete möjligt. Mitt första bidrag är redan publicerat: en översiktsartikel som jag är medförfattare till i ACM Computing Surveys.", // REVIEW-SV
-      "Jag är fortfarande en byggare i grunden. Därför söker jag, vid sidan av studierna, en roll i branschen: för att vara nära riktiga användare, riktiga begränsningar och hur de bästa teamen jobbar i dag.", // REVIEW-SV
+      "Jag är AI-ingenjör med ett års erfarenhet av produktion på Metaviz, där jag byggde röstagenter, retrievalsystem och dokument-AI-pipelines för betalande kunder, bland annat arbete som sänkte genomsnittlig inferenskostnad per dokument med cirka 40 %.", // REVIEW-SV
+      "Jag läser nu en master i AI och språk vid Stockholms universitet (2026–28) och är medförfattare till en översiktsartikel i ACM Computing Surveys.", // REVIEW-SV
+      "Jag söker roller som AI-ingenjör i Sverige där jag kan leverera riktiga produkter och fortsätta fördjupa grunderna.", // REVIEW-SV
     ],
-    pull: "Labbet lär mig varför. Praktiken håller mig ärlig.", // REVIEW-SV
+    skillsLabel: "Kärnkompetenser", // REVIEW-SV
+    skills: [
+      { label: "LLM-system", items: "RAG, LangGraph, hybrid retrieval, LLM-utvärdering, prompt caching" }, // REVIEW-SV
+      { label: "Röst och agenter", items: "Röstagenter, CRM-automation, multiagent-flöden" }, // REVIEW-SV
+      { label: "Backend", items: "Python, FastAPI, Celery, Redis, PostgreSQL, pgvector, pytest" },
+      { label: "Dokument-AI", items: "OCR, AWS Textract, strukturerad extraktion" }, // REVIEW-SV
+    ],
     timelineLabel: "Lahore → Stockholm",
     timeline: [
       { years: "2021–25", what: "Kandidat i datavetenskap", where: "FAST-NUCES, Lahore" }, // REVIEW-SV
