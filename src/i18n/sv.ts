@@ -124,19 +124,28 @@ export const sv = {
   story: {
     index: "01",
     eyebrow: "Om mig", // REVIEW-SV
-    title: "Tillämpad AI-ingenjör som bygger produktionssystem.", // REVIEW-SV
+    title: "Jag bygger AI-system som körs i produktion.", // REVIEW-SV
     paragraphs: [
-      "Jag är AI-ingenjör med ett års erfarenhet av produktion på Metaviz, där jag byggde röstagenter, retrievalsystem och dokument-AI-pipelines för betalande kunder, bland annat arbete som sänkte genomsnittlig inferenskostnad per dokument med cirka 40 %.", // REVIEW-SV
-      "Jag läser nu en master i AI och språk vid Stockholms universitet (2026–28) och är medförfattare till en översiktsartikel i ACM Computing Surveys.", // REVIEW-SV
-      "Jag söker roller som AI-ingenjör i Sverige där jag kan leverera riktiga produkter och fortsätta fördjupa grunderna.", // REVIEW-SV
+      "Tillämpad AI-ingenjör i Stockholm med inriktning på LLM- och agentbaserade system i produktion. På Metaviz levererade jag konversationell AI i realtid, agentisk RAG med verifierade källhänvisningar och intelligent dokumenthantering för kundföretag, och sänkte inferenskostnaden per dokument med cirka 40 % genom LLMOps och kostnadsmedveten orkestrering.", // REVIEW-SV
+      "Nu läser jag en master i AI och språk vid Stockholms universitet för att förstå systemen jag bygger från grunden, och jag är medförfattare till en översiktsartikel i ACM Computing Surveys.", // REVIEW-SV
+    ],
+    strengthsLabel: "Det jag bidrar med", // REVIEW-SV
+    strengths: [
+      { label: "Leverans från början till slut", body: "Från kundens krav till ett driftsatt system: arkitektur, backend, LLM-lagret och integrationer." }, // REVIEW-SV
+      { label: "Pålitlig, kostnadsmedveten AI", body: "Utvärdering, skyddsräcken, källkontroller och kostnadsmedveten orkestrering, så att systemen håller efter lansering." }, // REVIEW-SV
+      { label: "Tydlig kommunikation", body: "Avvägningar förklarade på klarspråk, och problem lyfta tidigt." }, // REVIEW-SV
     ],
     skillsLabel: "Kärnkompetenser", // REVIEW-SV
     skills: [
-      { label: "LLM-system", items: "RAG, LangGraph, hybrid retrieval, LLM-utvärdering, prompt caching" }, // REVIEW-SV
-      { label: "Röst och agenter", items: "Röstagenter, CRM-automation, multiagent-flöden" }, // REVIEW-SV
-      { label: "Backend", items: "Python, FastAPI, Celery, Redis, PostgreSQL, pgvector, pytest" },
-      { label: "Dokument-AI", items: "OCR, AWS Textract, strukturerad extraktion" }, // REVIEW-SV
+      { label: "Agentisk AI och LLM", items: "LangGraph, multiagent-orkestrering, verktygsanrop, strukturerade utdata, promptdesign" }, // REVIEW-SV
+      { label: "Retrieval och kunskap", items: "Agentisk RAG, hybridsökning (embeddings + BM25), rank fusion, pgvector, ChromaDB" }, // REVIEW-SV
+      { label: "Konversationell AI", items: "Röstagenter i realtid, CRM- och flödesautomation (GoHighLevel, n8n)" }, // REVIEW-SV
+      { label: "LLMOps", items: "Utvärdering, skyddsräcken, källvalidering, prompt caching, optimering av inferenskostnad" }, // REVIEW-SV
+      { label: "Plattform", items: "Python, FastAPI, Celery, Redis, BullMQ, PostgreSQL, AWS Textract" }, // REVIEW-SV
     ],
+    closing: "Öppen för roller som AI-ingenjör i Sverige.", // REVIEW-SV
+    ctaCv: "Ladda ner CV", // REVIEW-SV
+    ctaContact: "Hör av dig", // REVIEW-SV
     timelineLabel: "Lahore → Stockholm",
     timeline: [
       { years: "2021–25", what: "Kandidat i datavetenskap", where: "FAST-NUCES, Lahore" }, // REVIEW-SV
